@@ -34,7 +34,7 @@ Site doubles as a course-catalog platform (multi-product future). Launch scope i
 - CMS-backed content
 - Testimonials / client logos (placeholder slot only)
 - Analytics tooling
-- Privacy policy / cookie banner / T&C *(flagged risk — see §10)*
+- Privacy policy / cookie banner / T&C _(flagged risk — see §10)_
 
 ---
 
@@ -86,15 +86,15 @@ Public prices, EUR ex-VAT. Actual numbers set by Pascal before launch (placehold
 
 ## 3. Stack & infrastructure
 
-| Concern | Choice |
-|---|---|
-| Framework | Next.js 15 (App Router, TypeScript, RSC) |
-| Styling | Tailwind CSS v4 |
-| i18n | `next-intl` (NL default, EN secondary) |
-| Forms | React Hook Form + Zod (shared client/server schema) |
-| Email | Resend SDK |
-| Deploy | Vercel (preview per PR, prod on `main`) |
-| Runtime | Node 20+, pnpm |
+| Concern   | Choice                                              |
+| --------- | --------------------------------------------------- |
+| Framework | Next.js 15 (App Router, TypeScript, RSC)            |
+| Styling   | Tailwind CSS v4                                     |
+| i18n      | `next-intl` (NL default, EN secondary)              |
+| Forms     | React Hook Form + Zod (shared client/server schema) |
+| Email     | Resend SDK                                          |
+| Deploy    | Vercel (preview per PR, prod on `main`)             |
+| Runtime   | Node 20+, pnpm                                      |
 
 ### Repository layout
 
@@ -183,24 +183,33 @@ docs/superpowers/specs/...
 
 ```ts
 export type ModuleId =
-  | 'fundamentals-of-agent' | 'context-architecture' | 'context-window-mechanics'
-  | 'build-first-feature' | 'intro-skills-rules' | 'using-mcp-servers'
-  | 'test-first-intro' | 'basic-hooks-quality-gates'
-  | 'building-custom-mcp' | 'skills-rules-deep' | 'agents-sdlc-phases'
-  | 'agent-harnessing' | 'advanced-hooks-quality-gates' | 'test-first-advanced'
+  | 'fundamentals-of-agent'
+  | 'context-architecture'
+  | 'context-window-mechanics'
+  | 'build-first-feature'
+  | 'intro-skills-rules'
+  | 'using-mcp-servers'
+  | 'test-first-intro'
+  | 'basic-hooks-quality-gates'
+  | 'building-custom-mcp'
+  | 'skills-rules-deep'
+  | 'agents-sdlc-phases'
+  | 'agent-harnessing'
+  | 'advanced-hooks-quality-gates'
+  | 'test-first-advanced'
   | 'team-workflows-governance';
 
 export type DeliveryFormat = 'inCompany' | 'publicCohort' | 'remote';
 
 export type Module = {
   id: ModuleId;
-  day?: 1 | 2;          // advanced only
+  day?: 1 | 2; // advanced only
 };
 
 export type Training = {
   id: 'basic' | 'advanced';
   durationDays: 1 | 2;
-  priceEUR: number;     // ex-VAT
+  priceEUR: number; // ex-VAT
   modules: Module[];
   deliveryFormats: DeliveryFormat[];
 };
@@ -216,9 +225,9 @@ All human-readable content (titles, bullets, outcomes, audience, prerequisites) 
 export type Instructor = {
   id: string;
   name: string;
-  role: string;           // i18n key
-  bio: string;            // i18n key
-  photo: string;          // /public path
+  role: string; // i18n key
+  bio: string; // i18n key
+  photo: string; // /public path
   socials?: { github?: string; x?: string; linkedin?: string };
 };
 ```
@@ -244,15 +253,15 @@ export type Instructor = {
 
 `<ContactForm />` (React Hook Form + Zod):
 
-| Field | Type | Constraints |
-|---|---|---|
-| name | string | required, 1-100 |
-| email | string (email) | required, RFC, ≤254 |
-| company | string | optional, ≤200 |
-| trainingInterest | enum | `basic` \| `advanced` \| `both` \| `other` |
-| deliveryPref | enum | `inCompany` \| `publicCohort` \| `remote` \| `noPreference` |
-| message | string | required, 10-5000 |
-| website (honeypot) | string | hidden; must be empty |
+| Field              | Type           | Constraints                                                 |
+| ------------------ | -------------- | ----------------------------------------------------------- |
+| name               | string         | required, 1-100                                             |
+| email              | string (email) | required, RFC, ≤254                                         |
+| company            | string         | optional, ≤200                                              |
+| trainingInterest   | enum           | `basic` \| `advanced` \| `both` \| `other`                  |
+| deliveryPref       | enum           | `inCompany` \| `publicCohort` \| `remote` \| `noPreference` |
+| message            | string         | required, 10-5000                                           |
+| website (honeypot) | string         | hidden; must be empty                                       |
 
 States: idle → submitting → success | error. Success replaces form with confirmation; error keeps form, shows banner with mailto fallback.
 
@@ -271,12 +280,12 @@ Pipeline:
 
 ### Env vars
 
-| Name | Scope | Required |
-|---|---|---|
-| `RESEND_API_KEY` | server | yes |
-| `CONTACT_EMAIL` | server | default `pascal@validate-it.nl` |
+| Name                 | Scope  | Required                                                     |
+| -------------------- | ------ | ------------------------------------------------------------ |
+| `RESEND_API_KEY`     | server | yes                                                          |
+| `CONTACT_EMAIL`      | server | default `pascal@validate-it.nl`                              |
 | `CONTACT_FROM_EMAIL` | server | verified Resend sender, e.g. `noreply@agenticengineering.nl` |
-| `RATE_LIMIT_KV_URL` | server | optional (Upstash); falls back to in-memory |
+| `RATE_LIMIT_KV_URL`  | server | optional (Upstash); falls back to in-memory                  |
 
 ---
 
@@ -323,18 +332,18 @@ colors: {
 
 ## 10. Error handling
 
-| Surface | Failure | Behaviour |
-|---|---|---|
-| Form (client) | Zod fails | inline field error, no submit |
-| Form (server) | Zod fails | 400 with field errors |
-| Form (server) | Resend error / timeout | 502 + banner "Something went wrong — mail pascal@... directly" |
-| Form | Rate-limit exceeded | 429 + retry message |
-| Form | Honeypot filled | 200 fake-success, drop silently |
-| Form | Origin mismatch | 403 |
-| Routes | Unknown locale | 404 |
-| Routes | Unknown path | locale-aware `not-found.tsx` |
-| Image | Missing instructor photo | fallback initials avatar |
-| Body | No-JS | progressive enhancement — server action accepts FormData |
+| Surface       | Failure                  | Behaviour                                                      |
+| ------------- | ------------------------ | -------------------------------------------------------------- |
+| Form (client) | Zod fails                | inline field error, no submit                                  |
+| Form (server) | Zod fails                | 400 with field errors                                          |
+| Form (server) | Resend error / timeout   | 502 + banner "Something went wrong — mail pascal@... directly" |
+| Form          | Rate-limit exceeded      | 429 + retry message                                            |
+| Form          | Honeypot filled          | 200 fake-success, drop silently                                |
+| Form          | Origin mismatch          | 403                                                            |
+| Routes        | Unknown locale           | 404                                                            |
+| Routes        | Unknown path             | locale-aware `not-found.tsx`                                   |
+| Image         | Missing instructor photo | fallback initials avatar                                       |
+| Body          | No-JS                    | progressive enhancement — server action accepts FormData       |
 
 ---
 
@@ -411,14 +420,14 @@ colors: {
 
 ## 12. Testing strategy
 
-| Layer | Tool | Scope |
-|---|---|---|
-| Unit | Vitest | `lib/validation.ts`, `lib/email.ts` (mocked), `lib/sanitize.ts`, `lib/rate-limit.ts` |
-| Component | Vitest + React Testing Library | `<ContactForm />` success/error states, `<TrainingCard />` data binding, `<LangSwitcher />` pathname preservation |
-| Integration | Vitest | `/api/contact` — valid payload calls Resend; invalid → 400; rate-limit → 429; honeypot → 200 drop; origin mismatch → 403 |
-| E2E | Playwright | Home loads both locales; nav switches locale + preserves path; contact form submits end-to-end against mocked Resend |
-| i18n integrity | custom script (CI) | every key in `nl.json` ↔ `en.json`; every `ModuleId` translated |
-| Accessibility | `@axe-core/playwright` | home, about, contact — 0 AA violations |
+| Layer          | Tool                           | Scope                                                                                                                    |
+| -------------- | ------------------------------ | ------------------------------------------------------------------------------------------------------------------------ |
+| Unit           | Vitest                         | `lib/validation.ts`, `lib/email.ts` (mocked), `lib/sanitize.ts`, `lib/rate-limit.ts`                                     |
+| Component      | Vitest + React Testing Library | `<ContactForm />` success/error states, `<TrainingCard />` data binding, `<LangSwitcher />` pathname preservation        |
+| Integration    | Vitest                         | `/api/contact` — valid payload calls Resend; invalid → 400; rate-limit → 429; honeypot → 200 drop; origin mismatch → 403 |
+| E2E            | Playwright                     | Home loads both locales; nav switches locale + preserves path; contact form submits end-to-end against mocked Resend     |
+| i18n integrity | custom script (CI)             | every key in `nl.json` ↔ `en.json`; every `ModuleId` translated                                                          |
+| Accessibility  | `@axe-core/playwright`         | home, about, contact — 0 AA violations                                                                                   |
 
 Coverage target: ≥80% lines on `lib/` + `app/api/`.
 

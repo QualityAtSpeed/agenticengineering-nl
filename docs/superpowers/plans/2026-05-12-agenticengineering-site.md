@@ -16,17 +16,17 @@
 
 Each slice produces a working, deployable product that an end user could open in a browser. We never have a slice that ships only a "library layer" or only a "backend route" without the UI that exercises it.
 
-| Slice | What lands in prod after merge |
-|---|---|
-| 0 | Empty CI/CD pipeline + Vercel preview from `main` |
-| 1 | Live homepage with hero (NL only), terminal-style theme |
-| 2 | NL + EN locale switching on home |
-| 3 | Basic training section with full curriculum rendered |
-| 4 | Advanced training section (Day 1 + Day 2) |
-| 5 | Nav, footer, About page with instructors |
-| 6 | Contact page with working form → email |
-| 7 | Security headers, CSP, JSON-LD, sitemap, robots |
-| 8 | Impressum, final polish, launch acceptance |
+| Slice | What lands in prod after merge                          |
+| ----- | ------------------------------------------------------- |
+| 0     | Empty CI/CD pipeline + Vercel preview from `main`       |
+| 1     | Live homepage with hero (NL only), terminal-style theme |
+| 2     | NL + EN locale switching on home                        |
+| 3     | Basic training section with full curriculum rendered    |
+| 4     | Advanced training section (Day 1 + Day 2)               |
+| 5     | Nav, footer, About page with instructors                |
+| 6     | Contact page with working form → email                  |
+| 7     | Security headers, CSP, JSON-LD, sitemap, robots         |
+| 8     | Impressum, final polish, launch acceptance              |
 
 ---
 
@@ -142,6 +142,7 @@ Each slice produces a working, deployable product that an end user could open in
   ```
   Co-Authored-By: Claude Opus 4.7 (1M context) <noreply@anthropic.com>
   ```
+
 - Tests target Vitest unless they require a browser → Playwright.
 - Branch model: feature branch per slice → PR → preview deploy → merge to `main` → prod deploy.
 
@@ -154,6 +155,7 @@ Each slice produces a working, deployable product that an end user could open in
 ## Task 0.1: Initialise pnpm workspace + Node version
 
 **Files:**
+
 - Create: `package.json`
 - Create: `.nvmrc`
 - Create: `.npmrc`
@@ -161,6 +163,7 @@ Each slice produces a working, deployable product that an end user could open in
 - [ ] **Step 1: Write `.nvmrc`**
 
 File `.nvmrc`:
+
 ```
 20
 ```
@@ -168,6 +171,7 @@ File `.nvmrc`:
 - [ ] **Step 2: Write `.npmrc`** (enforce strict store, no hoist hacks)
 
 File `.npmrc`:
+
 ```
 auto-install-peers=true
 strict-peer-dependencies=false
@@ -177,6 +181,7 @@ shamefully-hoist=false
 - [ ] **Step 3: Write minimal `package.json`**
 
 File `package.json`:
+
 ```json
 {
   "name": "agenticengineering-nl",
@@ -211,6 +216,7 @@ git commit -m "chore: scaffold pnpm package manifest and Node version pin"
 ## Task 0.2: Install Next.js + React + TypeScript
 
 **Files:**
+
 - Modify: `package.json`
 - Create: `tsconfig.json`
 - Create: `next.config.ts`
@@ -229,6 +235,7 @@ pnpm add -D typescript @types/node @types/react @types/react-dom
 - [ ] **Step 2: Write `tsconfig.json`**
 
 File `tsconfig.json`:
+
 ```json
 {
   "compilerOptions": {
@@ -258,6 +265,7 @@ File `tsconfig.json`:
 - [ ] **Step 3: Write `next.config.ts`**
 
 File `next.config.ts`:
+
 ```ts
 import type { NextConfig } from 'next';
 
@@ -272,6 +280,7 @@ export default nextConfig;
 - [ ] **Step 4: Write temporary root `app/layout.tsx`**
 
 File `app/layout.tsx`:
+
 ```tsx
 import './globals.css';
 import type { ReactNode } from 'react';
@@ -293,6 +302,7 @@ export default function RootLayout({ children }: { children: ReactNode }) {
 - [ ] **Step 5: Write temporary `app/page.tsx`**
 
 File `app/page.tsx`:
+
 ```tsx
 export default function Page() {
   return <main>agenticengineering.nl — coming soon</main>;
@@ -302,6 +312,7 @@ export default function Page() {
 - [ ] **Step 6: Write empty `app/globals.css`**
 
 File `app/globals.css`:
+
 ```css
 /* Tailwind import added in Task 0.3 */
 ```
@@ -321,6 +332,7 @@ git commit -m "feat: scaffold Next.js 15 app router with React 19"
 ## Task 0.3: Add Tailwind v4 with Terminal/Dev theme tokens
 
 **Files:**
+
 - Modify: `package.json`
 - Create: `postcss.config.mjs`
 - Modify: `app/globals.css`
@@ -334,6 +346,7 @@ pnpm add -D tailwindcss@^4 @tailwindcss/postcss @tailwindcss/typography
 - [ ] **Step 2: Write `postcss.config.mjs`**
 
 File `postcss.config.mjs`:
+
 ```js
 export default {
   plugins: {
@@ -345,8 +358,9 @@ export default {
 - [ ] **Step 3: Replace `app/globals.css` with theme tokens**
 
 File `app/globals.css`:
+
 ```css
-@import "tailwindcss";
+@import 'tailwindcss';
 
 @theme {
   --color-bg-base: #0d1117;
@@ -359,15 +373,16 @@ File `app/globals.css`:
   --color-accent-orange: #f0883e;
   --color-accent-red: #ff7b72;
 
-  --font-mono: "JetBrains Mono", ui-monospace, SFMono-Regular, Menlo, monospace;
-  --font-sans: "Inter", system-ui, -apple-system, sans-serif;
+  --font-mono: 'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, monospace;
+  --font-sans: 'Inter', system-ui, -apple-system, sans-serif;
 }
 
 :root {
   color-scheme: dark;
 }
 
-html, body {
+html,
+body {
   background-color: var(--color-bg-base);
   color: var(--color-text-primary);
   font-family: var(--font-sans);
@@ -380,7 +395,9 @@ html, body {
 }
 
 @media (prefers-reduced-motion: reduce) {
-  *, *::before, *::after {
+  *,
+  *::before,
+  *::after {
     animation-duration: 0.01ms !important;
     transition-duration: 0.01ms !important;
   }
@@ -390,13 +407,12 @@ html, body {
 - [ ] **Step 4: Update temporary page to verify styling**
 
 Replace `app/page.tsx`:
+
 ```tsx
 export default function Page() {
   return (
-    <main className="min-h-screen flex items-center justify-center">
-      <p className="font-mono text-accent-green text-xl">
-        &gt; agenticengineering.nl
-      </p>
+    <main className="flex min-h-screen items-center justify-center">
+      <p className="text-accent-green font-mono text-xl">&gt; agenticengineering.nl</p>
     </main>
   );
 }
@@ -419,6 +435,7 @@ git commit -m "feat: add Tailwind v4 with terminal/dev theme tokens"
 ## Task 0.4: Add ESLint + Prettier + lefthook
 
 **Files:**
+
 - Modify: `package.json`
 - Create: `eslint.config.mjs`
 - Create: `prettier.config.mjs`
@@ -436,6 +453,7 @@ pnpm add -D eslint @eslint/js typescript-eslint eslint-config-next \
 - [ ] **Step 2: Write `eslint.config.mjs`** (flat config)
 
 File `eslint.config.mjs`:
+
 ```js
 import js from '@eslint/js';
 import ts from 'typescript-eslint';
@@ -465,6 +483,7 @@ export default [
 - [ ] **Step 3: Write `prettier.config.mjs`**
 
 File `prettier.config.mjs`:
+
 ```js
 export default {
   semi: true,
@@ -478,6 +497,7 @@ export default {
 - [ ] **Step 4: Write `.prettierignore`**
 
 File `.prettierignore`:
+
 ```
 .next
 node_modules
@@ -490,15 +510,16 @@ test-results
 - [ ] **Step 5: Write `lefthook.yml`**
 
 File `lefthook.yml`:
+
 ```yaml
 pre-commit:
   parallel: true
   commands:
     lint:
-      glob: "*.{ts,tsx,js,jsx,mjs}"
+      glob: '*.{ts,tsx,js,jsx,mjs}'
       run: pnpm exec eslint {staged_files}
     format:
-      glob: "*.{ts,tsx,js,jsx,mjs,json,css,md}"
+      glob: '*.{ts,tsx,js,jsx,mjs,json,css,md}'
       run: pnpm exec prettier --check {staged_files}
 ```
 
@@ -509,6 +530,7 @@ pnpm exec lefthook install
 pnpm lint
 pnpm exec prettier --check .
 ```
+
 Expected: both commands succeed (after running `pnpm exec prettier --write .` if needed).
 
 - [ ] **Step 7: Commit**
@@ -521,6 +543,7 @@ git commit -m "chore: add eslint, prettier, lefthook pre-commit hooks"
 ## Task 0.5: Add Vitest + first lib test (sanity)
 
 **Files:**
+
 - Modify: `package.json`
 - Create: `vitest.config.ts`
 - Create: `vitest.setup.ts`
@@ -536,6 +559,7 @@ pnpm add -D vitest @vitejs/plugin-react jsdom @testing-library/react @testing-li
 - [ ] **Step 2: Write `vitest.config.ts`**
 
 File `vitest.config.ts`:
+
 ```ts
 import { defineConfig } from 'vitest/config';
 import react from '@vitejs/plugin-react';
@@ -562,6 +586,7 @@ export default defineConfig({
 - [ ] **Step 3: Write `vitest.setup.ts`**
 
 File `vitest.setup.ts`:
+
 ```ts
 import '@testing-library/jest-dom/vitest';
 ```
@@ -569,6 +594,7 @@ import '@testing-library/jest-dom/vitest';
 - [ ] **Step 4: Write failing test for `stripCRLF`**
 
 File `tests/lib/sanitize.test.ts`:
+
 ```ts
 import { describe, it, expect } from 'vitest';
 import { stripCRLF } from '@/lib/sanitize';
@@ -594,6 +620,7 @@ Expected: FAIL — cannot resolve `@/lib/sanitize`.
 - [ ] **Step 6: Implement `lib/sanitize.ts`**
 
 File `lib/sanitize.ts`:
+
 ```ts
 export function stripCRLF(input: string): string {
   return input.replace(/[\r\n]/g, '');
@@ -615,11 +642,13 @@ git commit -m "chore: add Vitest with first passing lib test"
 ## Task 0.6: CI workflow (lint, typecheck, test, build)
 
 **Files:**
+
 - Create: `.github/workflows/ci.yml`
 
 - [ ] **Step 1: Write CI workflow**
 
 File `.github/workflows/ci.yml`:
+
 ```yaml
 name: CI
 
@@ -677,19 +706,25 @@ git commit -m "ci: add lint/typecheck/test/build workflow"
 ## Task 1.1: Fonts via `next/font` + apply globally
 
 **Files:**
+
 - Modify: `app/layout.tsx`
 - Modify: `app/globals.css`
 
 - [ ] **Step 1: Write updated `app/layout.tsx` with fonts**
 
 File `app/layout.tsx`:
+
 ```tsx
 import './globals.css';
 import type { ReactNode } from 'react';
 import { Inter, JetBrains_Mono } from 'next/font/google';
 
 const inter = Inter({ subsets: ['latin'], variable: '--font-sans-loaded', display: 'swap' });
-const mono = JetBrains_Mono({ subsets: ['latin'], variable: '--font-mono-loaded', display: 'swap' });
+const mono = JetBrains_Mono({
+  subsets: ['latin'],
+  variable: '--font-mono-loaded',
+  display: 'swap',
+});
 
 export const metadata = {
   title: 'agenticengineering.nl',
@@ -708,9 +743,10 @@ export default function RootLayout({ children }: { children: ReactNode }) {
 - [ ] **Step 2: Update `app/globals.css` font vars to use loaded fonts**
 
 Replace the `--font-mono` and `--font-sans` lines in the `@theme` block:
+
 ```css
-  --font-mono: var(--font-mono-loaded), ui-monospace, SFMono-Regular, Menlo, monospace;
-  --font-sans: var(--font-sans-loaded), system-ui, -apple-system, sans-serif;
+--font-mono: var(--font-mono-loaded), ui-monospace, SFMono-Regular, Menlo, monospace;
+--font-sans: var(--font-sans-loaded), system-ui, -apple-system, sans-serif;
 ```
 
 - [ ] **Step 3: Dev-serve, verify fonts load (network panel shows Google Fonts hits)**
@@ -727,11 +763,13 @@ git commit -m "feat: load Inter + JetBrains Mono via next/font"
 ## Task 1.2: Build `<Hero />` component
 
 **Files:**
+
 - Create: `components/Hero.tsx`
 
 - [ ] **Step 1: Write `<Hero />`**
 
 File `components/Hero.tsx`:
+
 ```tsx
 import Link from 'next/link';
 
@@ -747,23 +785,21 @@ export function Hero({ kicker, title, subtitle, primaryCta, secondaryCta }: Hero
   return (
     <section className="px-6 py-24 sm:py-32 lg:py-40">
       <div className="mx-auto max-w-5xl">
-        <p className="font-mono text-xs uppercase tracking-[0.2em] text-text-muted">
-          {kicker}
-        </p>
-        <h1 className="mt-6 font-mono font-bold leading-[1.05] text-text-primary [font-size:clamp(2rem,6vw,4.5rem)]">
+        <p className="text-text-muted font-mono text-xs tracking-[0.2em] uppercase">{kicker}</p>
+        <h1 className="text-text-primary mt-6 font-mono [font-size:clamp(2rem,6vw,4.5rem)] leading-[1.05] font-bold">
           <span className="text-accent-green">&gt;</span> {title}
         </h1>
-        <p className="mt-6 max-w-2xl text-lg text-text-muted">{subtitle}</p>
+        <p className="text-text-muted mt-6 max-w-2xl text-lg">{subtitle}</p>
         <div className="mt-10 flex flex-wrap gap-4">
           <Link
             href={primaryCta.href}
-            className="inline-flex items-center gap-2 rounded-sm bg-accent-green px-5 py-3 font-mono text-sm font-semibold text-bg-base transition hover:brightness-110"
+            className="bg-accent-green text-bg-base inline-flex items-center gap-2 rounded-sm px-5 py-3 font-mono text-sm font-semibold transition hover:brightness-110"
           >
             $ {primaryCta.label}
           </Link>
           <Link
             href={secondaryCta.href}
-            className="inline-flex items-center gap-2 rounded-sm border border-border-subtle px-5 py-3 font-mono text-sm text-text-primary transition hover:border-accent-blue hover:text-accent-blue"
+            className="border-border-subtle text-text-primary hover:border-accent-blue hover:text-accent-blue inline-flex items-center gap-2 rounded-sm border px-5 py-3 font-mono text-sm transition"
           >
             → {secondaryCta.label}
           </Link>
@@ -777,6 +813,7 @@ export function Hero({ kicker, title, subtitle, primaryCta, secondaryCta }: Hero
 - [ ] **Step 2: Use it in `app/page.tsx`**
 
 Replace `app/page.tsx`:
+
 ```tsx
 import { Hero } from '@/components/Hero';
 
@@ -817,6 +854,7 @@ git commit -m "feat: add hero section to homepage"
 ## Task 2.1: Install + configure `next-intl`
 
 **Files:**
+
 - Modify: `package.json`
 - Create: `i18n/routing.ts`
 - Create: `i18n/request.ts`
@@ -834,6 +872,7 @@ pnpm add next-intl
 - [ ] **Step 2: Write `i18n/routing.ts`**
 
 File `i18n/routing.ts`:
+
 ```ts
 import { defineRouting } from 'next-intl/routing';
 
@@ -849,6 +888,7 @@ export type Locale = (typeof routing.locales)[number];
 - [ ] **Step 3: Write `i18n/request.ts`**
 
 File `i18n/request.ts`:
+
 ```ts
 import { getRequestConfig } from 'next-intl/server';
 import { hasLocale } from 'next-intl';
@@ -867,6 +907,7 @@ export default getRequestConfig(async ({ requestLocale }) => {
 - [ ] **Step 4: Write `messages/nl.json`**
 
 File `messages/nl.json`:
+
 ```json
 {
   "meta": {
@@ -892,6 +933,7 @@ File `messages/nl.json`:
 - [ ] **Step 5: Write `messages/en.json`**
 
 File `messages/en.json`:
+
 ```json
 {
   "meta": {
@@ -917,6 +959,7 @@ File `messages/en.json`:
 - [ ] **Step 6: Write `middleware.ts`**
 
 File `middleware.ts`:
+
 ```ts
 import createMiddleware from 'next-intl/middleware';
 import { routing } from './i18n/routing';
@@ -931,6 +974,7 @@ export const config = {
 - [ ] **Step 7: Update `next.config.ts` to use the next-intl plugin**
 
 File `next.config.ts`:
+
 ```ts
 import type { NextConfig } from 'next';
 import createNextIntlPlugin from 'next-intl/plugin';
@@ -955,6 +999,7 @@ git commit -m "feat: add next-intl scaffolding with nl and en messages"
 ## Task 2.2: Move pages under `[locale]` segment
 
 **Files:**
+
 - Delete: `app/page.tsx`
 - Delete: `app/layout.tsx`
 - Create: `app/[locale]/layout.tsx`
@@ -970,6 +1015,7 @@ rm app/page.tsx app/layout.tsx
 - [ ] **Step 2: Write `app/[locale]/layout.tsx`**
 
 File `app/[locale]/layout.tsx`:
+
 ```tsx
 import '../globals.css';
 import type { ReactNode } from 'react';
@@ -980,7 +1026,11 @@ import { Inter, JetBrains_Mono } from 'next/font/google';
 import { routing } from '@/i18n/routing';
 
 const inter = Inter({ subsets: ['latin'], variable: '--font-sans-loaded', display: 'swap' });
-const mono = JetBrains_Mono({ subsets: ['latin'], variable: '--font-mono-loaded', display: 'swap' });
+const mono = JetBrains_Mono({
+  subsets: ['latin'],
+  variable: '--font-mono-loaded',
+  display: 'swap',
+});
 
 export async function generateStaticParams() {
   return routing.locales.map((locale) => ({ locale }));
@@ -1016,6 +1066,7 @@ export default async function LocaleLayout({
 - [ ] **Step 3: Write `app/[locale]/page.tsx`**
 
 File `app/[locale]/page.tsx`:
+
 ```tsx
 import { setRequestLocale, getTranslations } from 'next-intl/server';
 import { Hero } from '@/components/Hero';
@@ -1042,11 +1093,12 @@ export default async function Home({ params }: { params: Promise<{ locale: strin
 - [ ] **Step 4: Write `app/[locale]/not-found.tsx`**
 
 File `app/[locale]/not-found.tsx`:
+
 ```tsx
 export default function NotFound() {
   return (
     <main className="flex min-h-screen items-center justify-center px-6">
-      <p className="font-mono text-accent-red">// 404 — path not found</p>
+      <p className="text-accent-red font-mono">// 404 — path not found</p>
     </main>
   );
 }
@@ -1069,6 +1121,7 @@ git commit -m "feat: move pages under [locale] segment, redirect / to default"
 ## Task 2.3: `<LangSwitcher />` component preserving pathname
 
 **Files:**
+
 - Create: `components/LangSwitcher.tsx`
 - Modify: `app/[locale]/page.tsx`
 - Create: `tests/components/LangSwitcher.test.tsx`
@@ -1076,6 +1129,7 @@ git commit -m "feat: move pages under [locale] segment, redirect / to default"
 - [ ] **Step 1: Write failing test**
 
 File `tests/components/LangSwitcher.test.tsx`:
+
 ```tsx
 import { describe, it, expect } from 'vitest';
 import { render, screen } from '@testing-library/react';
@@ -1090,7 +1144,10 @@ vi.mock('next/navigation', () => ({
 describe('<LangSwitcher />', () => {
   it('renders both locale links preserving pathname suffix', () => {
     render(
-      <NextIntlClientProvider locale="nl" messages={{ nav: { switchToEn: 'EN', switchToNl: 'NL' } }}>
+      <NextIntlClientProvider
+        locale="nl"
+        messages={{ nav: { switchToEn: 'EN', switchToNl: 'NL' } }}
+      >
         <LangSwitcher currentLocale="nl" />
       </NextIntlClientProvider>,
     );
@@ -1108,6 +1165,7 @@ Expected: FAIL — cannot resolve.
 - [ ] **Step 3: Implement `components/LangSwitcher.tsx`**
 
 File `components/LangSwitcher.tsx`:
+
 ```tsx
 'use client';
 
@@ -1159,6 +1217,7 @@ Expected: PASS.
 - [ ] **Step 5: Drop a temporary switcher into the home page header** (proper Nav comes in Slice 5)
 
 Modify `app/[locale]/page.tsx`:
+
 ```tsx
 import { setRequestLocale, getTranslations } from 'next-intl/server';
 import { Hero } from '@/components/Hero';
@@ -1201,6 +1260,7 @@ git commit -m "feat: add language switcher preserving pathname"
 ## Task 2.4: i18n integrity script + test
 
 **Files:**
+
 - Create: `scripts/verify-i18n.ts`
 - Create: `tests/i18n-integrity.test.ts`
 - Modify: `.github/workflows/ci.yml`
@@ -1208,6 +1268,7 @@ git commit -m "feat: add language switcher preserving pathname"
 - [ ] **Step 1: Write integrity test**
 
 File `tests/i18n-integrity.test.ts`:
+
 ```ts
 import { describe, it, expect } from 'vitest';
 import nl from '@/messages/nl.json';
@@ -1234,6 +1295,7 @@ describe('i18n integrity', () => {
 - [ ] **Step 2: Write `scripts/verify-i18n.ts`** (CLI-friendly mirror for prebuild use)
 
 File `scripts/verify-i18n.ts`:
+
 ```ts
 import nl from '../messages/nl.json';
 import en from '../messages/en.json';
@@ -1265,8 +1327,9 @@ Expected: both pass.
 - [ ] **Step 4: Add CI step**
 
 Modify `.github/workflows/ci.yml` — insert after `pnpm typecheck`:
+
 ```yaml
-      - run: pnpm verify:i18n
+- run: pnpm verify:i18n
 ```
 
 - [ ] **Step 5: Commit**
@@ -1287,6 +1350,7 @@ git commit -m "test: enforce nl/en message key parity in CI"
 ## Task 3.1: Define training data model + Basic training data
 
 **Files:**
+
 - Create: `data/trainings.ts`
 - Modify: `messages/nl.json`
 - Modify: `messages/en.json`
@@ -1294,6 +1358,7 @@ git commit -m "test: enforce nl/en message key parity in CI"
 - [ ] **Step 1: Write `data/trainings.ts`**
 
 File `data/trainings.ts`:
+
 ```ts
 export type ModuleId =
   | 'fundamentals-of-agent'
@@ -1366,6 +1431,7 @@ export const trainings: Record<TrainingId, Training> = {
 - [ ] **Step 2: Add training translations to `messages/nl.json`**
 
 Merge into `messages/nl.json` (keep existing keys):
+
 ```json
 {
   "trainings": {
@@ -1419,9 +1485,7 @@ Merge into `messages/nl.json` (keep existing keys):
         "Tech leads die agentic workflows op team-niveau willen verankeren",
         "Teams die hun eigen tooling willen bouwen"
       ],
-      "prerequisites": [
-        "Basic training of vergelijkbare hands-on ervaring met Claude Code"
-      ],
+      "prerequisites": ["Basic training of vergelijkbare hands-on ervaring met Claude Code"],
       "outcomes": [
         "Bouw eigen MCP servers",
         "Authoring van Skills en Rules op productieniveau",
@@ -1523,11 +1587,7 @@ Merge into `messages/nl.json` (keep existing keys):
     },
     "agent-harnessing": {
       "title": "Agent harnessing",
-      "bullets": [
-        "Subagents en delegatie",
-        "Parallelle workflows",
-        "Orchestratie-patronen"
-      ]
+      "bullets": ["Subagents en delegatie", "Parallelle workflows", "Orchestratie-patronen"]
     },
     "advanced-hooks-quality-gates": {
       "title": "Advanced hooks & quality gates",
@@ -1578,6 +1638,7 @@ git commit -m "feat: add typed training data + nl/en curriculum copy"
 ## Task 3.2: `<CurriculumList />` + `<TrainingDetail />` components
 
 **Files:**
+
 - Create: `components/CurriculumList.tsx`
 - Create: `components/TrainingDetail.tsx`
 - Create: `tests/components/TrainingCard.test.tsx` (placeholder — moved to Task 4.1)
@@ -1585,6 +1646,7 @@ git commit -m "feat: add typed training data + nl/en curriculum copy"
 - [ ] **Step 1: Implement `components/CurriculumList.tsx`**
 
 File `components/CurriculumList.tsx`:
+
 ```tsx
 import { useTranslations } from 'next-intl';
 import type { Module } from '@/data/trainings';
@@ -1598,14 +1660,12 @@ export function CurriculumList({ modules }: { modules: Module[] }) {
         const bulletsKey = `${m.id}.bullets` as const;
         const bullets = (t.raw(bulletsKey) as string[]) ?? [];
         return (
-          <li key={m.id} className="border-l-2 border-border-subtle pl-5">
-            <p className="font-mono text-xs text-text-muted">
-              {String(i + 1).padStart(2, '0')}
-            </p>
-            <h4 className="mt-1 font-mono text-lg text-text-primary">
+          <li key={m.id} className="border-border-subtle border-l-2 pl-5">
+            <p className="text-text-muted font-mono text-xs">{String(i + 1).padStart(2, '0')}</p>
+            <h4 className="text-text-primary mt-1 font-mono text-lg">
               <span className="text-accent-green">&gt;</span> {t(titleKey)}
             </h4>
-            <ul className="mt-3 space-y-1 text-sm text-text-muted">
+            <ul className="text-text-muted mt-3 space-y-1 text-sm">
               {bullets.map((b) => (
                 <li key={b}>· {b}</li>
               ))}
@@ -1621,19 +1681,14 @@ export function CurriculumList({ modules }: { modules: Module[] }) {
 - [ ] **Step 2: Implement `components/TrainingDetail.tsx`**
 
 File `components/TrainingDetail.tsx`:
+
 ```tsx
 import Link from 'next/link';
 import { useTranslations } from 'next-intl';
 import { trainings, type TrainingId } from '@/data/trainings';
 import { CurriculumList } from './CurriculumList';
 
-export function TrainingDetail({
-  trainingId,
-  locale,
-}: {
-  trainingId: TrainingId;
-  locale: string;
-}) {
+export function TrainingDetail({ trainingId, locale }: { trainingId: TrainingId; locale: string }) {
   const training = trainings[trainingId];
   const t = useTranslations('trainings');
   const tCommon = useTranslations('trainings.labels');
@@ -1648,17 +1703,17 @@ export function TrainingDetail({
   return (
     <section
       id={`training-${trainingId}`}
-      className="border-t border-border-subtle bg-bg-elevated px-6 py-20"
+      className="border-border-subtle bg-bg-elevated border-t px-6 py-20"
     >
       <div className="mx-auto max-w-5xl">
-        <p className="font-mono text-xs uppercase tracking-[0.2em] text-text-muted">
-          {t(`duration.${trainingId}`)} · {tCommon('price')} €{training.priceEUR.toLocaleString('nl-NL')}{' '}
-          {tCommon('priceSuffix')}
+        <p className="text-text-muted font-mono text-xs tracking-[0.2em] uppercase">
+          {t(`duration.${trainingId}`)} · {tCommon('price')} €
+          {training.priceEUR.toLocaleString('nl-NL')} {tCommon('priceSuffix')}
         </p>
-        <h2 className="mt-3 font-mono text-3xl text-text-primary sm:text-4xl">
+        <h2 className="text-text-primary mt-3 font-mono text-3xl sm:text-4xl">
           <span className="text-accent-green">&gt;</span> {t(`${trainingId}.name`)}
         </h2>
-        <p className="mt-3 max-w-2xl text-text-muted">{t(`${trainingId}.tagline`)}</p>
+        <p className="text-text-muted mt-3 max-w-2xl">{t(`${trainingId}.tagline`)}</p>
 
         <div className="mt-10 grid gap-10 lg:grid-cols-3">
           <DetailList title={tCommon('audience')} items={audience} />
@@ -1667,19 +1722,19 @@ export function TrainingDetail({
         </div>
 
         <div className="mt-14">
-          <h3 className="font-mono text-sm uppercase tracking-[0.2em] text-text-muted">
+          <h3 className="text-text-muted font-mono text-sm tracking-[0.2em] uppercase">
             {tCommon('modules')}
           </h3>
           {training.id === 'advanced' ? (
             <div className="mt-6 grid gap-12 lg:grid-cols-2">
               <div>
-                <p className="font-mono text-xs text-accent-orange">{tCommon('day1')}</p>
+                <p className="text-accent-orange font-mono text-xs">{tCommon('day1')}</p>
                 <div className="mt-4">
                   <CurriculumList modules={modulesDay1} />
                 </div>
               </div>
               <div>
-                <p className="font-mono text-xs text-accent-orange">{tCommon('day2')}</p>
+                <p className="text-accent-orange font-mono text-xs">{tCommon('day2')}</p>
                 <div className="mt-4">
                   <CurriculumList modules={modulesDay2} />
                 </div>
@@ -1695,7 +1750,7 @@ export function TrainingDetail({
         <div className="mt-12">
           <Link
             href={`/${locale}/contact?training=${trainingId}`}
-            className="inline-flex items-center gap-2 rounded-sm bg-accent-green px-5 py-3 font-mono text-sm font-semibold text-bg-base hover:brightness-110"
+            className="bg-accent-green text-bg-base inline-flex items-center gap-2 rounded-sm px-5 py-3 font-mono text-sm font-semibold hover:brightness-110"
           >
             $ {tCommon('bookCta')}
           </Link>
@@ -1708,8 +1763,8 @@ export function TrainingDetail({
 function DetailList({ title, items }: { title: string; items: string[] }) {
   return (
     <div>
-      <h4 className="font-mono text-xs uppercase tracking-[0.2em] text-text-muted">{title}</h4>
-      <ul className="mt-3 space-y-2 text-sm text-text-primary">
+      <h4 className="text-text-muted font-mono text-xs tracking-[0.2em] uppercase">{title}</h4>
+      <ul className="text-text-primary mt-3 space-y-2 text-sm">
         {items.map((item) => (
           <li key={item} className="flex gap-2">
             <span className="text-accent-green">›</span>
@@ -1725,6 +1780,7 @@ function DetailList({ title, items }: { title: string; items: string[] }) {
 - [ ] **Step 3: Use it on the home page (Basic only this slice)**
 
 Modify `app/[locale]/page.tsx`:
+
 ```tsx
 import { setRequestLocale, getTranslations } from 'next-intl/server';
 import { Hero } from '@/components/Hero';
@@ -1777,12 +1833,14 @@ git commit -m "feat: render Basic training detail with full curriculum"
 ## Task 4.1: `<TrainingCard />` component
 
 **Files:**
+
 - Create: `components/TrainingCard.tsx`
 - Create: `tests/components/TrainingCard.test.tsx`
 
 - [ ] **Step 1: Write failing test**
 
 File `tests/components/TrainingCard.test.tsx`:
+
 ```tsx
 import { describe, it, expect } from 'vitest';
 import { render, screen } from '@testing-library/react';
@@ -1824,6 +1882,7 @@ Expected: FAIL — module missing.
 - [ ] **Step 3: Implement `components/TrainingCard.tsx`**
 
 File `components/TrainingCard.tsx`:
+
 ```tsx
 import Link from 'next/link';
 import { useTranslations } from 'next-intl';
@@ -1841,21 +1900,21 @@ export function TrainingCard({
   const tLabels = useTranslations('trainings.labels');
 
   return (
-    <article className="flex h-full flex-col rounded-sm border border-border-subtle bg-bg-elevated p-6">
-      <p className="font-mono text-xs uppercase tracking-[0.2em] text-text-muted">
+    <article className="border-border-subtle bg-bg-elevated flex h-full flex-col rounded-sm border p-6">
+      <p className="text-text-muted font-mono text-xs tracking-[0.2em] uppercase">
         {t(`duration.${trainingId}`)}
       </p>
-      <h3 className="mt-3 font-mono text-2xl text-text-primary">
+      <h3 className="text-text-primary mt-3 font-mono text-2xl">
         <span className="text-accent-green">&gt;</span> {t(`${trainingId}.name`)}
       </h3>
-      <p className="mt-3 flex-1 text-sm text-text-muted">{t(`${trainingId}.tagline`)}</p>
-      <p className="mt-6 font-mono text-accent-orange">
+      <p className="text-text-muted mt-3 flex-1 text-sm">{t(`${trainingId}.tagline`)}</p>
+      <p className="text-accent-orange mt-6 font-mono">
         €{training.priceEUR.toLocaleString('nl-NL')}{' '}
-        <span className="text-xs text-text-muted">{tLabels('priceSuffix')}</span>
+        <span className="text-text-muted text-xs">{tLabels('priceSuffix')}</span>
       </p>
       <Link
         href={`#training-${trainingId}`}
-        className="mt-6 inline-flex items-center gap-1 font-mono text-sm text-accent-blue hover:underline"
+        className="text-accent-blue mt-6 inline-flex items-center gap-1 font-mono text-sm hover:underline"
       >
         → {tLabels('viewDetails')}
       </Link>
@@ -1879,11 +1938,13 @@ git commit -m "feat: add TrainingCard summary component"
 ## Task 4.2: Trainings overview + Advanced detail on home
 
 **Files:**
+
 - Modify: `app/[locale]/page.tsx`
 
 - [ ] **Step 1: Update home to render overview + both details**
 
 Modify `app/[locale]/page.tsx`:
+
 ```tsx
 import { setRequestLocale, getTranslations } from 'next-intl/server';
 import { Hero } from '@/components/Hero';
@@ -1912,9 +1973,9 @@ export default async function Home({ params }: { params: Promise<{ locale: Local
         secondaryCta={{ label: tHero('ctaSecondary'), href: '#trainings' }}
       />
 
-      <section id="trainings" className="border-t border-border-subtle px-6 py-20">
+      <section id="trainings" className="border-border-subtle border-t px-6 py-20">
         <div className="mx-auto max-w-5xl">
-          <h2 className="font-mono text-3xl text-text-primary">
+          <h2 className="text-text-primary font-mono text-3xl">
             <span className="text-accent-green">&gt;</span> {tTrainings('sectionTitle')}
           </h2>
           <div className="mt-10 grid gap-6 md:grid-cols-2">
@@ -1953,6 +2014,7 @@ git commit -m "feat: add training overview cards and Advanced detail to home"
 ## Task 5.1: `<Nav />` + `<Footer />`
 
 **Files:**
+
 - Create: `components/Nav.tsx`
 - Create: `components/Footer.tsx`
 - Modify: `app/[locale]/layout.tsx`
@@ -1962,6 +2024,7 @@ git commit -m "feat: add training overview cards and Advanced detail to home"
 - [ ] **Step 1: Add footer/nav keys to messages**
 
 Merge into `messages/nl.json` (and mirror to `en.json` — translate to English):
+
 ```json
 {
   "nav": {
@@ -1987,6 +2050,7 @@ Merge into `messages/nl.json` (and mirror to `en.json` — translate to English)
 - [ ] **Step 2: Implement `components/Nav.tsx`**
 
 File `components/Nav.tsx`:
+
 ```tsx
 import Link from 'next/link';
 import { getTranslations } from 'next-intl/server';
@@ -1996,9 +2060,9 @@ import type { Locale } from '@/i18n/routing';
 export async function Nav({ locale }: { locale: Locale }) {
   const t = await getTranslations('nav');
   return (
-    <nav className="sticky top-0 z-10 border-b border-border-subtle bg-bg-base/90 backdrop-blur">
+    <nav className="border-border-subtle bg-bg-base/90 sticky top-0 z-10 border-b backdrop-blur">
       <div className="mx-auto flex max-w-6xl items-center justify-between px-6 py-4">
-        <Link href={`/${locale}`} className="font-mono text-sm text-text-primary">
+        <Link href={`/${locale}`} className="text-text-primary font-mono text-sm">
           <span className="text-accent-green">$</span> {t('brand')}
         </Link>
         <div className="flex items-center gap-6 font-mono text-sm">
@@ -2019,6 +2083,7 @@ export async function Nav({ locale }: { locale: Locale }) {
 - [ ] **Step 3: Implement `components/Footer.tsx`**
 
 File `components/Footer.tsx`:
+
 ```tsx
 import Link from 'next/link';
 import { getTranslations } from 'next-intl/server';
@@ -2027,29 +2092,74 @@ import type { Locale } from '@/i18n/routing';
 export async function Footer({ locale }: { locale: Locale }) {
   const t = await getTranslations('footer');
   return (
-    <footer className="border-t border-border-subtle bg-bg-elevated px-6 py-12">
+    <footer className="border-border-subtle bg-bg-elevated border-t px-6 py-12">
       <div className="mx-auto grid max-w-6xl gap-8 sm:grid-cols-4">
         <div>
-          <p className="font-mono text-sm text-text-primary">agentic·engineering</p>
-          <p className="mt-2 text-xs text-text-muted">{t('tagline')}</p>
+          <p className="text-text-primary font-mono text-sm">agentic·engineering</p>
+          <p className="text-text-muted mt-2 text-xs">{t('tagline')}</p>
         </div>
         <div>
-          <p className="font-mono text-xs uppercase tracking-[0.2em] text-text-muted">Pages</p>
+          <p className="text-text-muted font-mono text-xs tracking-[0.2em] uppercase">Pages</p>
           <ul className="mt-3 space-y-1 text-sm">
-            <li><Link href={`/${locale}/about`} className="text-text-primary hover:text-accent-blue">About</Link></li>
-            <li><Link href={`/${locale}/contact`} className="text-text-primary hover:text-accent-blue">Contact</Link></li>
-            <li><Link href={`/${locale}/impressum`} className="text-text-primary hover:text-accent-blue">{t('impressumLink')}</Link></li>
+            <li>
+              <Link href={`/${locale}/about`} className="text-text-primary hover:text-accent-blue">
+                About
+              </Link>
+            </li>
+            <li>
+              <Link
+                href={`/${locale}/contact`}
+                className="text-text-primary hover:text-accent-blue"
+              >
+                Contact
+              </Link>
+            </li>
+            <li>
+              <Link
+                href={`/${locale}/impressum`}
+                className="text-text-primary hover:text-accent-blue"
+              >
+                {t('impressumLink')}
+              </Link>
+            </li>
           </ul>
         </div>
         <div>
-          <p className="font-mono text-xs uppercase tracking-[0.2em] text-text-muted">Socials</p>
+          <p className="text-text-muted font-mono text-xs tracking-[0.2em] uppercase">Socials</p>
           <ul className="mt-3 space-y-1 text-sm">
-            <li><a href="https://github.com/" rel="noopener noreferrer" target="_blank" className="text-text-primary hover:text-accent-blue">{t('github')}</a></li>
-            <li><a href="https://linkedin.com/" rel="noopener noreferrer" target="_blank" className="text-text-primary hover:text-accent-blue">{t('linkedin')}</a></li>
-            <li><a href="https://x.com/" rel="noopener noreferrer" target="_blank" className="text-text-primary hover:text-accent-blue">{t('x')}</a></li>
+            <li>
+              <a
+                href="https://github.com/"
+                rel="noopener noreferrer"
+                target="_blank"
+                className="text-text-primary hover:text-accent-blue"
+              >
+                {t('github')}
+              </a>
+            </li>
+            <li>
+              <a
+                href="https://linkedin.com/"
+                rel="noopener noreferrer"
+                target="_blank"
+                className="text-text-primary hover:text-accent-blue"
+              >
+                {t('linkedin')}
+              </a>
+            </li>
+            <li>
+              <a
+                href="https://x.com/"
+                rel="noopener noreferrer"
+                target="_blank"
+                className="text-text-primary hover:text-accent-blue"
+              >
+                {t('x')}
+              </a>
+            </li>
           </ul>
         </div>
-        <div className="font-mono text-xs text-text-muted sm:text-right">
+        <div className="text-text-muted font-mono text-xs sm:text-right">
           <p>{t('rights')}</p>
         </div>
       </div>
@@ -2063,6 +2173,7 @@ export async function Footer({ locale }: { locale: Locale }) {
 - [ ] **Step 4: Wire Nav + Footer into locale layout**
 
 Modify `app/[locale]/layout.tsx`:
+
 ```tsx
 import '../globals.css';
 import type { ReactNode } from 'react';
@@ -2075,7 +2186,11 @@ import { Nav } from '@/components/Nav';
 import { Footer } from '@/components/Footer';
 
 const inter = Inter({ subsets: ['latin'], variable: '--font-sans-loaded', display: 'swap' });
-const mono = JetBrains_Mono({ subsets: ['latin'], variable: '--font-mono-loaded', display: 'swap' });
+const mono = JetBrains_Mono({
+  subsets: ['latin'],
+  variable: '--font-mono-loaded',
+  display: 'swap',
+});
 
 export async function generateStaticParams() {
   return routing.locales.map((locale) => ({ locale }));
@@ -2102,7 +2217,10 @@ export default async function LocaleLayout({
   return (
     <html lang={locale} className={`${inter.variable} ${mono.variable}`}>
       <body>
-        <a href="#main" className="sr-only focus:not-sr-only focus:fixed focus:left-2 focus:top-2 focus:rounded-sm focus:bg-accent-green focus:px-3 focus:py-1 focus:text-bg-base">
+        <a
+          href="#main"
+          className="focus:bg-accent-green focus:text-bg-base sr-only focus:not-sr-only focus:fixed focus:top-2 focus:left-2 focus:rounded-sm focus:px-3 focus:py-1"
+        >
           Skip to content
         </a>
         <NextIntlClientProvider>
@@ -2134,6 +2252,7 @@ git commit -m "feat: add site nav, footer, skip-to-content link"
 ## Task 5.2: About page with instructor cards
 
 **Files:**
+
 - Create: `data/instructors.ts`
 - Create: `components/InstructorCard.tsx`
 - Create: `app/[locale]/about/page.tsx`
@@ -2142,6 +2261,7 @@ git commit -m "feat: add site nav, footer, skip-to-content link"
 - [ ] **Step 1: Add about keys to messages (placeholder bios — user supplies real text in open items)**
 
 Merge into `messages/nl.json` (and mirror EN):
+
 ```json
 {
   "about": {
@@ -2166,6 +2286,7 @@ Merge into `messages/nl.json` (and mirror EN):
 - [ ] **Step 2: Implement `data/instructors.ts`**
 
 File `data/instructors.ts`:
+
 ```ts
 export type InstructorId = 'pascal' | 'collaborator-1';
 
@@ -2186,6 +2307,7 @@ export const instructors: Instructor[] = [
 - [ ] **Step 3: Implement `components/InstructorCard.tsx`**
 
 File `components/InstructorCard.tsx`:
+
 ```tsx
 import { useTranslations } from 'next-intl';
 import type { InstructorId } from '@/data/instructors';
@@ -2199,7 +2321,7 @@ function Initials({ name }: { name: string }) {
     .join('')
     .toUpperCase();
   return (
-    <div className="flex h-24 w-24 items-center justify-center rounded-sm border border-border-subtle bg-bg-base font-mono text-2xl text-accent-green">
+    <div className="border-border-subtle bg-bg-base text-accent-green flex h-24 w-24 items-center justify-center rounded-sm border font-mono text-2xl">
       {letters}
     </div>
   );
@@ -2209,12 +2331,12 @@ export function InstructorCard({ id }: { id: InstructorId }) {
   const t = useTranslations(`about.instructors.${id}`);
   const name = t('name');
   return (
-    <article className="flex gap-6 rounded-sm border border-border-subtle bg-bg-elevated p-6">
+    <article className="border-border-subtle bg-bg-elevated flex gap-6 rounded-sm border p-6">
       <Initials name={name} />
       <div>
-        <h3 className="font-mono text-lg text-text-primary">{name}</h3>
-        <p className="font-mono text-xs uppercase tracking-[0.2em] text-text-muted">{t('role')}</p>
-        <p className="mt-3 text-sm text-text-muted">{t('bio')}</p>
+        <h3 className="text-text-primary font-mono text-lg">{name}</h3>
+        <p className="text-text-muted font-mono text-xs tracking-[0.2em] uppercase">{t('role')}</p>
+        <p className="text-text-muted mt-3 text-sm">{t('bio')}</p>
       </div>
     </article>
   );
@@ -2224,6 +2346,7 @@ export function InstructorCard({ id }: { id: InstructorId }) {
 - [ ] **Step 4: Implement `app/[locale]/about/page.tsx`**
 
 File `app/[locale]/about/page.tsx`:
+
 ```tsx
 import { setRequestLocale, getTranslations } from 'next-intl/server';
 import { InstructorCard } from '@/components/InstructorCard';
@@ -2238,10 +2361,10 @@ export default async function About({ params }: { params: Promise<{ locale: Loca
   return (
     <main className="px-6 py-20">
       <div className="mx-auto max-w-5xl">
-        <h1 className="font-mono text-4xl text-text-primary">
+        <h1 className="text-text-primary font-mono text-4xl">
           <span className="text-accent-green">&gt;</span> {t('title')}
         </h1>
-        <p className="mt-6 max-w-2xl text-text-muted">{t('intro')}</p>
+        <p className="text-text-muted mt-6 max-w-2xl">{t('intro')}</p>
         <div className="mt-12 grid gap-6 md:grid-cols-2">
           {instructors.map((i) => (
             <InstructorCard key={i.id} id={i.id} />
@@ -2275,6 +2398,7 @@ git commit -m "feat: add About page with instructor cards"
 ## Task 6.1: Zod schema + `lib/validation.ts`
 
 **Files:**
+
 - Modify: `package.json`
 - Create: `lib/validation.ts`
 - Create: `tests/lib/validation.test.ts`
@@ -2288,6 +2412,7 @@ pnpm add zod
 - [ ] **Step 2: Write failing tests**
 
 File `tests/lib/validation.test.ts`:
+
 ```ts
 import { describe, it, expect } from 'vitest';
 import { contactSchema } from '@/lib/validation';
@@ -2337,6 +2462,7 @@ Expected: FAIL — module missing.
 - [ ] **Step 4: Implement `lib/validation.ts`**
 
 File `lib/validation.ts`:
+
 ```ts
 import { z } from 'zod';
 
@@ -2371,6 +2497,7 @@ git commit -m "feat: add Zod contact form schema"
 ## Task 6.2: Email wrapper around Resend
 
 **Files:**
+
 - Modify: `package.json`
 - Create: `lib/email.ts`
 - Create: `tests/lib/email.test.ts`
@@ -2385,6 +2512,7 @@ pnpm add resend
 - [ ] **Step 2: Write `.env.example`**
 
 File `.env.example`:
+
 ```
 RESEND_API_KEY=
 CONTACT_EMAIL=pascal@validate-it.nl
@@ -2394,6 +2522,7 @@ CONTACT_FROM_EMAIL=noreply@agenticengineering.nl
 - [ ] **Step 3: Write failing tests**
 
 File `tests/lib/email.test.ts`:
+
 ```ts
 import { describe, it, expect, vi, beforeEach } from 'vitest';
 import { sendContactEmail, EmailError } from '@/lib/email';
@@ -2452,13 +2581,17 @@ Expected: FAIL.
 - [ ] **Step 5: Implement `lib/email.ts`**
 
 File `lib/email.ts`:
+
 ```ts
 import { Resend } from 'resend';
 import { stripCRLF } from './sanitize';
 import type { ContactInput } from './validation';
 
 export class EmailError extends Error {
-  constructor(message: string, public cause?: unknown) {
+  constructor(
+    message: string,
+    public cause?: unknown,
+  ) {
     super(message);
     this.name = 'EmailError';
   }
@@ -2475,9 +2608,7 @@ export async function sendContactEmail(input: ContactInput): Promise<{ id: strin
   const safeReplyTo = stripCRLF(input.email);
   const safeCompany = stripCRLF(input.company ?? '');
 
-  const subject = stripCRLF(
-    `[agenticengineering.nl] ${input.trainingInterest} — ${safeName}`,
-  );
+  const subject = stripCRLF(`[agenticengineering.nl] ${input.trainingInterest} — ${safeName}`);
 
   const text = [
     `Name: ${safeName}`,
@@ -2520,12 +2651,14 @@ git commit -m "feat: add Resend email wrapper with header sanitisation"
 ## Task 6.3: In-memory rate-limit lib
 
 **Files:**
+
 - Create: `lib/rate-limit.ts`
 - Create: `tests/lib/rate-limit.test.ts`
 
 - [ ] **Step 1: Write failing tests**
 
 File `tests/lib/rate-limit.test.ts`:
+
 ```ts
 import { describe, it, expect, beforeEach, vi } from 'vitest';
 import { checkRateLimit, __resetRateLimitForTests } from '@/lib/rate-limit';
@@ -2568,6 +2701,7 @@ Expected: FAIL.
 - [ ] **Step 3: Implement `lib/rate-limit.ts`**
 
 File `lib/rate-limit.ts`:
+
 ```ts
 const WINDOW_MS = 60_000;
 const LIMIT = 5;
@@ -2609,12 +2743,14 @@ git commit -m "feat: add in-memory IP rate limiter (5 req/min)"
 ## Task 6.4: `/api/contact` route
 
 **Files:**
+
 - Create: `app/api/contact/route.ts`
 - Create: `tests/api/contact.test.ts`
 
 - [ ] **Step 1: Write failing tests**
 
 File `tests/api/contact.test.ts`:
+
 ```ts
 import { describe, it, expect, vi, beforeEach } from 'vitest';
 import { POST } from '@/app/api/contact/route';
@@ -2703,6 +2839,7 @@ Expected: FAIL.
 - [ ] **Step 3: Implement `app/api/contact/route.ts`**
 
 File `app/api/contact/route.ts`:
+
 ```ts
 import { NextResponse } from 'next/server';
 import { contactSchema } from '@/lib/validation';
@@ -2789,6 +2926,7 @@ git commit -m "feat: add /api/contact route with validation, csrf, rate-limit, h
 ## Task 6.5: `<ContactForm />` client component
 
 **Files:**
+
 - Modify: `package.json`
 - Create: `components/ContactForm.tsx`
 - Create: `tests/components/ContactForm.test.tsx`
@@ -2803,6 +2941,7 @@ pnpm add react-hook-form @hookform/resolvers
 - [ ] **Step 2: Add contact translation keys to messages**
 
 Merge into `messages/nl.json` (mirror EN):
+
 ```json
 {
   "contact": {
@@ -2849,6 +2988,7 @@ Merge into `messages/nl.json` (mirror EN):
 - [ ] **Step 3: Implement `components/ContactForm.tsx`**
 
 File `components/ContactForm.tsx`:
+
 ```tsx
 'use client';
 
@@ -2864,7 +3004,11 @@ export function ContactForm({ defaultTraining }: { defaultTraining?: 'basic' | '
   const t = useTranslations('contact');
   const [status, setStatus] = useState<Status>('idle');
 
-  const { register, handleSubmit, formState: { errors } } = useForm<ContactInput>({
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm<ContactInput>({
     resolver: zodResolver(contactSchema),
     defaultValues: {
       name: '',
@@ -2891,9 +3035,9 @@ export function ContactForm({ defaultTraining }: { defaultTraining?: 'basic' | '
 
   if (status === 'success') {
     return (
-      <div className="rounded-sm border border-accent-green bg-bg-elevated p-6">
-        <p className="font-mono text-accent-green">// {t('success.title')}</p>
-        <p className="mt-2 text-text-muted">{t('success.body')}</p>
+      <div className="border-accent-green bg-bg-elevated rounded-sm border p-6">
+        <p className="text-accent-green font-mono">// {t('success.title')}</p>
+        <p className="text-text-muted mt-2">{t('success.body')}</p>
       </div>
     );
   }
@@ -2905,7 +3049,7 @@ export function ContactForm({ defaultTraining }: { defaultTraining?: 'basic' | '
           type="text"
           autoComplete="name"
           {...register('name')}
-          className="w-full rounded-sm border border-border-subtle bg-bg-elevated px-3 py-2 font-sans text-text-primary"
+          className="border-border-subtle bg-bg-elevated text-text-primary w-full rounded-sm border px-3 py-2 font-sans"
         />
       </Field>
 
@@ -2914,7 +3058,7 @@ export function ContactForm({ defaultTraining }: { defaultTraining?: 'basic' | '
           type="email"
           autoComplete="email"
           {...register('email')}
-          className="w-full rounded-sm border border-border-subtle bg-bg-elevated px-3 py-2 font-sans text-text-primary"
+          className="border-border-subtle bg-bg-elevated text-text-primary w-full rounded-sm border px-3 py-2 font-sans"
         />
       </Field>
 
@@ -2923,14 +3067,14 @@ export function ContactForm({ defaultTraining }: { defaultTraining?: 'basic' | '
           type="text"
           autoComplete="organization"
           {...register('company')}
-          className="w-full rounded-sm border border-border-subtle bg-bg-elevated px-3 py-2 font-sans text-text-primary"
+          className="border-border-subtle bg-bg-elevated text-text-primary w-full rounded-sm border px-3 py-2 font-sans"
         />
       </Field>
 
       <Field label={t('form.trainingInterest')} error={errors.trainingInterest?.message}>
         <select
           {...register('trainingInterest')}
-          className="w-full rounded-sm border border-border-subtle bg-bg-elevated px-3 py-2 font-sans text-text-primary"
+          className="border-border-subtle bg-bg-elevated text-text-primary w-full rounded-sm border px-3 py-2 font-sans"
         >
           <option value="basic">{t('form.trainingOptions.basic')}</option>
           <option value="advanced">{t('form.trainingOptions.advanced')}</option>
@@ -2942,7 +3086,7 @@ export function ContactForm({ defaultTraining }: { defaultTraining?: 'basic' | '
       <Field label={t('form.deliveryPref')} error={errors.deliveryPref?.message}>
         <select
           {...register('deliveryPref')}
-          className="w-full rounded-sm border border-border-subtle bg-bg-elevated px-3 py-2 font-sans text-text-primary"
+          className="border-border-subtle bg-bg-elevated text-text-primary w-full rounded-sm border px-3 py-2 font-sans"
         >
           <option value="noPreference">{t('form.deliveryOptions.noPreference')}</option>
           <option value="inCompany">{t('form.deliveryOptions.inCompany')}</option>
@@ -2955,7 +3099,7 @@ export function ContactForm({ defaultTraining }: { defaultTraining?: 'basic' | '
         <textarea
           rows={6}
           {...register('message')}
-          className="w-full rounded-sm border border-border-subtle bg-bg-elevated px-3 py-2 font-sans text-text-primary"
+          className="border-border-subtle bg-bg-elevated text-text-primary w-full rounded-sm border px-3 py-2 font-sans"
         />
       </Field>
 
@@ -2967,16 +3111,16 @@ export function ContactForm({ defaultTraining }: { defaultTraining?: 'basic' | '
       </div>
 
       {status === 'error' && (
-        <p className="font-mono text-sm text-accent-red">// {t('errors.generic')}</p>
+        <p className="text-accent-red font-mono text-sm">// {t('errors.generic')}</p>
       )}
       {status === 'rateLimited' && (
-        <p className="font-mono text-sm text-accent-orange">// {t('errors.rateLimited')}</p>
+        <p className="text-accent-orange font-mono text-sm">// {t('errors.rateLimited')}</p>
       )}
 
       <button
         type="submit"
         disabled={status === 'submitting'}
-        className="inline-flex items-center gap-2 rounded-sm bg-accent-green px-5 py-3 font-mono text-sm font-semibold text-bg-base hover:brightness-110 disabled:opacity-60"
+        className="bg-accent-green text-bg-base inline-flex items-center gap-2 rounded-sm px-5 py-3 font-mono text-sm font-semibold hover:brightness-110 disabled:opacity-60"
       >
         $ {status === 'submitting' ? t('form.submitting') : t('form.submit')}
       </button>
@@ -2995,9 +3139,9 @@ function Field({
 }) {
   return (
     <label className="block">
-      <span className="font-mono text-xs uppercase tracking-[0.2em] text-text-muted">{label}</span>
+      <span className="text-text-muted font-mono text-xs tracking-[0.2em] uppercase">{label}</span>
       <div className="mt-2">{children}</div>
-      {error && <p className="mt-1 font-mono text-xs text-accent-red">// {error}</p>}
+      {error && <p className="text-accent-red mt-1 font-mono text-xs">// {error}</p>}
     </label>
   );
 }
@@ -3006,6 +3150,7 @@ function Field({
 - [ ] **Step 4: Write minimal component test (success path)**
 
 File `tests/components/ContactForm.test.tsx`:
+
 ```tsx
 import { describe, it, expect, vi, beforeEach } from 'vitest';
 import { render, screen, waitFor } from '@testing-library/react';
@@ -3078,11 +3223,13 @@ git commit -m "feat: add ContactForm client component with RHF + Zod"
 ## Task 6.6: Contact page
 
 **Files:**
+
 - Create: `app/[locale]/contact/page.tsx`
 
 - [ ] **Step 1: Implement contact page**
 
 File `app/[locale]/contact/page.tsx`:
+
 ```tsx
 import { setRequestLocale, getTranslations } from 'next-intl/server';
 import { ContactForm } from '@/components/ContactForm';
@@ -3102,10 +3249,10 @@ export default async function ContactPage({ params, searchParams }: Props) {
   return (
     <main className="px-6 py-20">
       <div className="mx-auto max-w-2xl">
-        <h1 className="font-mono text-4xl text-text-primary">
+        <h1 className="text-text-primary font-mono text-4xl">
           <span className="text-accent-green">&gt;</span> {t('title')}
         </h1>
-        <p className="mt-4 text-text-muted">{t('intro')}</p>
+        <p className="text-text-muted mt-4">{t('intro')}</p>
         <div className="mt-10">
           <ContactForm defaultTraining={training === 'advanced' ? 'advanced' : 'basic'} />
         </div>
@@ -3137,11 +3284,13 @@ git commit -m "feat: add Contact page with form"
 ## Task 7.1: Security headers via `next.config.ts`
 
 **Files:**
+
 - Modify: `next.config.ts`
 
 - [ ] **Step 1: Update `next.config.ts`**
 
 File `next.config.ts`:
+
 ```ts
 import type { NextConfig } from 'next';
 import createNextIntlPlugin from 'next-intl/plugin';
@@ -3206,30 +3355,36 @@ git commit -m "feat: add HSTS, CSP, X-Frame-Options and friends"
 ## Task 7.2: `<JsonLd />` + Course + Organization schema
 
 **Files:**
+
 - Create: `components/JsonLd.tsx`
 - Modify: `app/[locale]/page.tsx`
 
 - [ ] **Step 1: Implement `components/JsonLd.tsx`** (only allowed `dangerouslySetInnerHTML` use)
 
 File `components/JsonLd.tsx`:
+
 ```tsx
 type JsonLdProps = { data: Record<string, unknown> };
 
 export function JsonLd({ data }: JsonLdProps) {
   // eslint-disable-next-line react/no-danger -- type-controlled JSON only
-  return <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(data) }} />;
+  return (
+    <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(data) }} />
+  );
 }
 ```
 
 - [ ] **Step 2: Embed Course + Organization schema on home**
 
 Modify `app/[locale]/page.tsx` (add to imports + JSX top):
+
 ```tsx
 import { JsonLd } from '@/components/JsonLd';
 import { trainings } from '@/data/trainings';
 ```
 
 Insert at start of returned `<main>`:
+
 ```tsx
 <JsonLd
   data={{
@@ -3271,12 +3426,14 @@ git commit -m "feat: add Organization + Course JSON-LD on home"
 ## Task 7.3: Sitemap + robots
 
 **Files:**
+
 - Create: `app/sitemap.ts`
 - Create: `app/robots.ts`
 
 - [ ] **Step 1: Implement `app/sitemap.ts`**
 
 File `app/sitemap.ts`:
+
 ```ts
 import type { MetadataRoute } from 'next';
 import { routing } from '@/i18n/routing';
@@ -3291,9 +3448,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
       changeFrequency: 'monthly' as const,
       priority: p === '' ? 1.0 : 0.7,
       alternates: {
-        languages: Object.fromEntries(
-          routing.locales.map((l) => [l, `${BASE}/${l}${p}`]),
-        ),
+        languages: Object.fromEntries(routing.locales.map((l) => [l, `${BASE}/${l}${p}`])),
       },
     })),
   );
@@ -3303,6 +3458,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
 - [ ] **Step 2: Implement `app/robots.ts`**
 
 File `app/robots.ts`:
+
 ```ts
 import type { MetadataRoute } from 'next';
 
@@ -3333,11 +3489,13 @@ git commit -m "feat: add locale-aware sitemap and robots"
 ## Task 7.4: `hreflang` alternates in layout metadata
 
 **Files:**
+
 - Modify: `app/[locale]/layout.tsx`
 
 - [ ] **Step 1: Update `generateMetadata`**
 
 In `app/[locale]/layout.tsx`, replace the existing `generateMetadata`:
+
 ```tsx
 export async function generateMetadata({ params }: { params: Promise<{ locale: string }> }) {
   const { locale } = await params;
@@ -3373,6 +3531,7 @@ git commit -m "feat: add canonical + hreflang + OG metadata per locale"
 ## Task 7.5: Add security gates to CI
 
 **Files:**
+
 - Modify: `.github/workflows/ci.yml`
 - Modify: `package.json`
 
@@ -3386,35 +3545,36 @@ pnpm add -D @octokit/openapi-types
 - [ ] **Step 2: Add gates to workflow**
 
 Modify `.github/workflows/ci.yml` — append jobs:
+
 ```yaml
-  audit:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v4
-      - uses: pnpm/action-setup@v4
-        with: { version: 9 }
-      - uses: actions/setup-node@v4
-        with: { node-version: 20, cache: pnpm }
-      - run: pnpm install --frozen-lockfile
-      - run: pnpm audit --audit-level=high
+audit:
+  runs-on: ubuntu-latest
+  steps:
+    - uses: actions/checkout@v4
+    - uses: pnpm/action-setup@v4
+      with: { version: 9 }
+    - uses: actions/setup-node@v4
+      with: { node-version: 20, cache: pnpm }
+    - run: pnpm install --frozen-lockfile
+    - run: pnpm audit --audit-level=high
 
-  osv:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v4
-      - uses: google/osv-scanner-action/osv-scanner-action@v1.7.0
-        with:
-          scan-args: |-
-            --lockfile=pnpm-lock.yaml
+osv:
+  runs-on: ubuntu-latest
+  steps:
+    - uses: actions/checkout@v4
+    - uses: google/osv-scanner-action/osv-scanner-action@v1.7.0
+      with:
+        scan-args: |-
+          --lockfile=pnpm-lock.yaml
 
-  gitleaks:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v4
-        with: { fetch-depth: 0 }
-      - uses: gitleaks/gitleaks-action@v2
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+gitleaks:
+  runs-on: ubuntu-latest
+  steps:
+    - uses: actions/checkout@v4
+      with: { fetch-depth: 0 }
+    - uses: gitleaks/gitleaks-action@v2
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 ```
 
 - [ ] **Step 3: Commit**
@@ -3435,12 +3595,14 @@ git commit -m "ci: add pnpm audit, osv-scanner, gitleaks gates"
 ## Task 8.1: Impressum page
 
 **Files:**
+
 - Create: `app/[locale]/impressum/page.tsx`
 - Modify: `messages/nl.json`, `messages/en.json`
 
 - [ ] **Step 1: Add impressum keys (placeholders for KVK + address — user fills before launch)**
 
 Merge into `messages/nl.json` (mirror EN):
+
 ```json
 {
   "impressum": {
@@ -3458,6 +3620,7 @@ Merge into `messages/nl.json` (mirror EN):
 - [ ] **Step 2: Implement page**
 
 File `app/[locale]/impressum/page.tsx`:
+
 ```tsx
 import { setRequestLocale, getTranslations } from 'next-intl/server';
 import type { Locale } from '@/i18n/routing';
@@ -3470,10 +3633,10 @@ export default async function Impressum({ params }: { params: Promise<{ locale: 
   return (
     <main className="px-6 py-20">
       <div className="mx-auto max-w-2xl">
-        <h1 className="font-mono text-4xl text-text-primary">
+        <h1 className="text-text-primary font-mono text-4xl">
           <span className="text-accent-green">&gt;</span> {t('title')}
         </h1>
-        <dl className="mt-10 space-y-3 font-mono text-sm text-text-muted">
+        <dl className="text-text-muted mt-10 space-y-3 font-mono text-sm">
           <Row label="Business" value={t('businessName')} />
           <Row label="Operator" value={t('operator')} />
           <Row label="Address" value={t('address')} />
@@ -3489,7 +3652,7 @@ export default async function Impressum({ params }: { params: Promise<{ locale: 
 function Row({ label, value }: { label: string; value: string }) {
   return (
     <div className="flex flex-wrap gap-x-4">
-      <dt className="w-32 text-text-muted">{label}</dt>
+      <dt className="text-text-muted w-32">{label}</dt>
       <dd className="text-text-primary">{value}</dd>
     </div>
   );
@@ -3506,6 +3669,7 @@ git commit -m "feat: add impressum page placeholders"
 ## Task 8.2: Playwright E2E setup
 
 **Files:**
+
 - Modify: `package.json`
 - Create: `playwright.config.ts`
 - Create: `e2e/home.spec.ts`
@@ -3522,6 +3686,7 @@ pnpm exec playwright install --with-deps chromium
 - [ ] **Step 2: Write `playwright.config.ts`**
 
 File `playwright.config.ts`:
+
 ```ts
 import { defineConfig } from '@playwright/test';
 
@@ -3542,6 +3707,7 @@ export default defineConfig({
 - [ ] **Step 3: Write `e2e/home.spec.ts`**
 
 File `e2e/home.spec.ts`:
+
 ```ts
 import { test, expect } from '@playwright/test';
 
@@ -3561,6 +3727,7 @@ test('redirects / to /nl', async ({ page }) => {
 - [ ] **Step 4: Write `e2e/language-switch.spec.ts`**
 
 File `e2e/language-switch.spec.ts`:
+
 ```ts
 import { test, expect } from '@playwright/test';
 
@@ -3574,6 +3741,7 @@ test('switching locale on /about preserves path', async ({ page }) => {
 - [ ] **Step 5: Write `e2e/contact.spec.ts`**
 
 File `e2e/contact.spec.ts`:
+
 ```ts
 import { test, expect } from '@playwright/test';
 
@@ -3604,23 +3772,24 @@ Expected: 4 passing.
 - [ ] **Step 7: Add E2E job to CI**
 
 Modify `.github/workflows/ci.yml` — append:
+
 ```yaml
-  e2e:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v4
-      - uses: pnpm/action-setup@v4
-        with: { version: 9 }
-      - uses: actions/setup-node@v4
-        with: { node-version: 20, cache: pnpm }
-      - run: pnpm install --frozen-lockfile
-      - run: pnpm exec playwright install --with-deps chromium
-      - run: pnpm test:e2e
-      - uses: actions/upload-artifact@v4
-        if: failure()
-        with:
-          name: playwright-report
-          path: playwright-report/
+e2e:
+  runs-on: ubuntu-latest
+  steps:
+    - uses: actions/checkout@v4
+    - uses: pnpm/action-setup@v4
+      with: { version: 9 }
+    - uses: actions/setup-node@v4
+      with: { node-version: 20, cache: pnpm }
+    - run: pnpm install --frozen-lockfile
+    - run: pnpm exec playwright install --with-deps chromium
+    - run: pnpm test:e2e
+    - uses: actions/upload-artifact@v4
+      if: failure()
+      with:
+        name: playwright-report
+        path: playwright-report/
 ```
 
 - [ ] **Step 8: Commit**
@@ -3633,6 +3802,7 @@ git commit -m "test: add Playwright E2E for home, locale, contact"
 ## Task 8.3: axe accessibility scan
 
 **Files:**
+
 - Modify: `package.json`
 - Create: `e2e/a11y.spec.ts`
 
@@ -3645,6 +3815,7 @@ pnpm add -D @axe-core/playwright
 - [ ] **Step 2: Write a11y spec**
 
 File `e2e/a11y.spec.ts`:
+
 ```ts
 import { test, expect } from '@playwright/test';
 import AxeBuilder from '@axe-core/playwright';
@@ -3677,6 +3848,7 @@ git commit -m "test: enforce zero axe AA violations on all pages"
 ## Task 8.4: Lighthouse manual check + launch acceptance checklist
 
 **Files:**
+
 - Create: `docs/superpowers/specs/launch-checklist.md`
 
 - [ ] **Step 1: Run Lighthouse locally**
@@ -3687,12 +3859,14 @@ Expected: Performance ≥95, Accessibility 100, Best Practices ≥95, SEO 100. I
 - [ ] **Step 2: Write `docs/superpowers/specs/launch-checklist.md`**
 
 File `docs/superpowers/specs/launch-checklist.md`:
+
 ```markdown
 # agenticengineering.nl — Launch checklist
 
 Run this list before flipping prod DNS / before first promotion.
 
 ## Content
+
 - [ ] Real prices set in `data/trainings.ts`
 - [ ] Real KVK + address + VAT in `messages/*.json` `impressum` keys
 - [ ] Real social URLs in `components/Footer.tsx`
@@ -3701,12 +3875,14 @@ Run this list before flipping prod DNS / before first promotion.
 - [ ] OG images under `public/og/{nl,en}.png`
 
 ## Infrastructure
+
 - [ ] Vercel project linked to `main` for prod
 - [ ] DNS A/CNAME for `agenticengineering.nl` → Vercel
 - [ ] Resend domain verification (SPF, DKIM, DMARC) for `agenticengineering.nl`
 - [ ] Env vars in Vercel: `RESEND_API_KEY`, `CONTACT_EMAIL`, `CONTACT_FROM_EMAIL`
 
 ## Security
+
 - [ ] securityheaders.com — grade A or A+
 - [ ] Mozilla Observatory — B+ or higher
 - [ ] `pnpm audit` clean
@@ -3719,6 +3895,7 @@ Run this list before flipping prod DNS / before first promotion.
 - [ ] TLS cert valid + HSTS preload-eligible
 
 ## Functional
+
 - [ ] CI green on `main`
 - [ ] Both locales render hero, trainings, about, contact, impressum
 - [ ] Language switcher preserves path on every page
@@ -3726,10 +3903,12 @@ Run this list before flipping prod DNS / before first promotion.
 - [ ] All 8 Basic modules + 7 Advanced modules render with bullets
 
 ## Performance
+
 - [ ] Lighthouse mobile: Performance ≥95, A11y 100, BP ≥95, SEO 100
 - [ ] LCP < 2.5s on throttled mobile
 
 ## Risks (track if not yet resolved)
+
 - [ ] Privacy policy / cookie notice (recommended before public traffic)
 - [ ] T&C / terms of training engagement (before first paid booking)
 - [ ] Upstash/Vercel KV for distributed rate-limit (before scale or multi-region)
@@ -3750,43 +3929,45 @@ git commit -m "docs: add pre-launch checklist"
 
 **Spec coverage walkthrough (every spec §):**
 
-| Spec § | Slice / Task |
-|---|---|
-| §2 Trainings: Basic 8 modules | Task 3.1 data + 3.2 render |
-| §2 Trainings: Advanced 7 modules with Day1/Day2 | Task 3.1 data + 4.2 render |
-| §2 Delivery formats | Translations in 3.1, used in 3.2 |
-| §2 Pricing display | Task 3.2 + 4.1 |
-| §3 Stack: Next 15, Tailwind v4, next-intl, Resend, Vercel | Slice 0 + Task 2.1 + Task 6.2 + Task 0.7 |
-| §3 Repo layout | File structure section + each task |
-| §4 Routes (`/`, `/[locale]`, `/[locale]/about`, etc.) | Tasks 2.2, 5.2, 6.6, 8.1, plus API in 6.4 |
+| Spec §                                                                                                                          | Slice / Task                                                                                                                          |
+| ------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------- |
+| §2 Trainings: Basic 8 modules                                                                                                   | Task 3.1 data + 3.2 render                                                                                                            |
+| §2 Trainings: Advanced 7 modules with Day1/Day2                                                                                 | Task 3.1 data + 4.2 render                                                                                                            |
+| §2 Delivery formats                                                                                                             | Translations in 3.1, used in 3.2                                                                                                      |
+| §2 Pricing display                                                                                                              | Task 3.2 + 4.1                                                                                                                        |
+| §3 Stack: Next 15, Tailwind v4, next-intl, Resend, Vercel                                                                       | Slice 0 + Task 2.1 + Task 6.2 + Task 0.7                                                                                              |
+| §3 Repo layout                                                                                                                  | File structure section + each task                                                                                                    |
+| §4 Routes (`/`, `/[locale]`, `/[locale]/about`, etc.)                                                                           | Tasks 2.2, 5.2, 6.6, 8.1, plus API in 6.4                                                                                             |
 | §5 Home page layout (Nav, Hero, Trainings overview, Basic detail, Advanced detail, Instructors snippet, Final CTA band, Footer) | 1.2, 4.2, 3.2, 5.1; instructors-on-home + final CTA noted as YAGNI for v1 — covered partially by Nav + About link. **Gap fix below.** |
-| §6 Data model | Task 3.1 + 5.2 |
-| §7 i18n flow | Slice 2 + 2.4 |
-| §8 Contact form (client + server + env) | Slice 6 entire |
-| §9 Visual system | Task 0.3 + 1.1 |
-| §10 Error handling | Task 6.4 + UI states in 6.5 |
-| §11 Security headers + CSP | Task 7.1 |
-| §11 Honeypot, rate-limit, CSRF, sanitisation | Task 6.3 + 6.4 |
-| §11 CI gates (audit, osv, gitleaks) | Task 7.5 |
-| §11 JSON-LD exception via `<JsonLd />` | Task 7.2 |
-| §12 Testing | 0.5, 2.3, 2.4, 4.1, 6.1, 6.2, 6.3, 6.4, 6.5, 8.2, 8.3 |
-| §13 Build/CI/deploy | 0.6, 0.7, 7.5, 8.2 |
-| §13 SEO (sitemap, robots, hreflang, OG, JSON-LD) | 7.2, 7.3, 7.4 |
-| §13 Performance budgets | 8.4 |
-| §14 Acceptance criteria | mapped via launch checklist (8.4) |
-| §15 Open items | called out in tasks 3.1, 5.2, 8.1 |
+| §6 Data model                                                                                                                   | Task 3.1 + 5.2                                                                                                                        |
+| §7 i18n flow                                                                                                                    | Slice 2 + 2.4                                                                                                                         |
+| §8 Contact form (client + server + env)                                                                                         | Slice 6 entire                                                                                                                        |
+| §9 Visual system                                                                                                                | Task 0.3 + 1.1                                                                                                                        |
+| §10 Error handling                                                                                                              | Task 6.4 + UI states in 6.5                                                                                                           |
+| §11 Security headers + CSP                                                                                                      | Task 7.1                                                                                                                              |
+| §11 Honeypot, rate-limit, CSRF, sanitisation                                                                                    | Task 6.3 + 6.4                                                                                                                        |
+| §11 CI gates (audit, osv, gitleaks)                                                                                             | Task 7.5                                                                                                                              |
+| §11 JSON-LD exception via `<JsonLd />`                                                                                          | Task 7.2                                                                                                                              |
+| §12 Testing                                                                                                                     | 0.5, 2.3, 2.4, 4.1, 6.1, 6.2, 6.3, 6.4, 6.5, 8.2, 8.3                                                                                 |
+| §13 Build/CI/deploy                                                                                                             | 0.6, 0.7, 7.5, 8.2                                                                                                                    |
+| §13 SEO (sitemap, robots, hreflang, OG, JSON-LD)                                                                                | 7.2, 7.3, 7.4                                                                                                                         |
+| §13 Performance budgets                                                                                                         | 8.4                                                                                                                                   |
+| §14 Acceptance criteria                                                                                                         | mapped via launch checklist (8.4)                                                                                                     |
+| §15 Open items                                                                                                                  | called out in tasks 3.1, 5.2, 8.1                                                                                                     |
 
 **Gap fix — Spec §5 calls for "Instructors snippet on home" + "Final CTA band on home". Adding follow-up task.**
 
 ## Task 8.5 (gap fix): Instructors snippet + final CTA band on home
 
 **Files:**
+
 - Modify: `app/[locale]/page.tsx`
 - Modify: `messages/nl.json`, `messages/en.json`
 
 - [ ] **Step 1: Add keys**
 
 Merge into `messages/nl.json` (mirror EN):
+
 ```json
 {
   "home": {
@@ -3806,6 +3987,7 @@ Merge into `messages/nl.json` (mirror EN):
 Modify `app/[locale]/page.tsx`:
 
 Replace the file with:
+
 ```tsx
 import Link from 'next/link';
 import { setRequestLocale, getTranslations } from 'next-intl/server';
@@ -3854,9 +4036,9 @@ export default async function Home({ params }: { params: Promise<{ locale: Local
         secondaryCta={{ label: tHero('ctaSecondary'), href: '#trainings' }}
       />
 
-      <section id="trainings" className="border-t border-border-subtle px-6 py-20">
+      <section id="trainings" className="border-border-subtle border-t px-6 py-20">
         <div className="mx-auto max-w-5xl">
-          <h2 className="font-mono text-3xl text-text-primary">
+          <h2 className="text-text-primary font-mono text-3xl">
             <span className="text-accent-green">&gt;</span> {tTrainings('sectionTitle')}
           </h2>
           <div className="mt-10 grid gap-6 md:grid-cols-2">
@@ -3869,9 +4051,9 @@ export default async function Home({ params }: { params: Promise<{ locale: Local
       <TrainingDetail trainingId="basic" locale={locale} />
       <TrainingDetail trainingId="advanced" locale={locale} />
 
-      <section className="border-t border-border-subtle px-6 py-20">
+      <section className="border-border-subtle border-t px-6 py-20">
         <div className="mx-auto max-w-5xl">
-          <h2 className="font-mono text-2xl text-text-primary">
+          <h2 className="text-text-primary font-mono text-2xl">
             <span className="text-accent-green">&gt;</span> {tHome('instructorsTitle')}
           </h2>
           <div className="mt-8 grid gap-6 md:grid-cols-2">
@@ -3881,22 +4063,22 @@ export default async function Home({ params }: { params: Promise<{ locale: Local
           </div>
           <Link
             href={`/${locale}/about`}
-            className="mt-6 inline-flex font-mono text-sm text-accent-blue hover:underline"
+            className="text-accent-blue mt-6 inline-flex font-mono text-sm hover:underline"
           >
             {tHome('instructorsLink')}
           </Link>
         </div>
       </section>
 
-      <section className="border-t border-border-subtle bg-bg-elevated px-6 py-24">
+      <section className="border-border-subtle bg-bg-elevated border-t px-6 py-24">
         <div className="mx-auto max-w-3xl text-center">
-          <h2 className="font-mono text-3xl text-text-primary">
+          <h2 className="text-text-primary font-mono text-3xl">
             <span className="text-accent-green">&gt;</span> {tHome('finalCta.title')}
           </h2>
-          <p className="mt-4 text-text-muted">{tHome('finalCta.body')}</p>
+          <p className="text-text-muted mt-4">{tHome('finalCta.body')}</p>
           <Link
             href={`/${locale}/contact`}
-            className="mt-8 inline-flex items-center gap-2 rounded-sm bg-accent-green px-5 py-3 font-mono text-sm font-semibold text-bg-base hover:brightness-110"
+            className="bg-accent-green text-bg-base mt-8 inline-flex items-center gap-2 rounded-sm px-5 py-3 font-mono text-sm font-semibold hover:brightness-110"
           >
             $ {tHome('finalCta.cta')}
           </Link>

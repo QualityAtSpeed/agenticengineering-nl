@@ -1,9 +1,7 @@
 export default function Page() {
   return (
-    <main className="min-h-screen flex items-center justify-center">
-      <p className="font-mono text-accent-green text-xl">
-        &gt; agenticengineering.nl
-      </p>
+    <main className="flex min-h-screen items-center justify-center">
+      <p className="text-accent-green font-mono text-xl">&gt; agenticengineering.nl</p>
     </main>
   );
 }
