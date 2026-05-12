@@ -1,1 +1,39 @@
-/* Tailwind import added in Task 0.3 */
+@import "tailwindcss";
+
+@theme {
+  --color-bg-base: #0d1117;
+  --color-bg-elevated: #161b22;
+  --color-border-subtle: #30363d;
+  --color-text-primary: #c9d1d9;
+  --color-text-muted: #8b949e;
+  --color-accent-green: #7ee787;
+  --color-accent-blue: #58a6ff;
+  --color-accent-orange: #f0883e;
+  --color-accent-red: #ff7b72;
+
+  --font-mono: "JetBrains Mono", ui-monospace, SFMono-Regular, Menlo, monospace;
+  --font-sans: "Inter", system-ui, -apple-system, sans-serif;
+}
+
+:root {
+  color-scheme: dark;
+}
+
+html, body {
+  background-color: var(--color-bg-base);
+  color: var(--color-text-primary);
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+}
+
+*:focus-visible {
+  outline: 2px solid var(--color-accent-blue);
+  outline-offset: 2px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
+  }
+}
