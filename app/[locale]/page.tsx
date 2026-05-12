@@ -1,6 +1,7 @@
 import { setRequestLocale, getTranslations } from 'next-intl/server';
 import { Hero } from '@/components/Hero';
 import { LangSwitcher } from '@/components/LangSwitcher';
+import { TrainingDetail } from '@/components/TrainingDetail';
 import type { Locale } from '@/i18n/routing';
 
 export default async function Home({ params }: { params: Promise<{ locale: Locale }> }) {
@@ -18,8 +19,9 @@ export default async function Home({ params }: { params: Promise<{ locale: Local
         title={t('title')}
         subtitle={t('subtitle')}
         primaryCta={{ label: t('ctaPrimary'), href: `/${locale}/contact` }}
-        secondaryCta={{ label: t('ctaSecondary'), href: '#trainings' }}
+        secondaryCta={{ label: t('ctaSecondary'), href: '#training-basic' }}
       />
+      <TrainingDetail trainingId="basic" locale={locale} />
     </main>
   );
 }
