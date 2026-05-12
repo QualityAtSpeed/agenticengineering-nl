@@ -6,7 +6,7 @@ export const deliveryPrefEnum = z.enum(['inCompany', 'publicCohort', 'remote', '
 export const contactSchema = z.object({
   name: z.string().trim().min(1).max(100),
   email: z.string().trim().email().max(254),
-  company: z.string().trim().max(200).optional().default(''),
+  company: z.string().trim().max(200).default(''),
   trainingInterest: trainingInterestEnum,
   deliveryPref: deliveryPrefEnum,
   message: z.string().trim().min(10).max(5000),

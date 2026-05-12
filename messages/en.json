@@ -216,5 +216,43 @@
         "bio": "Bio to be added."
       }
     }
+  },
+  "contact": {
+    "title": "Contact",
+    "intro": "Tell us about your team. We respond within 1 business day.",
+    "form": {
+      "name": "Name",
+      "email": "Email",
+      "company": "Company (optional)",
+      "trainingInterest": "Interested in which training",
+      "trainingOptions": {
+        "basic": "Basic (1 day)",
+        "advanced": "Advanced (2 days)",
+        "both": "Both",
+        "other": "Other"
+      },
+      "deliveryPref": "Delivery preference",
+      "deliveryOptions": {
+        "inCompany": "In-company",
+        "publicCohort": "Public cohort",
+        "remote": "Remote",
+        "noPreference": "No preference"
+      },
+      "message": "Message",
+      "submit": "Send",
+      "submitting": "Sending..."
+    },
+    "errors": {
+      "required": "Required field",
+      "invalidEmail": "Invalid email address",
+      "messageTooShort": "At least 10 characters",
+      "messageTooLong": "Maximum 5000 characters",
+      "generic": "Something went wrong. Email pascal@validate-it.nl directly.",
+      "rateLimited": "Too many requests. Try again in a minute."
+    },
+    "success": {
+      "title": "Sent",
+      "body": "We'll be in touch within 1 business day."
+    }
   }
 }

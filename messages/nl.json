@@ -220,5 +220,43 @@
         "bio": "Bio nog in te vullen."
       }
     }
+  },
+  "contact": {
+    "title": "Contact",
+    "intro": "Vertel ons over je team. We reageren binnen 1 werkdag.",
+    "form": {
+      "name": "Naam",
+      "email": "E-mail",
+      "company": "Bedrijf (optioneel)",
+      "trainingInterest": "Interesse in welke training",
+      "trainingOptions": {
+        "basic": "Basic (1 dag)",
+        "advanced": "Advanced (2 dagen)",
+        "both": "Beide",
+        "other": "Anders"
+      },
+      "deliveryPref": "Voorkeur levering",
+      "deliveryOptions": {
+        "inCompany": "In-company",
+        "publicCohort": "Open inschrijving",
+        "remote": "Remote",
+        "noPreference": "Geen voorkeur"
+      },
+      "message": "Bericht",
+      "submit": "Verzenden",
+      "submitting": "Bezig met verzenden..."
+    },
+    "errors": {
+      "required": "Verplicht veld",
+      "invalidEmail": "Ongeldig e-mailadres",
+      "messageTooShort": "Minstens 10 tekens",
+      "messageTooLong": "Maximaal 5000 tekens",
+      "generic": "Er ging iets mis. Mail direct naar pascal@validate-it.nl.",
+      "rateLimited": "Te veel verzoeken. Probeer over een minuut opnieuw."
+    },
+    "success": {
+      "title": "Verzonden",
+      "body": "We nemen binnen 1 werkdag contact op."
+    }
   }
 }
