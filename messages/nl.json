@@ -1,0 +1,19 @@
+{
+  "meta": {
+    "title": "agenticengineering.nl",
+    "description": "Agentic engineering trainingen met Claude Code."
+  },
+  "nav": {
+    "about": "Over ons",
+    "contact": "Contact",
+    "switchToEn": "EN",
+    "switchToNl": "NL"
+  },
+  "hero": {
+    "kicker": "AGENTIC ENGINEERING · NL",
+    "title": "Train je team in agentic engineering.",
+    "subtitle": "Twee praktijkgerichte trainingen in Claude Code. Eén dag basis, twee dagen advanced.",
+    "ctaPrimary": "book training",
+    "ctaSecondary": "view curriculum"
+  }
+}
