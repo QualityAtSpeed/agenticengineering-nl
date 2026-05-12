@@ -343,7 +343,7 @@ colors: {
 ### Application-layer
 
 - **Input validation** — Zod everywhere; max-length caps as table in §8.
-- **Output encoding** — React auto-escapes; no `dangerouslySetInnerHTML`. ESLint `react/no-danger: error`.
+- **Output encoding** — React auto-escapes. `dangerouslySetInnerHTML` permitted **only** for JSON-LD `<script type="application/ld+json">` blocks rendering trusted, statically-typed schema.org payloads (Course, Organization). Wrap in a `<JsonLd />` helper that `JSON.stringify`s the typed object — never accepts user input. ESLint `react/no-danger: error` globally, with file-level disable allowed only inside `components/JsonLd.tsx`.
 - **Email header injection** — sanitize CR/LF from `name`, `email`, `subject`, `reply-to` before Resend call.
 - **Rate-limit** — 5 req/min/IP on `/api/contact`. Upstash/Vercel KV preferred; in-memory Map acceptable v1 single-region.
 - **Honeypot** — hidden `website` field; silent drop on fill.
