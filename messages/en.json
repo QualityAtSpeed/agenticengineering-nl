@@ -263,5 +263,14 @@
     "kvk": "KVK: <fill in KVK>",
     "vat": "VAT: <fill in VAT>",
     "email": "pascal@validate-it.nl"
+  },
+  "home": {
+    "instructorsTitle": "Who runs the training",
+    "instructorsLink": "Meet the team →",
+    "finalCta": {
+      "title": "Ready to train your team?",
+      "body": "Book an intro. We respond within 1 business day.",
+      "cta": "book training"
+    }
   }
 }

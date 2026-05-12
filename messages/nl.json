@@ -267,5 +267,14 @@
     "kvk": "KVK: <vul KVK in>",
     "vat": "BTW: <vul BTW in>",
     "email": "pascal@validate-it.nl"
+  },
+  "home": {
+    "instructorsTitle": "Wie geeft de training",
+    "instructorsLink": "Meet the team →",
+    "finalCta": {
+      "title": "Klaar om je team op te leiden?",
+      "body": "Plan een kennismaking. We reageren binnen 1 werkdag.",
+      "cta": "book training"
+    }
   }
 }
