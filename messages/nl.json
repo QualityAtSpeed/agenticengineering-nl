@@ -258,5 +258,14 @@
       "title": "Verzonden",
       "body": "We nemen binnen 1 werkdag contact op."
     }
+  },
+  "impressum": {
+    "title": "Bedrijfsgegevens",
+    "businessName": "agenticengineering.nl",
+    "operator": "Operator: <vul in vóór lancering>",
+    "address": "<vul adres in>",
+    "kvk": "KVK: <vul KVK in>",
+    "vat": "BTW: <vul BTW in>",
+    "email": "pascal@validate-it.nl"
   }
 }

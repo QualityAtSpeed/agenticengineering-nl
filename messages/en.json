@@ -254,5 +254,14 @@
       "title": "Sent",
       "body": "We'll be in touch within 1 business day."
     }
+  },
+  "impressum": {
+    "title": "Company details",
+    "businessName": "agenticengineering.nl",
+    "operator": "Operator: <fill in before launch>",
+    "address": "<fill in address>",
+    "kvk": "KVK: <fill in KVK>",
+    "vat": "VAT: <fill in VAT>",
+    "email": "pascal@validate-it.nl"
   }
 }
