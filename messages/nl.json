@@ -204,5 +204,21 @@
     "github": "GitHub",
     "linkedin": "LinkedIn",
     "x": "X"
+  },
+  "about": {
+    "title": "Over ons",
+    "intro": "We trainen engineering-teams in agentic engineering met Claude Code. Hands-on, productie-gericht, in NL of EN.",
+    "instructors": {
+      "pascal": {
+        "name": "Pascal Dufour",
+        "role": "Lead instructor",
+        "bio": "Founder van agenticengineering.nl. Werkt al jaren met agentic workflows en helpt teams hun SDLC te moderniseren."
+      },
+      "collaborator-1": {
+        "name": "Collaborator naam",
+        "role": "Co-instructor",
+        "bio": "Bio nog in te vullen."
+      }
+    }
   }
 }
