@@ -1,0 +1,14 @@
+import { defineConfig } from '@playwright/test';
+
+export default defineConfig({
+  testDir: './e2e',
+  timeout: 30_000,
+  webServer: {
+    command: 'pnpm build && pnpm start',
+    url: 'http://localhost:3000/nl',
+    reuseExistingServer: !process.env.CI,
+    timeout: 120_000,
+  },
+  use: { baseURL: 'http://localhost:3000' },
+  reporter: process.env.CI ? 'github' : 'list',
+});
