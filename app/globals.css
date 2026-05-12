@@ -11,8 +11,8 @@
   --color-accent-orange: #f0883e;
   --color-accent-red: #ff7b72;
 
-  --font-mono: 'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, monospace;
-  --font-sans: 'Inter', system-ui, -apple-system, sans-serif;
+  --font-mono: var(--font-mono-loaded), ui-monospace, SFMono-Regular, Menlo, monospace;
+  --font-sans: var(--font-sans-loaded), system-ui, -apple-system, sans-serif;
 }
 
 :root {
