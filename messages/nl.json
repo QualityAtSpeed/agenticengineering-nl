@@ -15,5 +15,185 @@
     "subtitle": "Twee praktijkgerichte trainingen in Claude Code. Eén dag basis, twee dagen advanced.",
     "ctaPrimary": "book training",
     "ctaSecondary": "view curriculum"
+  },
+  "trainings": {
+    "sectionTitle": "Trainingen",
+    "duration": {
+      "basic": "1 dag",
+      "advanced": "2 dagen"
+    },
+    "deliveryFormats": {
+      "inCompany": "In-company",
+      "publicCohort": "Open inschrijving",
+      "remote": "Remote"
+    },
+    "labels": {
+      "audience": "Voor wie",
+      "prerequisites": "Vereisten",
+      "outcomes": "Wat je leert",
+      "modules": "Curriculum",
+      "day1": "Dag 1 — integratie",
+      "day2": "Dag 2 — automatisering",
+      "price": "Prijs",
+      "priceSuffix": "excl. BTW",
+      "viewDetails": "Bekijk programma",
+      "bookCta": "Plan deze training"
+    },
+    "basic": {
+      "name": "Basic",
+      "tagline": "Foundations + eerste hands-on met Claude Code.",
+      "audience": [
+        "Engineers en tech leads die agentic workflows willen adopteren",
+        "Junior/mid developers die net beginnen met Claude Code",
+        "CTO's en engineering managers die hun team willen opleiden"
+      ],
+      "prerequisites": [
+        "Comfortabel met git en command line",
+        "Schrijft features in ten minste één taal (TS/Python/Go/etc.)"
+      ],
+      "outcomes": [
+        "Ship werkende features met Claude Code",
+        "Configureer gestructureerde context (CLAUDE.md, rules)",
+        "Gebruik bestaande MCP servers",
+        "Werk volgens een basis test-first lus",
+        "Stel basis hooks en quality gates in"
+      ]
+    },
+    "advanced": {
+      "name": "Advanced",
+      "tagline": "Custom tooling, full SDLC-integratie, automatisering op team-schaal.",
+      "audience": [
+        "Senior engineers die Claude Code al gebruiken",
+        "Tech leads die agentic workflows op team-niveau willen verankeren",
+        "Teams die hun eigen tooling willen bouwen"
+      ],
+      "prerequisites": ["Basic training of vergelijkbare hands-on ervaring met Claude Code"],
+      "outcomes": [
+        "Bouw eigen MCP servers",
+        "Authoring van Skills en Rules op productieniveau",
+        "Run agentic workflows door alle SDLC-fases",
+        "Orchestratie van subagents en parallelisme",
+        "Implementeer geavanceerde quality gates in CI",
+        "Governance en workflow-patronen voor teams"
+      ]
+    }
+  },
+  "modules": {
+    "fundamentals-of-agent": {
+      "title": "Fundamentals of an agent",
+      "bullets": [
+        "Wat is een agent en waarom werkt het",
+        "Tool-loop, beslissingen, autonomie",
+        "Verschil met chat en met automatisering"
+      ]
+    },
+    "context-architecture": {
+      "title": "Context architecture",
+      "bullets": [
+        "CLAUDE.md design",
+        "Rules files en project-wide configuratie",
+        "Hiërarchie: user, project, lokale overrides"
+      ]
+    },
+    "context-window-mechanics": {
+      "title": "Context window mechanics",
+      "bullets": [
+        "Compressie en samenvattingen",
+        "Priming en recency bias",
+        "Strategieën voor lange sessies"
+      ]
+    },
+    "build-first-feature": {
+      "title": "Build first features with an agent",
+      "bullets": [
+        "Van idee naar werkende feature",
+        "Iteratie: plan, implement, review",
+        "Hands-on lab"
+      ]
+    },
+    "intro-skills-rules": {
+      "title": "Intro to Skills & Rules",
+      "bullets": [
+        "Wanneer schrijf je een skill",
+        "Wanneer schrijf je een rule",
+        "Eerste eigen skill"
+      ]
+    },
+    "using-mcp-servers": {
+      "title": "Using MCP servers",
+      "bullets": [
+        "MCP overzicht",
+        "Bestaande servers koppelen (Filesystem, GitHub, Linear, etc.)",
+        "Best practices voor scope en permissions"
+      ]
+    },
+    "test-first-intro": {
+      "title": "Test-first strategy (intro)",
+      "bullets": [
+        "TDD loop met een agent",
+        "Wanneer test eerst, wanneer test later",
+        "Vermijd valse green builds"
+      ]
+    },
+    "basic-hooks-quality-gates": {
+      "title": "Basic hooks & quality gates",
+      "bullets": [
+        "Pre-commit checks (lint, format)",
+        "Type-check als gate",
+        "Eerste eigen hook configureren"
+      ]
+    },
+    "building-custom-mcp": {
+      "title": "Building custom MCP servers",
+      "bullets": [
+        "MCP server-architectuur",
+        "Tools, resources, prompts implementeren",
+        "Veiligheid en scope-design"
+      ]
+    },
+    "skills-rules-deep": {
+      "title": "Skills & Rules — deep dive",
+      "bullets": [
+        "Authoring van productie-skills",
+        "Trigger-design en discoverability",
+        "Skills delen binnen je team"
+      ]
+    },
+    "agents-sdlc-phases": {
+      "title": "Agents in every SDLC phase",
+      "bullets": [
+        "Refinement en planning met agents",
+        "Implementatie en parallel werk",
+        "Agentic code review en test"
+      ]
+    },
+    "agent-harnessing": {
+      "title": "Agent harnessing",
+      "bullets": ["Subagents en delegatie", "Parallelle workflows", "Orchestratie-patronen"]
+    },
+    "advanced-hooks-quality-gates": {
+      "title": "Advanced hooks & quality gates",
+      "bullets": [
+        "Policy enforcement via hooks",
+        "CI-integratie en kosten-bewuste gates",
+        "Custom security-gates"
+      ]
+    },
+    "test-first-advanced": {
+      "title": "Test-first — advanced patterns",
+      "bullets": [
+        "Contract- en integratietests met agents",
+        "Property-based en mutation testing",
+        "TDD voor teams met meerdere agents"
+      ]
+    },
+    "team-workflows-governance": {
+      "title": "Team workflows + governance",
+      "bullets": [
+        "Adoptie-strategie en role-design",
+        "Audit en compliance-patronen",
+        "Onboarding en kennisdeling"
+      ]
+    }
   }
 }
