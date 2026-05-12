@@ -1,6 +1,5 @@
 import { setRequestLocale, getTranslations } from 'next-intl/server';
 import { Hero } from '@/components/Hero';
-import { LangSwitcher } from '@/components/LangSwitcher';
 import { TrainingCard } from '@/components/TrainingCard';
 import { TrainingDetail } from '@/components/TrainingDetail';
 import type { Locale } from '@/i18n/routing';
@@ -13,10 +12,6 @@ export default async function Home({ params }: { params: Promise<{ locale: Local
 
   return (
     <main>
-      <header className="flex items-center justify-end px-6 py-4">
-        <LangSwitcher currentLocale={locale} />
-      </header>
-
       <Hero
         kicker={tHero('kicker')}
         title={tHero('title')}

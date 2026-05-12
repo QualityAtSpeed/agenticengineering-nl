@@ -7,7 +7,8 @@
     "about": "Over ons",
     "contact": "Contact",
     "switchToEn": "EN",
-    "switchToNl": "NL"
+    "switchToNl": "NL",
+    "brand": "agentic·engineering"
   },
   "hero": {
     "kicker": "AGENTIC ENGINEERING · NL",
@@ -195,5 +196,13 @@
         "Onboarding en kennisdeling"
       ]
     }
+  },
+  "footer": {
+    "tagline": "Agentic engineering trainingen.",
+    "rights": "© 2026 agenticengineering.nl",
+    "impressumLink": "Bedrijfsgegevens",
+    "github": "GitHub",
+    "linkedin": "LinkedIn",
+    "x": "X"
   }
 }

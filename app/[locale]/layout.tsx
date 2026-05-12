@@ -4,7 +4,9 @@ import { notFound } from 'next/navigation';
 import { NextIntlClientProvider, hasLocale } from 'next-intl';
 import { getTranslations, setRequestLocale } from 'next-intl/server';
 import { Inter, JetBrains_Mono } from 'next/font/google';
-import { routing } from '@/i18n/routing';
+import { routing, type Locale } from '@/i18n/routing';
+import { Nav } from '@/components/Nav';
+import { Footer } from '@/components/Footer';
 
 const inter = Inter({ subsets: ['latin'], variable: '--font-sans-loaded', display: 'swap' });
 const mono = JetBrains_Mono({
@@ -33,11 +35,22 @@ export default async function LocaleLayout({
   const { locale } = await params;
   if (!hasLocale(routing.locales, locale)) notFound();
   setRequestLocale(locale);
+  const typedLocale = locale as Locale;
 
   return (
     <html lang={locale} className={`${inter.variable} ${mono.variable}`}>
       <body>
-        <NextIntlClientProvider>{children}</NextIntlClientProvider>
+        <a
+          href="#main"
+          className="focus:bg-accent-green focus:text-bg-base sr-only focus:not-sr-only focus:fixed focus:top-2 focus:left-2 focus:rounded-sm focus:px-3 focus:py-1"
+        >
+          Skip to content
+        </a>
+        <NextIntlClientProvider>
+          <Nav locale={typedLocale} />
+          <div id="main">{children}</div>
+          <Footer locale={typedLocale} />
+        </NextIntlClientProvider>
       </body>
     </html>
   );
