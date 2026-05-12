@@ -17,5 +17,16 @@
     "test:e2e": "playwright test",
     "format": "prettier --write .",
     "verify:i18n": "tsx scripts/verify-i18n.ts"
+  },
+  "dependencies": {
+    "next": "^15",
+    "react": "^19",
+    "react-dom": "^19"
+  },
+  "devDependencies": {
+    "@types/node": "^25.7.0",
+    "@types/react": "^19.2.14",
+    "@types/react-dom": "^19.2.3",
+    "typescript": "^6.0.3"
   }
 }
