@@ -22,7 +22,24 @@ export async function generateStaticParams() {
 export async function generateMetadata({ params }: { params: Promise<{ locale: string }> }) {
   const { locale } = await params;
   const t = await getTranslations({ locale, namespace: 'meta' });
-  return { title: t('title'), description: t('description') };
+  return {
+    title: t('title'),
+    description: t('description'),
+    alternates: {
+      canonical: `https://agenticengineering.nl/${locale}`,
+      languages: {
+        nl: 'https://agenticengineering.nl/nl',
+        en: 'https://agenticengineering.nl/en',
+      },
+    },
+    openGraph: {
+      title: t('title'),
+      description: t('description'),
+      url: `https://agenticengineering.nl/${locale}`,
+      locale: locale === 'nl' ? 'nl_NL' : 'en_GB',
+      type: 'website',
+    },
+  };
 }
 
 export default async function LocaleLayout({
