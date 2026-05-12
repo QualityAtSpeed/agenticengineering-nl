@@ -1,7 +1,15 @@
+import { Hero } from '@/components/Hero';
+
 export default function Page() {
   return (
-    <main className="flex min-h-screen items-center justify-center">
-      <p className="text-accent-green font-mono text-xl">&gt; agenticengineering.nl</p>
+    <main>
+      <Hero
+        kicker="AGENTIC ENGINEERING · NL"
+        title="Train je team in agentic engineering."
+        subtitle="Twee praktijkgerichte trainingen in Claude Code. Eén dag basis, twee dagen advanced."
+        primaryCta={{ label: 'book training', href: '/contact' }}
+        secondaryCta={{ label: 'view curriculum', href: '#trainings' }}
+      />
     </main>
   );
 }
