@@ -1,0 +1,202 @@
+# agenticengineering.nl
+
+Marketing + intake site for the Agentic Engineering training programme. Bilingual (NL/EN), dark terminal-native aesthetic, deployed on Vercel.
+
+Live: <https://agenticengineering.nl>
+
+---
+
+## Stack
+
+| Layer           | Choice                                                 |
+| --------------- | ------------------------------------------------------ |
+| Framework       | Next.js 15 (App Router, RSC)                           |
+| Runtime         | Node.js 20                                             |
+| Package manager | pnpm 9                                                 |
+| Styling         | Tailwind CSS v4 (`@theme` tokens in `app/globals.css`) |
+| i18n            | next-intl (NL default, EN alt)                         |
+| Forms           | react-hook-form + Zod                                  |
+| Mail            | Resend                                                 |
+| Tests           | Vitest (unit) + Playwright (e2e + axe a11y)            |
+| Hosting         | Vercel (Fluid Compute)                                 |
+
+## Layout
+
+```
+app/
+  [locale]/            # NL/EN routed pages (home, about, contact, impressum)
+  api/contact/         # POST handler — Zod + rate-limit + Resend
+  robots.ts            # /robots.txt
+  sitemap.ts           # /sitemap.xml
+  globals.css          # Tailwind v4 @theme block (single source of design tokens)
+components/            # Hero, Nav, Footer, TrainingCard, TrainingDetail, ContactForm, …
+lib/
+  validation.ts        # Zod schemas (contactSchema, trainingInterestEnum, …)
+  email.ts             # Resend wrapper, sendContactEmail()
+  rate-limit.ts        # Per-IP token bucket (in-memory; per-instance)
+  sanitize.ts          # CRLF strip for email headers
+data/trainings.ts      # Training catalogue + modules (typed)
+i18n/                  # next-intl config (routing.ts, request.ts)
+messages/              # nl.json, en.json (translation keys)
+scripts/verify-i18n.ts # CI gate: NL/EN key parity
+tests/                 # Vitest unit + Playwright e2e
+PRODUCT.md             # Brand register (users, tone, anti-references, principles)
+DESIGN.md              # Design system (colors, typography, components, do's/don'ts)
+next.config.ts         # Security headers + next-intl plugin
+```
+
+## Local development
+
+```bash
+pnpm install
+pnpm dev                  # http://localhost:3000 (auto-redirects /  → /nl)
+```
+
+Routes:
+
+- `/nl`, `/en` — locale-scoped pages
+- `/nl/about`, `/nl/contact`, `/nl/impressum` (and `/en/*`)
+- `/api/contact` — POST endpoint
+- `/sitemap.xml`, `/robots.txt`
+
+### Useful scripts
+
+```bash
+pnpm typecheck            # tsc --noEmit
+pnpm lint                 # eslint
+pnpm test                 # vitest run (unit)
+pnpm test:e2e             # playwright (requires `pnpm exec playwright install` once)
+pnpm verify:i18n          # NL/EN translation key parity check
+pnpm build                # production build
+pnpm format               # prettier --write .
+```
+
+A pre-commit `lefthook` hook runs `format` + `lint`. Don't bypass with `--no-verify` unless you're fixing the hook itself.
+
+## Environment variables
+
+| Key                  | Scope  | Purpose                                                                                                      |
+| -------------------- | ------ | ------------------------------------------------------------------------------------------------------------ |
+| `RESEND_API_KEY`     | server | Auth for Resend API (40+ char `re_...` token). Never a placeholder.                                          |
+| `CONTACT_FROM_EMAIL` | server | FROM address on outbound mail. Must be on a Resend-verified domain. Currently `hello@agenticengineering.nl`. |
+| `CONTACT_EMAIL`      | server | TO address (inbox that receives form submissions). Currently `hello@agenticengineering.nl`.                  |
+
+All three are **production scope only**. Set via Vercel CLI or UI:
+
+```bash
+vercel env add RESEND_API_KEY production
+vercel env add CONTACT_FROM_EMAIL production
+vercel env add CONTACT_EMAIL production
+```
+
+Or paste real values in Vercel UI → Project → Settings → Environment Variables. After editing, redeploy with `vercel --prod` for new values to land in the function.
+
+Local dev does not need these (contact form requires them at runtime). For local mail testing, create `.env.local` with the same keys.
+
+## Contact form pipeline
+
+```
+Browser → POST /api/contact → app/api/contact/route.ts
+                ├─ Origin allowlist (CSRF)        → 403 if mismatch
+                ├─ Per-IP rate-limit              → 429 if exceeded
+                ├─ Honeypot `website` field       → 200 silent-drop if set
+                ├─ Zod contactSchema validate     → 400 if invalid
+                └─ lib/email.ts → Resend.emails.send()
+                                  ├─ EmailError → 502
+                                  └─ ok → 200
+```
+
+Allowed origins (regex in `app/api/contact/route.ts`):
+
+- `https://agenticengineering.nl` and `https://www.agenticengineering.nl`
+- `https://agenticengineering*.vercel.app`
+- `http://localhost(:port)`
+
+To-field is never user-controlled. CRLF-stripped via `lib/sanitize.ts` to prevent header injection.
+
+## Security headers
+
+Set in `next.config.ts`. Apply only in production (dev keeps relaxed for local tooling).
+
+- `Strict-Transport-Security: max-age=63072000; includeSubDomains; preload`
+- `X-Content-Type-Options: nosniff`
+- `X-Frame-Options: DENY`
+- `Referrer-Policy: strict-origin-when-cross-origin`
+- `Permissions-Policy: camera=(), microphone=(), geolocation=()`
+- `Content-Security-Policy:` `default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline'; img-src 'self' data:; font-src 'self' data: https://fonts.gstatic.com; connect-src 'self' https://api.resend.com; frame-ancestors 'none'; base-uri 'self'; form-action 'self'`
+
+## Deployment
+
+### One-time
+
+```bash
+brew install vercel-cli
+vercel login
+vercel link              # links cwd to existing Vercel project
+```
+
+### Deploy
+
+```bash
+vercel --prod            # production deploy + alias to apex
+```
+
+Vercel GitHub App is **not** connected to this private repo, so pushes to `main` do **not** auto-deploy. Every release is a manual `vercel --prod`. To enable push-deploy: Vercel UI → Project → Settings → Git → Connect Git Repository.
+
+### DNS (TransIP)
+
+Mail and web records coexist on the same zone.
+
+**Web (Vercel):**
+
+| Name  | Type  | Value                                         |
+| ----- | ----- | --------------------------------------------- |
+| `@`   | A     | `76.76.21.21`                                 |
+| `www` | CNAME | `cname.vercel-dns.com.` _(note trailing dot)_ |
+
+**Mail (Resend — for `hello@agenticengineering.nl` sending):**
+
+| Name                | Type | Value                                                                  |
+| ------------------- | ---- | ---------------------------------------------------------------------- |
+| `resend._domainkey` | TXT  | `p=…` _(DKIM, copy from Resend dashboard)_                             |
+| `send`              | MX   | `feedback-smtp.eu-west-1.amazonses.com.` _(trailing dot, priority 10)_ |
+| `send`              | TXT  | `v=spf1 include:amazonses.com ~all`                                    |
+| `_dmarc`            | TXT  | `v=DMARC1; p=none;`                                                    |
+
+**Mail (TransIP — apex inbox, unrelated to outbound sending):** existing MX `mx.transip.email.`, SPF `_spf.transip.email`, DKIM CNAMEs `transip-{a,b,c}._domainkey`. Untouched by Vercel migration.
+
+TransIP gotcha: any record value that should resolve as an absolute FQDN **must end with a `.`** (MX, CNAME). Otherwise TransIP auto-appends the zone apex and breaks resolution.
+
+### Verifying a deploy
+
+```bash
+curl -sI https://agenticengineering.nl/nl
+# Expect: HTTP/2 200, all 6 security headers present.
+
+curl -s -X POST https://agenticengineering.nl/api/contact \
+  -H 'Content-Type: application/json' \
+  -H 'Origin: https://agenticengineering.nl' \
+  -d '{"name":"t","email":"t@example.com","trainingInterest":"basic","deliveryPref":"noPreference","message":"smoke test 0123456789","website":""}'
+# Expect: {"ok":true}
+```
+
+## i18n
+
+Translation messages live in `messages/{nl,en}.json`. Locale routing in `i18n/routing.ts`. NL is the default locale (no prefix-less root — `/` redirects to `/nl`).
+
+CI runs `pnpm verify:i18n` to enforce key parity between NL and EN. Add a new key → add it to both files.
+
+## Testing
+
+- **Unit** (`tests/**/*.test.ts`): Vitest, jsdom env for component tests. `pnpm test`.
+- **E2E** (`tests/e2e/`): Playwright, hits dev server. `pnpm test:e2e`.
+- **A11y**: axe-core integrated into Playwright tests. Zero WCAG 2.1 AA violations enforced.
+
+CI workflow: `.github/workflows/ci.yml` runs typecheck + lint + unit + i18n integrity gate on every push.
+
+## Brand and design context
+
+- `PRODUCT.md` — who the site is for, tone of voice, anti-references, strategic principles.
+- `DESIGN.md` — Stitch-format design system: colors (OKLCH dark palette), typography (JetBrains Mono display, Inter body), components, do's/don'ts.
+
+These two files inform every UI decision. Read them before touching components.
