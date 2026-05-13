@@ -65,13 +65,8 @@ export async function POST(req: Request) {
   try {
     await sendContactEmail(parsed.data);
     return NextResponse.json({ ok: true }, { status: 200 });
-  } catch (err) {
-    console.error('contact_email_failed', {
-      msg: err instanceof Error ? err.message : String(err),
-      keyLen: (process.env.RESEND_API_KEY ?? '').length,
-      from: process.env.CONTACT_FROM_EMAIL,
-      to: process.env.CONTACT_EMAIL,
-    });
+  } catch {
+    console.error('contact_email_failed');
     return NextResponse.json({ ok: false, error: 'email_failed' }, { status: 502 });
   }
 }
