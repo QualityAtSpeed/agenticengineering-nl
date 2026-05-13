@@ -40,3 +40,8 @@ test-results/
 # Claude local settings
 .claude/settings.local.json
 *.tsbuildinfo
+.vercel
+
+# Impeccable transient session/annotation data (keep config.json)
+.impeccable/live/annotations/
+.impeccable/live/sessions/
