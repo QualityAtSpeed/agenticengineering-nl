@@ -4,7 +4,7 @@ import { sendContactEmail } from '@/lib/email';
 import { checkRateLimit } from '@/lib/rate-limit';
 
 const ALLOWED_ORIGIN_PATTERNS = [
-  /^https:\/\/agenticengineering\.nl$/,
+  /^https:\/\/(www\.)?agenticengineering\.nl$/,
   /^https:\/\/agenticengineering(-[a-z0-9-]+)?\.vercel\.app$/,
   /^http:\/\/localhost(:\d+)?$/,
 ];
