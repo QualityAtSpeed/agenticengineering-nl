@@ -1,4 +1,4 @@
-export type InstructorId = 'pascal' | 'collaborator-1';
+export type InstructorId = 'pascal' | 'inico';
 
 export type Instructor = {
   id: InstructorId;
@@ -7,6 +7,6 @@ export type Instructor = {
 };
 
 export const instructors: Instructor[] = [
-  { id: 'pascal', photo: '/instructors/pascal.png' },
-  { id: 'collaborator-1', photo: '/instructors/collaborator-1.png' },
+  { id: 'pascal', photo: '/instructors/pascal.jpeg' },
+  { id: 'inico', photo: '/instructors/inico.jpeg' },
 ];
