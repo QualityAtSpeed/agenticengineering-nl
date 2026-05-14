@@ -14,8 +14,8 @@
     "kicker": "AGENTIC ENGINEERING · NL",
     "title": "Train je team in agentic engineering.",
     "subtitle": "Twee praktijkgerichte trainingen in Claude Code. Eén dag basis, twee dagen advanced.",
-    "ctaPrimary": "book training",
-    "ctaSecondary": "view curriculum"
+    "ctaPrimary": "boek training",
+    "ctaSecondary": "bekijk curriculum"
   },
   "trainings": {
     "sectionTitle": "Trainingen",
@@ -32,7 +32,7 @@
       "audience": "Voor wie",
       "prerequisites": "Vereisten",
       "outcomes": "Wat je leert",
-      "modules": "Curriculum",
+      "modules": "modules",
       "day1": "Dag 1 — integratie",
       "day2": "Dag 2 — automatisering",
       "price": "Prijs",
@@ -42,7 +42,7 @@
     },
     "basic": {
       "name": "Basic",
-      "tagline": "Foundations + eerste hands-on met Claude Code.",
+      "tagline": "Basis + eerste hands-on met Claude Code.",
       "audience": [
         "Engineers en tech leads die agentic workflows willen adopteren",
         "Junior/mid developers die net beginnen met Claude Code",
@@ -50,19 +50,19 @@
       ],
       "prerequisites": [
         "Comfortabel met git en command line",
-        "Schrijft features in ten minste één taal (TS/Python/Go/etc.)"
+        "Bekend met ten minste één taal (TS/Python/Go/etc.)"
       ],
       "outcomes": [
-        "Ship werkende features met Claude Code",
+        "Creëer werkende features met Claude Code",
         "Configureer gestructureerde context (CLAUDE.md, rules)",
         "Gebruik bestaande MCP servers",
-        "Werk volgens een basis test-first lus",
+        "Werk volgens een basis test-first loop",
         "Stel basis hooks en quality gates in"
       ]
     },
     "advanced": {
       "name": "Advanced",
-      "tagline": "Custom tooling, full SDLC-integratie, automatisering op team-schaal.",
+      "tagline": "Custom tooling, volledige SDLC-integratie, automatisering op team-schaal.",
       "audience": [
         "Senior engineers die Claude Code al gebruiken",
         "Tech leads die agentic workflows op team-niveau willen verankeren",
@@ -113,7 +113,7 @@
       ]
     },
     "intro-skills-rules": {
-      "title": "Intro to Skills & Rules",
+      "title": "Introductie tot Skills & Rules",
       "bullets": [
         "Wanneer schrijf je een skill",
         "Wanneer schrijf je een rule",
@@ -121,7 +121,7 @@
       ]
     },
     "using-mcp-servers": {
-      "title": "Using MCP servers",
+      "title": "Gebruik MCP servers",
       "bullets": [
         "MCP overzicht",
         "Bestaande servers koppelen (Filesystem, GitHub, Linear, etc.)",
@@ -129,7 +129,7 @@
       ]
     },
     "test-first-intro": {
-      "title": "Test-first strategy (intro)",
+      "title": "Test-first strategie (intro)",
       "bullets": [
         "TDD loop met een agent",
         "Wanneer test eerst, wanneer test later",
@@ -137,7 +137,7 @@
       ]
     },
     "basic-hooks-quality-gates": {
-      "title": "Basic hooks & quality gates",
+      "title": "Basis hooks & quality gates",
       "bullets": [
         "Pre-commit checks (lint, format)",
         "Type-check als gate",
@@ -145,7 +145,7 @@
       ]
     },
     "building-custom-mcp": {
-      "title": "Building custom MCP servers",
+      "title": "Bouwen van custom MCP servers",
       "bullets": [
         "MCP server-architectuur",
         "Tools, resources, prompts implementeren",
@@ -161,7 +161,7 @@
       ]
     },
     "agents-sdlc-phases": {
-      "title": "Agents in every SDLC phase",
+      "title": "Agents in elke SDLC fase",
       "bullets": [
         "Refinement en planning met agents",
         "Implementatie en parallel werk",
@@ -175,7 +175,7 @@
     "advanced-hooks-quality-gates": {
       "title": "Advanced hooks & quality gates",
       "bullets": [
-        "Policy enforcement via hooks",
+        "policies afdwingen via hooks",
         "CI-integratie en kosten-bewuste gates",
         "Custom security-gates"
       ]
@@ -200,7 +200,7 @@
   "footer": {
     "tagline": "Agentic engineering trainingen.",
     "rights": "© 2026 agenticengineering.nl",
-    "impressumLink": "Bedrijfsgegevens",
+    "impressumLink": "Quality at Speed",
     "github": "GitHub",
     "linkedin": "LinkedIn",
     "x": "X"
@@ -212,12 +212,12 @@
       "pascal": {
         "name": "Pascal Dufour",
         "role": "Lead instructor",
-        "bio": "Founder van agenticengineering.nl. Werkt al jaren met agentic workflows en helpt teams hun SDLC te moderniseren."
+        "bio": "Co-founder van agenticengineering.nl. Werkt al jaren met AI en agentic workflows en helpt teams hun SDLC te moderniseren.."
       },
       "collaborator-1": {
-        "name": "Collaborator naam",
+        "name": "Inico Veringa",
         "role": "Co-instructor",
-        "bio": "Bio nog in te vullen."
+        "bio": "Co-founder van agenticengineering.nl. Werkt al jaren met AI en agentic workflows en helpt teams hun SDLC te moderniseren.."
       }
     }
   },
@@ -262,10 +262,10 @@
   "impressum": {
     "title": "Bedrijfsgegevens",
     "businessName": "agenticengineering.nl",
-    "operator": "Operator: <vul in vóór lancering>",
-    "address": "<vul adres in>",
-    "kvk": "KVK: <vul KVK in>",
-    "vat": "BTW: <vul BTW in>",
+    "operator": "Operator: Pascal Dufour",
+    "address": "Dokter Spanjaardweg 23\n8025 BT Zwolle",
+    "kvk": "KVK: 87798530",
+    "vat": "BTW: NL001663539B75",
     "email": "pascal@validate-it.nl"
   },
   "home": {
@@ -274,7 +274,7 @@
     "finalCta": {
       "title": "Klaar om je team op te leiden?",
       "body": "Plan een kennismaking. We reageren binnen 1 werkdag.",
-      "cta": "book training"
+      "cta": "boek training"
     }
   }
 }
