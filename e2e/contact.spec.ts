@@ -14,6 +14,9 @@ test('contact form submits when API is mocked to 200', async ({ page }) => {
   await page.fill('input[name="name"]', 'Pascal');
   await page.fill('input[name="email"]', 'pascal@example.com');
   await page.fill('textarea[name="message"]', 'Wij willen graag de basic training boeken.');
-  await page.getByRole('button', { name: /Verzenden/ }).click();
-  await expect(page.getByText('// Verzonden')).toBeVisible();
+  await Promise.all([
+    page.waitForResponse('**/api/contact'),
+    page.getByRole('button', { name: /Verzenden/ }).click(),
+  ]);
+  await expect(page.getByText('// Verzonden')).toBeVisible({ timeout: 10_000 });
 });
