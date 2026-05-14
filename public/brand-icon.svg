@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg id="Layer_1" data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" width="1080" height="1080" viewBox="0 0 1080 1080">
+  <!-- Background: identical rounded square to the QAS icon for visual sibling-ship -->
+  <path d="M897.55,0H182.45C81.68,0,0,84.27,0,188.21v703.58c0,103.95,81.68,188.21,182.45,188.21h715.11c100.76,0,182.45-84.26,182.45-188.21V188.21c0-103.95-81.68-188.21-182.45-188.21Z" style="fill: #0f1108;"/>
+  <!-- Bold "A" mark with rounded joins -->
+  <g fill="none" stroke="#00E676" stroke-width="108" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M 260 820 L 540 250 L 820 820"/>
+    <path d="M 380 605 L 700 605"/>
+  </g>
+  <!-- Agent node dot sitting inside the counter of the A -->
+  <circle cx="540" cy="465" r="40" fill="#00E676"/>
+</svg>
