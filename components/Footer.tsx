@@ -5,6 +5,7 @@ import type { Locale } from '@/i18n/routing';
 
 export async function Footer({ locale }: { locale: Locale }) {
   const t = await getTranslations('footer');
+  const tNav = await getTranslations('nav');
   return (
     <footer className="border-border-subtle bg-bg-elevated border-t px-6 py-12">
       <div className="mx-auto grid max-w-6xl gap-8 sm:grid-cols-4">
@@ -13,11 +14,13 @@ export async function Footer({ locale }: { locale: Locale }) {
           <p className="text-text-muted mt-2 text-xs">{t('tagline')}</p>
         </div>
         <div>
-          <p className="text-text-muted font-mono text-xs tracking-[0.2em] uppercase">Pages</p>
+          <p className="text-text-muted font-mono text-xs tracking-[0.2em] uppercase">
+            {t('pagesHeading')}
+          </p>
           <ul className="mt-3 space-y-1 text-sm">
             <li>
               <Link href={`/${locale}/about`} className="text-text-primary hover:text-accent-blue">
-                About
+                {tNav('about')}
               </Link>
             </li>
             <li>
@@ -25,7 +28,7 @@ export async function Footer({ locale }: { locale: Locale }) {
                 href={`/${locale}/contact`}
                 className="text-text-primary hover:text-accent-blue"
               >
-                Contact
+                {tNav('contact')}
               </Link>
             </li>
             <li>
@@ -40,7 +43,9 @@ export async function Footer({ locale }: { locale: Locale }) {
           </ul>
         </div>
         <div>
-          <p className="text-text-muted font-mono text-xs tracking-[0.2em] uppercase">Socials</p>
+          <p className="text-text-muted font-mono text-xs tracking-[0.2em] uppercase">
+            {t('socialsHeading')}
+          </p>
           <ul className="mt-3 space-y-1 text-sm">
             <li>
               <a
