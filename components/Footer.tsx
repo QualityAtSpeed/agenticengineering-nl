@@ -1,3 +1,4 @@
+import Image from 'next/image';
 import Link from 'next/link';
 import { getTranslations } from 'next-intl/server';
 import type { Locale } from '@/i18n/routing';
@@ -30,8 +31,9 @@ export async function Footer({ locale }: { locale: Locale }) {
             <li>
               <Link
                 href={`/${locale}/impressum`}
-                className="text-text-primary hover:text-accent-blue"
+                className="text-text-primary hover:text-accent-blue inline-flex items-center gap-1.5"
               >
+                <Image src="/qas-icon.svg" alt="" width={14} height={14} aria-hidden />
                 {t('impressumLink')}
               </Link>
             </li>
