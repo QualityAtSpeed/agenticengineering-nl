@@ -67,16 +67,6 @@ export async function Footer({ locale }: { locale: Locale }) {
                 {t('linkedin')}
               </a>
             </li>
-            <li>
-              <a
-                href="https://x.com/"
-                rel="noopener noreferrer"
-                target="_blank"
-                className="text-text-primary hover:text-accent-blue"
-              >
-                {t('x')}
-              </a>
-            </li>
           </ul>
         </div>
         <div className="text-text-muted font-mono text-xs sm:text-right">
