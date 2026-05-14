@@ -33,6 +33,8 @@ coverage/
 playwright-report/
 test-results/
 .playwright/
+.playwright-mcp/
+prod-*.png
 
 # Superpowers brainstorm (local-only)
 .superpowers/

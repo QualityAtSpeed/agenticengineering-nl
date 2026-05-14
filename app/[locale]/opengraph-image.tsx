@@ -1,11 +1,15 @@
 import { ImageResponse } from 'next/og';
+import { getTranslations } from 'next-intl/server';
+import type { Locale } from '@/i18n/routing';
 
 export const runtime = 'edge';
 export const alt = 'agenticengineering.nl — agentic engineering trainings';
 export const size = { width: 1200, height: 630 };
 export const contentType = 'image/png';
 
-export default async function Image() {
+export default async function Image({ params }: { params: Promise<{ locale: Locale }> }) {
+  const { locale } = await params;
+  const t = await getTranslations({ locale, namespace: 'hero' });
   return new ImageResponse(
     <div
       style={{
@@ -40,11 +44,9 @@ export default async function Image() {
       <div style={{ display: 'flex', flexDirection: 'column', gap: '24px' }}>
         <div style={{ display: 'flex', fontSize: 84, lineHeight: 1.05 }}>
           <span style={{ color: '#7ee787', marginRight: '24px' }}>&gt;</span>
-          <span>Train your team in agentic engineering.</span>
+          <span>{t('title')}</span>
         </div>
-        <span style={{ fontSize: 32, color: '#8b949e' }}>
-          Two hands-on trainings in Claude Code.
-        </span>
+        <span style={{ fontSize: 32, color: '#8b949e' }}>{t('subtitle')}</span>
       </div>
     </div>,
     { ...size },
