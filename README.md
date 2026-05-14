@@ -20,6 +20,39 @@ Live: <https://agenticengineering.nl>
 | Tests           | Vitest (unit) + Playwright (e2e + axe a11y)            |
 | Hosting         | Vercel (Fluid Compute)                                 |
 
+## Getting started
+
+Prerequisites: Node.js 20 (`.nvmrc`), pnpm 9, git.
+
+```bash
+git clone https://github.com/<owner>/agenticengineering.nl.git
+cd agenticengineering.nl
+nvm use                   # picks Node 20 from .nvmrc
+corepack enable           # provides pnpm 9
+pnpm install
+pnpm exec playwright install   # one-time, only if you'll run e2e
+cp .env.example .env.local     # only needed to test contact form locally
+pnpm dev                  # http://localhost:3000 → redirects to /nl
+```
+
+First-run sanity check:
+
+```bash
+pnpm typecheck && pnpm lint && pnpm test && pnpm verify:i18n
+```
+
+Contact form needs `RESEND_API_KEY`, `CONTACT_FROM_EMAIL`, `CONTACT_EMAIL` in `.env.local` (see [Environment variables](#environment-variables)). Skip if you're only touching UI/copy — the rest of the site renders without them.
+
+Editing checklist:
+
+- UI/copy → read `PRODUCT.md` + `DESIGN.md` first.
+- New translation key → add to **both** `messages/nl.json` and `messages/en.json`; `pnpm verify:i18n` gates CI.
+- New route → add it under `app/[locale]/`; sitemap auto-picks it up.
+- API/server logic → keep validation in `lib/validation.ts`, side effects in `lib/*`.
+- Pre-commit `lefthook` runs `format` + `lint`. Don't `--no-verify`.
+
+Deploy: push to `main` → auto-prod via Vercel GitHub App. Push any other branch → preview URL (see [Preview environment](#preview-environment)).
+
 ## Layout
 
 ```
