@@ -5,9 +5,23 @@ import reactHooksPlugin from 'eslint-plugin-react-hooks';
 import react from 'eslint-plugin-react';
 import next from 'eslint-config-next';
 
-// Filter out the react plugin config from next (it's incompatible with ESLint 10 flat config)
-// but keep other Next.js configs like the ones for @next/next
-const nextConfigs = next.filter((cfg) => !cfg.plugins?.react);
+// eslint-config-next's first config item bundles the @next/next plugin alongside react/jsx-a11y/import,
+// which are incompatible with ESLint 10 flat config. Extract just the @next/next plugin + rules so
+// `next build` can detect its plugin and surface Next-specific lints.
+const nextCoreItem = next.find((cfg) => cfg.plugins?.['@next/next']);
+const nextCoreConfig = nextCoreItem
+  ? {
+      name: 'next/@next/next',
+      plugins: { '@next/next': nextCoreItem.plugins['@next/next'] },
+      rules: Object.fromEntries(
+        Object.entries(nextCoreItem.rules ?? {}).filter(([rule]) => rule.startsWith('@next/next/')),
+      ),
+    }
+  : null;
+const nextConfigs = [
+  ...(nextCoreConfig ? [nextCoreConfig] : []),
+  ...next.filter((cfg) => cfg !== nextCoreItem && !cfg.plugins?.react),
+];
 
 export default [
   js.configs.recommended,
