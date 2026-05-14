@@ -145,7 +145,7 @@ export function ContactForm({ defaultTraining }: { defaultTraining?: 'basic' | '
         disabled={status === 'submitting'}
         className="bg-accent-green text-bg-base inline-flex items-center gap-2 rounded-sm px-5 py-3 font-mono text-sm font-semibold hover:brightness-110 disabled:opacity-60"
       >
-        $ {status === 'submitting' ? t('form.submitting') : t('form.submit')}
+        {status === 'submitting' ? t('form.submitting') : t('form.submit')}
       </button>
     </form>
   );

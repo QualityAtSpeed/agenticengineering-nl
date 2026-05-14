@@ -93,7 +93,7 @@ export default async function Home({ params }: { params: Promise<{ locale: Local
             href={`/${locale}/contact`}
             className="bg-accent-green text-bg-base mt-8 inline-flex items-center gap-2 rounded-sm px-5 py-3 font-mono text-sm font-semibold hover:brightness-110"
           >
-            $ {tHome('finalCta.cta')}
+            {tHome('finalCta.cta')}
           </Link>
         </div>
       </section>

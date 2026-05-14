@@ -95,7 +95,7 @@ export function TrainingDetail({ trainingId, locale }: { trainingId: TrainingId;
             href={`/${locale}/contact?training=${trainingId}`}
             className="bg-accent-green text-bg-base inline-flex items-center gap-2 rounded-sm px-5 py-3 font-mono text-sm font-semibold hover:brightness-110"
           >
-            $ {tCommon('bookCta')}
+            {tCommon('bookCta')}
           </Link>
         </div>
       </div>

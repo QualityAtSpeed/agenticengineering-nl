@@ -22,7 +22,7 @@ export function Hero({ kicker, title, subtitle, primaryCta, secondaryCta }: Hero
             href={primaryCta.href}
             className="bg-accent-green text-bg-base inline-flex items-center gap-2 rounded-sm px-5 py-3 font-mono text-sm font-semibold transition hover:brightness-110"
           >
-            $ {primaryCta.label}
+            {primaryCta.label}
           </Link>
           <Link
             href={secondaryCta.href}
