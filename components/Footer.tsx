@@ -59,7 +59,7 @@ export async function Footer({ locale }: { locale: Locale }) {
             </li>
             <li>
               <a
-                href="https://linkedin.com/"
+                href="https://linkedin.com/company/quality-speed-nl"
                 rel="noopener noreferrer"
                 target="_blank"
                 className="text-text-primary hover:text-accent-blue"
