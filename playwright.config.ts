@@ -1,4 +1,4 @@
-import { defineConfig } from '@playwright/test';
+import { defineConfig, devices } from '@playwright/test';
 
 export default defineConfig({
   testDir: './e2e',
@@ -10,5 +10,9 @@ export default defineConfig({
     timeout: 120_000,
   },
   use: { baseURL: 'http://localhost:3000', locale: 'nl-NL' },
+  projects: [
+    { name: 'chromium', use: { ...devices['Desktop Chrome'] } },
+    { name: 'webkit', use: { ...devices['Desktop Safari'] } },
+  ],
   reporter: process.env.CI ? 'github' : 'list',
 });
