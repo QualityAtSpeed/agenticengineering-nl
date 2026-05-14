@@ -32,7 +32,7 @@
       "audience": "Who it's for",
       "prerequisites": "Prerequisites",
       "outcomes": "What you'll learn",
-      "modules": "Curriculum",
+      "modules": "modules",
       "day1": "Day 1 — integration",
       "day2": "Day 2 — automation",
       "price": "Price",
@@ -196,7 +196,7 @@
   "footer": {
     "tagline": "Agentic engineering trainings.",
     "rights": "© 2026 agenticengineering.nl",
-    "impressumLink": "Company details",
+    "impressumLink": "Quality at Speed",
     "github": "GitHub",
     "linkedin": "LinkedIn",
     "x": "X"
@@ -208,12 +208,12 @@
       "pascal": {
         "name": "Pascal Dufour",
         "role": "Lead instructor",
-        "bio": "Founder of agenticengineering.nl. Has worked with agentic workflows for years and helps teams modernise their SDLC."
+        "bio": "Co-founder of agenticengineering.nl. Has worked with AI and agentic workflows for 2 years and helps teams modernise their SDLC."
       },
       "collaborator-1": {
-        "name": "Collaborator name",
+        "name": "Inico Veringa",
         "role": "Co-instructor",
-        "bio": "Bio to be added."
+        "bio": "Co-founder of agenticengineering.nl. Has worked with AI and agentic workflows for 2 years and helps teams modernise their SDLC."
       }
     }
   },
@@ -258,10 +258,10 @@
   "impressum": {
     "title": "Company details",
     "businessName": "agenticengineering.nl",
-    "operator": "Operator: <fill in before launch>",
-    "address": "<fill in address>",
-    "kvk": "KVK: <fill in KVK>",
-    "vat": "VAT: <fill in VAT>",
+    "operator": "Operator: Pascal Dufour",
+    "address": "Dokter Spanjaardweg 23\n8025 BT Zwolle",
+    "kvk": "KVK: 87798530",
+    "vat": "VAT: NL001663539B75",
     "email": "pascal@validate-it.nl"
   },
   "home": {
