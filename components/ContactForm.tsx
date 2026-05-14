@@ -29,6 +29,18 @@ export function ContactForm({ defaultTraining }: { defaultTraining?: 'basic' | '
     },
   } as const);
 
+  const fieldError = (
+    err: { type?: string } | undefined,
+    kind: 'email' | 'message' | 'other',
+  ): string | undefined => {
+    if (!err) return undefined;
+    if (kind === 'email') return t('errors.invalidEmail');
+    if (kind === 'message') {
+      return err.type === 'too_big' ? t('errors.messageTooLong') : t('errors.messageTooShort');
+    }
+    return t('errors.required');
+  };
+
   async function onSubmit(values: ContactInput) {
     setStatus('submitting');
     const res = await fetch('/api/contact', {
@@ -52,7 +64,7 @@ export function ContactForm({ defaultTraining }: { defaultTraining?: 'basic' | '
 
   return (
     <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
-      <Field label={t('form.name')} error={errors.name?.message}>
+      <Field label={t('form.name')} error={fieldError(errors.name, 'other')}>
         <input
           type="text"
           autoComplete="name"
@@ -61,7 +73,7 @@ export function ContactForm({ defaultTraining }: { defaultTraining?: 'basic' | '
         />
       </Field>
 
-      <Field label={t('form.email')} error={errors.email?.message}>
+      <Field label={t('form.email')} error={fieldError(errors.email, 'email')}>
         <input
           type="email"
           autoComplete="email"
@@ -70,7 +82,7 @@ export function ContactForm({ defaultTraining }: { defaultTraining?: 'basic' | '
         />
       </Field>
 
-      <Field label={t('form.company')} error={errors.company?.message}>
+      <Field label={t('form.company')} error={fieldError(errors.company, 'other')}>
         <input
           type="text"
           autoComplete="organization"
@@ -79,7 +91,10 @@ export function ContactForm({ defaultTraining }: { defaultTraining?: 'basic' | '
         />
       </Field>
 
-      <Field label={t('form.trainingInterest')} error={errors.trainingInterest?.message}>
+      <Field
+        label={t('form.trainingInterest')}
+        error={fieldError(errors.trainingInterest, 'other')}
+      >
         <select
           {...register('trainingInterest')}
           className="border-border-subtle bg-bg-elevated text-text-primary w-full rounded-sm border px-3 py-2 font-sans"
@@ -91,7 +106,7 @@ export function ContactForm({ defaultTraining }: { defaultTraining?: 'basic' | '
         </select>
       </Field>
 
-      <Field label={t('form.deliveryPref')} error={errors.deliveryPref?.message}>
+      <Field label={t('form.deliveryPref')} error={fieldError(errors.deliveryPref, 'other')}>
         <select
           {...register('deliveryPref')}
           className="border-border-subtle bg-bg-elevated text-text-primary w-full rounded-sm border px-3 py-2 font-sans"
@@ -103,7 +118,7 @@ export function ContactForm({ defaultTraining }: { defaultTraining?: 'basic' | '
         </select>
       </Field>
 
-      <Field label={t('form.message')} error={errors.message?.message}>
+      <Field label={t('form.message')} error={fieldError(errors.message, 'message')}>
         <textarea
           rows={6}
           {...register('message')}

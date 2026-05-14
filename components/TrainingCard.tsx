@@ -34,7 +34,7 @@ export function TrainingCard({
           </li>
         ))}
         <li className="flex items-baseline gap-3">
-          <span className="text-text-muted text-xs tracking-[0.2em] opacity-60">03</span>
+          <span className="text-text-muted text-xs tracking-[0.2em]">03</span>
           <Link
             href={`#training-${trainingId}`}
             className="text-text-muted hover:text-accent-blue text-sm italic hover:underline"

@@ -9,6 +9,6 @@ export default defineConfig({
     reuseExistingServer: !process.env.CI,
     timeout: 120_000,
   },
-  use: { baseURL: 'http://localhost:3000' },
+  use: { baseURL: 'http://localhost:3000', locale: 'nl-NL' },
   reporter: process.env.CI ? 'github' : 'list',
 });
