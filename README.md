@@ -77,19 +77,23 @@ A pre-commit `lefthook` hook runs `format` + `lint`. Don't bypass with `--no-ver
 
 | Key                  | Scope  | Purpose                                                                                                      |
 | -------------------- | ------ | ------------------------------------------------------------------------------------------------------------ |
-| `RESEND_API_KEY`     | server | Auth for Resend API (40+ char `re_...` token). Never a placeholder.                                          |
+| `RESEND_API_KEY`     | server | Auth for Resend API (40+ char `re_...` token). Never a placeholder. Separate key per env.                    |
 | `CONTACT_FROM_EMAIL` | server | FROM address on outbound mail. Must be on a Resend-verified domain. Currently `hello@agenticengineering.nl`. |
-| `CONTACT_EMAIL`      | server | TO address (inbox that receives form submissions). Currently `hello@agenticengineering.nl`.                  |
+| `CONTACT_EMAIL`      | server | TO address (inbox that receives form submissions). Differs by env (see Preview section below).               |
 
-All three are **production scope only**. Set via Vercel CLI or UI:
+All three are set in **Production** and **Preview** scopes (Development scope is intentionally empty — local dev uses `.env.local`). Set via Vercel CLI or UI:
 
 ```bash
 vercel env add RESEND_API_KEY production
 vercel env add CONTACT_FROM_EMAIL production
 vercel env add CONTACT_EMAIL production
+
+vercel env add RESEND_API_KEY preview
+vercel env add CONTACT_FROM_EMAIL preview
+vercel env add CONTACT_EMAIL preview
 ```
 
-Or paste real values in Vercel UI → Project → Settings → Environment Variables. After editing, redeploy with `vercel --prod` for new values to land in the function.
+Or paste real values in Vercel UI → Project → Settings → Environment Variables. After editing, redeploy (`vercel --prod` for production, or push a branch for preview) for new values to land in the function.
 
 Local dev does not need these (contact form requires them at runtime). For local mail testing, create `.env.local` with the same keys.
 
@@ -141,7 +145,7 @@ vercel link              # links cwd to existing Vercel project
 vercel --prod            # production deploy + alias to apex
 ```
 
-Vercel GitHub App is **not** connected to this private repo, so pushes to `main` do **not** auto-deploy. Every release is a manual `vercel --prod`. To enable push-deploy: Vercel UI → Project → Settings → Git → Connect Git Repository.
+Vercel GitHub App is connected, so pushes to `main` auto-deploy to production and pushes to any other branch auto-deploy to a preview URL. Manual `vercel --prod` still works for out-of-band hot deploys.
 
 ### DNS (TransIP)
 
@@ -179,6 +183,46 @@ curl -s -X POST https://agenticengineering.nl/api/contact \
   -d '{"name":"t","email":"t@example.com","trainingInterest":"basic","deliveryPref":"noPreference","message":"smoke test 0123456789","website":""}'
 # Expect: {"ok":true}
 ```
+
+## Preview environment
+
+Every non-main branch push gets a Vercel preview deployment at `https://agenticengineering-<hash>-<scope>.vercel.app`. Previews exist to smoke-test code before promotion to production without touching the live inbox.
+
+**Isolation from production:**
+
+| Concern        | Production                            | Preview                                                                                |
+| -------------- | ------------------------------------- | -------------------------------------------------------------------------------------- |
+| Resend API key | full-access key (prod-only)           | separate domain-scoped key (revocable independently)                                   |
+| FROM address   | `hello@agenticengineering.nl`         | `hello@agenticengineering.nl` (same verified sender)                                   |
+| TO address     | `hello@agenticengineering.nl`         | `hello+preview@agenticengineering.nl` (plus-addressing — same inbox, filterable label) |
+| URL            | `agenticengineering.nl` (+ www alias) | `agenticengineering-<hash>-<scope>.vercel.app`                                         |
+| Access         | public                                | SSO wall (see below)                                                                   |
+
+The plus-addressing trick (`hello+preview@…`) routes preview submissions to the same mailbox as production but with a `+preview` label, so a Gmail/IMAP filter can sort them automatically without provisioning a second mailbox. The `+` part is stripped by the SMTP server during delivery — `hello+anything@…` always lands at `hello@…`.
+
+**SSO wall (Hobby tier limitation):**
+
+Vercel Deployment Protection is forced on for previews on the Hobby plan. Public access (no Vercel login) requires upgrading to a paid tier. Three ways to access previews under the current plan:
+
+1. **Browser, logged in:** open the preview URL, get redirected to Vercel SSO, sign in with the project-owner account → preview loads. Works for the project owner; not for external testers.
+2. **CLI, authenticated:** `vercel curl <preview-url>/path` auto-injects a bypass token from your local Vercel auth. Use this for smoke tests:
+
+   ```bash
+   vercel curl https://agenticengineering-<hash>-<scope>.vercel.app/nl -I
+   # Expect: HTTP/2 200
+
+   vercel curl https://agenticengineering-<hash>-<scope>.vercel.app/api/contact \
+     -X POST -H 'Content-Type: application/json' \
+     -H 'Origin: https://agenticengineering-<hash>-<scope>.vercel.app' \
+     -d '{"name":"preview probe","email":"t@example.com","trainingInterest":"basic","deliveryPref":"noPreference","message":"preview smoke 0123456789","website":""}'
+   # Expect: {"ok":true}; mail lands at hello+preview@agenticengineering.nl
+   ```
+
+3. **Share with an external tester:** generate a one-off bypass URL — Vercel UI → Project → Settings → Deployment Protection → "Protection Bypass for Automation" → generate token, then share `https://<preview-url>/path?x-vercel-set-bypass-cookie=true&x-vercel-protection-bypass=<token>`. Sets a cookie so subsequent navigation within the preview works.
+
+**Rotating the preview Resend key:**
+
+The preview key has Resend "Sending access" scoped to `agenticengineering.nl` only. To rotate: Resend dashboard → API Keys → revoke old → create new → `vercel env rm RESEND_API_KEY preview && vercel env add RESEND_API_KEY preview` (paste new value at the prompt — never via `--value` on a shared terminal) → trigger a new preview deploy. Production is unaffected.
 
 ## i18n
 
