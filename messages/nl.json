@@ -8,14 +8,14 @@
     "contact": "Contact",
     "switchToEn": "EN",
     "switchToNl": "NL",
-    "brand": "agentic·engineering"
+    "brand": "Agentic·engineering"
   },
   "hero": {
     "kicker": "AGENTIC ENGINEERING · NL",
     "title": "Train je team in agentic engineering.",
     "subtitle": "Twee praktijkgerichte trainingen in Claude Code. Eén dag basis, twee dagen advanced.",
-    "ctaPrimary": "boek training",
-    "ctaSecondary": "bekijk curriculum"
+    "ctaPrimary": "Boek training",
+    "ctaSecondary": "Bekijk curriculum"
   },
   "trainings": {
     "sectionTitle": "Trainingen",
@@ -32,11 +32,11 @@
       "audience": "Voor wie",
       "prerequisites": "Vereisten",
       "outcomes": "Wat je leert",
-      "modules": "modules",
+      "modules": "Modules",
       "day1": "Dag 1 — integratie",
       "day2": "Dag 2 — automatisering",
       "price": "Prijs",
-      "priceSuffix": "excl. BTW",
+      "priceSuffix": "Excl. BTW",
       "viewDetails": "Bekijk programma",
       "bookCta": "Plan deze training"
     },
@@ -175,7 +175,7 @@
     "advanced-hooks-quality-gates": {
       "title": "Advanced hooks & quality gates",
       "bullets": [
-        "policies afdwingen via hooks",
+        "Policies afdwingen via hooks",
         "CI-integratie en kosten-bewuste gates",
         "Custom security-gates"
       ]
@@ -213,12 +213,12 @@
       "pascal": {
         "name": "Pascal Dufour",
         "role": "Lead instructor",
-        "bio": "Co-founder van agenticengineering.nl. Werkt al 2 jaar met AI en agentic workflows en helpt teams hun SDLC te moderniseren."
+        "bio": "Co-founder van agenticengineering.nl. Helpt teams hun SDLC te moderniseren en werkt al 2 jaar met AI en agentic workflows."
       },
       "inico": {
         "name": "Inico Veringa",
         "role": "Co-instructor",
-        "bio": "Co-founder van agenticengineering.nl. Werkt al 2 jaar met AI en agentic workflows en helpt teams hun SDLC te moderniseren."
+        "bio": "Co-founder van agenticengineering.nl. Werkt al 2 jaar met AI en agentic workflows en heeft passie voor technologie en mensen."
       }
     }
   },
@@ -275,7 +275,7 @@
     "finalCta": {
       "title": "Klaar om je team op te leiden?",
       "body": "Plan een kennismaking. We reageren binnen 1 werkdag.",
-      "cta": "boek training"
+      "cta": "Boek training"
     }
   }
 }
