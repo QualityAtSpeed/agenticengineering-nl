@@ -39,7 +39,7 @@ export function TrainingCard({
             href={`#training-${trainingId}`}
             className="text-text-muted hover:text-accent-blue text-sm italic hover:underline"
           >
-            view full curriculum →
+            {tLabels('viewFullCurriculum')} →
           </Link>
         </li>
       </ol>
