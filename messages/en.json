@@ -8,7 +8,9 @@
     "contact": "Contact",
     "switchToEn": "EN",
     "switchToNl": "NL",
-    "brand": "agentic·engineering"
+    "brand": "agentic·engineering",
+    "openMenu": "Open menu",
+    "closeMenu": "Close menu"
   },
   "hero": {
     "kicker": "AGENTIC ENGINEERING · EN",
