@@ -55,7 +55,10 @@ export function ContactForm({ defaultTraining }: { defaultTraining?: 'basic' | '
 
   if (status === 'success') {
     return (
-      <div className="border-accent-green bg-bg-elevated rounded-sm border p-6">
+      <div
+        className="border-accent-green bg-bg-elevated rounded-sm border p-6"
+        data-testid="contact-success"
+      >
         <p className="text-accent-green font-mono">// {t('success.title')}</p>
         <p className="text-text-muted mt-2">{t('success.body')}</p>
       </div>
