@@ -26,6 +26,7 @@ export function LangSwitcher({ currentLocale }: Props) {
           key={locale}
           href={swapLocale(pathname, locale)}
           aria-current={locale === currentLocale ? 'page' : undefined}
+          data-testid={`lang-switch-${locale}`}
           className={
             locale === currentLocale
               ? 'text-accent-green'

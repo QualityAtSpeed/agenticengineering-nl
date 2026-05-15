@@ -20,12 +20,14 @@ export function Hero({ kicker, title, subtitle, primaryCta, secondaryCta }: Hero
         <div className="mt-10 flex flex-wrap gap-4">
           <Link
             href={primaryCta.href}
+            data-testid="hero-cta-primary"
             className="bg-accent-green text-bg-base inline-flex items-center gap-2 rounded-sm px-5 py-3 font-mono text-sm font-semibold transition hover:brightness-110"
           >
             {primaryCta.label}
           </Link>
           <Link
             href={secondaryCta.href}
+            data-testid="hero-cta-secondary"
             className="border-border-subtle text-text-primary hover:border-accent-blue hover:text-accent-blue inline-flex items-center gap-2 rounded-sm border px-5 py-3 font-mono text-sm transition"
           >
             → {secondaryCta.label}

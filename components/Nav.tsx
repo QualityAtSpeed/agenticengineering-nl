@@ -12,6 +12,7 @@ export async function Nav({ locale }: { locale: Locale }) {
       <div className="relative mx-auto flex max-w-6xl items-center justify-between gap-4 px-4 py-4 sm:gap-6 sm:px-6">
         <Link
           href={`/${locale}`}
+          data-testid="nav-brand"
           className="text-text-primary inline-flex shrink-0 items-center gap-2 font-mono text-sm"
         >
           <Image src="/brand-icon.svg" alt="" width={20} height={20} aria-hidden />
@@ -20,12 +21,14 @@ export async function Nav({ locale }: { locale: Locale }) {
         <div className="flex shrink-0 items-center gap-3 font-mono text-sm sm:gap-6">
           <Link
             href={`/${locale}/about`}
+            data-testid="nav-about"
             className="text-text-muted hover:text-accent-blue hidden sm:inline"
           >
             {t('about')}
           </Link>
           <Link
             href={`/${locale}/contact`}
+            data-testid="nav-contact"
             className="text-text-muted hover:text-accent-blue hidden sm:inline"
           >
             {t('contact')}

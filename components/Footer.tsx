@@ -19,13 +19,18 @@ export async function Footer({ locale }: { locale: Locale }) {
           </p>
           <ul className="mt-3 space-y-1 text-sm">
             <li>
-              <Link href={`/${locale}/about`} className="text-text-primary hover:text-accent-blue">
+              <Link
+                href={`/${locale}/about`}
+                data-testid="footer-about"
+                className="text-text-primary hover:text-accent-blue"
+              >
                 {tNav('about')}
               </Link>
             </li>
             <li>
               <Link
                 href={`/${locale}/contact`}
+                data-testid="footer-contact"
                 className="text-text-primary hover:text-accent-blue"
               >
                 {tNav('contact')}
@@ -34,6 +39,7 @@ export async function Footer({ locale }: { locale: Locale }) {
             <li>
               <Link
                 href={`/${locale}/impressum`}
+                data-testid="footer-impressum"
                 className="text-text-primary hover:text-accent-blue inline-flex items-center gap-1.5"
               >
                 <Image src="/qas-icon.svg" alt="" width={14} height={14} aria-hidden />
@@ -52,6 +58,7 @@ export async function Footer({ locale }: { locale: Locale }) {
                 href="https://github.com/"
                 rel="noopener noreferrer"
                 target="_blank"
+                data-testid="footer-github"
                 className="text-text-primary hover:text-accent-blue"
               >
                 {t('github')}
@@ -62,6 +69,7 @@ export async function Footer({ locale }: { locale: Locale }) {
                 href="https://linkedin.com/company/quality-speed-nl"
                 rel="noopener noreferrer"
                 target="_blank"
+                data-testid="footer-linkedin"
                 className="text-text-primary hover:text-accent-blue"
               >
                 {t('linkedin')}

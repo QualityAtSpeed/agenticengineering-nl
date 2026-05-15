@@ -68,6 +68,7 @@ export function ContactForm({ defaultTraining }: { defaultTraining?: 'basic' | '
         <input
           type="text"
           autoComplete="name"
+          data-testid="contact-name"
           {...register('name')}
           className="border-border-subtle bg-bg-elevated text-text-primary w-full rounded-sm border px-3 py-2 font-sans"
         />
@@ -77,6 +78,7 @@ export function ContactForm({ defaultTraining }: { defaultTraining?: 'basic' | '
         <input
           type="email"
           autoComplete="email"
+          data-testid="contact-email"
           {...register('email')}
           className="border-border-subtle bg-bg-elevated text-text-primary w-full rounded-sm border px-3 py-2 font-sans"
         />
@@ -86,6 +88,7 @@ export function ContactForm({ defaultTraining }: { defaultTraining?: 'basic' | '
         <input
           type="text"
           autoComplete="organization"
+          data-testid="contact-company"
           {...register('company')}
           className="border-border-subtle bg-bg-elevated text-text-primary w-full rounded-sm border px-3 py-2 font-sans"
         />
@@ -96,6 +99,7 @@ export function ContactForm({ defaultTraining }: { defaultTraining?: 'basic' | '
         error={fieldError(errors.trainingInterest, 'other')}
       >
         <select
+          data-testid="contact-training-interest"
           {...register('trainingInterest')}
           className="border-border-subtle bg-bg-elevated text-text-primary w-full rounded-sm border px-3 py-2 font-sans"
         >
@@ -108,6 +112,7 @@ export function ContactForm({ defaultTraining }: { defaultTraining?: 'basic' | '
 
       <Field label={t('form.deliveryPref')} error={fieldError(errors.deliveryPref, 'other')}>
         <select
+          data-testid="contact-delivery-pref"
           {...register('deliveryPref')}
           className="border-border-subtle bg-bg-elevated text-text-primary w-full rounded-sm border px-3 py-2 font-sans"
         >
@@ -121,6 +126,7 @@ export function ContactForm({ defaultTraining }: { defaultTraining?: 'basic' | '
       <Field label={t('form.message')} error={fieldError(errors.message, 'message')}>
         <textarea
           rows={6}
+          data-testid="contact-message"
           {...register('message')}
           className="border-border-subtle bg-bg-elevated text-text-primary w-full rounded-sm border px-3 py-2 font-sans"
         />
@@ -143,6 +149,7 @@ export function ContactForm({ defaultTraining }: { defaultTraining?: 'basic' | '
       <button
         type="submit"
         disabled={status === 'submitting'}
+        data-testid="contact-submit"
         className="bg-accent-green text-bg-base inline-flex items-center gap-2 rounded-sm px-5 py-3 font-mono text-sm font-semibold hover:brightness-110 disabled:opacity-60"
       >
         {status === 'submitting' ? t('form.submitting') : t('form.submit')}
