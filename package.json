@@ -15,6 +15,7 @@
     "test": "vitest run",
     "test:watch": "vitest",
     "test:e2e": "playwright test",
+    "test:smoke": "playwright test --config=playwright.smoke.config.ts",
     "format": "prettier --write .",
     "verify:i18n": "tsx scripts/verify-i18n.ts"
   },

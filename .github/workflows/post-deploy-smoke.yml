@@ -1,0 +1,32 @@
+name: Post-Deploy Smoke
+
+on:
+  deployment_status:
+
+jobs:
+  smoke:
+    if: >-
+      github.event.deployment_status.state == 'success'
+      && github.event.deployment.environment == 'Production'
+      && github.event.deployment_status.environment_url != ''
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: pnpm/action-setup@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: pnpm
+      - run: pnpm install --frozen-lockfile
+      - run: pnpm exec playwright install --with-deps chromium
+      - name: Run smoke suite against deployed URL
+        run: pnpm test:smoke
+        env:
+          SMOKE_BASE_URL: ${{ github.event.deployment_status.environment_url }}
+      - uses: actions/upload-artifact@v4
+        if: failure()
+        with:
+          name: smoke-report-${{ github.event.deployment.sha }}
+          path: playwright-report/
+          retention-days: 7
