@@ -1,10 +1,12 @@
 import { test, expect } from '@playwright/test';
+import { HomePage } from './pages/home-page';
 
 test('home renders hero + both training sections in NL', async ({ page }) => {
-  await page.goto('/nl');
-  await expect(page.getByRole('heading', { level: 1 })).toContainText(/agentic engineering/i);
-  await expect(page.locator('#training-basic')).toBeVisible();
-  await expect(page.locator('#training-advanced')).toBeVisible();
+  const home = new HomePage(page, 'nl');
+  await home.goto();
+  await expect(home.heroHeading).toContainText(/agentic engineering/i);
+  await expect(home.trainingBasicSection).toBeVisible();
+  await expect(home.trainingAdvancedSection).toBeVisible();
 });
 
 test('redirects / to /nl', async ({ page }) => {

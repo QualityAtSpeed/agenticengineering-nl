@@ -1,4 +1,7 @@
 import { test, expect } from '@playwright/test';
+import { HomePage } from './pages/home-page';
+import { ContactPage } from './pages/contact-page';
+import { AboutPage } from './pages/about-page';
 
 const routes = [
   '/',
@@ -20,32 +23,36 @@ for (const path of routes) {
   });
 }
 
-test('NL home renders hero and Dutch training card label', async ({ page }) => {
-  await page.goto('/nl');
-  await expect(page.getByRole('heading', { level: 1 })).toContainText(/agentic engineering/i);
-  await expect(page.locator('#training-basic')).toBeVisible();
-  await expect(page.locator('#training-advanced')).toBeVisible();
-  await expect(page.getByText('volledige training').first()).toBeVisible();
-  await expect(page.getByText('view full curriculum')).toHaveCount(0);
+test('NL home renders hero and Dutch training card label without EN bleed', async ({ page }) => {
+  const home = new HomePage(page, 'nl');
+  await home.goto();
+  await expect(home.heroHeading).toContainText(/agentic engineering/i);
+  await expect(home.trainingBasicSection).toBeVisible();
+  await expect(home.trainingAdvancedSection).toBeVisible();
+  await expect(home.viewFullCurriculumLabel.first()).toBeVisible();
+  await expect(page.getByText(home.otherLocaleLabel())).toHaveCount(0);
 });
 
 test('EN home renders hero and English training card label', async ({ page }) => {
-  await page.goto('/en');
-  await expect(page.getByRole('heading', { level: 1 })).toContainText(/agentic engineering/i);
-  await expect(page.getByText('view full curriculum').first()).toBeVisible();
+  const home = new HomePage(page, 'en');
+  await home.goto();
+  await expect(home.heroHeading).toContainText(/agentic engineering/i);
+  await expect(home.viewFullCurriculumLabel.first()).toBeVisible();
 });
 
 test('NL contact form is reachable and rendered', async ({ page }) => {
-  await page.goto('/nl/contact');
-  await expect(page.getByRole('button', { name: /Verzenden/ })).toBeVisible();
-  await expect(page.getByLabel(/Naam/)).toBeVisible();
-  await expect(page.getByLabel(/E-mail/)).toBeVisible();
+  const contact = new ContactPage(page, 'nl');
+  await contact.goto();
+  await expect(contact.submitButton).toBeVisible();
+  await expect(contact.nameField).toBeVisible();
+  await expect(contact.emailField).toBeVisible();
 });
 
 test('NL about page lists both instructors', async ({ page }) => {
-  await page.goto('/nl/about');
-  await expect(page.getByText(/Pascal Dufour/)).toBeVisible();
-  await expect(page.getByText(/Inico Veringa/)).toBeVisible();
+  const about = new AboutPage(page, 'nl');
+  await about.goto();
+  await expect(about.instructorByName(/Pascal Dufour/)).toBeVisible();
+  await expect(about.instructorByName(/Inico Veringa/)).toBeVisible();
 });
 
 test('html[lang] matches requested locale', async ({ page }) => {
