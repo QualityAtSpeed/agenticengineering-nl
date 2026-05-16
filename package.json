@@ -17,7 +17,8 @@
     "test:e2e": "playwright test",
     "test:smoke": "playwright test --config=playwright.smoke.config.ts",
     "format": "prettier --write .",
-    "verify:i18n": "tsx scripts/verify-i18n.ts"
+    "verify:i18n": "tsx scripts/verify-i18n.ts",
+    "metrics": "tsx scripts/metrics.ts"
   },
   "dependencies": {
     "@hookform/resolvers": "^5.2.2",
