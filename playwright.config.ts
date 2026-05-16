@@ -10,9 +10,6 @@ export default defineConfig({
     timeout: 120_000,
   },
   use: { baseURL: 'http://localhost:3000', locale: 'nl-NL' },
-  projects: [
-    { name: 'chromium', use: { ...devices['Desktop Chrome'] } },
-    { name: 'webkit', use: { ...devices['Desktop Safari'] } },
-  ],
+  projects: [{ name: 'chromium', use: { ...devices['Desktop Chrome'] } }],
   reporter: process.env.CI ? 'github' : 'list',
 });
