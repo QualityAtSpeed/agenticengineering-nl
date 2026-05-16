@@ -21,7 +21,8 @@ type Run = {
   event: string;
 };
 
-const WINDOW = 100;
+const WINDOW = 200;
+const DAYS = Number(process.env.METRICS_DAYS ?? 7);
 
 function gh(cmd: string): string {
   return execSync(cmd, { encoding: 'utf8' });
@@ -72,7 +73,9 @@ function verdict(actual: number, targetSec: number): string {
 
 function main() {
   const runs = fetchRuns(WINDOW);
-  const completed = runs.filter((r) => r.status === 'completed');
+  const completedAll = runs.filter((r) => r.status === 'completed');
+  const cutoff = Date.now() - DAYS * 24 * 60 * 60 * 1000;
+  const completed = completedAll.filter((r) => new Date(r.createdAt).getTime() >= cutoff);
 
   const byWorkflow = new Map<string, Run[]>();
   for (const r of completed) {
@@ -81,10 +84,10 @@ function main() {
   }
 
   const lines: string[] = [];
-  lines.push(`## Pipeline metrics — last ${completed.length} completed runs`);
+  lines.push(`## Pipeline metrics — last ${DAYS} day(s), ${completed.length} runs`);
   lines.push('');
   if (completed.length === 0) {
-    lines.push('_no completed runs in window_');
+    lines.push(`_no completed runs in the last ${DAYS} day(s)_`);
     console.log(lines.join('\n'));
     return;
   }
