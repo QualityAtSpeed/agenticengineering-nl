@@ -35,6 +35,8 @@ test-results/
 .playwright/
 .playwright-mcp/
 prod-*.png
+reports/
+.stryker-tmp/
 
 # Superpowers brainstorm (local-only)
 .superpowers/
