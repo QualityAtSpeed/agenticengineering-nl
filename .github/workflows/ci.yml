@@ -15,6 +15,10 @@ jobs:
         with:
           node-version: 20
           cache: pnpm
+      - name: Lint GitHub Actions workflows
+        uses: raven-actions/actionlint@v2
+        with:
+          version: 1.7.7
       - run: pnpm install --frozen-lockfile
       - run: pnpm lint
       - run: pnpm typecheck
