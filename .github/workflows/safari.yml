@@ -23,7 +23,7 @@ jobs:
           cache: pnpm
       - run: pnpm install --frozen-lockfile
       - run: pnpm exec playwright install --with-deps webkit
-      - run: pnpm test:e2e -- --project=webkit --retries=2
+      - run: pnpm exec playwright test --project=webkit --retries=2
         env:
           RESEND_API_KEY: ${{ secrets.RESEND_API_KEY_E2E }}
           CONTACT_EMAIL: delivered@resend.dev
