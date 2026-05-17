@@ -49,7 +49,7 @@ export async function Footer({ locale }: { locale: Locale }) {
           <ul className="mt-3 space-y-1 text-sm">
             <li>
               <a
-                href="https://github.com/"
+                href="https://github.com/QualityAtSpeed"
                 rel="noopener noreferrer"
                 target="_blank"
                 className="text-text-primary hover:text-accent-blue"
