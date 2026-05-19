@@ -26,7 +26,10 @@ export default async function Home({ params }: { params: Promise<{ locale: Local
               '@type': 'Organization',
               name: 'agenticengineering.nl',
               url: 'https://agenticengineering.nl',
-              sameAs: ['https://github.com/', 'https://linkedin.com/company/quality-speed-nl'],
+              sameAs: [
+                'https://github.com/QualityAtSpeed',
+                'https://linkedin.com/company/quality-speed-nl',
+              ],
             },
             ...Object.values(trainings).map((tr) => ({
               '@type': 'Course',

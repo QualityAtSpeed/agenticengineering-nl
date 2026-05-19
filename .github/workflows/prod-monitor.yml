@@ -1,0 +1,79 @@
+name: Prod Monitor
+
+on:
+  schedule:
+    - cron: '*/15 * * * *'
+  workflow_dispatch:
+
+concurrency:
+  group: prod-monitor
+  cancel-in-progress: false
+
+permissions:
+  contents: read
+
+jobs:
+  probe:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    env:
+      BASE_URL: https://agenticengineering.nl
+    steps:
+      - name: HTTP probes
+        run: |
+          set -euo pipefail
+          fail=0
+
+          assert_status() {
+            local path="$1" expected="$2"
+            local code
+            code=$(curl -sS -o /dev/null -w '%{http_code}' "${BASE_URL}${path}" --max-time 15) || code="curl_err"
+            if [ "$code" != "$expected" ]; then
+              echo "::error::${path} expected ${expected}, got ${code}"
+              fail=1
+            else
+              echo "ok  ${path} -> ${code}"
+            fi
+          }
+
+          assert_contains() {
+            local path="$1" needle="$2"
+            local body
+            body=$(curl -sS --max-time 15 "${BASE_URL}${path}") || { echo "::error::curl failed for ${path}"; fail=1; return; }
+            if ! echo "$body" | grep -qi -- "$needle"; then
+              echo "::error::${path} missing expected text: ${needle}"
+              fail=1
+            else
+              echo "ok  ${path} contains '${needle}'"
+            fi
+          }
+
+          assert_header() {
+            local path="$1" header="$2"
+            local headers
+            headers=$(curl -sS -I --max-time 15 "${BASE_URL}${path}") || { echo "::error::curl -I failed for ${path}"; fail=1; return; }
+            if ! echo "$headers" | grep -qi "^${header}:"; then
+              echo "::error::${path} missing header: ${header}"
+              fail=1
+            else
+              echo "ok  ${path} has header ${header}"
+            fi
+          }
+
+          assert_status "/nl" "200"
+          assert_status "/en" "200"
+          assert_status "/nl/contact" "200"
+          assert_status "/sitemap.xml" "200"
+          assert_status "/robots.txt" "200"
+          assert_contains "/nl" "agentic engineering"
+          assert_contains "/en" "agentic engineering"
+          assert_contains "/nl/contact" "Verzenden"
+          assert_contains "/nl" "volledige training"
+          assert_header "/nl" "content-security-policy"
+          assert_header "/nl" "strict-transport-security"
+
+          if [ "$fail" -ne 0 ]; then
+            echo "::error::production monitor failed (see annotations above)"
+            exit 1
+          fi
+          echo "all probes passed"
