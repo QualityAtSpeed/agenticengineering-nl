@@ -1,7 +1,7 @@
 {
   "meta": {
     "title": "agenticengineering.nl",
-    "description": "Agentic engineering trainingen met Claude Code."
+    "description": "Agentic engineering trainingen met Claude Code of Codex."
   },
   "nav": {
     "about": "Over ons",
@@ -15,7 +15,7 @@
   "hero": {
     "kicker": "AGENTIC ENGINEERING · NL",
     "title": "Train je team in agentic engineering.",
-    "subtitle": "Twee praktijkgerichte trainingen in Claude Code. Eén dag basis, twee dagen advanced.",
+    "subtitle": "Twee praktijkgerichte trainingen in Claude Code of Codex. Eén dag basis, twee dagen advanced.",
     "ctaPrimary": "Boek training",
     "ctaSecondary": "Bekijk curriculum"
   },
@@ -45,10 +45,10 @@
     },
     "basic": {
       "name": "Basic",
-      "tagline": "Basis + eerste hands-on met Claude Code.",
+      "tagline": "Basis + eerste hands-on met Claude Code of Codex.",
       "audience": [
         "Engineers en tech leads die agentic workflows willen adopteren",
-        "Junior/mid developers die net beginnen met Claude Code",
+        "Junior/mid developers die net beginnen met Claude Code of Codex",
         "CTO's en engineering managers die hun team willen opleiden"
       ],
       "prerequisites": [
@@ -56,8 +56,8 @@
         "Bekend met ten minste één taal (TS/Python/Go/etc.)"
       ],
       "outcomes": [
-        "Creëer werkende features met Claude Code",
-        "Configureer gestructureerde context (CLAUDE.md, rules)",
+        "Creëer werkende features met Claude Code of Codex",
+        "Configureer gestructureerde context (CLAUDE.md / AGENTS.md, rules)",
         "Gebruik bestaande MCP servers",
         "Werk volgens een basis test-first loop",
         "Stel basis hooks en quality gates in"
@@ -67,11 +67,13 @@
       "name": "Advanced",
       "tagline": "Custom tooling, volledige SDLC-integratie, automatisering op team-schaal.",
       "audience": [
-        "Senior engineers die Claude Code al gebruiken",
+        "Senior engineers die Claude Code of Codex al gebruiken",
         "Tech leads die agentic workflows op team-niveau willen verankeren",
         "Teams die hun eigen tooling willen bouwen"
       ],
-      "prerequisites": ["Basic training of vergelijkbare hands-on ervaring met Claude Code"],
+      "prerequisites": [
+        "Basic training of vergelijkbare hands-on ervaring met Claude Code of Codex"
+      ],
       "outcomes": [
         "Bouw eigen MCP servers",
         "Authoring van Skills en Rules op productieniveau",
@@ -94,7 +96,7 @@
     "context-architecture": {
       "title": "Context architecture",
       "bullets": [
-        "CLAUDE.md design",
+        "CLAUDE.md / AGENTS.md design",
         "Rules files en project-wide configuratie",
         "Hiërarchie: user, project, lokale overrides"
       ]
@@ -211,7 +213,7 @@
   },
   "about": {
     "title": "Over ons",
-    "intro": "We trainen engineering-teams in agentic engineering met Claude Code. Hands-on, productie-gericht, in NL of EN.",
+    "intro": "We trainen engineering-teams in agentic engineering met Claude Code of Codex. Hands-on, productie-gericht, in NL of EN.",
     "instructors": {
       "pascal": {
         "name": "Pascal Dufour",
