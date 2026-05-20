@@ -195,11 +195,7 @@
     },
     "team-workflows-governance": {
       "title": "Team workflows + governance",
-      "bullets": [
-        "Adoptie-strategie en role-design",
-        "Audit en compliance-patronen",
-        "Onboarding en kennisdeling"
-      ]
+      "bullets": ["Adoptie-strategie en role-design", "Onboarding en kennisdeling"]
     }
   },
   "footer": {

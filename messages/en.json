@@ -189,11 +189,7 @@
     },
     "team-workflows-governance": {
       "title": "Team workflows + governance",
-      "bullets": [
-        "Adoption strategy and role design",
-        "Audit and compliance patterns",
-        "Onboarding and knowledge sharing"
-      ]
+      "bullets": ["Adoption strategy and role design", "Onboarding and knowledge sharing"]
     }
   },
   "footer": {
