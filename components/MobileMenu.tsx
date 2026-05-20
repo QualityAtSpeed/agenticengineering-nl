@@ -78,6 +78,14 @@ export function MobileMenu({ locale }: { locale: Locale }) {
               {t('about')}
             </Link>
             <Link
+              href={`/${locale}/articles`}
+              onClick={() => setOpen(false)}
+              data-testid="mobile-menu-articles"
+              className="text-text-muted hover:text-accent-blue"
+            >
+              {t('articles')}
+            </Link>
+            <Link
               href={`/${locale}/contact`}
               onClick={() => setOpen(false)}
               data-testid="mobile-menu-contact"
