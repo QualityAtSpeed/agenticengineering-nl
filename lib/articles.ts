@@ -4,7 +4,8 @@ import { z } from 'zod';
 import { parseFrontmatter } from './parseFrontmatter';
 
 const frontmatterSchema = z.object({
-  title: z.string().min(1),
+  title_nl: z.string().min(1),
+  title_en: z.string().min(1),
   url: z.string().regex(/^https?:\/\//, 'url must start with http(s)://'),
   date: z.string().regex(/^\d{4}-\d{2}-\d{2}$/, 'date must be YYYY-MM-DD'),
   summary_nl: z.string().min(1),
@@ -16,7 +17,8 @@ const frontmatterSchema = z.object({
 
 export interface Article {
   slug: string;
-  title: string;
+  titleNl: string;
+  titleEn: string;
   url: string;
   date: string;
   summaryNl: string;
@@ -50,7 +52,8 @@ export function getArticles(newsDir: string = DEFAULT_NEWS_DIR): Article[] {
     const d = result.data;
     const article: Article = {
       slug: filename.replace(/\.md$/, ''),
-      title: d.title,
+      titleNl: d.title_nl,
+      titleEn: d.title_en,
       url: d.url,
       date: d.date,
       summaryNl: d.summary_nl,

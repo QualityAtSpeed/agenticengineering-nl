@@ -13,11 +13,12 @@ The site is internationalised (Dutch default, English secondary) via `next-intl`
 
 Ask the user for each, one short question at a time. Do not invent values.
 
-1. **Title** of the article (string).
-2. **URL** of the source article (must start with `http://` or `https://`).
-3. **Publish date** (`YYYY-MM-DD`) auto-fill from today. Ask to confirm
-4. **Summary in Dutch** (`summary_nl`) — 1–3 sentences, plain language.
-5. **Summary in English** (`summary_en`) — 1–3 sentences. If the user only provides one language, translate to the other yourself and show the translation back for approval before writing.
+1. **Title in original language** (`title_en` or `title_nl`) — verbatim from the source article.
+2. **Title in the other language** — translate yourself and show back for approval. Both `title_nl` and `title_en` are required in the frontmatter so the `/news` page can render the active locale.
+3. **URL** of the source article (must start with `http://` or `https://`).
+4. **Publish date** (`YYYY-MM-DD`) auto-fill from today. Ask to confirm
+5. **Summary in Dutch** (`summary_nl`) — 1–3 sentences, plain language.
+6. **Summary in English** (`summary_en`) — 1–3 sentences. If the user only provides one language, translate to the other yourself and show the translation back for approval before writing.
 
 Optional fields (only include in frontmatter if the user supplies them): `image`, `tags`, `author`.
 
@@ -33,7 +34,8 @@ Write exactly this structure:
 
 ```markdown
 ---
-title: '<title>'
+title_nl: '<dutch title>'
+title_en: '<english title>'
 url: '<url>'
 date: '<YYYY-MM-DD>'
 summary_nl: '<dutch summary>'

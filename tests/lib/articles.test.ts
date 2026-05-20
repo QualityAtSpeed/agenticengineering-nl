@@ -16,7 +16,8 @@ describe('getArticles', () => {
     const [first] = getArticles(path.join(fixturesRoot, 'news-valid'));
     expect(first.summaryNl).toBe('nl samenvatting');
     expect(first.summaryEn).toBe('en summary');
-    expect(first.title).toBe('shipping agent loops');
+    expect(first.titleNl).toBe('agent loops verschepen');
+    expect(first.titleEn).toBe('shipping agent loops');
     expect(first.url).toBe('https://example.com/post');
     expect(first.date).toBe('2026-05-12');
   });
