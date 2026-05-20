@@ -15,7 +15,7 @@ Ask the user for each, one short question at a time. Do not invent values.
 
 1. **Title** of the article (string).
 2. **URL** of the source article (must start with `http://` or `https://`).
-3. **Publish date** (`YYYY-MM-DD`). Prompt explicitly — don't auto-fill from today.
+3. **Publish date** (`YYYY-MM-DD`) auto-fill from today. Ask to confirm
 4. **Summary in Dutch** (`summary_nl`) — 1–3 sentences, plain language.
 5. **Summary in English** (`summary_en`) — 1–3 sentences. If the user only provides one language, translate to the other yourself and show the translation back for approval before writing.
 
