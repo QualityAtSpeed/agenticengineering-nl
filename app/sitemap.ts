@@ -2,7 +2,7 @@ import type { MetadataRoute } from 'next';
 import { routing } from '@/i18n/routing';
 
 const BASE = 'https://agenticengineering.nl';
-const PATHS = ['', '/about', '/contact', '/impressum'] as const;
+const PATHS = ['', '/about', '/articles', '/contact', '/impressum'] as const;
 
 export default function sitemap(): MetadataRoute.Sitemap {
   return PATHS.flatMap((p) =>
