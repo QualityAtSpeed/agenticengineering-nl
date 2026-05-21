@@ -10,7 +10,7 @@ Engineering teams, tech leads, and CTOs in NL/EU adopting agentic workflows with
 
 ## Product Purpose
 
-Marketing site for `agenticengineering.nl`. Sells two trainings: Basic (1 day) and Advanced (2 days), in Claude Code with agentic workflows. The site exists to convert qualified leads into contact-form submissions; success is a booked training. Trust is built by showing — full curriculum visible, real instructor, working contact flow — not by repeating marketing claims.
+Marketing site for `agenticengineering.nl`. Sells two trainings: Basic (2 days) and Advanced (1 day), in Claude Code with agentic workflows. The site exists to convert qualified leads into contact-form submissions; success is a booked training. Trust is built by showing — full curriculum visible, real instructor, working contact flow — not by repeating marketing claims.
 
 Bilingual NL / EN with `/[locale]` routing. Primary audience is Dutch engineering teams; English is for international reach and to demonstrate the trainings can be delivered in either language.
 
