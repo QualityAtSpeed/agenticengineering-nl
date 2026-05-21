@@ -17,7 +17,7 @@ describe('<TrainingCard />', () => {
   it('renders the training name and duration from i18n', () => {
     renderCard('basic');
     expect(screen.getByRole('heading', { name: /Basic/ })).toBeInTheDocument();
-    expect(screen.getByText(/1 dag/)).toBeInTheDocument();
+    expect(screen.getByText(/2 dagen/)).toBeInTheDocument();
   });
 
   it('renders the price from the trainings dataset, locale-formatted', () => {
