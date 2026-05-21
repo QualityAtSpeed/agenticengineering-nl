@@ -15,15 +15,15 @@
   "hero": {
     "kicker": "AGENTIC ENGINEERING · EN",
     "title": "Train your team in agentic engineering.",
-    "subtitle": "Two hands-on trainings in Claude Code or Codex. One day foundations, two days advanced.",
+    "subtitle": "Two hands-on trainings in Claude Code or Codex. Two days foundations, one day advanced.",
     "ctaPrimary": "Book training",
     "ctaSecondary": "View curriculum"
   },
   "trainings": {
     "sectionTitle": "Trainings",
     "duration": {
-      "basic": "1 day",
-      "advanced": "2 days"
+      "basic": "2 days",
+      "advanced": "1 day"
     },
     "deliveryFormats": {
       "inCompany": "In-company",
@@ -35,8 +35,8 @@
       "prerequisites": "Prerequisites",
       "outcomes": "What you'll learn",
       "modules": "Modules",
-      "day1": "Day 1 — integration",
-      "day2": "Day 2 — automation",
+      "day1": "Day 1 — Foundations",
+      "day2": "Day 2 — Quality loop + capstone",
       "price": "Price",
       "priceSuffix": "ex. VAT",
       "viewDetails": "View programme",
@@ -45,40 +45,39 @@
     },
     "basic": {
       "name": "Basic",
-      "tagline": "Foundations + first hands-on with Claude Code or Codex.",
+      "tagline": "Two days of hands-on adoption — every attendee ships a feature.",
       "audience": [
-        "Engineers and tech leads adopting agentic workflows",
-        "Junior/mid developers starting with Claude Code or Codex",
-        "CTOs and engineering managers training their teams"
+        "Whole DevOps teams: developers, QA / test engineers, ops / platform",
+        "Mixed-role cohorts adopting agentic workflows together",
+        "Engineering managers training their teams alongside them"
       ],
       "prerequisites": [
         "Comfortable with git and the command line",
         "Writes features in at least one language (TS/Python/Go/etc.)"
       ],
       "outcomes": [
-        "Ship working features with Claude Code or Codex",
-        "Configure structured context (CLAUDE.md / AGENTS.md, rules)",
-        "Use existing MCP servers",
-        "Work in a basic test-first loop",
-        "Set up basic hooks and quality gates"
+        "Ship a working feature end-to-end on a starter repo",
+        "Configure structured context (CLAUDE.md / AGENTS.md, rules) for your own project",
+        "Use existing MCP servers in real workflows",
+        "Practise a test-first loop with an agent",
+        "Set up hooks and quality gates that survive the next sprint"
       ]
     },
     "advanced": {
       "name": "Advanced",
-      "tagline": "Custom tooling, full SDLC integration, team-scale automation.",
+      "tagline": "One day to scale agentic engineering across your teams.",
       "audience": [
-        "Senior engineers already using Claude Code or Codex",
-        "Tech leads embedding agentic workflows at team level",
-        "Teams building their own tooling"
+        "Tech leads and staff+ engineers rolling out agentic workflows",
+        "Engineering managers and platform / QA leads",
+        "Teams responsible for governance, cost, and adoption across orgs"
       ],
       "prerequisites": ["Basic training or equivalent hands-on Claude Code/Codex experience"],
       "outcomes": [
-        "Build your own MCP servers",
-        "Author production-grade Skills and Rules",
-        "Run agentic workflows across all SDLC phases",
-        "Orchestrate subagents and parallel work",
-        "Implement advanced quality gates in CI",
-        "Governance and workflow patterns for teams"
+        "Leave with a rollout playbook for your own org",
+        "Orchestrate subagents and parallel agents at team scale",
+        "Enforce team policy via CI hooks",
+        "Set up observability and cost guardrails for agent usage",
+        "Walk away with a 90-day rollout plan reviewed by peers"
       ]
     }
   },
@@ -143,53 +142,53 @@
         "Configure your first hook"
       ]
     },
-    "building-custom-mcp": {
-      "title": "Building custom MCP servers",
-      "bullets": [
-        "MCP server architecture",
-        "Implement tools, resources, prompts",
-        "Security and scope design"
-      ]
-    },
-    "skills-rules-deep": {
-      "title": "Skills & Rules — deep dive",
-      "bullets": [
-        "Authoring production skills",
-        "Trigger design and discoverability",
-        "Sharing skills across your team"
-      ]
-    },
-    "agents-sdlc-phases": {
-      "title": "Agents in every SDLC phase",
-      "bullets": [
-        "Refinement and planning with agents",
-        "Implementation and parallel work",
-        "Agentic code review and test"
-      ]
-    },
     "agent-harnessing": {
-      "title": "Agent harnessing",
-      "bullets": ["Subagents and delegation", "Parallel workflows", "Orchestration patterns"]
-    },
-    "advanced-hooks-quality-gates": {
-      "title": "Advanced hooks & quality gates",
+      "title": "Agent harnessing for teams",
       "bullets": [
-        "Policy enforcement via hooks",
-        "CI integration and cost-aware gates",
-        "Custom security gates"
+        "Subagents and delegation at team scale",
+        "Parallel workflows that survive team-sized PR queues",
+        "Orchestration patterns and review checkpoints"
       ]
     },
-    "test-first-advanced": {
-      "title": "Test-first — advanced patterns",
+    "capstone-ship-feature": {
+      "title": "Capstone — ship a feature end-to-end",
       "bullets": [
-        "Contract and integration tests with agents",
-        "Property-based and mutation testing",
-        "TDD for teams with multiple agents"
+        "Implement a small feature on a starter repo from a brief",
+        "Drive the work with tests, hooks, and quality gates",
+        "Demo and review with the cohort"
       ]
     },
-    "team-workflows-governance": {
-      "title": "Team workflows + governance",
-      "bullets": ["Adoption strategy and role design", "Onboarding and knowledge sharing"]
+    "team-rollout-playbook": {
+      "title": "Team rollout playbook",
+      "bullets": [
+        "Adoption stages and role design",
+        "Onboarding paths for new joiners",
+        "Sequencing rollout across multiple teams"
+      ]
+    },
+    "governance-and-policy-gates": {
+      "title": "Governance + policy gates",
+      "bullets": [
+        "Decide what policy your team needs (security, cost, quality)",
+        "Enforce policy via CI hooks rather than tribal review",
+        "Detect drift and recover quickly"
+      ]
+    },
+    "observability-and-cost": {
+      "title": "Observability + cost-at-scale",
+      "bullets": [
+        "Usage telemetry across teams",
+        "Cost guardrails and per-team budgets",
+        "Anomaly triage and feedback loops"
+      ]
+    },
+    "capstone-rollout-tabletop": {
+      "title": "Capstone — rollout tabletop",
+      "bullets": [
+        "Design a 90-day rollout plan for your own org",
+        "Peer review and stress-test of the plan",
+        "Concrete next steps to take home"
+      ]
     }
   },
   "footer": {
@@ -226,8 +225,8 @@
       "company": "Company (optional)",
       "trainingInterest": "Interested in which training",
       "trainingOptions": {
-        "basic": "Basic (1 day)",
-        "advanced": "Advanced (2 days)",
+        "basic": "Basic (2 days)",
+        "advanced": "Advanced (1 day)",
         "both": "Both",
         "other": "Other"
       },
