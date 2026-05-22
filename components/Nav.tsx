@@ -27,6 +27,13 @@ export async function Nav({ locale }: { locale: Locale }) {
             {t('about')}
           </Link>
           <Link
+            href={`/${locale}/articles`}
+            data-testid="nav-articles"
+            className="text-text-muted hover:text-accent-blue hidden sm:inline"
+          >
+            {t('articles')}
+          </Link>
+          <Link
             href={`/${locale}/contact`}
             data-testid="nav-contact"
             className="text-text-muted hover:text-accent-blue hidden sm:inline"
