@@ -232,7 +232,9 @@
   "blogs": {
     "title": "blogs",
     "intro": "Blog posts geschreven door ons voor jou",
-    "emptyState": "Nog geen blogs"
+    "emptyState": "Nog geen blogs",
+    "readMore": "lees post",
+    "backLink": "← terug naar artikelen"
   },
   "contact": {
     "title": "Contact",

@@ -43,7 +43,7 @@ function parseBlogFile(filePath: string, filename: string): { fm: Frontmatter; b
   }
   let parsed: unknown;
   try {
-    parsed = yaml.load(match[1]);
+    parsed = yaml.load(match[1], { schema: yaml.CORE_SCHEMA });
   } catch (err) {
     const reason = err instanceof Error ? err.message : String(err);
     throw new Error(`Failed to parse YAML frontmatter in ${filename}: ${reason}`);
