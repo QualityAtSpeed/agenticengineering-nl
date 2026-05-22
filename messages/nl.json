@@ -5,6 +5,7 @@
   },
   "nav": {
     "about": "Over ons",
+    "articles": "Artikelen",
     "contact": "Contact",
     "switchToEn": "EN",
     "switchToNl": "NL",
@@ -221,6 +222,12 @@
         "bio": "Co-founder van agenticengineering.nl. Werkt al 2 jaar met AI en agentic workflows en heeft passie voor technologie en mensen."
       }
     }
+  },
+  "articles": {
+    "title": "artikelen",
+    "intro": "Externe artikelen die wij schreven of aanraden. Elke link wijst naar het origineel.",
+    "readExternal": "lees op externe site ↗",
+    "emptyState": "nog geen artikelen"
   },
   "contact": {
     "title": "Contact",

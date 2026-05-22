@@ -37,6 +37,7 @@ export function TrainingCard({
           <span className="text-text-muted text-xs tracking-[0.2em]">03</span>
           <Link
             href={`#training-${trainingId}`}
+            data-testid={`view-curriculum-${trainingId}`}
             className="text-text-muted hover:text-accent-blue text-sm italic hover:underline"
           >
             {tLabels('viewFullCurriculum')} →
@@ -49,6 +50,7 @@ export function TrainingCard({
       </p>
       <Link
         href={`#training-${trainingId}`}
+        data-testid={`view-details-${trainingId}`}
         className="text-accent-blue mt-6 inline-flex items-center gap-1 font-mono text-sm hover:underline"
       >
         → {tLabels('viewDetails')}

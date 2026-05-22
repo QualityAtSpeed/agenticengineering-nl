@@ -32,6 +32,7 @@ export function MobileMenu({ locale }: { locale: Locale }) {
         aria-controls={panelId}
         aria-label={open ? t('closeMenu') : t('openMenu')}
         onClick={() => setOpen((v) => !v)}
+        data-testid="mobile-menu-toggle"
         className="text-text-muted hover:text-accent-blue inline-flex h-8 w-8 items-center justify-center sm:hidden"
       >
         {open ? (
@@ -71,13 +72,23 @@ export function MobileMenu({ locale }: { locale: Locale }) {
             <Link
               href={`/${locale}/about`}
               onClick={() => setOpen(false)}
+              data-testid="mobile-menu-about"
               className="text-text-muted hover:text-accent-blue"
             >
               {t('about')}
             </Link>
             <Link
+              href={`/${locale}/articles`}
+              onClick={() => setOpen(false)}
+              data-testid="mobile-menu-articles"
+              className="text-text-muted hover:text-accent-blue"
+            >
+              {t('articles')}
+            </Link>
+            <Link
               href={`/${locale}/contact`}
               onClick={() => setOpen(false)}
+              data-testid="mobile-menu-contact"
               className="text-text-muted hover:text-accent-blue"
             >
               {t('contact')}
