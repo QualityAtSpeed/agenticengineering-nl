@@ -229,6 +229,11 @@
     "readExternal": "lees op externe site ↗",
     "emptyState": "nog geen artikelen"
   },
+  "blogs": {
+    "title": "blogs",
+    "intro": "Blog posts geschreven door ons voor jou",
+    "emptyState": "Nog geen blogs"
+  },
   "contact": {
     "title": "Contact",
     "intro": "Vertel ons over je team. We reageren binnen 1 werkdag.",

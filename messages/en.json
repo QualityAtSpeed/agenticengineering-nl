@@ -223,6 +223,11 @@
     "readExternal": "read on external site ↗",
     "emptyState": "no articles yet"
   },
+  "blogs": {
+    "title": "blogs",
+    "intro": "Blogs written by us for you",
+    "emptyState": "No blogs yet"
+  },
   "contact": {
     "title": "Contact",
     "intro": "Tell us about your team. We respond within 1 business day.",
