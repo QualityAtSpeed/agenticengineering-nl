@@ -115,17 +115,17 @@ A dark terminal-aesthetic site for selling agentic-engineering trainings to deve
 
 The palette is anchored in GitHub's dark mode hue family. All neutrals share a faint cool-blue undertone so the surface reads as "developer terminal" rather than "OLED black-and-white".
 
-| Token                     | Hex                                                                                            | Use                                                                                                                     |
-| ------------------------- | ---------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------- |
-| `bg-base`                 | `#0d1117`                                                                                      | Page background, body, nav background (with 90% alpha + backdrop-blur for stickiness).                                  |
-| `bg-elevated`             | `#161b22`                                                                                      | Cards, form inputs, footer, final-CTA band. The only elevation step.                                                    |
-| `border-subtle`           | `#30363d`                                                                                      | All borders. Used as a single-pixel boundary; never as a fill.                                                          |
-| `text-primary`            | `#c9d1d9`                                                                                      | All body text, headings, primary content. Never used on `accent-green` (use `bg-base` instead for contrast).            |
-| `text-muted`              | `#8b949e`                                                                                      | Labels, kickers, meta text, secondary copy. Contrast ratio 4.5:1 against `bg-base` (AA body), passes for ≥18px or bold. |
-| `accent-green` `#7ee787`  | Primary CTA fill, `>` prompt markers, success state, focus-adjacent emphasis. ≤10% of pixels.  |
-| `accent-blue` `#58a6ff`   | Hover state for links and secondary buttons. Focus-ring color. Never used as fill.             |
-| `accent-orange` `#f0883e` | Day-1/Day-2 markers in the Advanced curriculum split. Rate-limit warning state. Price display. |
-| `accent-red` `#ff7b72`    | Form validation errors. The 404 page glyph. Never used decoratively.                           |
+| Token                     | Hex                                                                                           | Use                                                                                                                     |
+| ------------------------- | --------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------- |
+| `bg-base`                 | `#0d1117`                                                                                     | Page background, body, nav background (with 90% alpha + backdrop-blur for stickiness).                                  |
+| `bg-elevated`             | `#161b22`                                                                                     | Cards, form inputs, footer, final-CTA band. The only elevation step.                                                    |
+| `border-subtle`           | `#30363d`                                                                                     | All borders. Used as a single-pixel boundary; never as a fill.                                                          |
+| `text-primary`            | `#c9d1d9`                                                                                     | All body text, headings, primary content. Never used on `accent-green` (use `bg-base` instead for contrast).            |
+| `text-muted`              | `#8b949e`                                                                                     | Labels, kickers, meta text, secondary copy. Contrast ratio 4.5:1 against `bg-base` (AA body), passes for ≥18px or bold. |
+| `accent-green` `#7ee787`  | Primary CTA fill, `>` prompt markers, success state, focus-adjacent emphasis. ≤10% of pixels. |
+| `accent-blue` `#58a6ff`   | Hover state for links and secondary buttons. Focus-ring color. Never used as fill.            |
+| `accent-orange` `#f0883e` | Day-1/Day-2 markers in the Basic curriculum split. Rate-limit warning state. Price display.   |
+| `accent-red` `#ff7b72`    | Form validation errors. The 404 page glyph. Never used decoratively.                          |
 
 **Do not** introduce a new color without first asking whether one of the four accents already carries that meaning. The palette is closed; that is the point.
 
@@ -188,7 +188,7 @@ A full-width banded section in `bg-elevated` separated from neighbors by `border
 2. **H2** with `>` prefix.
 3. **Tagline** below.
 4. **3-column detail grid** (`audience` / `prerequisites` / `outcomes`) — each item bullets with green `›` glyph instead of generic `·`.
-5. **Curriculum** — for Basic, a single numbered list (`01`, `02`, …); for Advanced, a 2-column split with `Dag 1 — integratie` and `Dag 2 — automatisering` markers in orange.
+5. **Curriculum** — for Advanced, a single numbered list (`01`, `02`, …); for Basic, a 2-column split with `Dag 1 — Fundamenten` and `Dag 2 — Kwaliteitsloop + capstone` markers in orange.
 6. Each module line has a numbered prefix, `>` green H4 title, and 3 bullet rows in muted small text.
 7. **Book CTA** — primary green button with `$ {bookCta}`.
 

@@ -68,7 +68,7 @@ export function TrainingDetail({ trainingId, locale }: { trainingId: TrainingId;
           <h3 className="text-text-muted font-mono text-sm tracking-[0.2em] uppercase">
             {tCommon('modules')}
           </h3>
-          {training.id === 'advanced' ? (
+          {training.durationDays === 2 ? (
             <div className="mt-6 grid gap-12 lg:grid-cols-2">
               <div>
                 <p className="text-accent-orange font-mono text-xs">{tCommon('day1')}</p>

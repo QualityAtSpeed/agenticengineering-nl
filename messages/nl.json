@@ -16,15 +16,15 @@
   "hero": {
     "kicker": "AGENTIC ENGINEERING · NL",
     "title": "Train je team in agentic engineering.",
-    "subtitle": "Twee praktijkgerichte trainingen in Claude Code of Codex. Eén dag basis, twee dagen advanced.",
+    "subtitle": "Twee praktijkgerichte trainingen in Claude Code of Codex. Twee dagen basis, één dag advanced.",
     "ctaPrimary": "Boek training",
     "ctaSecondary": "Bekijk curriculum"
   },
   "trainings": {
     "sectionTitle": "Trainingen",
     "duration": {
-      "basic": "1 dag",
-      "advanced": "2 dagen"
+      "basic": "2 dagen",
+      "advanced": "1 dag"
     },
     "deliveryFormats": {
       "inCompany": "In-company",
@@ -36,8 +36,8 @@
       "prerequisites": "Vereisten",
       "outcomes": "Wat je leert",
       "modules": "Modules",
-      "day1": "Dag 1 — integratie",
-      "day2": "Dag 2 — automatisering",
+      "day1": "Dag 1 — Fundamenten",
+      "day2": "Dag 2 — Kwaliteitsloop + capstone",
       "price": "Prijs",
       "priceSuffix": "Excl. BTW",
       "viewDetails": "Bekijk programma",
@@ -46,42 +46,41 @@
     },
     "basic": {
       "name": "Basic",
-      "tagline": "Basis + eerste hands-on met Claude Code of Codex.",
+      "tagline": "Twee dagen hands-on adoptie — iedereen levert een feature op.",
       "audience": [
-        "Engineers en tech leads die agentic workflows willen adopteren",
-        "Junior/mid developers die net beginnen met Claude Code of Codex",
-        "CTO's en engineering managers die hun team willen opleiden"
+        "Hele DevOps-teams: developers, QA / testers, ops / platform",
+        "Gemengde teams die agentic workflows samen adopteren",
+        "Engineering managers die met hun team meetrainen"
       ],
       "prerequisites": [
-        "Comfortabel met git en command line",
-        "Bekend met ten minste één taal (TS/Python/Go/etc.)"
+        "Vertrouwd met git en de command line",
+        "Schrijft features in minimaal één taal (TS/Python/Go/etc.)"
       ],
       "outcomes": [
-        "Creëer werkende features met Claude Code of Codex",
-        "Configureer gestructureerde context (CLAUDE.md / AGENTS.md, rules)",
-        "Gebruik bestaande MCP servers",
-        "Werk volgens een basis test-first loop",
-        "Stel basis hooks en quality gates in"
+        "Lever een werkende feature op op een starter repo",
+        "Configureer gestructureerde context (CLAUDE.md / AGENTS.md, rules) voor je eigen project",
+        "Gebruik bestaande MCP servers in echte workflows",
+        "Oefen met test-first loops met een agent",
+        "Zet hooks en quality gates op die de volgende sprint overleven"
       ]
     },
     "advanced": {
       "name": "Advanced",
-      "tagline": "Custom tooling, volledige SDLC-integratie, automatisering op team-schaal.",
+      "tagline": "Eén dag om agentic engineering team-breed uit te rollen.",
       "audience": [
-        "Senior engineers die Claude Code of Codex al gebruiken",
-        "Tech leads die agentic workflows op team-niveau willen verankeren",
-        "Teams die hun eigen tooling willen bouwen"
+        "Tech leads en staff+ engineers die agentic workflows uitrollen",
+        "Engineering managers en platform / QA leads",
+        "Teams verantwoordelijk voor governance, kosten en adoptie organisatie-breed"
       ],
       "prerequisites": [
         "Basic training of vergelijkbare hands-on ervaring met Claude Code of Codex"
       ],
       "outcomes": [
-        "Bouw eigen MCP servers",
-        "Authoring van Skills en Rules op productieniveau",
-        "Run agentic workflows door alle SDLC-fases",
-        "Orchestratie van subagents en parallelisme",
-        "Implementeer geavanceerde quality gates in CI",
-        "Governance en workflow-patronen voor teams"
+        "Stap met een rollout-plan voor je eigen organisatie naar buiten",
+        "Orchestreer subagents en parallelle agents op team-schaal",
+        "Handhaaf teampolicy via CI hooks",
+        "Zet observability en cost guardrails op voor agent-gebruik",
+        "Vertrek met een 90-dagen rolloutplan dat door peers is getoetst"
       ]
     }
   },
@@ -150,53 +149,53 @@
         "Eerste eigen hook configureren"
       ]
     },
-    "building-custom-mcp": {
-      "title": "Bouwen van custom MCP servers",
-      "bullets": [
-        "MCP server-architectuur",
-        "Tools, resources, prompts implementeren",
-        "Veiligheid en scope-design"
-      ]
-    },
-    "skills-rules-deep": {
-      "title": "Skills & Rules — deep dive",
-      "bullets": [
-        "Authoring van productie-skills",
-        "Trigger-design en discoverability",
-        "Skills delen binnen je team"
-      ]
-    },
-    "agents-sdlc-phases": {
-      "title": "Agents in elke SDLC fase",
-      "bullets": [
-        "Refinement en planning met agents",
-        "Implementatie en parallel werk",
-        "Agentic code review en test"
-      ]
-    },
     "agent-harnessing": {
-      "title": "Agent harnessing",
-      "bullets": ["Subagents en delegatie", "Parallelle workflows", "Orchestratie-patronen"]
-    },
-    "advanced-hooks-quality-gates": {
-      "title": "Advanced hooks & quality gates",
+      "title": "Agent harnessing voor teams",
       "bullets": [
-        "Policies afdwingen via hooks",
-        "CI-integratie en kosten-bewuste gates",
-        "Custom security-gates"
+        "Subagents en delegatie op team-schaal",
+        "Parallelle workflows die team-grote PR-queues overleven",
+        "Orchestratiepatronen en review-checkpoints"
       ]
     },
-    "test-first-advanced": {
-      "title": "Test-first — advanced patterns",
+    "capstone-ship-feature": {
+      "title": "Capstone — lever een feature op",
       "bullets": [
-        "Contract- en integratietests met agents",
-        "Property-based en mutation testing",
-        "TDD voor teams met meerdere agents"
+        "Implementeer een kleine feature op een starter repo vanaf een brief",
+        "Stuur het werk met tests, hooks en quality gates",
+        "Demo en review met de cohort"
       ]
     },
-    "team-workflows-governance": {
-      "title": "Team workflows + governance",
-      "bullets": ["Adoptie-strategie en role-design", "Onboarding en kennisdeling"]
+    "team-rollout-playbook": {
+      "title": "Team rollout playbook",
+      "bullets": [
+        "Adoptiefases en rolontwerp",
+        "Onboarding-paden voor nieuwe collega's",
+        "Volgorde van uitrol over meerdere teams"
+      ]
+    },
+    "governance-and-policy-gates": {
+      "title": "Governance + policy gates",
+      "bullets": [
+        "Bepaal welk beleid je team nodig heeft (security, kosten, kwaliteit)",
+        "Handhaaf beleid via CI hooks in plaats van tribal review",
+        "Detecteer drift en herstel snel"
+      ]
+    },
+    "observability-and-cost": {
+      "title": "Observability + cost-at-scale",
+      "bullets": [
+        "Usage telemetry over teams",
+        "Cost guardrails en budgetten per team",
+        "Anomaly triage en feedback loops"
+      ]
+    },
+    "capstone-rollout-tabletop": {
+      "title": "Capstone — rollout tabletop",
+      "bullets": [
+        "Ontwerp een 90-dagen rolloutplan voor je eigen organisatie",
+        "Peer review en stress-test van het plan",
+        "Concrete vervolgstappen voor thuis"
+      ]
     }
   },
   "footer": {
@@ -239,8 +238,8 @@
       "company": "Bedrijf (optioneel)",
       "trainingInterest": "Interesse in welke training",
       "trainingOptions": {
-        "basic": "Basic (1 dag)",
-        "advanced": "Advanced (2 dagen)",
+        "basic": "Basic (2 dagen)",
+        "advanced": "Advanced (1 dag)",
         "both": "Beide",
         "other": "Anders"
       },
