@@ -1,7 +1,7 @@
 {
   "meta": {
     "title": "agenticengineering.nl",
-    "description": "Agentic engineering trainingen met Claude Code of Codex."
+    "description": "Agentic AI quality engineering trainingen met Claude Code of Codex."
   },
   "nav": {
     "about": "Over ons",
@@ -14,9 +14,9 @@
     "closeMenu": "Menu sluiten"
   },
   "hero": {
-    "kicker": "AGENTIC ENGINEERING · NL",
-    "title": "Train je team in agentic engineering.",
-    "subtitle": "Twee praktijkgerichte trainingen in Claude Code of Codex. Twee dagen basis, één dag advanced.",
+    "kicker": "AGENTIC AI QUALITY ENGINEERING · NL",
+    "title": "Train je team in agentic AI quality engineering.",
+    "subtitle": "Twee praktijkgerichte trainingen in Claude Code of Codex. Twee dagen basis + kwaliteitsloop, één dag rollout + governance.",
     "ctaPrimary": "Boek training",
     "ctaSecondary": "Bekijk curriculum"
   },
@@ -66,7 +66,7 @@
     },
     "advanced": {
       "name": "Advanced",
-      "tagline": "Eén dag om agentic engineering team-breed uit te rollen.",
+      "tagline": "Eén dag om agentic AI quality engineering team-breed uit te rollen.",
       "audience": [
         "Tech leads en staff+ engineers die agentic workflows uitrollen",
         "Engineering managers en platform / QA leads",
@@ -199,7 +199,7 @@
     }
   },
   "footer": {
-    "tagline": "Agentic engineering trainingen.",
+    "tagline": "Agentic AI quality engineering trainingen.",
     "rights": "© 2026 agenticengineering.nl",
     "pagesHeading": "Pagina's",
     "socialsHeading": "Socials",
@@ -209,7 +209,7 @@
   },
   "about": {
     "title": "Over ons",
-    "intro": "We trainen engineering-teams in agentic engineering met Claude Code of Codex. Hands-on, productie-gericht, in NL of EN.",
+    "intro": "We trainen engineering-teams in agentic AI quality engineering met Claude Code of Codex. Hands-on, productie-gericht, in NL of EN.",
     "instructors": {
       "pascal": {
         "name": "Pascal Dufour",
