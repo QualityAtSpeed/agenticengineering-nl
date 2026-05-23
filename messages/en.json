@@ -209,6 +209,18 @@
       ]
     }
   },
+  "proof": {
+    "heading": "We ship what we teach.",
+    "subhead": "This site runs the stack you'll learn. Source open, CI live, parity enforced.",
+    "pills": [
+      "CI green",
+      "48 unit + 64 e2e tests",
+      "WCAG 2.1 AA",
+      "TypeScript strict",
+      "NL/EN locale parity enforced"
+    ],
+    "ctaLabel": "view source on GitHub"
+  },
   "footer": {
     "tagline": "Agentic AI quality engineering trainings.",
     "rights": "© 2026 agenticengineering.nl",
