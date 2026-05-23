@@ -23,8 +23,8 @@ describe('<TrainingDetail /> day-split rendering', () => {
       | null;
     expect(twoDayId, 'expected at least one training with durationDays === 2').not.toBeNull();
     renderDetail(twoDayId!);
-    expect(screen.getAllByText(/Dag 1 —/i).length).toBeGreaterThanOrEqual(1);
-    expect(screen.getAllByText(/Dag 2 —/i).length).toBeGreaterThanOrEqual(1);
+    expect(screen.getAllByText(/Dag 1 —/i)).toHaveLength(2);
+    expect(screen.getAllByText(/Dag 2 —/i)).toHaveLength(2);
   });
 
   it('does NOT render a day split when the training has durationDays === 1', () => {
@@ -75,8 +75,8 @@ describe('<TrainingDetail /> day-split rendering', () => {
           <MockedTrainingDetail trainingId="basic" locale="nl" />
         </NextIntlClientProvider>,
       );
-      expect(screen.getAllByText(/Dag 1/i).length).toBeGreaterThanOrEqual(1);
-      expect(screen.getAllByText(/Dag 2/i).length).toBeGreaterThanOrEqual(1);
+      expect(screen.getAllByText(/Dag 1/i)).toHaveLength(2);
+      expect(screen.getAllByText(/Dag 2/i)).toHaveLength(2);
     } finally {
       vi.doUnmock('@/data/trainings');
       vi.resetModules();
