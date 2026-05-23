@@ -1,6 +1,7 @@
 import Link from 'next/link';
 import { useTranslations } from 'next-intl';
 import { trainings, type TrainingId } from '@/data/trainings';
+import { DayAgenda } from '@/components/DayAgenda';
 
 export function TrainingDetail({ trainingId, locale }: { trainingId: TrainingId; locale: string }) {
   const training = trainings[trainingId];
@@ -10,6 +11,9 @@ export function TrainingDetail({ trainingId, locale }: { trainingId: TrainingId;
   const audience = t.raw(`${trainingId}.audience`) as string[];
   const prerequisites = t.raw(`${trainingId}.prerequisites`) as string[];
   const outcomes = t.raw(`${trainingId}.outcomes`) as string[];
+
+  const modulesDay1 = training.modules.filter((m) => m.day === 1 || m.day === undefined);
+  const modulesDay2 = training.modules.filter((m) => m.day === 2);
 
   return (
     <section
@@ -58,6 +62,17 @@ export function TrainingDetail({ trainingId, locale }: { trainingId: TrainingId;
           <DetailList title={tCommon('audience')} items={audience} />
           <DetailList title={tCommon('prerequisites')} items={prerequisites} />
           <DetailList title={tCommon('outcomes')} items={outcomes} />
+        </div>
+
+        <div data-testid={`agenda-${trainingId}`} className="mt-14 space-y-3">
+          {training.durationDays === 2 ? (
+            <>
+              <DayAgenda label={tCommon('day1')} modules={modulesDay1} />
+              <DayAgenda label={tCommon('day2')} modules={modulesDay2} />
+            </>
+          ) : (
+            <DayAgenda modules={training.modules} />
+          )}
         </div>
 
         <div className="mt-12">
