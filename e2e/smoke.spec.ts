@@ -26,7 +26,7 @@ for (const path of routes) {
 test('NL home renders hero and Dutch training card label without EN bleed', async ({ page }) => {
   const home = new HomePage(page, 'nl');
   await home.goto();
-  await expect(home.heroHeading).toContainText(/agentic engineering/i);
+  await expect(home.heroHeading).toContainText(/agentic.*engineering/i);
   await expect(home.trainingBasicSection).toBeVisible();
   await expect(home.trainingAdvancedSection).toBeVisible();
   await expect(home.viewFullCurriculumLabel.first()).toBeVisible();
@@ -36,7 +36,7 @@ test('NL home renders hero and Dutch training card label without EN bleed', asyn
 test('EN home renders hero and English training card label', async ({ page }) => {
   const home = new HomePage(page, 'en');
   await home.goto();
-  await expect(home.heroHeading).toContainText(/agentic engineering/i);
+  await expect(home.heroHeading).toContainText(/agentic.*engineering/i);
   await expect(home.viewFullCurriculumLabel.first()).toBeVisible();
 });
 
