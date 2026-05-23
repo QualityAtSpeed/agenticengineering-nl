@@ -188,7 +188,7 @@ A full-width banded section in `bg-elevated` separated from neighbors by `border
 2. **H2** with `>` prefix.
 3. **Tagline** below.
 4. **3-column detail grid** (`audience` / `prerequisites` / `outcomes`) — each item bullets with green `›` glyph instead of generic `·`.
-5. **Curriculum** — for Advanced, a single numbered list (`01`, `02`, …); for Basic, a 2-column split with `Dag 1 — Fundamenten` and `Dag 2 — Kwaliteitsloop + capstone` markers in orange.
+5. **Curriculum** — for Advanced, a single numbered list (`01`, `02`, …); for Basic, a 2-column split with `Dag 1 — Quality engineering met agents` and `Dag 2 — Agent mechanics + capstone` markers in orange.
 6. Each module line has a numbered prefix, `>` green H4 title, and 3 bullet rows in muted small text.
 7. **Book CTA** — primary green button with `$ {bookCta}`.
 

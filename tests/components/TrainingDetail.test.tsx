@@ -23,8 +23,8 @@ describe('<TrainingDetail /> day-split rendering', () => {
       | null;
     expect(twoDayId, 'expected at least one training with durationDays === 2').not.toBeNull();
     renderDetail(twoDayId!);
-    expect(screen.getByText(/Dag 1/i)).toBeInTheDocument();
-    expect(screen.getByText(/Dag 2/i)).toBeInTheDocument();
+    expect(screen.getByText(/Dag 1 —/i)).toBeInTheDocument();
+    expect(screen.getByText(/Dag 2 —/i)).toBeInTheDocument();
   });
 
   it('does NOT render a day split when the training has durationDays === 1', () => {
@@ -60,7 +60,7 @@ describe('<TrainingDetail /> day-split rendering', () => {
             ...actual.trainings.basic,
             durationDays: 2,
             modules: [
-              { id: 'fundamentals-of-agent', day: 1 },
+              { id: 'agents-in-sdlc', day: 1 },
               { id: 'context-architecture', day: 2 },
             ],
           },

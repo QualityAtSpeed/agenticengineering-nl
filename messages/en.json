@@ -36,8 +36,8 @@
       "prerequisites": "Prerequisites",
       "outcomes": "What you'll learn",
       "modules": "Modules",
-      "day1": "Day 1 — Foundations",
-      "day2": "Day 2 — Quality loop + capstone",
+      "day1": "Day 1 — Quality engineering with agents",
+      "day2": "Day 2 — Agent mechanics + capstone",
       "price": "Price",
       "priceSuffix": "ex. VAT",
       "viewDetails": "View programme",
@@ -57,11 +57,12 @@
         "Writes features in at least one language (TS/Python/Go/etc.)"
       ],
       "outcomes": [
-        "Ship a working feature end-to-end on a starter repo",
-        "Configure structured context (CLAUDE.md / AGENTS.md, rules) for your own project",
+        "Ship a working feature on a starter repo — tests, hooks, CI green from minute one",
+        "Recognise the failure modes of AI-generated code in your own work",
+        "Practise test-first with an agent without writing fake-passing tests",
+        "Set up hooks and quality gates that survive the next sprint",
         "Use existing MCP servers in real workflows",
-        "Practise a test-first loop with an agent",
-        "Set up hooks and quality gates that survive the next sprint"
+        "Leave with a governance starter your team can actually use"
       ]
     },
     "advanced": {
@@ -83,14 +84,6 @@
     }
   },
   "modules": {
-    "fundamentals-of-agent": {
-      "title": "Fundamentals of an agent",
-      "bullets": [
-        "What an agent is and why it works",
-        "Tool-loop, decisions, autonomy",
-        "Difference vs chat and vs automation"
-      ]
-    },
     "context-architecture": {
       "title": "Context architecture",
       "bullets": [
@@ -108,11 +101,11 @@
       ]
     },
     "build-first-feature": {
-      "title": "Build your first feature",
+      "title": "Lab: build your first feature with quality discipline",
       "bullets": [
-        "From idea to working feature",
-        "Iterate: plan, implement, review",
-        "Hands-on lab"
+        "End-to-end on a starter repo: brief → tests → code → review",
+        "Run today's quality stack against your own changes",
+        "Cohort feedback before Day 2"
       ]
     },
     "intro-skills-rules": {
@@ -127,20 +120,36 @@
         "Scope and permission best practices"
       ]
     },
-    "test-first-intro": {
-      "title": "Test-first strategy (intro)",
+    "agents-in-sdlc": {
+      "title": "Agents in your SDLC: where they fit, where they break",
       "bullets": [
-        "TDD loop with an agent",
-        "When to test first, when to test later",
-        "Avoid false green builds"
+        "Where an agent earns its place in the SDLC, and where it doesn't",
+        "What an agent actually is vs. chat vs. automation",
+        "Quality stakes: every agent change is a code change that ships"
       ]
     },
-    "basic-hooks-quality-gates": {
-      "title": "Basic hooks & quality gates",
+    "failure-modes-ai-code": {
+      "title": "Failure modes of AI-generated code",
       "bullets": [
-        "Pre-commit checks (lint, format)",
-        "Type-check as a gate",
-        "Configure your first hook"
+        "Hallucination, silent regression, false-green builds",
+        "Scope drift and undeclared rewrites",
+        "How to spot each before they ship"
+      ]
+    },
+    "test-first-with-agents": {
+      "title": "Test-first with agents",
+      "bullets": [
+        "The TDD loop with an agent driver",
+        "When tests precede code, when they don't, why it matters",
+        "Tests that prove behaviour vs. tests that satisfy the model"
+      ]
+    },
+    "hooks-and-quality-gates": {
+      "title": "Hooks + quality gates",
+      "bullets": [
+        "Pre-commit checks: lint, format, type-check",
+        "Custom hooks for agent-specific risks",
+        "Fast feedback loops that don't get bypassed"
       ]
     },
     "agent-harnessing": {
@@ -151,11 +160,19 @@
         "Orchestration patterns and review checkpoints"
       ]
     },
+    "regression-and-governance": {
+      "title": "Regression strategy + governance basics",
+      "bullets": [
+        "Golden tests, snapshot guards, property-based checks",
+        "Stress-testing agent output on real edges",
+        "What a sensible team review policy looks like"
+      ]
+    },
     "capstone-ship-feature": {
       "title": "Capstone — ship a feature end-to-end",
       "bullets": [
-        "Implement a small feature on a starter repo from a brief",
-        "Drive the work with tests, hooks, and quality gates",
+        "Implement a feature on a starter repo from a brief",
+        "Apply Day-1 quality stack + Day-2 context tooling (MCP, skills, rules)",
         "Demo and review with the cohort"
       ]
     },
