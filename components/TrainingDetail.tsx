@@ -1,7 +1,6 @@
 import Link from 'next/link';
 import { useTranslations } from 'next-intl';
 import { trainings, type TrainingId, type Module } from '@/data/trainings';
-import { DayAgenda } from '@/components/DayAgenda';
 
 export function TrainingDetail({ trainingId, locale }: { trainingId: TrainingId; locale: string }) {
   const training = trainings[trainingId];
@@ -69,16 +68,6 @@ export function TrainingDetail({ trainingId, locale }: { trainingId: TrainingId;
           <h3 className="text-text-muted font-mono text-sm tracking-[0.2em] uppercase">
             {tCommon('modules')}
           </h3>
-          <div data-testid={`agenda-${trainingId}`} className="mt-6 space-y-3">
-            {training.durationDays === 2 ? (
-              <>
-                <DayAgenda label={tCommon('day1')} modules={modulesDay1} />
-                <DayAgenda label={tCommon('day2')} modules={modulesDay2} />
-              </>
-            ) : (
-              <DayAgenda modules={training.modules} />
-            )}
-          </div>
           {training.durationDays === 2 ? (
             <div className="mt-6 grid gap-12 lg:grid-cols-2">
               <div>
