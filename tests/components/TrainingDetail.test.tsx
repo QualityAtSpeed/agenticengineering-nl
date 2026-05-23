@@ -60,7 +60,7 @@ describe('<TrainingDetail /> day-split rendering', () => {
             ...actual.trainings.basic,
             durationDays: 2,
             modules: [
-              { id: 'fundamentals-of-agent', day: 1 },
+              { id: 'agents-in-sdlc', day: 1 },
               { id: 'context-architecture', day: 2 },
             ],
           },
