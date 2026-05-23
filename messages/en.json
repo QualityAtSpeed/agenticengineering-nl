@@ -42,7 +42,8 @@
       "priceSuffix": "ex. VAT",
       "viewDetails": "View programme",
       "viewFullCurriculum": "view full curriculum",
-      "bookCta": "Book this training"
+      "bookCta": "Book this training",
+      "taughtBy": "Taught by"
     },
     "basic": {
       "name": "Basic",

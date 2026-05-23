@@ -37,6 +37,14 @@ test('NL home renders hero and Dutch training card label without EN bleed', asyn
     'href',
     'https://github.com/QualityAtSpeed/agenticengineering-nl',
   );
+  const nlBasicTeam = page.getByTestId('teaching-team-basic');
+  await expect(nlBasicTeam).toBeVisible();
+  await expect(nlBasicTeam).toContainText('Pascal Dufour');
+  await expect(nlBasicTeam).toContainText('Inico Veringa');
+  const nlAdvancedTeam = page.getByTestId('teaching-team-advanced');
+  await expect(nlAdvancedTeam).toBeVisible();
+  await expect(nlAdvancedTeam).toContainText('Pascal Dufour');
+  await expect(nlAdvancedTeam).toContainText('Inico Veringa');
 });
 
 test('EN home renders hero and English training card label', async ({ page }) => {
@@ -50,6 +58,14 @@ test('EN home renders hero and English training card label', async ({ page }) =>
     'href',
     'https://github.com/QualityAtSpeed/agenticengineering-nl',
   );
+  const enBasicTeam = page.getByTestId('teaching-team-basic');
+  await expect(enBasicTeam).toBeVisible();
+  await expect(enBasicTeam).toContainText('Pascal Dufour');
+  await expect(enBasicTeam).toContainText('Inico Veringa');
+  const enAdvancedTeam = page.getByTestId('teaching-team-advanced');
+  await expect(enAdvancedTeam).toBeVisible();
+  await expect(enAdvancedTeam).toContainText('Pascal Dufour');
+  await expect(enAdvancedTeam).toContainText('Inico Veringa');
 });
 
 test('NL contact form is reachable and rendered', async ({ page }) => {
