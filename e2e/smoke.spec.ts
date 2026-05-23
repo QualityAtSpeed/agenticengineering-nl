@@ -45,6 +45,12 @@ test('NL home renders hero and Dutch training card label without EN bleed', asyn
   await expect(nlAdvancedTeam).toBeVisible();
   await expect(nlAdvancedTeam).toContainText('Pascal Dufour');
   await expect(nlAdvancedTeam).toContainText('Inico Veringa');
+  const nlBasicAgenda = page.getByTestId('agenda-basic');
+  await expect(nlBasicAgenda).toBeVisible();
+  await expect(nlBasicAgenda).toContainText('Failure modes');
+  const nlAdvancedAgenda = page.getByTestId('agenda-advanced');
+  await expect(nlAdvancedAgenda).toBeVisible();
+  await expect(nlAdvancedAgenda).toContainText('Team rollout');
 });
 
 test('EN home renders hero and English training card label', async ({ page }) => {
@@ -66,6 +72,12 @@ test('EN home renders hero and English training card label', async ({ page }) =>
   await expect(enAdvancedTeam).toBeVisible();
   await expect(enAdvancedTeam).toContainText('Pascal Dufour');
   await expect(enAdvancedTeam).toContainText('Inico Veringa');
+  const enBasicAgenda = page.getByTestId('agenda-basic');
+  await expect(enBasicAgenda).toBeVisible();
+  await expect(enBasicAgenda).toContainText('Failure modes');
+  const enAdvancedAgenda = page.getByTestId('agenda-advanced');
+  await expect(enAdvancedAgenda).toBeVisible();
+  await expect(enAdvancedAgenda).toContainText('Team rollout');
 });
 
 test('NL contact form is reachable and rendered', async ({ page }) => {

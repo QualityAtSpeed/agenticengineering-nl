@@ -93,7 +93,8 @@
         "Waar een agent zijn plek verdient in de SDLC, en waar niet",
         "Wat een agent is vs. chat vs. automatisering",
         "Quality stakes: elke agent-wijziging is code die in productie komt"
-      ]
+      ],
+      "short": "Agents in SDLC"
     },
     "failure-modes-ai-code": {
       "title": "Failure modes van AI-gegenereerde code",
@@ -101,7 +102,8 @@
         "Hallucinaties, stille regressies, false-green builds",
         "Scope drift en onaangekondigde rewrites",
         "Hoe je ze herkent voordat ze in productie staan"
-      ]
+      ],
+      "short": "Failure modes"
     },
     "test-first-with-agents": {
       "title": "Test-first met agents",
@@ -109,7 +111,8 @@
         "De TDD-loop met een agent als driver",
         "Wanneer tests vóór code komen, wanneer niet, waarom het uitmaakt",
         "Tests die gedrag bewijzen vs. tests die het model tevreden stellen"
-      ]
+      ],
+      "short": "Test-first"
     },
     "hooks-and-quality-gates": {
       "title": "Hooks + quality gates",
@@ -117,7 +120,8 @@
         "Pre-commit checks: lint, format, type-check",
         "Custom hooks voor agent-specifieke risico's",
         "Snelle feedback-loops die niet omzeild worden"
-      ]
+      ],
+      "short": "Hooks + gates"
     },
     "build-first-feature": {
       "title": "Lab: bouw je eerste feature met quality-discipline",
@@ -125,7 +129,8 @@
         "End-to-end op een starter repo: brief → tests → code → review",
         "Pas de quality stack van vandaag toe op je eigen wijzigingen",
         "Feedback van het cohort vóór Dag 2"
-      ]
+      ],
+      "short": "Capstone-lab"
     },
     "regression-and-governance": {
       "title": "Regressie-strategie + governance basics",
@@ -133,7 +138,8 @@
         "Golden tests, snapshot guards, property-based checks",
         "Stress-test agent-output op echte randen",
         "Hoe een verstandig team-review-beleid eruitziet"
-      ]
+      ],
+      "short": "Regressie + gov"
     },
     "context-architecture": {
       "title": "Context architecture",
@@ -141,7 +147,8 @@
         "CLAUDE.md / AGENTS.md design",
         "Rules files en project-wide configuratie",
         "Hiërarchie: user, project, lokale overrides"
-      ]
+      ],
+      "short": "Context architecture"
     },
     "context-window-mechanics": {
       "title": "Context window mechanics",
@@ -149,7 +156,8 @@
         "Compressie en samenvattingen",
         "Priming en recency bias",
         "Strategieën voor lange sessies"
-      ]
+      ],
+      "short": "Window mechanics"
     },
     "using-mcp-servers": {
       "title": "Gebruik MCP servers",
@@ -157,7 +165,8 @@
         "MCP overzicht",
         "Bestaande servers koppelen (Filesystem, GitHub, Linear, etc.)",
         "Best practices voor scope en permissions"
-      ]
+      ],
+      "short": "MCP servers"
     },
     "intro-skills-rules": {
       "title": "Introductie tot Skills & Rules",
@@ -165,7 +174,8 @@
         "Wanneer schrijf je een skill",
         "Wanneer schrijf je een rule",
         "Eerste eigen skill"
-      ]
+      ],
+      "short": "Skills + rules"
     },
     "agent-harnessing": {
       "title": "Agent harnessing voor teams",
@@ -173,7 +183,8 @@
         "Subagents en delegatie op team-schaal",
         "Parallelle workflows die team-grote PR-queues overleven",
         "Orchestratiepatronen en review-checkpoints"
-      ]
+      ],
+      "short": "Agent harnessing"
     },
     "capstone-ship-feature": {
       "title": "Capstone — lever een feature op",
@@ -181,7 +192,8 @@
         "Implementeer een feature op een starter repo vanaf een brief",
         "Pas de Dag-1 quality stack + Dag-2 context tooling (MCP, skills, rules) toe",
         "Demo en review met de cohort"
-      ]
+      ],
+      "short": "Feature opleveren"
     },
     "team-rollout-playbook": {
       "title": "Team rollout playbook",
@@ -189,7 +201,8 @@
         "Adoptiefases en rolontwerp",
         "Onboarding-paden voor nieuwe collega's",
         "Volgorde van uitrol over meerdere teams"
-      ]
+      ],
+      "short": "Team rollout"
     },
     "governance-and-policy-gates": {
       "title": "Governance + policy gates",
@@ -197,7 +210,8 @@
         "Bepaal welk beleid je team nodig heeft (security, kosten, kwaliteit)",
         "Handhaaf beleid via CI hooks in plaats van tribal review",
         "Detecteer drift en herstel snel"
-      ]
+      ],
+      "short": "Governance gates"
     },
     "observability-and-cost": {
       "title": "Observability + cost-at-scale",
@@ -205,7 +219,8 @@
         "Usage telemetry over teams",
         "Cost guardrails en budgetten per team",
         "Anomaly triage en feedback loops"
-      ]
+      ],
+      "short": "Observability + cost"
     },
     "capstone-rollout-tabletop": {
       "title": "Capstone — rollout tabletop",
@@ -213,7 +228,8 @@
         "Ontwerp een 90-dagen rolloutplan voor je eigen organisatie",
         "Peer review en stress-test van het plan",
         "Concrete vervolgstappen voor thuis"
-      ]
+      ],
+      "short": "Rollout tabletop"
     }
   },
   "proof": {

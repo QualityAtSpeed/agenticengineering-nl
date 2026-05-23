@@ -1,5 +1,5 @@
 import { describe, it, expect, vi } from 'vitest';
-import { render, screen } from '@testing-library/react';
+import { render, screen, within } from '@testing-library/react';
 import { NextIntlClientProvider } from 'next-intl';
 import nl from '@/messages/nl.json';
 import { TrainingDetail } from '@/components/TrainingDetail';
@@ -23,8 +23,8 @@ describe('<TrainingDetail /> day-split rendering', () => {
       | null;
     expect(twoDayId, 'expected at least one training with durationDays === 2').not.toBeNull();
     renderDetail(twoDayId!);
-    expect(screen.getByText(/Dag 1 —/i)).toBeInTheDocument();
-    expect(screen.getByText(/Dag 2 —/i)).toBeInTheDocument();
+    expect(screen.getAllByText(/Dag 1 —/i)).toHaveLength(2);
+    expect(screen.getAllByText(/Dag 2 —/i)).toHaveLength(2);
   });
 
   it('does NOT render a day split when the training has durationDays === 1', () => {
@@ -75,8 +75,8 @@ describe('<TrainingDetail /> day-split rendering', () => {
           <MockedTrainingDetail trainingId="basic" locale="nl" />
         </NextIntlClientProvider>,
       );
-      expect(screen.getByText(/Dag 1/i)).toBeInTheDocument();
-      expect(screen.getByText(/Dag 2/i)).toBeInTheDocument();
+      expect(screen.getAllByText(/Dag 1/i)).toHaveLength(2);
+      expect(screen.getAllByText(/Dag 2/i)).toHaveLength(2);
     } finally {
       vi.doUnmock('@/data/trainings');
       vi.resetModules();
@@ -105,5 +105,30 @@ describe('<TrainingDetail /> day-split rendering', () => {
     expect(screen.getByText(/Gegeven door/i)).toBeInTheDocument();
     expect(screen.getByText('Pascal Dufour')).toBeInTheDocument();
     expect(screen.getByText('Inico Veringa')).toBeInTheDocument();
+  });
+
+  it('renders the DayAgenda strip for the 2-day training (Basic)', () => {
+    const twoDayId = (Object.values(trainings).find((t) => t.durationDays === 2)?.id ?? null) as
+      | 'basic'
+      | 'advanced'
+      | null;
+    expect(twoDayId, 'expected at least one training with durationDays === 2').not.toBeNull();
+    renderDetail(twoDayId!);
+    const agenda = screen.getByTestId(`agenda-${twoDayId!}`);
+    expect(agenda).toBeInTheDocument();
+    expect(within(agenda).getByText(/Failure modes/)).toBeInTheDocument();
+    expect(within(agenda).getByText(/Feature opleveren/)).toBeInTheDocument();
+  });
+
+  it('renders the DayAgenda strip for the 1-day training (Advanced)', () => {
+    const oneDayId = (Object.values(trainings).find((t) => t.durationDays === 1)?.id ?? null) as
+      | 'basic'
+      | 'advanced'
+      | null;
+    expect(oneDayId, 'expected at least one training with durationDays === 1').not.toBeNull();
+    renderDetail(oneDayId!);
+    const agenda = screen.getByTestId(`agenda-${oneDayId!}`);
+    expect(agenda).toBeInTheDocument();
+    expect(within(agenda).getByText(/Team rollout/)).toBeInTheDocument();
   });
 });
