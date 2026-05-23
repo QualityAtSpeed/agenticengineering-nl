@@ -42,7 +42,8 @@
       "priceSuffix": "Excl. BTW",
       "viewDetails": "Bekijk programma",
       "viewFullCurriculum": "volledige training",
-      "bookCta": "Plan deze training"
+      "bookCta": "Plan deze training",
+      "taughtBy": "Gegeven door"
     },
     "basic": {
       "name": "Basic",
