@@ -1,21 +1,15 @@
 import Link from 'next/link';
 import { useTranslations } from 'next-intl';
-import { trainings, type TrainingId, type Module } from '@/data/trainings';
-import { TeachingTeam } from '@/components/TeachingTeam';
-import { DayAgenda } from '@/components/DayAgenda';
+import { trainings, type TrainingId } from '@/data/trainings';
 
 export function TrainingDetail({ trainingId, locale }: { trainingId: TrainingId; locale: string }) {
   const training = trainings[trainingId];
   const t = useTranslations('trainings');
   const tCommon = useTranslations('trainings.labels');
-  const tModules = useTranslations('modules');
 
   const audience = t.raw(`${trainingId}.audience`) as string[];
   const prerequisites = t.raw(`${trainingId}.prerequisites`) as string[];
   const outcomes = t.raw(`${trainingId}.outcomes`) as string[];
-
-  const modulesDay1 = training.modules.filter((m) => m.day === 1 || m.day === undefined);
-  const modulesDay2 = training.modules.filter((m) => m.day === 2);
 
   return (
     <section
@@ -66,46 +60,6 @@ export function TrainingDetail({ trainingId, locale }: { trainingId: TrainingId;
           <DetailList title={tCommon('outcomes')} items={outcomes} />
         </div>
 
-        <div className="mt-14">
-          <h3 className="text-text-muted font-mono text-sm tracking-[0.2em] uppercase">
-            {tCommon('modules')}
-          </h3>
-          <div data-testid={`agenda-${trainingId}`} className="mt-6 space-y-3">
-            {training.durationDays === 2 ? (
-              <>
-                <DayAgenda label={tCommon('day1')} modules={modulesDay1} />
-                <DayAgenda label={tCommon('day2')} modules={modulesDay2} />
-              </>
-            ) : (
-              <DayAgenda modules={training.modules} />
-            )}
-          </div>
-          {training.durationDays === 2 ? (
-            <div className="mt-6 grid gap-12 lg:grid-cols-2">
-              <div>
-                <p className="text-accent-orange font-mono text-xs">{tCommon('day1')}</p>
-                <div className="mt-4">
-                  <CurriculumList modules={modulesDay1} tModules={tModules} />
-                </div>
-              </div>
-              <div>
-                <p className="text-accent-orange font-mono text-xs">{tCommon('day2')}</p>
-                <div className="mt-4">
-                  <CurriculumList modules={modulesDay2} tModules={tModules} />
-                </div>
-              </div>
-            </div>
-          ) : (
-            <div className="mt-6">
-              <CurriculumList modules={training.modules} tModules={tModules} />
-            </div>
-          )}
-        </div>
-
-        <div data-testid={`teaching-team-${trainingId}`} className="mt-14">
-          <TeachingTeam ids={['pascal', 'inico']} />
-        </div>
-
         <div className="mt-12">
           <Link
             href={`/${locale}/contact?training=${trainingId}`}
@@ -117,60 +71,6 @@ export function TrainingDetail({ trainingId, locale }: { trainingId: TrainingId;
         </div>
       </div>
     </section>
-  );
-}
-
-const SKETCH_PATHS = [
-  // folder
-  'M3 7 L9 7 L11 9 L21 9 L21 19 L3 19 Z',
-  // circle with arrow
-  'M12 4 a8 8 0 1 0 0.01 0 M12 8 L16 12 L12 16',
-  // brackets
-  'M7 5 L4 5 L4 19 L7 19 M17 5 L20 5 L20 19 L17 19',
-  // plug
-  'M9 3 L9 8 M15 3 L15 8 M5 8 L19 8 L19 13 a7 7 0 0 1 -14 0 Z M12 20 L12 22',
-];
-
-function CurriculumList({
-  modules,
-  tModules,
-}: {
-  modules: Module[];
-  tModules: (key: string) => string;
-}) {
-  return (
-    <ol className="space-y-6">
-      {modules.map((m, i) => (
-        <li key={m.id} className="border-border-subtle flex gap-4 border-l-2 pl-5">
-          <svg
-            aria-hidden="true"
-            viewBox="0 0 24 24"
-            className="text-accent-green mt-3 h-7 w-7 shrink-0"
-            fill="none"
-            stroke="currentColor"
-            strokeWidth="1.5"
-            strokeLinecap="round"
-            strokeLinejoin="round"
-          >
-            <path d={SKETCH_PATHS[i % SKETCH_PATHS.length]} />
-          </svg>
-          <div className="flex-1">
-            <p className="text-text-muted font-mono text-xs">{String(i + 1).padStart(2, '0')}</p>
-            <h4 className="text-text-primary mt-1 font-mono text-lg">
-              <span className="text-accent-green">&gt;</span> {tModules(`${m.id}.title`)}
-            </h4>
-            <ul className="text-text-muted mt-3 space-y-1 text-sm">
-              {(
-                (tModules as unknown as { raw: (k: string) => string[] }).raw(`${m.id}.bullets`) ??
-                []
-              ).map((b) => (
-                <li key={b}>· {b}</li>
-              ))}
-            </ul>
-          </div>
-        </li>
-      ))}
-    </ol>
   );
 }
 
