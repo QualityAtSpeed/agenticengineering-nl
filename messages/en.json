@@ -91,7 +91,8 @@
         "CLAUDE.md / AGENTS.md design",
         "Rules files and project-wide configuration",
         "Hierarchy: user, project, local overrides"
-      ]
+      ],
+      "short": "Context arch"
     },
     "context-window-mechanics": {
       "title": "Context window mechanics",
@@ -99,7 +100,8 @@
         "Compression and summaries",
         "Priming and recency bias",
         "Strategies for long sessions"
-      ]
+      ],
+      "short": "Window mechanics"
     },
     "build-first-feature": {
       "title": "Lab: build your first feature with quality discipline",
@@ -107,11 +109,13 @@
         "End-to-end on a starter repo: brief → tests → code → review",
         "Run today's quality stack against your own changes",
         "Cohort feedback before Day 2"
-      ]
+      ],
+      "short": "Capstone lab"
     },
     "intro-skills-rules": {
       "title": "Intro to Skills & Rules",
-      "bullets": ["When to write a skill", "When to write a rule", "Your first own skill"]
+      "bullets": ["When to write a skill", "When to write a rule", "Your first own skill"],
+      "short": "Skills + rules"
     },
     "using-mcp-servers": {
       "title": "Using MCP servers",
@@ -119,7 +123,8 @@
         "MCP overview",
         "Connect existing servers (Filesystem, GitHub, Linear, etc.)",
         "Scope and permission best practices"
-      ]
+      ],
+      "short": "MCP servers"
     },
     "agents-in-sdlc": {
       "title": "Agents in your SDLC: where they fit, where they break",
@@ -127,7 +132,8 @@
         "Where an agent earns its place in the SDLC, and where it doesn't",
         "What an agent actually is vs. chat vs. automation",
         "Quality stakes: every agent change is a code change that ships"
-      ]
+      ],
+      "short": "Agents in SDLC"
     },
     "failure-modes-ai-code": {
       "title": "Failure modes of AI-generated code",
@@ -135,7 +141,8 @@
         "Hallucination, silent regression, false-green builds",
         "Scope drift and undeclared rewrites",
         "How to spot each before they ship"
-      ]
+      ],
+      "short": "Failure modes"
     },
     "test-first-with-agents": {
       "title": "Test-first with agents",
@@ -143,7 +150,8 @@
         "The TDD loop with an agent driver",
         "When tests precede code, when they don't, why it matters",
         "Tests that prove behaviour vs. tests that satisfy the model"
-      ]
+      ],
+      "short": "Test-first"
     },
     "hooks-and-quality-gates": {
       "title": "Hooks + quality gates",
@@ -151,7 +159,8 @@
         "Pre-commit checks: lint, format, type-check",
         "Custom hooks for agent-specific risks",
         "Fast feedback loops that don't get bypassed"
-      ]
+      ],
+      "short": "Hooks + gates"
     },
     "agent-harnessing": {
       "title": "Agent harnessing for teams",
@@ -159,7 +168,8 @@
         "Subagents and delegation at team scale",
         "Parallel workflows that survive team-sized PR queues",
         "Orchestration patterns and review checkpoints"
-      ]
+      ],
+      "short": "Agent harnessing"
     },
     "regression-and-governance": {
       "title": "Regression strategy + governance basics",
@@ -167,7 +177,8 @@
         "Golden tests, snapshot guards, property-based checks",
         "Stress-testing agent output on real edges",
         "What a sensible team review policy looks like"
-      ]
+      ],
+      "short": "Regression + gov"
     },
     "capstone-ship-feature": {
       "title": "Capstone — ship a feature end-to-end",
@@ -175,7 +186,8 @@
         "Implement a feature on a starter repo from a brief",
         "Apply Day-1 quality stack + Day-2 context tooling (MCP, skills, rules)",
         "Demo and review with the cohort"
-      ]
+      ],
+      "short": "Ship feature"
     },
     "team-rollout-playbook": {
       "title": "Team rollout playbook",
@@ -183,7 +195,8 @@
         "Adoption stages and role design",
         "Onboarding paths for new joiners",
         "Sequencing rollout across multiple teams"
-      ]
+      ],
+      "short": "Team rollout"
     },
     "governance-and-policy-gates": {
       "title": "Governance + policy gates",
@@ -191,7 +204,8 @@
         "Decide what policy your team needs (security, cost, quality)",
         "Enforce policy via CI hooks rather than tribal review",
         "Detect drift and recover quickly"
-      ]
+      ],
+      "short": "Governance gates"
     },
     "observability-and-cost": {
       "title": "Observability + cost-at-scale",
@@ -199,7 +213,8 @@
         "Usage telemetry across teams",
         "Cost guardrails and per-team budgets",
         "Anomaly triage and feedback loops"
-      ]
+      ],
+      "short": "Observability + cost"
     },
     "capstone-rollout-tabletop": {
       "title": "Capstone — rollout tabletop",
@@ -207,7 +222,8 @@
         "Design a 90-day rollout plan for your own org",
         "Peer review and stress-test of the plan",
         "Concrete next steps to take home"
-      ]
+      ],
+      "short": "Rollout tabletop"
     }
   },
   "proof": {
