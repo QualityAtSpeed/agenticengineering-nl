@@ -31,6 +31,12 @@ test('NL home renders hero and Dutch training card label without EN bleed', asyn
   await expect(home.trainingAdvancedSection).toBeVisible();
   await expect(home.viewFullCurriculumLabel.first()).toBeVisible();
   await expect(page.getByText(home.otherLocaleLabel())).toHaveCount(0);
+  const nlProof = page.getByTestId('proof-github-link');
+  await expect(nlProof).toBeVisible();
+  await expect(nlProof).toHaveAttribute(
+    'href',
+    'https://github.com/QualityAtSpeed/agenticengineering-nl',
+  );
 });
 
 test('EN home renders hero and English training card label', async ({ page }) => {
@@ -38,6 +44,12 @@ test('EN home renders hero and English training card label', async ({ page }) =>
   await home.goto();
   await expect(home.heroHeading).toContainText(/agentic.*engineering/i);
   await expect(home.viewFullCurriculumLabel.first()).toBeVisible();
+  const enProof = page.getByTestId('proof-github-link');
+  await expect(enProof).toBeVisible();
+  await expect(enProof).toHaveAttribute(
+    'href',
+    'https://github.com/QualityAtSpeed/agenticengineering-nl',
+  );
 });
 
 test('NL contact form is reachable and rendered', async ({ page }) => {

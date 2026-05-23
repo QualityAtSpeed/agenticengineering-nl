@@ -215,6 +215,18 @@
       ]
     }
   },
+  "proof": {
+    "heading": "We leveren wat we trainen.",
+    "subhead": "Deze site draait op de stack die je leert. Source open, CI live, pariteit afgedwongen.",
+    "pills": [
+      "CI groen",
+      "48 unit + 64 e2e tests",
+      "WCAG 2.1 AA",
+      "TypeScript strict",
+      "NL/EN locale-pariteit afgedwongen"
+    ],
+    "ctaLabel": "bekijk source op GitHub"
+  },
   "footer": {
     "tagline": "Agentic AI quality engineering trainingen.",
     "rights": "© 2026 agenticengineering.nl",
