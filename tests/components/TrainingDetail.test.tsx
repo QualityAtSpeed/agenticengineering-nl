@@ -82,4 +82,28 @@ describe('<TrainingDetail /> day-split rendering', () => {
       vi.resetModules();
     }
   });
+
+  it('renders the TeachingTeam cluster for the 2-day training', () => {
+    const twoDayId = (Object.values(trainings).find((t) => t.durationDays === 2)?.id ?? null) as
+      | 'basic'
+      | 'advanced'
+      | null;
+    expect(twoDayId, 'expected at least one training with durationDays === 2').not.toBeNull();
+    renderDetail(twoDayId!);
+    expect(screen.getByText(/Gegeven door/i)).toBeInTheDocument();
+    expect(screen.getByText('Pascal Dufour')).toBeInTheDocument();
+    expect(screen.getByText('Inico Veringa')).toBeInTheDocument();
+  });
+
+  it('renders the TeachingTeam cluster for the 1-day training', () => {
+    const oneDayId = (Object.values(trainings).find((t) => t.durationDays === 1)?.id ?? null) as
+      | 'basic'
+      | 'advanced'
+      | null;
+    expect(oneDayId, 'expected at least one training with durationDays === 1').not.toBeNull();
+    renderDetail(oneDayId!);
+    expect(screen.getByText(/Gegeven door/i)).toBeInTheDocument();
+    expect(screen.getByText('Pascal Dufour')).toBeInTheDocument();
+    expect(screen.getByText('Inico Veringa')).toBeInTheDocument();
+  });
 });

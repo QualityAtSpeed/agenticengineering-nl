@@ -1,6 +1,7 @@
 import Link from 'next/link';
 import { useTranslations } from 'next-intl';
 import { trainings, type TrainingId, type Module } from '@/data/trainings';
+import { TeachingTeam } from '@/components/TeachingTeam';
 
 export function TrainingDetail({ trainingId, locale }: { trainingId: TrainingId; locale: string }) {
   const training = trainings[trainingId];
@@ -88,6 +89,10 @@ export function TrainingDetail({ trainingId, locale }: { trainingId: TrainingId;
               <CurriculumList modules={training.modules} tModules={tModules} />
             </div>
           )}
+        </div>
+
+        <div data-testid={`teaching-team-${trainingId}`} className="mt-14">
+          <TeachingTeam ids={['pascal', 'inico']} />
         </div>
 
         <div className="mt-12">
