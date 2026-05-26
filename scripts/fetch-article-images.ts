@@ -1,6 +1,8 @@
 import fs from 'node:fs';
 import path from 'node:path';
+import dns from 'node:dns/promises';
 import { fileURLToPath } from 'node:url';
+import ipaddr from 'ipaddr.js';
 import { parseFrontmatter } from '../lib/parseFrontmatter';
 
 interface CacheEntry {
@@ -10,16 +12,81 @@ interface CacheEntry {
 }
 type CacheMap = Record<string, CacheEntry>;
 
+export type LookupFn = (
+  hostname: string,
+  opts: { all: true },
+) => Promise<Array<{ address: string; family: number }>>;
+
 export interface FetchOptions {
   newsDir?: string;
   outputDir?: string;
   cacheFile?: string;
+  lookup?: LookupFn;
+  maxRedirects?: number;
+}
+
+const BLOCKED_RANGES = new Set([
+  'unspecified',
+  'broadcast',
+  'multicast',
+  'linkLocal',
+  'loopback',
+  'carrierGradeNat',
+  'private',
+  'uniqueLocal',
+  'reserved',
+]);
+
+async function assertPublicHost(hostname: string, lookup: LookupFn): Promise<void> {
+  const stripped = hostname.replace(/^\[|\]$/g, '');
+  if (ipaddr.isValid(stripped)) {
+    const range = ipaddr.parse(stripped).range();
+    if (BLOCKED_RANGES.has(range)) {
+      throw new Error(`blocked IP range: ${range} (${stripped})`);
+    }
+    return;
+  }
+  const records = await lookup(hostname, { all: true });
+  for (const { address } of records) {
+    const range = ipaddr.parse(address).range();
+    if (BLOCKED_RANGES.has(range)) {
+      throw new Error(`host ${hostname} resolves to blocked range: ${range} (${address})`);
+    }
+  }
+}
+
+async function safeFetch(
+  rawUrl: string,
+  init: RequestInit,
+  lookup: LookupFn,
+  maxRedirects: number,
+): Promise<Response> {
+  let current = rawUrl;
+  for (let hop = 0; hop <= maxRedirects; hop++) {
+    const u = new URL(current);
+    if (!['http:', 'https:'].includes(u.protocol)) {
+      throw new Error(`scheme not allowed: ${u.protocol}`);
+    }
+    await assertPublicHost(u.hostname, lookup);
+
+    const res = await fetch(current, { ...init, redirect: 'manual' });
+    if (res.status >= 300 && res.status < 400) {
+      const loc = res.headers.get('location');
+      if (!loc) return res;
+      current = new URL(loc, current).toString();
+      continue;
+    }
+    return res;
+  }
+  throw new Error(`too many redirects (>${maxRedirects})`);
 }
 
 export async function fetchArticleImages(options: FetchOptions = {}): Promise<void> {
   const newsDir = options.newsDir ?? path.join(process.cwd(), 'news');
   const outputDir = options.outputDir ?? path.join(process.cwd(), 'public', 'news');
   const cacheFile = options.cacheFile ?? path.join(outputDir, '.cache.json');
+  const lookup = options.lookup ?? (dns.lookup as unknown as LookupFn);
+  const maxRedirects = options.maxRedirects ?? 3;
 
   if (!fs.existsSync(newsDir)) return;
 
@@ -56,7 +123,7 @@ export async function fetchArticleImages(options: FetchOptions = {}): Promise<vo
     let etag: string | null = null;
     let lastModified: string | null = null;
     try {
-      const head = await fetch(sourceUrl, { method: 'HEAD' });
+      const head = await safeFetch(sourceUrl, { method: 'HEAD' }, lookup, maxRedirects);
       etag = head.headers.get('etag');
       lastModified = head.headers.get('last-modified');
 
@@ -75,7 +142,7 @@ export async function fetchArticleImages(options: FetchOptions = {}): Promise<vo
     }
 
     try {
-      const res = await fetch(sourceUrl);
+      const res = await safeFetch(sourceUrl, {}, lookup, maxRedirects);
       const html = await res.text();
 
       const match =
@@ -89,24 +156,7 @@ export async function fetchArticleImages(options: FetchOptions = {}): Promise<vo
 
       const imageUrl = match[1];
 
-      // Reject non-http(s) schemes and loopback addresses to prevent SSRF
-      let imageUrlObj: URL;
-      try {
-        imageUrlObj = new URL(imageUrl);
-      } catch {
-        console.warn(`[warn] ${slug}: og:image is not a valid URL: ${imageUrl}`);
-        continue;
-      }
-      if (!['http:', 'https:'].includes(imageUrlObj.protocol)) {
-        console.warn(`[warn] ${slug}: og:image scheme not allowed: ${imageUrlObj.protocol}`);
-        continue;
-      }
-      if (/^(localhost|127\.|169\.254\.|::1|\[::1\])/.test(imageUrlObj.hostname)) {
-        console.warn(`[warn] ${slug}: og:image points to loopback/link-local address`);
-        continue;
-      }
-
-      const imgRes = await fetch(imageUrl);
+      const imgRes = await safeFetch(imageUrl, {}, lookup, maxRedirects);
       if (!imgRes.ok) throw new Error(`HTTP ${imgRes.status}`);
 
       const buf = Buffer.from(await imgRes.arrayBuffer());
@@ -132,7 +182,6 @@ export async function fetchArticleImages(options: FetchOptions = {}): Promise<vo
         ...(lastModified !== null && { lastModified }),
         localPath: `/news/${localFilename}`,
       };
-      // Atomic write: write to .tmp, then rename
       const tempCacheFile = `${cacheFile}.tmp`;
       fs.writeFileSync(tempCacheFile, JSON.stringify(cache, null, 2));
       fs.renameSync(tempCacheFile, cacheFile);
@@ -144,7 +193,6 @@ export async function fetchArticleImages(options: FetchOptions = {}): Promise<vo
   }
 }
 
-// Entry point when run directly via tsx
 const __filename = fileURLToPath(import.meta.url);
 if (process.argv[1] === __filename) {
   fetchArticleImages().catch((err) => {

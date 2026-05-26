@@ -37,6 +37,7 @@ Write exactly this structure:
 title_nl: '<dutch title>'
 title_en: '<english title>'
 url: '<url>'
+source_url: '<url>'
 date: '<YYYY-MM-DD>'
 summary_nl: '<dutch summary>'
 summary_en: '<english summary>'
@@ -47,8 +48,43 @@ Notes:
 
 - Use single quotes around every value to keep YAML predictable with apostrophes.
 - Escape any embedded `'` by doubling it (`it''s`).
+- `url` and `source_url` are both required and usually identical. `source_url` is read by `scripts/fetch-article-images.ts` to download the og:image.
 - No body content — frontmatter only. The `/news` page renders from frontmatter.
 - End the file with a trailing newline.
+
+## Image fetch
+
+After writing the markdown file, the og:image needs to be downloaded to `public/news/`. The site reads `public/news/.cache.json` at build time to resolve each article's image path.
+
+Show this command for the user to run:
+
+```
+pnpm fetch:images
+```
+
+What it does:
+
+- Reads every `news/*.md`, finds the `source_url`, fetches the page HTML and parses the `<meta property="og:image">` tag.
+- Downloads the image to `public/news/<slug>.<ext>` and updates `public/news/.cache.json`.
+- Skips articles whose ETag/Last-Modified matches the cache (no re-download).
+- Skips articles that already have an `image:` field in their frontmatter.
+
+SSRF guards in the script (defense-in-depth — still only run on trusted URLs):
+
+- Only `http:` and `https:` schemes accepted.
+- DNS resolves hostname; rejects loopback, RFC1918 private, link-local, unique-local, carrier-grade NAT, multicast, reserved, and unspecified ranges (via `ipaddr.js`).
+- Redirect chain capped (max 3) with the same host check at every hop.
+
+If the run prints `[warn] <slug>: ...`, deal with it before opening the PR:
+
+- `og:image not found` or fetch failed → use the **manual image fallback** below.
+- `blocked range: ...` → the source's og:image points to an internal host. Almost always a bug on their side; use the manual fallback.
+- `scheme not allowed: ...` → og:image is not http(s); use the manual fallback.
+
+### Manual image fallback
+
+1. Save a custom image to `public/news/<YYYY-MM-DD>-<slug>.<ext>` (`.jpg`, `.png`, `.webp`, or `.gif`).
+2. Add `image: '/news/<YYYY-MM-DD>-<slug>.<ext>'` to the article frontmatter — the script skips articles with an `image` override.
 
 ## Branch and pull request flow
 
@@ -62,7 +98,9 @@ Before showing commands, confirm:
 Then propose, in this order:
 
 1. `git checkout -b news/<slug>`
-2. After the markdown file is written, `git add news/<YYYY-MM-DD>-<slug>.md`
+2. After the markdown file is written and `pnpm fetch:images` has run, stage both:
+   - `git add news/<YYYY-MM-DD>-<slug>.md`
+   - `git add public/news/<YYYY-MM-DD>-<slug>.* public/news/.cache.json` (only if the fetch produced files)
 3. `git commit -m "news: add <title>"` — keep the subject ≤72 chars; truncate the title if needed.
 4. `git push -u origin news/<slug>`
 5. `gh pr create --title "news: add <title>" --body "<body>"` where `<body>` is:
@@ -73,6 +111,7 @@ Then propose, in this order:
 
    ## Test plan
    - [ ] Visit `/news` locally and confirm the item renders in both `nl` and `en`
+   - [ ] Confirm the article card shows the expected thumbnail
    ```
 
 Show each command in its own fenced block with a one-sentence reason. Wait for the user before moving on.
@@ -84,8 +123,10 @@ Show each command in its own fenced block with a one-sentence reason. Wait for t
 3. Derive slug and filename. Show them back for confirmation.
 4. Show the final markdown file content for approval before writing.
 5. After approval, write the file with the Write tool to `<repo>/news/<YYYY-MM-DD>-<slug>.md`. Create the `/news/` directory if it doesn't exist yet.
-6. Show the git/gh command sequence. User runs each.
-7. Stop after PR creation. Do not suggest further changes.
+6. Show the `pnpm fetch:images` command for the user to run. Inspect the output: success messages or warnings.
+7. If a warning blocks the fetch, walk the user through the manual image fallback.
+8. Show the git/gh command sequence. User runs each.
+9. Stop after PR creation. Do not suggest further changes.
 
 ## Edge cases
 
