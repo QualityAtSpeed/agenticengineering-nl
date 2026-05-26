@@ -29,10 +29,31 @@ for (const locale of locales) {
     test.skip(!hasArticles, 'no articles in news/ — card render path not exercised');
     const articles = new ArticlesPage(page, locale);
     await articles.goto();
-    await expect(articles.articleCards.first()).toBeVisible();
     const firstLink = articles.articleCards.first();
+    await expect(firstLink).toBeVisible();
     await expect(firstLink).toHaveAttribute('target', '_blank');
     await expect(firstLink).toHaveAttribute('rel', /noopener/);
     await expect(articles.readExternalLinks.first()).toBeVisible();
+  });
+
+  test(`articles: ${locale} card images have src and non-empty alt`, async ({ page }) => {
+    test.skip(!hasArticles, 'no articles in news/ — card render path not exercised');
+    const articles = new ArticlesPage(page, locale);
+    await articles.goto();
+    const firstImage = articles.cardImages.first();
+    await expect(firstImage).toBeVisible();
+    const src = await firstImage.getAttribute('src');
+    expect(src).toBeTruthy();
+    const alt = await firstImage.getAttribute('alt');
+    expect(alt).toBeTruthy();
+  });
+
+  test(`articles: ${locale} card border changes on hover`, async ({ page }) => {
+    test.skip(!hasArticles, 'no articles in news/ — card render path not exercised');
+    const articles = new ArticlesPage(page, locale);
+    await articles.goto();
+    const card = articles.cardContainers.first();
+    await card.hover();
+    await expect(card).toHaveCSS('border-color', 'rgb(88, 166, 255)');
   });
 }
