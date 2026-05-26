@@ -30,18 +30,18 @@ export default async function ArticlesPage({ params }: { params: Promise<{ local
           </div>
         )}
 
-        <h2 className="text-text-primary mt-24 font-mono text-4xl">
-          <span className="text-accent-green">&gt;</span> {tBlogs('title')}
-        </h2>
-        <p className="text-text-muted mt-6 max-w-2xl">{tBlogs('intro')}</p>
-        {blogs.length === 0 ? (
-          <p className="text-text-muted mt-12 font-mono text-sm">{tBlogs('emptyState')}</p>
-        ) : (
-          <div className="mt-12 grid gap-6 md:grid-cols-2">
-            {blogs.map((b) => (
-              <BlogCard key={b.slug} blog={b} locale={locale} />
-            ))}
-          </div>
+        {blogs.length > 0 && (
+          <>
+            <h2 className="text-text-primary mt-24 font-mono text-4xl">
+              <span className="text-accent-green">&gt;</span> {tBlogs('title')}
+            </h2>
+            <p className="text-text-muted mt-6 max-w-2xl">{tBlogs('intro')}</p>
+            <div className="mt-12 grid gap-6 md:grid-cols-2">
+              {blogs.map((b) => (
+                <BlogCard key={b.slug} blog={b} locale={locale} />
+              ))}
+            </div>
+          </>
         )}
       </div>
     </main>
