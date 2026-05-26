@@ -53,6 +53,18 @@ describe('getBlogs', () => {
     expect(() => getBlogs(fixture('blogs-date-mismatch'))).toThrow(/date mismatch/);
   });
 
+  it('throws when tags mismatch across locales', () => {
+    expect(() => getBlogs(fixture('blogs-tags-mismatch'))).toThrow(/tags mismatch/);
+  });
+
+  it('throws when author mismatches across locales', () => {
+    expect(() => getBlogs(fixture('blogs-author-mismatch'))).toThrow(/author mismatch/);
+  });
+
+  it('throws when image mismatches across locales', () => {
+    expect(() => getBlogs(fixture('blogs-image-mismatch'))).toThrow(/image mismatch/);
+  });
+
   it('throws when a required frontmatter field is missing', () => {
     expect(() => getBlogs(fixture('blogs-missing-field'))).toThrow(/summary/);
   });

@@ -34,6 +34,18 @@ export interface Blog {
 
 const DEFAULT_BLOGS_DIR = path.join(process.cwd(), 'blogs');
 
+const SHARED_FIELDS = ['date', 'image', 'tags', 'author'] as const satisfies ReadonlyArray<
+  keyof Frontmatter
+>;
+
+function sharedFieldEqual(a: unknown, b: unknown): boolean {
+  if (a === b) return true;
+  if (Array.isArray(a) && Array.isArray(b)) {
+    return a.length === b.length && a.every((v, i) => v === b[i]);
+  }
+  return false;
+}
+
 let cache: { dir: string; blogs: Blog[] } | null = null;
 
 function parseBlogFile(filePath: string, filename: string): { fm: Frontmatter; body: string } {
@@ -81,10 +93,12 @@ export function getBlogs(blogsDir: string = DEFAULT_BLOGS_DIR): Blog[] {
     if (!nl || !en) {
       throw new Error(`Blog "${slug}" is missing one locale file (need both .nl.md and .en.md)`);
     }
-    if (nl.fm.date !== en.fm.date) {
-      throw new Error(
-        `Blog "${slug}" date mismatch between locales: nl=${nl.fm.date}, en=${en.fm.date}`,
-      );
+    for (const field of SHARED_FIELDS) {
+      if (!sharedFieldEqual(nl.fm[field], en.fm[field])) {
+        throw new Error(
+          `Blog "${slug}" ${field} mismatch between locales: nl=${JSON.stringify(nl.fm[field])}, en=${JSON.stringify(en.fm[field])}`,
+        );
+      }
     }
     const blog: Blog = {
       slug,
