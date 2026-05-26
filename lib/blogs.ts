@@ -35,6 +35,8 @@ export interface Blog {
 
 const DEFAULT_BLOGS_DIR = path.join(process.cwd(), 'blogs');
 
+let cache: { dir: string; blogs: Blog[] } | null = null;
+
 function parseBlogFile(filePath: string, filename: string): { fm: Frontmatter; body: string } {
   const raw = fs.readFileSync(filePath, 'utf8');
   const match = raw.match(FRONTMATTER_RE);
@@ -58,9 +60,16 @@ function parseBlogFile(filePath: string, filename: string): { fm: Frontmatter; b
 }
 
 export function getBlogs(blogsDir: string = DEFAULT_BLOGS_DIR): Blog[] {
-  if (!fs.existsSync(blogsDir)) return [];
+  if (cache && cache.dir === blogsDir) return cache.blogs;
+  if (!fs.existsSync(blogsDir)) {
+    cache = { dir: blogsDir, blogs: [] };
+    return [];
+  }
   const entries = fs.readdirSync(blogsDir).filter((f) => FILENAME_RE.test(f));
-  if (entries.length === 0) return [];
+  if (entries.length === 0) {
+    cache = { dir: blogsDir, blogs: [] };
+    return [];
+  }
 
   const bySlug = new Map<
     string,
@@ -101,6 +110,7 @@ export function getBlogs(blogsDir: string = DEFAULT_BLOGS_DIR): Blog[] {
   }
 
   blogs.sort((a, b) => (a.date < b.date ? 1 : a.date > b.date ? -1 : 0));
+  cache = { dir: blogsDir, blogs };
   return blogs;
 }
 
