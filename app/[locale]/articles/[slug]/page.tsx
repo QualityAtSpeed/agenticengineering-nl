@@ -23,7 +23,7 @@ export default async function BlogPostPage({
   const t = await getTranslations('blogs');
   const blog = getBlogBySlug(slug);
   if (!blog) notFound();
-  const content = locale === 'nl' ? blog.nl : blog.en;
+  const content = blog[locale];
 
   return (
     <main className="px-6 py-20">
