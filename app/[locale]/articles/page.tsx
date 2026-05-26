@@ -19,7 +19,7 @@ export default async function ArticlesPage({ params }: { params: Promise<{ local
         {articles.length === 0 ? (
           <p className="text-text-muted mt-12 font-mono text-sm">{t('emptyState')}</p>
         ) : (
-          <div className="mt-12 grid gap-6 md:grid-cols-2">
+          <div className="mt-12 flex flex-col gap-6">
             {articles.map((a) => (
               <ArticleCard key={a.slug} article={a} locale={locale} />
             ))}
