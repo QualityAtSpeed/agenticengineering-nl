@@ -11,7 +11,7 @@ export function parseFrontmatter(raw: string, filename: string): { fm: unknown; 
   }
   let fm: unknown;
   try {
-    fm = yaml.load(match[1], { schema: yaml.CORE_SCHEMA });
+    fm = yaml.load(match[1]);
   } catch (err) {
     const reason = err instanceof Error ? err.message : String(err);
     throw new Error(`Failed to parse YAML frontmatter in ${filename}: ${reason}`);
