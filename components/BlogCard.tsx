@@ -1,10 +1,11 @@
 import Link from 'next/link';
 import { useTranslations } from 'next-intl';
 import type { Blog } from '@/lib/blogs';
+import type { Locale } from '@/i18n/routing';
 
-export function BlogCard({ blog, locale }: { blog: Blog; locale: string }) {
+export function BlogCard({ blog, locale }: { blog: Blog; locale: Locale }) {
   const t = useTranslations('blogs');
-  const content = locale === 'nl' ? blog.nl : blog.en;
+  const content = blog[locale];
 
   return (
     <article className="border-border-subtle bg-bg-elevated flex h-full flex-col rounded-sm border p-6">
