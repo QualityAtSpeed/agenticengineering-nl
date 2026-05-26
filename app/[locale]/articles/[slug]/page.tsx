@@ -6,6 +6,8 @@ import remarkGfm from 'remark-gfm';
 import { getBlogs, getBlogBySlug } from '@/lib/blogs';
 import { routing, type Locale } from '@/i18n/routing';
 
+export const dynamicParams = false;
+
 export function generateStaticParams() {
   const blogs = getBlogs();
   return routing.locales.flatMap((locale) => blogs.map((b) => ({ locale, slug: b.slug })));
