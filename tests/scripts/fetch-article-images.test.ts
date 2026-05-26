@@ -5,7 +5,7 @@ import os from 'node:os';
 import { fetchArticleImages, type LookupFn } from '@/scripts/fetch-article-images';
 
 function makeTempDirs() {
-  const base = path.join(os.tmpdir(), `fetch-test-${Date.now()}-${Math.random()}`);
+  const base = fs.mkdtempSync(path.join(os.tmpdir(), 'fetch-test-'));
   const newsDir = path.join(base, 'news');
   const outputDir = path.join(base, 'output');
   fs.mkdirSync(newsDir, { recursive: true });
@@ -301,6 +301,35 @@ describe('fetchArticleImages', () => {
     await fetchArticleImages({ newsDir, outputDir, cacheFile, lookup: lookupStub });
 
     expect(warnSpy).toHaveBeenCalledWith(expect.stringMatching(/blocked range: linkLocal/));
+    warnSpy.mockRestore();
+  });
+
+  it('rejects host when DNS lookup returns no records', async () => {
+    const { newsDir, outputDir, cacheFile } = makeTempDirs();
+    writeArticle(newsDir, '2026-05-12-foo.md', 'https://example.com/post');
+
+    const lookupStub: LookupFn = vi.fn(async (host: string) => {
+      if (host === 'no-records.test') return [];
+      return [{ address: '93.184.216.34', family: 4 }];
+    });
+
+    vi.stubGlobal(
+      'fetch',
+      mockFetch([
+        { url: 'https://example.com/post', headers: { etag: '"a"' }, body: '' },
+        {
+          url: 'https://example.com/post',
+          body: '<meta property="og:image" content="https://no-records.test/x.jpg" />',
+        },
+      ]),
+    );
+    const warnSpy = vi.spyOn(console, 'warn').mockImplementation(() => {});
+
+    await fetchArticleImages({ newsDir, outputDir, cacheFile, lookup: lookupStub });
+
+    expect(warnSpy).toHaveBeenCalledWith(
+      expect.stringMatching(/no DNS records for no-records\.test/),
+    );
     warnSpy.mockRestore();
   });
 

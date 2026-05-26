@@ -47,6 +47,9 @@ async function assertPublicHost(hostname: string, lookup: LookupFn): Promise<voi
     return;
   }
   const records = await lookup(hostname, { all: true });
+  if (records.length === 0) {
+    throw new Error(`no DNS records for ${hostname}`);
+  }
   for (const { address } of records) {
     const range = ipaddr.parse(address).range();
     if (BLOCKED_RANGES.has(range)) {
