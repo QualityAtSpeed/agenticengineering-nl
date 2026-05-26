@@ -1,9 +1,8 @@
 import fs from 'node:fs';
 import path from 'node:path';
-import yaml from 'js-yaml';
 import { z } from 'zod';
+import { parseFrontmatter } from './parseFrontmatter';
 
-const FRONTMATTER_RE = /^---\n([\s\S]*?)\n---\n([\s\S]*)$/;
 const FILENAME_RE = /^(.+)\.(nl|en)\.md$/;
 
 const frontmatterSchema = z.object({
@@ -39,24 +38,14 @@ let cache: { dir: string; blogs: Blog[] } | null = null;
 
 function parseBlogFile(filePath: string, filename: string): { fm: Frontmatter; body: string } {
   const raw = fs.readFileSync(filePath, 'utf8');
-  const match = raw.match(FRONTMATTER_RE);
-  if (!match) {
-    throw new Error(`Invalid blog file ${filename}: expected --- frontmatter --- followed by body`);
-  }
-  let parsed: unknown;
-  try {
-    parsed = yaml.load(match[1], { schema: yaml.CORE_SCHEMA });
-  } catch (err) {
-    const reason = err instanceof Error ? err.message : String(err);
-    throw new Error(`Failed to parse YAML frontmatter in ${filename}: ${reason}`);
-  }
-  const result = frontmatterSchema.safeParse(parsed);
+  const { fm, body } = parseFrontmatter(raw, filename);
+  const result = frontmatterSchema.safeParse(fm);
   if (!result.success) {
     const issue = result.error.issues[0];
     const field = issue.path.join('.') || '(root)';
     throw new Error(`Invalid frontmatter in ${filename}: field "${field}" — ${issue.message}`);
   }
-  return { fm: result.data, body: match[2].trim() };
+  return { fm: result.data, body };
 }
 
 export function getBlogs(blogsDir: string = DEFAULT_BLOGS_DIR): Blog[] {

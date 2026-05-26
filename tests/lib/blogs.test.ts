@@ -58,7 +58,9 @@ describe('getBlogs', () => {
   });
 
   it('throws when frontmatter delimiters are absent', () => {
-    expect(() => getBlogs(fixture('blogs-no-frontmatter'))).toThrow(/expected --- frontmatter/);
+    expect(() => getBlogs(fixture('blogs-no-frontmatter'))).toThrow(
+      /start with --- and end with ---/,
+    );
   });
 });
 
