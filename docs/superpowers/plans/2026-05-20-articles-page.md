@@ -429,7 +429,7 @@ In `messages/en.json`, after the closing `}` of the `"about"` namespace (and bef
   "articles": {
     "title": "articles",
     "intro": "External articles we wrote or recommend. Each one links out to its original home.",
-    "readExternal": "read on external site ↗",
+    "readExternal": "read on external site ",
     "emptyState": "no articles yet"
   },
 ```
@@ -440,7 +440,7 @@ In `messages/nl.json`, add the parallel block at the same position:
   "articles": {
     "title": "artikelen",
     "intro": "Externe artikelen die wij schreven of aanraden. Elke link wijst naar het origineel.",
-    "readExternal": "lees op externe site ↗",
+    "readExternal": "lees op externe site ",
     "emptyState": "nog geen artikelen"
   },
 ```
