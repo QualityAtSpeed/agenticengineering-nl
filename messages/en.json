@@ -266,7 +266,7 @@
   "articles": {
     "title": "articles",
     "intro": "External articles we wrote or recommend. Each one links out to its original home.",
-    "readExternal": "read on external site ↗",
+    "readExternal": "read on external site ",
     "emptyState": "no articles yet",
     "filter": {
       "all": "all",
@@ -277,6 +277,13 @@
       "blog": "blog",
       "article": "article"
     }
+  },
+  "blogs": {
+    "title": "blogs",
+    "intro": "Blogs written by us for you",
+    "emptyState": "No blogs yet",
+    "readMore": "read post",
+    "backLink": "← back to articles"
   },
   "contact": {
     "title": "Contact",

@@ -1,5 +1,5 @@
 import { setRequestLocale, getTranslations } from 'next-intl/server';
-import { ArticleCard } from '@/components/ArticleCard';
+import { TimelineEntryRow } from '@/components/TimelineEntry';
 import { ArticleFilterBar, type FilterType } from '@/components/ArticleFilterBar';
 import { getArticles } from '@/lib/articles';
 import type { Locale } from '@/i18n/routing';
@@ -21,8 +21,9 @@ export default async function ArticlesPage({
   setRequestLocale(locale);
   const t = await getTranslations('articles');
   const currentType = normaliseType(type);
-  const all = getArticles();
-  const visible = currentType === 'all' ? all : all.filter((a) => a.type === currentType);
+  const articles = getArticles();
+
+  const visible = currentType === 'all' ? articles : articles.filter((a) => a.type === currentType);
 
   return (
     <main className="px-6 py-20">
@@ -35,11 +36,11 @@ export default async function ArticlesPage({
         {visible.length === 0 ? (
           <p className="text-text-muted mt-12 font-mono text-sm">{t('emptyState')}</p>
         ) : (
-          <div className="mt-12 grid gap-6 md:grid-cols-2">
-            {visible.map((a) => (
-              <ArticleCard key={a.slug} article={a} locale={locale} />
+          <ol className="border-border-subtle mt-12 ml-3 border-l pl-6">
+            {visible.map((article) => (
+              <TimelineEntryRow key={article.slug} article={article} locale={locale} />
             ))}
-          </div>
+          </ol>
         )}
       </div>
     </main>

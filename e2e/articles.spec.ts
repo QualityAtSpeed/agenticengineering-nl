@@ -48,15 +48,16 @@ for (const locale of locales) {
     expect(alt).toBeTruthy();
   });
 
-  test(`articles: ${locale} card border changes on hover`, async ({ page }) => {
+  test(`articles: ${locale} card heading color changes on hover`, async ({ page }) => {
     test.skip(!hasArticles, 'no articles in news/ — card render path not exercised');
     const articles = new ArticlesPage(page, locale);
     await articles.goto();
     const card = articles.cardContainers.first();
-    const baseline = await card.evaluate((el) => getComputedStyle(el).borderColor);
+    const heading = card.locator('h3');
+    const baseline = await heading.evaluate((el) => getComputedStyle(el).color);
     await card.hover();
     await expect
-      .poll(async () => card.evaluate((el) => getComputedStyle(el).borderColor))
+      .poll(async () => heading.evaluate((el) => getComputedStyle(el).color))
       .not.toBe(baseline);
   });
 
