@@ -40,8 +40,8 @@ export function getArticles(newsDir: string = DEFAULT_NEWS_DIR): Article[] {
   const articles = entries.map((filename) => {
     const filePath = path.join(newsDir, filename);
     const raw = fs.readFileSync(filePath, 'utf8');
-    const { fm } = parseFrontmatter(raw, filename);
-    const result = frontmatterSchema.safeParse(fm);
+    const parsed = parseFrontmatter(raw, filename);
+    const result = frontmatterSchema.safeParse(parsed);
 
     if (!result.success) {
       const issue = result.error.issues[0];

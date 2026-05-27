@@ -19,7 +19,6 @@ type Frontmatter = z.infer<typeof frontmatterSchema>;
 interface LocaleContent {
   title: string;
   summary: string;
-  body: string;
 }
 
 export interface Blog {
@@ -48,16 +47,16 @@ function sharedFieldEqual(a: unknown, b: unknown): boolean {
 
 let cache: { dir: string; blogs: Blog[] } | null = null;
 
-function parseBlogFile(filePath: string, filename: string): { fm: Frontmatter; body: string } {
+function parseBlogFile(filePath: string, filename: string): Frontmatter {
   const raw = fs.readFileSync(filePath, 'utf8');
-  const { fm, body } = parseFrontmatter(raw, filename);
-  const result = frontmatterSchema.safeParse(fm);
+  const parsed = parseFrontmatter(raw, filename);
+  const result = frontmatterSchema.safeParse(parsed);
   if (!result.success) {
     const issue = result.error.issues[0];
     const field = issue.path.join('.') || '(root)';
     throw new Error(`Invalid frontmatter in ${filename}: field "${field}" — ${issue.message}`);
   }
-  return { fm: result.data, body };
+  return result.data;
 }
 
 export function getBlogs(blogsDir: string = DEFAULT_BLOGS_DIR): Blog[] {
@@ -72,19 +71,16 @@ export function getBlogs(blogsDir: string = DEFAULT_BLOGS_DIR): Blog[] {
     return [];
   }
 
-  const bySlug = new Map<
-    string,
-    { nl?: { fm: Frontmatter; body: string }; en?: { fm: Frontmatter; body: string } }
-  >();
+  const bySlug = new Map<string, { nl?: Frontmatter; en?: Frontmatter }>();
 
   for (const filename of entries) {
     const m = filename.match(FILENAME_RE);
     if (!m) continue;
     const slug = m[1];
     const locale = m[2] as 'nl' | 'en';
-    const parsed = parseBlogFile(path.join(blogsDir, filename), filename);
+    const fm = parseBlogFile(path.join(blogsDir, filename), filename);
     const existing = bySlug.get(slug) ?? {};
-    existing[locale] = parsed;
+    existing[locale] = fm;
     bySlug.set(slug, existing);
   }
 
@@ -94,21 +90,21 @@ export function getBlogs(blogsDir: string = DEFAULT_BLOGS_DIR): Blog[] {
       throw new Error(`Blog "${slug}" is missing one locale file (need both .nl.md and .en.md)`);
     }
     for (const field of SHARED_FIELDS) {
-      if (!sharedFieldEqual(nl.fm[field], en.fm[field])) {
+      if (!sharedFieldEqual(nl[field], en[field])) {
         throw new Error(
-          `Blog "${slug}" ${field} mismatch between locales: nl=${JSON.stringify(nl.fm[field])}, en=${JSON.stringify(en.fm[field])}`,
+          `Blog "${slug}" ${field} mismatch between locales: nl=${JSON.stringify(nl[field])}, en=${JSON.stringify(en[field])}`,
         );
       }
     }
     const blog: Blog = {
       slug,
-      date: nl.fm.date,
-      nl: { title: nl.fm.title, summary: nl.fm.summary, body: nl.body },
-      en: { title: en.fm.title, summary: en.fm.summary, body: en.body },
+      date: nl.date,
+      nl: { title: nl.title, summary: nl.summary },
+      en: { title: en.title, summary: en.summary },
     };
-    if (nl.fm.image !== undefined) blog.image = nl.fm.image;
-    if (nl.fm.tags !== undefined) blog.tags = nl.fm.tags;
-    if (nl.fm.author !== undefined) blog.author = nl.fm.author;
+    if (nl.image !== undefined) blog.image = nl.image;
+    if (nl.tags !== undefined) blog.tags = nl.tags;
+    if (nl.author !== undefined) blog.author = nl.author;
     blogs.push(blog);
   }
 

@@ -9,8 +9,8 @@ import messagesNl from '@/messages/nl.json';
 const blog: Blog = {
   slug: 'sample-slug',
   date: '2026-05-12',
-  nl: { title: 'NL titel', summary: 'NL samenvatting', body: 'NL body' },
-  en: { title: 'EN title', summary: 'EN summary', body: 'EN body' },
+  nl: { title: 'NL titel', summary: 'NL samenvatting' },
+  en: { title: 'EN title', summary: 'EN summary' },
 };
 
 function renderWith(locale: 'nl' | 'en') {

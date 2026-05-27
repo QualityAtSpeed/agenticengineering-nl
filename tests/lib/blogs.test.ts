@@ -10,15 +10,13 @@ describe('getBlogs', () => {
     expect(blogs.map((b) => b.slug)).toEqual(['2026-05-12-foo', '2026-04-28-bar']);
   });
 
-  it('maps locale-specific title, summary, and body', () => {
+  it('maps locale-specific title and summary', () => {
     const blogs = getBlogs(fixture('blogs-valid'));
     const foo = blogs.find((b) => b.slug === '2026-05-12-foo')!;
     expect(foo.nl.title).toBe('Foo titel NL');
     expect(foo.en.title).toBe('Foo title EN');
     expect(foo.nl.summary).toBe('Foo samenvatting NL');
     expect(foo.en.summary).toBe('Foo summary EN');
-    expect(foo.nl.body).toContain('Foo body NL');
-    expect(foo.en.body).toContain('Foo body EN');
   });
 
   it('extracts shared frontmatter fields (date, tags, author)', () => {
