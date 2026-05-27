@@ -21,14 +21,14 @@ export function TimelineEntryRow({ entry, locale }: { entry: TimelineEntry; loca
     const image = blog.image ?? FALLBACK_IMAGE;
     const isFallback = image === FALLBACK_IMAGE;
     return (
-      <li className="relative pb-12 pl-6 last:pb-0">
+      <li className="relative pb-12 pl-6 last:pb-0" data-testid={`blog-card-${blog.slug}`}>
         <Link
           href={`/${locale}/articles/${blog.slug}`}
           data-testid={`blog-link-${blog.slug}`}
           className="group block"
         >
           <p className="text-text-muted font-mono text-xs tracking-[0.2em] uppercase">
-            {blog.date} <span className="text-text-muted/70">// blog</span>
+            {blog.date} <span className="text-text-muted">// blog</span>
           </p>
           <div className="mt-3 flex flex-col gap-4 sm:flex-row sm:items-start">
             <div className="relative aspect-[1.91/1] w-full overflow-hidden rounded-sm sm:w-72 sm:flex-shrink-0">
@@ -61,7 +61,7 @@ export function TimelineEntryRow({ entry, locale }: { entry: TimelineEntry; loca
   const image = article.image ?? FALLBACK_IMAGE;
   const isFallback = image === FALLBACK_IMAGE;
   return (
-    <li className="relative pb-12 pl-6 last:pb-0">
+    <li className="relative pb-12 pl-6 last:pb-0" data-testid={`article-card-${article.slug}`}>
       <a
         href={article.url}
         target="_blank"
@@ -70,7 +70,7 @@ export function TimelineEntryRow({ entry, locale }: { entry: TimelineEntry; loca
         className="group block"
       >
         <p className="text-text-muted font-mono text-xs tracking-[0.2em] uppercase">
-          {article.date} <span className="text-text-muted/70">// article</span>
+          {article.date} <span className="text-text-muted">// article</span>
         </p>
         <div className="mt-3 flex flex-col gap-4 sm:flex-row sm:items-start">
           <div className="relative aspect-[1.91/1] w-full overflow-hidden rounded-sm sm:w-72 sm:flex-shrink-0">
