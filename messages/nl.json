@@ -275,6 +275,7 @@
     "readExternal": "lees op externe site ",
     "emptyState": "nog geen artikelen",
     "filter": {
+      "ariaLabel": "artikel filter",
       "all": "alle",
       "blogs": "blogs",
       "articles": "artikelen"
@@ -283,13 +284,6 @@
       "blog": "blog",
       "article": "artikel"
     }
-  },
-  "blogs": {
-    "title": "blogs",
-    "intro": "Blog posts geschreven door ons voor jou",
-    "emptyState": "Nog geen blogs",
-    "readMore": "lees post",
-    "backLink": "← terug naar artikelen"
   },
   "contact": {
     "title": "Contact",

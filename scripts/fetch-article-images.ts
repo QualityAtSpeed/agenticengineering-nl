@@ -30,7 +30,7 @@ const GOTO_TIMEOUT_MS = 20_000;
 const ALLOWED_EXTS = new Set(['jpg', 'jpeg', 'png', 'webp', 'gif']);
 
 export async function fetchArticleImage(
-  sourceUrl: string,
+  sourceUrl: string | undefined,
   slug: string,
   options: FetchOptions = {},
 ): Promise<FetchResult> {

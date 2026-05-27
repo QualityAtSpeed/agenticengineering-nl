@@ -269,6 +269,7 @@
     "readExternal": "read on external site ",
     "emptyState": "no articles yet",
     "filter": {
+      "ariaLabel": "article filter",
       "all": "all",
       "blogs": "blogs",
       "articles": "articles"
@@ -277,13 +278,6 @@
       "blog": "blog",
       "article": "article"
     }
-  },
-  "blogs": {
-    "title": "blogs",
-    "intro": "Blogs written by us for you",
-    "emptyState": "No blogs yet",
-    "readMore": "read post",
-    "backLink": "← back to articles"
   },
   "contact": {
     "title": "Contact",

@@ -37,7 +37,7 @@ export function ArticleFilterBar({
 
   return (
     <nav
-      aria-label="article filter"
+      aria-label={t('ariaLabel')}
       className="text-text-muted mt-12 mb-12 font-mono text-sm tracking-[0.1em]"
     >
       <span aria-hidden="true">[ </span>
