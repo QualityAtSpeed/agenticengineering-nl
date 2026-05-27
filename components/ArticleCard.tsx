@@ -2,6 +2,11 @@ import Image from 'next/image';
 import { useTranslations } from 'next-intl';
 import type { Article } from '@/lib/articles';
 
+const BADGE_COLOR: Record<Article['type'], string> = {
+  blog: 'border-accent-green text-accent-green',
+  article: 'border-accent-orange text-accent-orange',
+};
+
 export function ArticleCard({ article, locale }: { article: Article; locale: string }) {
   const t = useTranslations('articles');
   const rawSummary = locale === 'nl' ? article.summaryNl : article.summaryEn;
@@ -9,6 +14,7 @@ export function ArticleCard({ article, locale }: { article: Article; locale: str
   const title = locale === 'nl' ? article.titleNl : article.titleEn;
   const isFallback = article.image === '/qas-icon.svg';
   const imageAlt = title;
+  const badgeColor = BADGE_COLOR[article.type];
 
   return (
     <article
@@ -24,6 +30,12 @@ export function ArticleCard({ article, locale }: { article: Article; locale: str
           className={isFallback ? 'object-contain p-6' : 'object-cover'}
           loading="lazy"
         />
+        <div
+          data-testid={`article-badge-${article.slug}`}
+          className={`${badgeColor} bg-bg-base/85 absolute top-3 left-3 rounded-sm border px-2.5 py-1 font-mono text-[10px] tracking-[0.2em] uppercase backdrop-blur-sm`}
+        >
+          {t(`type.${article.type}`)}
+        </div>
       </div>
       <div className="flex flex-1 flex-col p-6">
         <p className="text-text-muted font-mono text-xs tracking-[0.2em] uppercase">
