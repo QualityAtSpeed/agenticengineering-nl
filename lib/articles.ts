@@ -31,35 +31,13 @@ export interface Article {
   author?: string;
 }
 
-interface CacheEntry {
-  etag?: string;
-  lastModified?: string;
-  localPath: string;
-}
-
 const DEFAULT_NEWS_DIR = path.join(process.cwd(), 'news');
-const DEFAULT_IMAGES_DIR = path.join(process.cwd(), 'public', 'news');
 
-function loadCacheMap(imagesDir: string): Record<string, CacheEntry> {
-  const cacheFile = path.join(imagesDir, '.cache.json');
-  if (!fs.existsSync(cacheFile)) return {};
-  try {
-    return JSON.parse(fs.readFileSync(cacheFile, 'utf8')) as Record<string, CacheEntry>;
-  } catch {
-    return {};
-  }
-}
-
-export function getArticles(
-  newsDir: string = DEFAULT_NEWS_DIR,
-  imagesDir: string = DEFAULT_IMAGES_DIR,
-): Article[] {
+export function getArticles(newsDir: string = DEFAULT_NEWS_DIR): Article[] {
   if (!fs.existsSync(newsDir)) return [];
 
   const entries = fs.readdirSync(newsDir).filter((f) => f.endsWith('.md'));
   if (entries.length === 0) return [];
-
-  const cache = loadCacheMap(imagesDir);
 
   const articles = entries.map((filename) => {
     const filePath = path.join(newsDir, filename);
@@ -75,14 +53,6 @@ export function getArticles(
 
     const d = result.data;
 
-    let image = '/qas-icon.svg';
-    if (d.image) {
-      image = d.image;
-    } else {
-      const entry = cache[d.source_url];
-      if (entry?.localPath) image = entry.localPath;
-    }
-
     const article: Article = {
       slug: filename.replace(/\.md$/, ''),
       titleNl: d.title_nl,
@@ -92,7 +62,7 @@ export function getArticles(
       date: d.date,
       summaryNl: d.summary_nl,
       summaryEn: d.summary_en,
-      image,
+      image: d.image ?? '/qas-icon.svg',
       imageAlt: d.title_nl,
     };
     if (d.tags !== undefined) article.tags = d.tags;
