@@ -11,7 +11,7 @@ export default async function ArticlesPage({ params }: { params: Promise<{ local
 
   return (
     <main className="px-6 py-20">
-      <div className="mx-auto max-w-5xl">
+      <div className="mx-auto max-w-4xl">
         <h1 className="text-text-primary font-mono text-4xl">
           <span className="text-accent-green">&gt;</span> {t('title')}
         </h1>

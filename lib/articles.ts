@@ -7,6 +7,7 @@ const frontmatterSchema = z.object({
   title_nl: z.string().min(1),
   title_en: z.string().min(1),
   url: z.string().regex(/^https?:\/\//, 'url must start with http(s)://'),
+  source_url: z.string().regex(/^https?:\/\//, 'source_url must start with http(s)://'),
   date: z.string().regex(/^\d{4}-\d{2}-\d{2}$/, 'date must be YYYY-MM-DD'),
   summary_nl: z.string().min(1),
   summary_en: z.string().min(1),
@@ -20,10 +21,11 @@ export interface Article {
   titleNl: string;
   titleEn: string;
   url: string;
+  sourceUrl: string;
   date: string;
   summaryNl: string;
   summaryEn: string;
-  image?: string;
+  image: string;
   tags?: string[];
   author?: string;
 }
@@ -34,7 +36,6 @@ export function getArticles(newsDir: string = DEFAULT_NEWS_DIR): Article[] {
   if (!fs.existsSync(newsDir)) return [];
 
   const entries = fs.readdirSync(newsDir).filter((f) => f.endsWith('.md'));
-
   if (entries.length === 0) return [];
 
   const articles = entries.map((filename) => {
@@ -50,16 +51,18 @@ export function getArticles(newsDir: string = DEFAULT_NEWS_DIR): Article[] {
     }
 
     const d = result.data;
+
     const article: Article = {
       slug: filename.replace(/\.md$/, ''),
       titleNl: d.title_nl,
       titleEn: d.title_en,
       url: d.url,
+      sourceUrl: d.source_url,
       date: d.date,
       summaryNl: d.summary_nl,
       summaryEn: d.summary_en,
+      image: d.image ?? '/qas-icon.svg',
     };
-    if (d.image !== undefined) article.image = d.image;
     if (d.tags !== undefined) article.tags = d.tags;
     if (d.author !== undefined) article.author = d.author;
     return article;
