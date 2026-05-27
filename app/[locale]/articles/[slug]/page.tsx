@@ -1,8 +1,6 @@
 import { setRequestLocale, getTranslations } from 'next-intl/server';
 import { notFound } from 'next/navigation';
 import Link from 'next/link';
-import ReactMarkdown from 'react-markdown';
-import remarkGfm from 'remark-gfm';
 import { getBlogs, getBlogBySlug } from '@/lib/blogs';
 import { routing, type Locale } from '@/i18n/routing';
 
@@ -42,9 +40,6 @@ export default async function BlogPostPage({
           <span className="text-accent-green">&gt;</span> {content.title}
         </h1>
         <p className="text-text-muted mt-6 text-lg">{content.summary}</p>
-        <div className="prose prose-invert mt-12 max-w-none">
-          <ReactMarkdown remarkPlugins={[remarkGfm]}>{content.body}</ReactMarkdown>
-        </div>
       </article>
     </main>
   );
