@@ -282,4 +282,18 @@ describe('fetchArticleImage', () => {
     expect(result.reason).toBe('img HTTP 403');
     expect(playwrightMocks.browserClose).toHaveBeenCalledOnce();
   });
+
+  it('returns a "no source_url" skip without launching the browser', async () => {
+    const { outputDir, trustedFile } = makeWorkspace(['medium.com']);
+    const fetchMock = vi.fn();
+    vi.stubGlobal('fetch', fetchMock);
+
+    const result = await fetchArticleImage('', 'slug', { outputDir, trustedFile });
+
+    expect(result.ok).toBe(false);
+    expect(result.reason).toBe('no source_url (blog)');
+    expect(result.imagePath).toBe('/qas-icon.svg');
+    expect(playwrightMocks.launch).not.toHaveBeenCalled();
+    expect(fetchMock).not.toHaveBeenCalled();
+  });
 });

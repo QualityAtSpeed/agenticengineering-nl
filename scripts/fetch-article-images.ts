@@ -37,6 +37,10 @@ export async function fetchArticleImage(
   const outputDir = options.outputDir ?? path.join(process.cwd(), 'public', 'news');
   const trusted = loadTrusted(options.trustedFile);
 
+  if (!sourceUrl) {
+    return { imagePath: FALLBACK, ok: false, reason: 'no source_url (blog)' };
+  }
+
   let srcUrl: URL;
   try {
     srcUrl = new URL(sourceUrl);
