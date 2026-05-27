@@ -266,7 +266,7 @@
   "articles": {
     "title": "articles",
     "intro": "External articles we wrote or recommend. Each one links out to its original home.",
-    "readExternal": "read on external site ↗",
+    "readExternal": "read on external site ",
     "emptyState": "no articles yet"
   },
   "blogs": {

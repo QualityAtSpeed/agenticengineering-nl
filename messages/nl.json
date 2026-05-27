@@ -272,7 +272,7 @@
   "articles": {
     "title": "artikelen",
     "intro": "Externe artikelen die wij schreven of aanraden. Elke link wijst naar het origineel.",
-    "readExternal": "lees op externe site ↗",
+    "readExternal": "lees op externe site ",
     "emptyState": "nog geen artikelen"
   },
   "blogs": {
