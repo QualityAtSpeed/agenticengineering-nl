@@ -1,19 +1,20 @@
 export type ModuleId =
-  // Basic — retained from previous catalogue (8 modules)
-  | 'fundamentals-of-agent'
+  // Basic Day 1 — quality engineering with agents (6 modules)
+  | 'agents-in-sdlc'
+  | 'failure-modes-ai-code'
+  | 'test-first-with-agents'
+  | 'hooks-and-quality-gates'
+  | 'build-first-feature'
+  | 'regression-and-governance'
+  // Basic Day 2 — agent mechanics + capstone (5 modules)
   | 'context-architecture'
   | 'context-window-mechanics'
-  | 'build-first-feature'
-  | 'intro-skills-rules'
   | 'using-mcp-servers'
-  | 'test-first-intro'
-  | 'basic-hooks-quality-gates'
-  // Basic — new for Day 2 capstone
+  | 'intro-skills-rules'
   | 'capstone-ship-feature'
-  // Advanced — retained
-  | 'agent-harnessing'
-  // Advanced — new
+  // Advanced (5 modules)
   | 'team-rollout-playbook'
+  | 'agent-harnessing'
   | 'governance-and-policy-gates'
   | 'observability-and-cost'
   | 'capstone-rollout-tabletop';
@@ -38,14 +39,16 @@ export const trainings: Record<TrainingId, Training> = {
     durationDays: 2,
     priceEUR: 1399,
     modules: [
-      { id: 'fundamentals-of-agent', day: 1 },
-      { id: 'context-architecture', day: 1 },
-      { id: 'context-window-mechanics', day: 1 },
+      { id: 'agents-in-sdlc', day: 1 },
+      { id: 'failure-modes-ai-code', day: 1 },
+      { id: 'test-first-with-agents', day: 1 },
+      { id: 'hooks-and-quality-gates', day: 1 },
       { id: 'build-first-feature', day: 1 },
+      { id: 'regression-and-governance', day: 1 },
+      { id: 'context-architecture', day: 2 },
+      { id: 'context-window-mechanics', day: 2 },
       { id: 'using-mcp-servers', day: 2 },
       { id: 'intro-skills-rules', day: 2 },
-      { id: 'test-first-intro', day: 2 },
-      { id: 'basic-hooks-quality-gates', day: 2 },
       { id: 'capstone-ship-feature', day: 2 },
     ],
     deliveryFormats: ['inCompany', 'publicCohort', 'remote'],

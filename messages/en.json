@@ -1,7 +1,7 @@
 {
   "meta": {
     "title": "agenticengineering.nl",
-    "description": "Agentic engineering trainings with Claude Code or Codex."
+    "description": "Agentic AI quality engineering trainings with Claude Code or Codex."
   },
   "nav": {
     "about": "About",
@@ -14,9 +14,9 @@
     "closeMenu": "Close menu"
   },
   "hero": {
-    "kicker": "AGENTIC ENGINEERING · EN",
-    "title": "Train your team in agentic engineering.",
-    "subtitle": "Two hands-on trainings in Claude Code or Codex. Two days foundations, one day advanced.",
+    "kicker": "AGENTIC AI QUALITY ENGINEERING · EN",
+    "title": "Train your team in agentic AI quality engineering.",
+    "subtitle": "Two hands-on trainings in Claude Code or Codex. Two days foundations + quality loop, one day rollout + governance.",
     "ctaPrimary": "Book training",
     "ctaSecondary": "View curriculum"
   },
@@ -36,13 +36,14 @@
       "prerequisites": "Prerequisites",
       "outcomes": "What you'll learn",
       "modules": "Modules",
-      "day1": "Day 1 — Foundations",
-      "day2": "Day 2 — Quality loop + capstone",
+      "day1": "Day 1 — Quality engineering with agents",
+      "day2": "Day 2 — Agent mechanics + capstone",
       "price": "Price",
       "priceSuffix": "ex. VAT",
       "viewDetails": "View programme",
       "viewFullCurriculum": "view full curriculum",
-      "bookCta": "Book this training"
+      "bookCta": "Book this training",
+      "taughtBy": "Taught by"
     },
     "basic": {
       "name": "Basic",
@@ -57,16 +58,17 @@
         "Writes features in at least one language (TS/Python/Go/etc.)"
       ],
       "outcomes": [
-        "Ship a working feature end-to-end on a starter repo",
-        "Configure structured context (CLAUDE.md / AGENTS.md, rules) for your own project",
+        "Ship a working feature on a starter repo — tests, hooks, CI green from minute one",
+        "Recognise the failure modes of AI-generated code in your own work",
+        "Practise test-first with an agent without writing fake-passing tests",
+        "Set up hooks and quality gates that survive the next sprint",
         "Use existing MCP servers in real workflows",
-        "Practise a test-first loop with an agent",
-        "Set up hooks and quality gates that survive the next sprint"
+        "Leave with a governance starter your team can actually use"
       ]
     },
     "advanced": {
       "name": "Advanced",
-      "tagline": "One day to scale agentic engineering across your teams.",
+      "tagline": "One day to scale agentic AI quality engineering across your teams.",
       "audience": [
         "Tech leads and staff+ engineers rolling out agentic workflows",
         "Engineering managers and platform / QA leads",
@@ -83,21 +85,14 @@
     }
   },
   "modules": {
-    "fundamentals-of-agent": {
-      "title": "Fundamentals of an agent",
-      "bullets": [
-        "What an agent is and why it works",
-        "Tool-loop, decisions, autonomy",
-        "Difference vs chat and vs automation"
-      ]
-    },
     "context-architecture": {
       "title": "Context architecture",
       "bullets": [
         "CLAUDE.md / AGENTS.md design",
         "Rules files and project-wide configuration",
         "Hierarchy: user, project, local overrides"
-      ]
+      ],
+      "short": "Context arch"
     },
     "context-window-mechanics": {
       "title": "Context window mechanics",
@@ -105,19 +100,22 @@
         "Compression and summaries",
         "Priming and recency bias",
         "Strategies for long sessions"
-      ]
+      ],
+      "short": "Window mechanics"
     },
     "build-first-feature": {
-      "title": "Build your first feature",
+      "title": "Lab: build your first feature with quality discipline",
       "bullets": [
-        "From idea to working feature",
-        "Iterate: plan, implement, review",
-        "Hands-on lab"
-      ]
+        "End-to-end on a starter repo: brief → tests → code → review",
+        "Run today's quality stack against your own changes",
+        "Cohort feedback before Day 2"
+      ],
+      "short": "Capstone lab"
     },
     "intro-skills-rules": {
       "title": "Intro to Skills & Rules",
-      "bullets": ["When to write a skill", "When to write a rule", "Your first own skill"]
+      "bullets": ["When to write a skill", "When to write a rule", "Your first own skill"],
+      "short": "Skills + rules"
     },
     "using-mcp-servers": {
       "title": "Using MCP servers",
@@ -125,23 +123,44 @@
         "MCP overview",
         "Connect existing servers (Filesystem, GitHub, Linear, etc.)",
         "Scope and permission best practices"
-      ]
+      ],
+      "short": "MCP servers"
     },
-    "test-first-intro": {
-      "title": "Test-first strategy (intro)",
+    "agents-in-sdlc": {
+      "title": "Agents in your SDLC: where they fit, where they break",
       "bullets": [
-        "TDD loop with an agent",
-        "When to test first, when to test later",
-        "Avoid false green builds"
-      ]
+        "Where an agent earns its place in the SDLC, and where it doesn't",
+        "What an agent actually is vs. chat vs. automation",
+        "Quality stakes: every agent change is a code change that ships"
+      ],
+      "short": "Agents in SDLC"
     },
-    "basic-hooks-quality-gates": {
-      "title": "Basic hooks & quality gates",
+    "failure-modes-ai-code": {
+      "title": "Failure modes of AI-generated code",
       "bullets": [
-        "Pre-commit checks (lint, format)",
-        "Type-check as a gate",
-        "Configure your first hook"
-      ]
+        "Hallucination, silent regression, false-green builds",
+        "Scope drift and undeclared rewrites",
+        "How to spot each before they ship"
+      ],
+      "short": "Failure modes"
+    },
+    "test-first-with-agents": {
+      "title": "Test-first with agents",
+      "bullets": [
+        "The TDD loop with an agent driver",
+        "When tests precede code, when they don't, why it matters",
+        "Tests that prove behaviour vs. tests that satisfy the model"
+      ],
+      "short": "Test-first"
+    },
+    "hooks-and-quality-gates": {
+      "title": "Hooks + quality gates",
+      "bullets": [
+        "Pre-commit checks: lint, format, type-check",
+        "Custom hooks for agent-specific risks",
+        "Fast feedback loops that don't get bypassed"
+      ],
+      "short": "Hooks + gates"
     },
     "agent-harnessing": {
       "title": "Agent harnessing for teams",
@@ -149,15 +168,26 @@
         "Subagents and delegation at team scale",
         "Parallel workflows that survive team-sized PR queues",
         "Orchestration patterns and review checkpoints"
-      ]
+      ],
+      "short": "Agent harnessing"
+    },
+    "regression-and-governance": {
+      "title": "Regression strategy + governance basics",
+      "bullets": [
+        "Golden tests, snapshot guards, property-based checks",
+        "Stress-testing agent output on real edges",
+        "What a sensible team review policy looks like"
+      ],
+      "short": "Regression + gov"
     },
     "capstone-ship-feature": {
       "title": "Capstone — ship a feature end-to-end",
       "bullets": [
-        "Implement a small feature on a starter repo from a brief",
-        "Drive the work with tests, hooks, and quality gates",
+        "Implement a feature on a starter repo from a brief",
+        "Apply Day-1 quality stack + Day-2 context tooling (MCP, skills, rules)",
         "Demo and review with the cohort"
-      ]
+      ],
+      "short": "Ship feature"
     },
     "team-rollout-playbook": {
       "title": "Team rollout playbook",
@@ -165,7 +195,8 @@
         "Adoption stages and role design",
         "Onboarding paths for new joiners",
         "Sequencing rollout across multiple teams"
-      ]
+      ],
+      "short": "Team rollout"
     },
     "governance-and-policy-gates": {
       "title": "Governance + policy gates",
@@ -173,7 +204,8 @@
         "Decide what policy your team needs (security, cost, quality)",
         "Enforce policy via CI hooks rather than tribal review",
         "Detect drift and recover quickly"
-      ]
+      ],
+      "short": "Governance gates"
     },
     "observability-and-cost": {
       "title": "Observability + cost-at-scale",
@@ -181,7 +213,8 @@
         "Usage telemetry across teams",
         "Cost guardrails and per-team budgets",
         "Anomaly triage and feedback loops"
-      ]
+      ],
+      "short": "Observability + cost"
     },
     "capstone-rollout-tabletop": {
       "title": "Capstone — rollout tabletop",
@@ -189,11 +222,24 @@
         "Design a 90-day rollout plan for your own org",
         "Peer review and stress-test of the plan",
         "Concrete next steps to take home"
-      ]
+      ],
+      "short": "Rollout tabletop"
     }
   },
+  "proof": {
+    "heading": "We ship what we teach.",
+    "subhead": "This site runs the stack you'll learn. Source open, CI live, parity enforced.",
+    "pills": [
+      "CI green",
+      "48 unit + 64 e2e tests",
+      "WCAG 2.1 AA",
+      "TypeScript strict",
+      "NL/EN locale parity enforced"
+    ],
+    "ctaLabel": "view source on GitHub"
+  },
   "footer": {
-    "tagline": "Agentic engineering trainings.",
+    "tagline": "Agentic AI quality engineering trainings.",
     "rights": "© 2026 agenticengineering.nl",
     "pagesHeading": "Pages",
     "socialsHeading": "Socials",
@@ -203,7 +249,7 @@
   },
   "about": {
     "title": "About",
-    "intro": "We train engineering teams in agentic engineering with Claude Code or Codex. Hands-on, production-focused, in NL or EN.",
+    "intro": "We train engineering teams in agentic AI quality engineering with Claude Code or Codex. Hands-on, production-focused, in NL or EN.",
     "instructors": {
       "pascal": {
         "name": "Pascal Dufour",

@@ -2,20 +2,22 @@ import { describe, it, expect } from 'vitest';
 import { trainings, type ModuleId } from '@/data/trainings';
 
 describe('trainings catalogue', () => {
-  it('Basic is a 2-day training with the 8 retained modules + capstone, split across 2 days', () => {
+  it('Basic is a 2-day training with 11 modules split 6 / 5 across two days', () => {
     const basic = trainings.basic;
     expect(basic.durationDays).toBe(2);
     expect(basic.priceEUR).toBe(1399);
 
     const expected: { id: ModuleId; day: 1 | 2 }[] = [
-      { id: 'fundamentals-of-agent', day: 1 },
-      { id: 'context-architecture', day: 1 },
-      { id: 'context-window-mechanics', day: 1 },
+      { id: 'agents-in-sdlc', day: 1 },
+      { id: 'failure-modes-ai-code', day: 1 },
+      { id: 'test-first-with-agents', day: 1 },
+      { id: 'hooks-and-quality-gates', day: 1 },
       { id: 'build-first-feature', day: 1 },
+      { id: 'regression-and-governance', day: 1 },
+      { id: 'context-architecture', day: 2 },
+      { id: 'context-window-mechanics', day: 2 },
       { id: 'using-mcp-servers', day: 2 },
       { id: 'intro-skills-rules', day: 2 },
-      { id: 'test-first-intro', day: 2 },
-      { id: 'basic-hooks-quality-gates', day: 2 },
       { id: 'capstone-ship-feature', day: 2 },
     ];
 

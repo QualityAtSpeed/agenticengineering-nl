@@ -3,6 +3,7 @@ import { setRequestLocale, getTranslations } from 'next-intl/server';
 import { Hero } from '@/components/Hero';
 import { TrainingCard } from '@/components/TrainingCard';
 import { TrainingDetail } from '@/components/TrainingDetail';
+import { ProofStrip } from '@/components/ProofStrip';
 import { InstructorCard } from '@/components/InstructorCard';
 import { JsonLd } from '@/components/JsonLd';
 import { instructors } from '@/data/instructors';
@@ -66,6 +67,8 @@ export default async function Home({ params }: { params: Promise<{ locale: Local
 
       <TrainingDetail trainingId="basic" locale={locale} />
       <TrainingDetail trainingId="advanced" locale={locale} />
+
+      <ProofStrip locale={locale} />
 
       <section className="border-border-subtle border-t px-6 py-20">
         <div className="mx-auto max-w-5xl">

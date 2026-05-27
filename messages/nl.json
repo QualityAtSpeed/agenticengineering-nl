@@ -1,7 +1,7 @@
 {
   "meta": {
     "title": "agenticengineering.nl",
-    "description": "Agentic engineering trainingen met Claude Code of Codex."
+    "description": "Agentic AI quality engineering trainingen met Claude Code of Codex."
   },
   "nav": {
     "about": "Over ons",
@@ -14,9 +14,9 @@
     "closeMenu": "Menu sluiten"
   },
   "hero": {
-    "kicker": "AGENTIC ENGINEERING · NL",
-    "title": "Train je team in agentic engineering.",
-    "subtitle": "Twee praktijkgerichte trainingen in Claude Code of Codex. Twee dagen basis, één dag advanced.",
+    "kicker": "AGENTIC AI QUALITY ENGINEERING · NL",
+    "title": "Train je team in agentic AI quality engineering.",
+    "subtitle": "Twee praktijkgerichte trainingen in Claude Code of Codex. Twee dagen basis + kwaliteitsloop, één dag rollout + governance.",
     "ctaPrimary": "Boek training",
     "ctaSecondary": "Bekijk curriculum"
   },
@@ -36,13 +36,14 @@
       "prerequisites": "Vereisten",
       "outcomes": "Wat je leert",
       "modules": "Modules",
-      "day1": "Dag 1 — Fundamenten",
-      "day2": "Dag 2 — Kwaliteitsloop + capstone",
+      "day1": "Dag 1 — Quality engineering met agents",
+      "day2": "Dag 2 — Agent mechanics + capstone",
       "price": "Prijs",
       "priceSuffix": "Excl. BTW",
       "viewDetails": "Bekijk programma",
       "viewFullCurriculum": "volledige training",
-      "bookCta": "Plan deze training"
+      "bookCta": "Plan deze training",
+      "taughtBy": "Gegeven door"
     },
     "basic": {
       "name": "Basic",
@@ -57,16 +58,17 @@
         "Schrijft features in minimaal één taal (TS/Python/Go/etc.)"
       ],
       "outcomes": [
-        "Lever een werkende feature op op een starter repo",
-        "Configureer gestructureerde context (CLAUDE.md / AGENTS.md, rules) voor je eigen project",
+        "Lever een werkende feature op een starter repo — tests, hooks, CI groen vanaf minuut één",
+        "Herken failure modes van AI-gegenereerde code in je eigen werk",
+        "Oefen test-first met een agent zonder schijnpassende tests te schrijven",
+        "Zet hooks en quality gates op die de volgende sprint overleven",
         "Gebruik bestaande MCP servers in echte workflows",
-        "Oefen met test-first loops met een agent",
-        "Zet hooks en quality gates op die de volgende sprint overleven"
+        "Stap naar buiten met een governance-starter die je team echt kan gebruiken"
       ]
     },
     "advanced": {
       "name": "Advanced",
-      "tagline": "Eén dag om agentic engineering team-breed uit te rollen.",
+      "tagline": "Eén dag om agentic AI quality engineering team-breed uit te rollen.",
       "audience": [
         "Tech leads en staff+ engineers die agentic workflows uitrollen",
         "Engineering managers en platform / QA leads",
@@ -85,13 +87,59 @@
     }
   },
   "modules": {
-    "fundamentals-of-agent": {
-      "title": "Fundamentals of an agent",
+    "agents-in-sdlc": {
+      "title": "Agents in je SDLC: waar ze passen, waar ze breken",
       "bullets": [
-        "Wat is een agent en waarom werkt het",
-        "Tool-loop, beslissingen, autonomie",
-        "Verschil met chat en met automatisering"
-      ]
+        "Waar een agent zijn plek verdient in de SDLC, en waar niet",
+        "Wat een agent is vs. chat vs. automatisering",
+        "Quality stakes: elke agent-wijziging is code die in productie komt"
+      ],
+      "short": "Agents in SDLC"
+    },
+    "failure-modes-ai-code": {
+      "title": "Failure modes van AI-gegenereerde code",
+      "bullets": [
+        "Hallucinaties, stille regressies, false-green builds",
+        "Scope drift en onaangekondigde rewrites",
+        "Hoe je ze herkent voordat ze in productie staan"
+      ],
+      "short": "Failure modes"
+    },
+    "test-first-with-agents": {
+      "title": "Test-first met agents",
+      "bullets": [
+        "De TDD-loop met een agent als driver",
+        "Wanneer tests vóór code komen, wanneer niet, waarom het uitmaakt",
+        "Tests die gedrag bewijzen vs. tests die het model tevreden stellen"
+      ],
+      "short": "Test-first"
+    },
+    "hooks-and-quality-gates": {
+      "title": "Hooks + quality gates",
+      "bullets": [
+        "Pre-commit checks: lint, format, type-check",
+        "Custom hooks voor agent-specifieke risico's",
+        "Snelle feedback-loops die niet omzeild worden"
+      ],
+      "short": "Hooks + gates"
+    },
+    "build-first-feature": {
+      "title": "Lab: bouw je eerste feature met quality-discipline",
+      "bullets": [
+        "End-to-end op een starter repo: brief → tests → code → review",
+        "Pas de quality stack van vandaag toe op je eigen wijzigingen",
+        "Feedback van het cohort vóór Dag 2"
+      ],
+      "short": "Capstone-lab"
+    },
+    "regression-and-governance": {
+      "title": "Regressie-strategie + governance basics",
+      "bullets": [
+        "Golden tests, snapshot guards, property-based checks",
+        "Stress-test agent-output op echte randen",
+        "Hoe een verstandig team-review-beleid eruitziet"
+      ],
+      "short": "Regressie + gov"
     },
     "context-architecture": {
       "title": "Context architecture",
@@ -99,7 +147,8 @@
         "CLAUDE.md / AGENTS.md design",
         "Rules files en project-wide configuratie",
         "Hiërarchie: user, project, lokale overrides"
-      ]
+      ],
+      "short": "Context architecture"
     },
     "context-window-mechanics": {
       "title": "Context window mechanics",
@@ -107,23 +156,8 @@
         "Compressie en samenvattingen",
         "Priming en recency bias",
         "Strategieën voor lange sessies"
-      ]
-    },
-    "build-first-feature": {
-      "title": "Build your first feature",
-      "bullets": [
-        "Van idee naar werkende feature",
-        "Iteratie: plan, implement, review",
-        "Hands-on lab"
-      ]
-    },
-    "intro-skills-rules": {
-      "title": "Introductie tot Skills & Rules",
-      "bullets": [
-        "Wanneer schrijf je een skill",
-        "Wanneer schrijf je een rule",
-        "Eerste eigen skill"
-      ]
+      ],
+      "short": "Window mechanics"
     },
     "using-mcp-servers": {
       "title": "Gebruik MCP servers",
@@ -131,23 +165,17 @@
         "MCP overzicht",
         "Bestaande servers koppelen (Filesystem, GitHub, Linear, etc.)",
         "Best practices voor scope en permissions"
-      ]
+      ],
+      "short": "MCP servers"
     },
-    "test-first-intro": {
-      "title": "Test-first strategie (intro)",
+    "intro-skills-rules": {
+      "title": "Introductie tot Skills & Rules",
       "bullets": [
-        "TDD loop met een agent",
-        "Wanneer test eerst, wanneer test later",
-        "Vermijd valse green builds"
-      ]
-    },
-    "basic-hooks-quality-gates": {
-      "title": "Basis hooks & quality gates",
-      "bullets": [
-        "Pre-commit checks (lint, format)",
-        "Type-check als gate",
-        "Eerste eigen hook configureren"
-      ]
+        "Wanneer schrijf je een skill",
+        "Wanneer schrijf je een rule",
+        "Eerste eigen skill"
+      ],
+      "short": "Skills + rules"
     },
     "agent-harnessing": {
       "title": "Agent harnessing voor teams",
@@ -155,15 +183,17 @@
         "Subagents en delegatie op team-schaal",
         "Parallelle workflows die team-grote PR-queues overleven",
         "Orchestratiepatronen en review-checkpoints"
-      ]
+      ],
+      "short": "Agent harnessing"
     },
     "capstone-ship-feature": {
       "title": "Capstone — lever een feature op",
       "bullets": [
-        "Implementeer een kleine feature op een starter repo vanaf een brief",
-        "Stuur het werk met tests, hooks en quality gates",
+        "Implementeer een feature op een starter repo vanaf een brief",
+        "Pas de Dag-1 quality stack + Dag-2 context tooling (MCP, skills, rules) toe",
         "Demo en review met de cohort"
-      ]
+      ],
+      "short": "Feature opleveren"
     },
     "team-rollout-playbook": {
       "title": "Team rollout playbook",
@@ -171,7 +201,8 @@
         "Adoptiefases en rolontwerp",
         "Onboarding-paden voor nieuwe collega's",
         "Volgorde van uitrol over meerdere teams"
-      ]
+      ],
+      "short": "Team rollout"
     },
     "governance-and-policy-gates": {
       "title": "Governance + policy gates",
@@ -179,7 +210,8 @@
         "Bepaal welk beleid je team nodig heeft (security, kosten, kwaliteit)",
         "Handhaaf beleid via CI hooks in plaats van tribal review",
         "Detecteer drift en herstel snel"
-      ]
+      ],
+      "short": "Governance gates"
     },
     "observability-and-cost": {
       "title": "Observability + cost-at-scale",
@@ -187,7 +219,8 @@
         "Usage telemetry over teams",
         "Cost guardrails en budgetten per team",
         "Anomaly triage en feedback loops"
-      ]
+      ],
+      "short": "Observability + cost"
     },
     "capstone-rollout-tabletop": {
       "title": "Capstone — rollout tabletop",
@@ -195,11 +228,24 @@
         "Ontwerp een 90-dagen rolloutplan voor je eigen organisatie",
         "Peer review en stress-test van het plan",
         "Concrete vervolgstappen voor thuis"
-      ]
+      ],
+      "short": "Rollout tabletop"
     }
   },
+  "proof": {
+    "heading": "We leveren wat we trainen.",
+    "subhead": "Deze site draait op de stack die je leert. Source open, CI live, pariteit afgedwongen.",
+    "pills": [
+      "CI groen",
+      "48 unit + 64 e2e tests",
+      "WCAG 2.1 AA",
+      "TypeScript strict",
+      "NL/EN locale-pariteit afgedwongen"
+    ],
+    "ctaLabel": "bekijk source op GitHub"
+  },
   "footer": {
-    "tagline": "Agentic engineering trainingen.",
+    "tagline": "Agentic AI quality engineering trainingen.",
     "rights": "© 2026 agenticengineering.nl",
     "pagesHeading": "Pagina's",
     "socialsHeading": "Socials",
@@ -209,7 +255,7 @@
   },
   "about": {
     "title": "Over ons",
-    "intro": "We trainen engineering-teams in agentic engineering met Claude Code of Codex. Hands-on, productie-gericht, in NL of EN.",
+    "intro": "We trainen engineering-teams in agentic AI quality engineering met Claude Code of Codex. Hands-on, productie-gericht, in NL of EN.",
     "instructors": {
       "pascal": {
         "name": "Pascal Dufour",
