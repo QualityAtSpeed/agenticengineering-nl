@@ -1,170 +1,107 @@
 import fs from 'node:fs';
 import path from 'node:path';
-import dns from 'node:dns/promises';
 import { fileURLToPath } from 'node:url';
-import ipaddr from 'ipaddr.js';
-import { parseFrontmatter } from '../lib/parseFrontmatter';
+import { chromium } from 'playwright';
 
-interface CacheEntry {
-  etag?: string;
-  lastModified?: string;
-  localPath: string;
+const TRUSTED_FILE = path.join(process.cwd(), 'data', 'trusted-domains.json');
+
+export function loadTrusted(file: string = TRUSTED_FILE): string[] {
+  if (!fs.existsSync(file)) return [];
+  return JSON.parse(fs.readFileSync(file, 'utf8')) as string[];
 }
-type CacheMap = Record<string, CacheEntry>;
 
-export type LookupFn = (
-  hostname: string,
-  opts: { all: true },
-) => Promise<Array<{ address: string; family: number }>>;
+export function isTrusted(hostname: string, trusted: string[]): boolean {
+  return trusted.some((t) => hostname === t || hostname.endsWith('.' + t));
+}
+
+export interface FetchResult {
+  imagePath: string;
+  ok: boolean;
+  reason?: string;
+}
 
 export interface FetchOptions {
-  newsDir?: string;
   outputDir?: string;
-  cacheFile?: string;
-  lookup?: LookupFn;
-  maxRedirects?: number;
+  trustedFile?: string;
 }
 
-const BLOCKED_RANGES = new Set([
-  'unspecified',
-  'broadcast',
-  'multicast',
-  'linkLocal',
-  'loopback',
-  'carrierGradeNat',
-  'private',
-  'uniqueLocal',
-  'reserved',
-]);
+const FALLBACK = '/qas-icon.svg';
+const GOTO_TIMEOUT_MS = 20_000;
 
-async function assertPublicHost(hostname: string, lookup: LookupFn): Promise<void> {
-  const stripped = hostname.replace(/^\[|\]$/g, '');
-  if (ipaddr.isValid(stripped)) {
-    const range = ipaddr.parse(stripped).range();
-    if (BLOCKED_RANGES.has(range)) {
-      throw new Error(`blocked IP range: ${range} (${stripped})`);
-    }
-    return;
-  }
-  const records = await lookup(hostname, { all: true });
-  if (records.length === 0) {
-    throw new Error(`no DNS records for ${hostname}`);
-  }
-  for (const { address } of records) {
-    const range = ipaddr.parse(address).range();
-    if (BLOCKED_RANGES.has(range)) {
-      throw new Error(`host ${hostname} resolves to blocked range: ${range} (${address})`);
-    }
-  }
-}
-
-async function safeFetch(
-  rawUrl: string,
-  init: RequestInit,
-  lookup: LookupFn,
-  maxRedirects: number,
-): Promise<Response> {
-  let current = rawUrl;
-  for (let hop = 0; hop <= maxRedirects; hop++) {
-    const u = new URL(current);
-    if (!['http:', 'https:'].includes(u.protocol)) {
-      throw new Error(`scheme not allowed: ${u.protocol}`);
-    }
-    await assertPublicHost(u.hostname, lookup);
-
-    const res = await fetch(current, { ...init, redirect: 'manual' });
-    if (res.status >= 300 && res.status < 400) {
-      const loc = res.headers.get('location');
-      if (!loc) return res;
-      current = new URL(loc, current).toString();
-      continue;
-    }
-    return res;
-  }
-  throw new Error(`too many redirects (>${maxRedirects})`);
-}
-
-export async function fetchArticleImages(options: FetchOptions = {}): Promise<void> {
-  const newsDir = options.newsDir ?? path.join(process.cwd(), 'news');
+export async function fetchArticleImage(
+  sourceUrl: string,
+  slug: string,
+  options: FetchOptions = {},
+): Promise<FetchResult> {
   const outputDir = options.outputDir ?? path.join(process.cwd(), 'public', 'news');
-  const cacheFile = options.cacheFile ?? path.join(outputDir, '.cache.json');
-  const lookup = options.lookup ?? (dns.lookup as unknown as LookupFn);
-  const maxRedirects = options.maxRedirects ?? 3;
+  const trusted = loadTrusted(options.trustedFile);
 
-  if (!fs.existsSync(newsDir)) return;
+  let srcUrl: URL;
+  try {
+    srcUrl = new URL(sourceUrl);
+  } catch {
+    return { imagePath: FALLBACK, ok: false, reason: 'invalid source_url' };
+  }
+  if (!isTrusted(srcUrl.hostname, trusted)) {
+    return {
+      imagePath: FALLBACK,
+      ok: false,
+      reason: `source host not trusted: ${srcUrl.hostname}`,
+    };
+  }
 
   fs.mkdirSync(outputDir, { recursive: true });
 
-  let cache: CacheMap = {};
-  if (fs.existsSync(cacheFile)) {
+  const browser = await chromium.launch({ headless: false });
+  try {
+    const page = await browser.newPage();
+    let rawOgImage: string | null;
     try {
-      cache = JSON.parse(fs.readFileSync(cacheFile, 'utf8')) as CacheMap;
-    } catch {
-      // treat as empty
-    }
-  }
-
-  const files = fs.readdirSync(newsDir).filter((f) => f.endsWith('.md'));
-
-  for (const filename of files) {
-    const slug = filename.replace(/\.md$/, '');
-    let frontmatter: Record<string, unknown>;
-    try {
-      const raw = fs.readFileSync(path.join(newsDir, filename), 'utf8');
-      frontmatter = parseFrontmatter(raw, filename) as Record<string, unknown>;
-    } catch {
-      continue;
-    }
-
-    const sourceUrl = typeof frontmatter.source_url === 'string' ? frontmatter.source_url : null;
-    const imageOverride = typeof frontmatter.image === 'string' ? frontmatter.image : null;
-
-    if (!sourceUrl || imageOverride) continue;
-
-    const existing = cache[sourceUrl];
-
-    let etag: string | null = null;
-    let lastModified: string | null = null;
-    try {
-      const head = await safeFetch(sourceUrl, { method: 'HEAD' }, lookup, maxRedirects);
-      etag = head.headers.get('etag');
-      lastModified = head.headers.get('last-modified');
-
-      if (existing?.localPath) {
-        const localFilePath = path.join(outputDir, path.basename(existing.localPath));
-        const unchanged =
-          (etag !== null && etag === existing.etag) ||
-          (etag === null && lastModified !== null && lastModified === existing.lastModified);
-        if (unchanged && fs.existsSync(localFilePath)) continue;
-      }
+      await page.goto(sourceUrl, { waitUntil: 'domcontentloaded', timeout: GOTO_TIMEOUT_MS });
+      rawOgImage = await page.locator('meta[property="og:image"]').first().getAttribute('content');
     } catch (err) {
-      console.warn(
-        `[warn] ${slug}: HEAD failed — ${err instanceof Error ? err.message : String(err)}`,
-      );
-      continue;
+      return {
+        imagePath: FALLBACK,
+        ok: false,
+        reason: err instanceof Error ? err.message : String(err),
+      };
+    }
+
+    if (!rawOgImage) {
+      return { imagePath: FALLBACK, ok: false, reason: 'og:image not found' };
+    }
+
+    let imgUrl: URL;
+    try {
+      imgUrl = new URL(rawOgImage, sourceUrl);
+    } catch {
+      return { imagePath: FALLBACK, ok: false, reason: `bad og:image url: ${rawOgImage}` };
+    }
+    if (!['http:', 'https:'].includes(imgUrl.protocol)) {
+      return {
+        imagePath: FALLBACK,
+        ok: false,
+        reason: `bad scheme: ${imgUrl.protocol}`,
+      };
+    }
+    if (!isTrusted(imgUrl.hostname, trusted)) {
+      return {
+        imagePath: FALLBACK,
+        ok: false,
+        reason: `og:image host not trusted: ${imgUrl.hostname}`,
+      };
     }
 
     try {
-      const res = await safeFetch(sourceUrl, {}, lookup, maxRedirects);
-      const html = await res.text();
-
-      const match =
-        html.match(/<meta[^>]+property=["']og:image["'][^>]+content=["']([^"']+)["']/i) ??
-        html.match(/<meta[^>]+content=["']([^"']+)["'][^>]+property=["']og:image["']/i);
-
-      if (!match?.[1]) {
-        console.warn(`[warn] ${slug}: og:image not found`);
-        continue;
+      const imgRes = await fetch(imgUrl.toString(), {
+        headers: { 'User-Agent': 'agenticengineering-bot/1.0' },
+      });
+      if (!imgRes.ok) {
+        return { imagePath: FALLBACK, ok: false, reason: `img HTTP ${imgRes.status}` };
       }
-
-      const imageUrl = match[1];
-
-      const imgRes = await safeFetch(imageUrl, {}, lookup, maxRedirects);
-      if (!imgRes.ok) throw new Error(`HTTP ${imgRes.status}`);
-
       const buf = Buffer.from(await imgRes.arrayBuffer());
       const ct = (imgRes.headers.get('content-type') ?? '').toLowerCase();
-      const urlExt = path.extname(new URL(imageUrl).pathname).slice(1).toLowerCase();
+      const urlExt = path.extname(imgUrl.pathname).slice(1).toLowerCase();
       const ext =
         urlExt ||
         (ct.includes('png')
@@ -174,32 +111,37 @@ export async function fetchArticleImages(options: FetchOptions = {}): Promise<vo
             : ct.includes('gif')
               ? 'gif'
               : 'jpg');
-      const localFilename = `${slug}.${ext}`;
-
-      const tempImageFile = path.join(outputDir, `${localFilename}.tmp`);
-      fs.writeFileSync(tempImageFile, buf);
-      fs.renameSync(tempImageFile, path.join(outputDir, localFilename));
-
-      cache[sourceUrl] = {
-        ...(etag !== null && { etag }),
-        ...(lastModified !== null && { lastModified }),
-        localPath: `/news/${localFilename}`,
-      };
-      const tempCacheFile = `${cacheFile}.tmp`;
-      fs.writeFileSync(tempCacheFile, JSON.stringify(cache, null, 2));
-      fs.renameSync(tempCacheFile, cacheFile);
-
-      console.log(`[info] ${slug}: saved /news/${localFilename}`);
+      const filename = `${slug}.${ext}`;
+      const tmp = path.join(outputDir, `${filename}.tmp`);
+      fs.writeFileSync(tmp, buf);
+      fs.renameSync(tmp, path.join(outputDir, filename));
+      return { imagePath: `/news/${filename}`, ok: true };
     } catch (err) {
-      console.warn(`[warn] ${slug}: ${err instanceof Error ? err.message : String(err)}`);
+      return {
+        imagePath: FALLBACK,
+        ok: false,
+        reason: err instanceof Error ? err.message : String(err),
+      };
     }
+  } finally {
+    await browser.close();
   }
 }
 
-const __filename = fileURLToPath(import.meta.url);
-if (process.argv[1] === __filename) {
-  fetchArticleImages().catch((err) => {
-    console.error(err);
-    process.exit(1);
+const isMain = process.argv[1] === fileURLToPath(import.meta.url);
+if (isMain) {
+  const [, , url, slug] = process.argv;
+  if (!url || !slug) {
+    console.error('usage: tsx scripts/fetch-article-images.ts <url> <slug>');
+    process.exit(2);
+  }
+  console.error(
+    '[notice] A Chromium browser window will open to load the article. ' +
+      'This is required to bypass anti-bot challenges on sources like Medium and GeekWire. ' +
+      'Do not interact with the window — it closes automatically when the fetch finishes.',
+  );
+  fetchArticleImage(url, slug).then((r) => {
+    console.log(JSON.stringify(r));
+    process.exit(r.ok ? 0 : 1);
   });
 }

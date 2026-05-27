@@ -1,51 +1,42 @@
-import { describe, it, expect, vi, afterEach } from 'vitest';
+import { describe, it, expect, vi, beforeEach, afterEach } from 'vitest';
 import fs from 'node:fs';
 import path from 'node:path';
 import os from 'node:os';
-import { fetchArticleImages, type LookupFn } from '@/scripts/fetch-article-images';
+import { fetchArticleImage, isTrusted, loadTrusted } from '@/scripts/fetch-article-images';
 
-function makeTempDirs() {
-  const base = fs.mkdtempSync(path.join(os.tmpdir(), 'fetch-test-'));
-  const newsDir = path.join(base, 'news');
+const playwrightMocks = vi.hoisted(() => {
+  const getAttribute = vi.fn<(name: string) => Promise<string | null>>();
+  const first = vi.fn(() => ({ getAttribute }));
+  const locator = vi.fn(() => ({ first }));
+  const goto = vi.fn();
+  const pageClose = vi.fn();
+  const page = { goto, locator, close: pageClose };
+  const newPage = vi.fn(async () => page);
+  const browserClose = vi.fn();
+  const browser = { newPage, close: browserClose };
+  const launch = vi.fn(async () => browser);
+  return { launch, newPage, goto, locator, first, getAttribute, browserClose, pageClose };
+});
+
+vi.mock('playwright', () => ({
+  chromium: { launch: playwrightMocks.launch },
+}));
+
+function makeWorkspace(trusted: string[]) {
+  const base = fs.mkdtempSync(path.join(os.tmpdir(), 'fetch-img-test-'));
   const outputDir = path.join(base, 'output');
-  fs.mkdirSync(newsDir, { recursive: true });
+  const trustedFile = path.join(base, 'trusted.json');
   fs.mkdirSync(outputDir, { recursive: true });
-  const lookup: LookupFn = vi.fn(async () => [{ address: '93.184.216.34', family: 4 }]);
-  return {
-    newsDir,
-    outputDir,
-    cacheFile: path.join(outputDir, '.cache.json'),
-    lookup,
-  };
+  fs.writeFileSync(trustedFile, JSON.stringify(trusted));
+  return { base, outputDir, trustedFile };
 }
 
-function writeArticle(
-  newsDir: string,
-  filename: string,
-  sourceUrl: string,
-  imageOverride?: string,
-) {
-  const lines = [
-    '---',
-    `title_nl: 'test artikel'`,
-    `title_en: 'test article'`,
-    `url: '${sourceUrl}'`,
-    `source_url: '${sourceUrl}'`,
-    `date: '2026-05-12'`,
-    `summary_nl: 'nl'`,
-    `summary_en: 'en'`,
-  ];
-  if (imageOverride) lines.push(`image: '${imageOverride}'`);
-  lines.push('---');
-  fs.writeFileSync(path.join(newsDir, filename), lines.join('\n'));
-}
-
-function mockFetch(
+function mockImageFetch(
   responses: Array<{
     url: string | RegExp;
     status?: number;
     headers?: Record<string, string>;
-    body?: string | Buffer;
+    body?: Buffer;
   }>,
 ) {
   let cursor = 0;
@@ -58,318 +49,237 @@ function mockFetch(
     const match = remaining[idx];
     cursor += idx + 1;
     const status = match.status ?? 200;
-    const headersMap = new Map(Object.entries(match.headers ?? {}));
+    const headersMap = new Map(
+      Object.entries(match.headers ?? {}).map(([k, v]) => [k.toLowerCase(), v]),
+    );
     return {
       ok: status >= 200 && status < 300,
       status,
       headers: { get: (k: string) => headersMap.get(k.toLowerCase()) ?? null },
-      text: async () => (match.body instanceof Buffer ? match.body.toString() : (match.body ?? '')),
       arrayBuffer: async () => {
-        const buf = match.body instanceof Buffer ? match.body : Buffer.from(match.body ?? '');
+        const buf = match.body ?? Buffer.alloc(0);
         return buf.buffer.slice(buf.byteOffset, buf.byteOffset + buf.byteLength);
       },
     };
   });
 }
 
+beforeEach(() => {
+  playwrightMocks.launch.mockClear();
+  playwrightMocks.newPage.mockClear();
+  playwrightMocks.goto.mockReset();
+  playwrightMocks.goto.mockResolvedValue(undefined);
+  playwrightMocks.locator.mockClear();
+  playwrightMocks.first.mockClear();
+  playwrightMocks.getAttribute.mockReset();
+  playwrightMocks.browserClose.mockClear();
+  playwrightMocks.browserClose.mockResolvedValue(undefined);
+  playwrightMocks.pageClose.mockClear();
+  playwrightMocks.pageClose.mockResolvedValue(undefined);
+});
+
 afterEach(() => {
   vi.unstubAllGlobals();
 });
 
-describe('fetchArticleImages', () => {
-  it('downloads og:image and writes to outputDir + updates cache', async () => {
-    const { newsDir, outputDir, cacheFile, lookup } = makeTempDirs();
-    writeArticle(newsDir, '2026-05-12-foo.md', 'https://example.com/post');
-
-    const imageBytes = Buffer.from('FAKE_IMAGE_DATA');
-    const fetchMock = mockFetch([
-      {
-        url: 'https://example.com/post',
-        headers: { etag: '"abc"' },
-        body: '<meta property="og:image" content="https://example.com/img.jpg" />',
-      },
-      {
-        url: 'https://example.com/post',
-        headers: { etag: '"abc"' },
-        body: '<meta property="og:image" content="https://example.com/img.jpg" />',
-      },
-      {
-        url: 'https://example.com/img.jpg',
-        headers: { 'content-type': 'image/jpeg' },
-        body: imageBytes,
-      },
-    ]);
-    vi.stubGlobal('fetch', fetchMock);
-
-    await fetchArticleImages({ newsDir, outputDir, cacheFile, lookup });
-
-    const calls = fetchMock.mock.calls;
-    expect(calls[0][0]).toBe('https://example.com/post');
-    expect(calls[0][1]).toEqual({ method: 'HEAD', redirect: 'manual' });
-    expect(calls[1][0]).toBe('https://example.com/post');
-    expect(calls[1][1]).toEqual({ redirect: 'manual' });
-
-    expect(fs.existsSync(path.join(outputDir, '2026-05-12-foo.jpg'))).toBe(true);
-    const cache = JSON.parse(fs.readFileSync(cacheFile, 'utf8'));
-    expect(cache['https://example.com/post'].localPath).toBe('/news/2026-05-12-foo.jpg');
-    expect(cache['https://example.com/post'].etag).toBe('"abc"');
+describe('isTrusted', () => {
+  it('matches exact hostname', () => {
+    expect(isTrusted('medium.com', ['medium.com'])).toBe(true);
   });
 
-  it('skips fetch when ETag is unchanged and local file exists', async () => {
-    const { newsDir, outputDir, cacheFile, lookup } = makeTempDirs();
-    writeArticle(newsDir, '2026-05-12-foo.md', 'https://example.com/post');
-
-    const existingCache = {
-      'https://example.com/post': { etag: '"abc"', localPath: '/news/2026-05-12-foo.jpg' },
-    };
-    fs.writeFileSync(cacheFile, JSON.stringify(existingCache));
-    fs.writeFileSync(path.join(outputDir, '2026-05-12-foo.jpg'), 'existing');
-
-    const fetchMock = mockFetch([
-      { url: 'https://example.com/post', headers: { etag: '"abc"' }, body: '' },
-    ]);
-    vi.stubGlobal('fetch', fetchMock);
-
-    await fetchArticleImages({ newsDir, outputDir, cacheFile, lookup });
-
-    expect(fetchMock).toHaveBeenCalledTimes(1);
-    expect(fetchMock).toHaveBeenCalledWith('https://example.com/post', {
-      method: 'HEAD',
-      redirect: 'manual',
-    });
+  it('matches subdomain via suffix rule', () => {
+    expect(isTrusted('cdn.medium.com', ['medium.com'])).toBe(true);
   });
 
-  it('skips article that has a frontmatter image override', async () => {
-    const { newsDir, outputDir, cacheFile, lookup } = makeTempDirs();
-    writeArticle(
-      newsDir,
-      '2026-05-12-override.md',
-      'https://example.com/override',
-      '/custom/img.jpg',
-    );
+  it('does not partial-match a sibling domain', () => {
+    expect(isTrusted('evilmedium.com', ['medium.com'])).toBe(false);
+  });
 
+  it('returns false when list is empty', () => {
+    expect(isTrusted('medium.com', [])).toBe(false);
+  });
+});
+
+describe('loadTrusted', () => {
+  it('returns [] when file does not exist', () => {
+    expect(loadTrusted('/nonexistent/path/trusted.json')).toEqual([]);
+  });
+
+  it('parses array of strings from JSON file', () => {
+    const dir = fs.mkdtempSync(path.join(os.tmpdir(), 'trusted-test-'));
+    const file = path.join(dir, 'trusted.json');
+    fs.writeFileSync(file, JSON.stringify(['medium.com', 'geekwire.com']));
+    expect(loadTrusted(file)).toEqual(['medium.com', 'geekwire.com']);
+  });
+});
+
+describe('fetchArticleImage', () => {
+  it('rejects untrusted source host without launching the browser', async () => {
+    const { outputDir, trustedFile } = makeWorkspace(['medium.com']);
     const fetchMock = vi.fn();
     vi.stubGlobal('fetch', fetchMock);
 
-    await fetchArticleImages({ newsDir, outputDir, cacheFile, lookup });
+    const result = await fetchArticleImage('https://evil.example/post', 'slug', {
+      outputDir,
+      trustedFile,
+    });
 
+    expect(result.ok).toBe(false);
+    expect(result.reason).toMatch(/source host not trusted: evil\.example/);
+    expect(result.imagePath).toBe('/qas-icon.svg');
+    expect(playwrightMocks.launch).not.toHaveBeenCalled();
     expect(fetchMock).not.toHaveBeenCalled();
   });
 
-  it('prints warning and continues when fetch fails', async () => {
-    const { newsDir, outputDir, cacheFile, lookup } = makeTempDirs();
-    writeArticle(newsDir, '2026-05-12-foo.md', 'https://example.com/post');
+  it('rejects invalid source URL without launching the browser', async () => {
+    const { outputDir, trustedFile } = makeWorkspace(['medium.com']);
+    vi.stubGlobal('fetch', vi.fn());
 
-    vi.stubGlobal('fetch', vi.fn().mockRejectedValue(new Error('network error')));
-    const warnSpy = vi.spyOn(console, 'warn').mockImplementation(() => {});
+    const result = await fetchArticleImage('not-a-url', 'slug', { outputDir, trustedFile });
 
-    await fetchArticleImages({ newsDir, outputDir, cacheFile, lookup });
-
-    expect(warnSpy).toHaveBeenCalledWith(expect.stringMatching(/\[warn\].*2026-05-12-foo/));
-    expect(fs.readdirSync(outputDir)).not.toContain('2026-05-12-foo.jpg');
-    warnSpy.mockRestore();
+    expect(result.ok).toBe(false);
+    expect(result.reason).toBe('invalid source_url');
+    expect(playwrightMocks.launch).not.toHaveBeenCalled();
   });
 
-  it('prints warning and continues when og:image is not found in HTML', async () => {
-    const { newsDir, outputDir, cacheFile, lookup } = makeTempDirs();
-    writeArticle(newsDir, '2026-05-12-foo.md', 'https://example.com/post');
-
+  it('drives chromium to read og:image and downloads it on happy path', async () => {
+    const { outputDir, trustedFile } = makeWorkspace(['medium.com']);
+    playwrightMocks.getAttribute.mockResolvedValue('https://cdn.medium.com/img.png');
+    const imageBytes = Buffer.from('FAKE_PNG_BYTES');
     vi.stubGlobal(
       'fetch',
-      mockFetch([
-        { url: 'https://example.com/post', body: '' },
-        { url: 'https://example.com/post', body: '<html><head><title>No OG</title></head></html>' },
+      mockImageFetch([
+        {
+          url: 'https://cdn.medium.com/img.png',
+          headers: { 'content-type': 'image/png' },
+          body: imageBytes,
+        },
       ]),
     );
-    const warnSpy = vi.spyOn(console, 'warn').mockImplementation(() => {});
 
-    await fetchArticleImages({ newsDir, outputDir, cacheFile, lookup });
+    const result = await fetchArticleImage('https://medium.com/post', '2026-05-12-foo', {
+      outputDir,
+      trustedFile,
+    });
 
-    expect(warnSpy).toHaveBeenCalledWith(expect.stringMatching(/og:image not found/));
-    warnSpy.mockRestore();
+    expect(result.ok).toBe(true);
+    expect(result.imagePath).toBe('/news/2026-05-12-foo.png');
+    expect(fs.existsSync(path.join(outputDir, '2026-05-12-foo.png'))).toBe(true);
+
+    expect(playwrightMocks.launch).toHaveBeenCalledOnce();
+    expect(playwrightMocks.newPage).toHaveBeenCalledOnce();
+    expect(playwrightMocks.goto).toHaveBeenCalledWith(
+      'https://medium.com/post',
+      expect.objectContaining({ waitUntil: 'domcontentloaded' }),
+    );
+    expect(playwrightMocks.locator).toHaveBeenCalledWith('meta[property="og:image"]');
+    expect(playwrightMocks.getAttribute).toHaveBeenCalledWith('content');
+    expect(playwrightMocks.browserClose).toHaveBeenCalledOnce();
   });
 
-  it('returns immediately when newsDir does not exist', async () => {
-    const { outputDir, cacheFile, lookup } = makeTempDirs();
+  it('falls back when og:image meta is missing', async () => {
+    const { outputDir, trustedFile } = makeWorkspace(['medium.com']);
+    playwrightMocks.getAttribute.mockResolvedValue(null);
+    vi.stubGlobal('fetch', vi.fn());
+
+    const result = await fetchArticleImage('https://medium.com/post', 'slug', {
+      outputDir,
+      trustedFile,
+    });
+
+    expect(result.ok).toBe(false);
+    expect(result.reason).toBe('og:image not found');
+    expect(playwrightMocks.browserClose).toHaveBeenCalledOnce();
+  });
+
+  it('rejects when og:image host is not on the trusted list', async () => {
+    const { outputDir, trustedFile } = makeWorkspace(['medium.com']);
+    playwrightMocks.getAttribute.mockResolvedValue('https://evil-cdn.example/img.jpg');
     const fetchMock = vi.fn();
     vi.stubGlobal('fetch', fetchMock);
 
-    await fetchArticleImages({ newsDir: '/nonexistent/path', outputDir, cacheFile, lookup });
+    const result = await fetchArticleImage('https://medium.com/post', 'slug', {
+      outputDir,
+      trustedFile,
+    });
 
+    expect(result.ok).toBe(false);
+    expect(result.reason).toMatch(/og:image host not trusted: evil-cdn\.example/);
     expect(fetchMock).not.toHaveBeenCalled();
+    expect(playwrightMocks.browserClose).toHaveBeenCalledOnce();
   });
 
-  it('rejects og:image pointing to RFC1918 host', async () => {
-    const { newsDir, outputDir, cacheFile } = makeTempDirs();
-    writeArticle(newsDir, '2026-05-12-foo.md', 'https://example.com/post');
+  it('rejects og:image with a non-http(s) scheme', async () => {
+    const { outputDir, trustedFile } = makeWorkspace(['medium.com']);
+    playwrightMocks.getAttribute.mockResolvedValue('file:///etc/passwd');
+    vi.stubGlobal('fetch', vi.fn());
 
-    const lookupStub: LookupFn = vi.fn(async (host: string) => {
-      if (host === 'internal.evil') return [{ address: '10.0.0.5', family: 4 }];
-      return [{ address: '93.184.216.34', family: 4 }];
+    const result = await fetchArticleImage('https://medium.com/post', 'slug', {
+      outputDir,
+      trustedFile,
     });
 
+    expect(result.ok).toBe(false);
+    expect(result.reason).toMatch(/bad scheme: file:/);
+    expect(playwrightMocks.browserClose).toHaveBeenCalledOnce();
+  });
+
+  it('resolves relative og:image URLs against the source URL', async () => {
+    const { outputDir, trustedFile } = makeWorkspace(['medium.com']);
+    playwrightMocks.getAttribute.mockResolvedValue('/static/img.jpg');
+    const imageBytes = Buffer.from('IMG');
     vi.stubGlobal(
       'fetch',
-      mockFetch([
-        { url: 'https://example.com/post', headers: { etag: '"a"' }, body: '' },
+      mockImageFetch([
         {
-          url: 'https://example.com/post',
-          body: '<meta property="og:image" content="https://internal.evil/x.jpg" />',
+          url: 'https://medium.com/static/img.jpg',
+          headers: { 'content-type': 'image/jpeg' },
+          body: imageBytes,
         },
       ]),
     );
-    const warnSpy = vi.spyOn(console, 'warn').mockImplementation(() => {});
 
-    await fetchArticleImages({ newsDir, outputDir, cacheFile, lookup: lookupStub });
-
-    expect(warnSpy).toHaveBeenCalledWith(expect.stringMatching(/blocked range: private/));
-    expect(fs.readdirSync(outputDir)).not.toContain('2026-05-12-foo.jpg');
-    warnSpy.mockRestore();
-  });
-
-  it('rejects og:image literal loopback IP', async () => {
-    const { newsDir, outputDir, cacheFile, lookup } = makeTempDirs();
-    writeArticle(newsDir, '2026-05-12-foo.md', 'https://example.com/post');
-
-    vi.stubGlobal(
-      'fetch',
-      mockFetch([
-        { url: 'https://example.com/post', headers: { etag: '"a"' }, body: '' },
-        {
-          url: 'https://example.com/post',
-          body: '<meta property="og:image" content="http://127.0.0.1/x.jpg" />',
-        },
-      ]),
-    );
-    const warnSpy = vi.spyOn(console, 'warn').mockImplementation(() => {});
-
-    await fetchArticleImages({ newsDir, outputDir, cacheFile, lookup });
-
-    expect(warnSpy).toHaveBeenCalledWith(expect.stringMatching(/blocked IP range: loopback/));
-    warnSpy.mockRestore();
-  });
-
-  it('rejects og:image scheme that is not http(s)', async () => {
-    const { newsDir, outputDir, cacheFile, lookup } = makeTempDirs();
-    writeArticle(newsDir, '2026-05-12-foo.md', 'https://example.com/post');
-
-    vi.stubGlobal(
-      'fetch',
-      mockFetch([
-        { url: 'https://example.com/post', headers: { etag: '"a"' }, body: '' },
-        {
-          url: 'https://example.com/post',
-          body: '<meta property="og:image" content="file:///etc/passwd" />',
-        },
-      ]),
-    );
-    const warnSpy = vi.spyOn(console, 'warn').mockImplementation(() => {});
-
-    await fetchArticleImages({ newsDir, outputDir, cacheFile, lookup });
-
-    expect(warnSpy).toHaveBeenCalledWith(expect.stringMatching(/scheme not allowed: file:/));
-    warnSpy.mockRestore();
-  });
-
-  it('rejects redirect chain that lands on internal host', async () => {
-    const { newsDir, outputDir, cacheFile } = makeTempDirs();
-    writeArticle(newsDir, '2026-05-12-foo.md', 'https://example.com/post');
-
-    const lookupStub: LookupFn = vi.fn(async (host: string) => {
-      if (host === 'cdn.evil') return [{ address: '169.254.169.254', family: 4 }];
-      return [{ address: '93.184.216.34', family: 4 }];
+    const result = await fetchArticleImage('https://medium.com/post', 'slug', {
+      outputDir,
+      trustedFile,
     });
 
-    vi.stubGlobal(
-      'fetch',
-      mockFetch([
-        { url: 'https://example.com/post', headers: { etag: '"a"' }, body: '' },
-        {
-          url: 'https://example.com/post',
-          body: '<meta property="og:image" content="https://example.com/redir" />',
-        },
-        {
-          url: 'https://example.com/redir',
-          status: 302,
-          headers: { location: 'https://cdn.evil/x.jpg' },
-          body: '',
-        },
-      ]),
-    );
-    const warnSpy = vi.spyOn(console, 'warn').mockImplementation(() => {});
-
-    await fetchArticleImages({ newsDir, outputDir, cacheFile, lookup: lookupStub });
-
-    expect(warnSpy).toHaveBeenCalledWith(expect.stringMatching(/blocked range: linkLocal/));
-    warnSpy.mockRestore();
+    expect(result.ok).toBe(true);
+    expect(result.imagePath).toBe('/news/slug.jpg');
   });
 
-  it('rejects host when DNS lookup returns no records', async () => {
-    const { newsDir, outputDir, cacheFile } = makeTempDirs();
-    writeArticle(newsDir, '2026-05-12-foo.md', 'https://example.com/post');
+  it('falls back when the page navigation throws', async () => {
+    const { outputDir, trustedFile } = makeWorkspace(['medium.com']);
+    playwrightMocks.goto.mockRejectedValue(new Error('net::ERR_TIMED_OUT'));
+    vi.stubGlobal('fetch', vi.fn());
 
-    const lookupStub: LookupFn = vi.fn(async (host: string) => {
-      if (host === 'no-records.test') return [];
-      return [{ address: '93.184.216.34', family: 4 }];
+    const result = await fetchArticleImage('https://medium.com/post', 'slug', {
+      outputDir,
+      trustedFile,
     });
 
-    vi.stubGlobal(
-      'fetch',
-      mockFetch([
-        { url: 'https://example.com/post', headers: { etag: '"a"' }, body: '' },
-        {
-          url: 'https://example.com/post',
-          body: '<meta property="og:image" content="https://no-records.test/x.jpg" />',
-        },
-      ]),
-    );
-    const warnSpy = vi.spyOn(console, 'warn').mockImplementation(() => {});
-
-    await fetchArticleImages({ newsDir, outputDir, cacheFile, lookup: lookupStub });
-
-    expect(warnSpy).toHaveBeenCalledWith(
-      expect.stringMatching(/no DNS records for no-records\.test/),
-    );
-    warnSpy.mockRestore();
+    expect(result.ok).toBe(false);
+    expect(result.reason).toMatch(/ERR_TIMED_OUT/);
+    expect(playwrightMocks.browserClose).toHaveBeenCalledOnce();
   });
 
-  it('caps redirect chain at maxRedirects', async () => {
-    const { newsDir, outputDir, cacheFile, lookup } = makeTempDirs();
-    writeArticle(newsDir, '2026-05-12-foo.md', 'https://example.com/post');
-
+  it('closes the browser even when the image fetch fails', async () => {
+    const { outputDir, trustedFile } = makeWorkspace(['medium.com']);
+    playwrightMocks.getAttribute.mockResolvedValue('https://cdn.medium.com/img.png');
     vi.stubGlobal(
       'fetch',
-      mockFetch([
-        { url: 'https://example.com/post', headers: { etag: '"a"' }, body: '' },
-        {
-          url: 'https://example.com/post',
-          body: '<meta property="og:image" content="https://example.com/a" />',
-        },
-        {
-          url: /example\.com\/[a-z]+/,
-          status: 302,
-          headers: { location: 'https://example.com/next1' },
-          body: '',
-        },
-        {
-          url: /example\.com\/[a-z0-9]+/,
-          status: 302,
-          headers: { location: 'https://example.com/next2' },
-          body: '',
-        },
-        {
-          url: /example\.com\/[a-z0-9]+/,
-          status: 302,
-          headers: { location: 'https://example.com/next3' },
-          body: '',
-        },
+      mockImageFetch([
+        { url: 'https://cdn.medium.com/img.png', status: 403, body: Buffer.alloc(0) },
       ]),
     );
-    const warnSpy = vi.spyOn(console, 'warn').mockImplementation(() => {});
 
-    await fetchArticleImages({ newsDir, outputDir, cacheFile, lookup, maxRedirects: 2 });
+    const result = await fetchArticleImage('https://medium.com/post', 'slug', {
+      outputDir,
+      trustedFile,
+    });
 
-    expect(warnSpy).toHaveBeenCalledWith(expect.stringMatching(/too many redirects/));
-    warnSpy.mockRestore();
+    expect(result.ok).toBe(false);
+    expect(result.reason).toBe('img HTTP 403');
+    expect(playwrightMocks.browserClose).toHaveBeenCalledOnce();
   });
 });

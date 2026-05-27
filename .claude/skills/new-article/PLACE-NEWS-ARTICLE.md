@@ -48,43 +48,58 @@ Notes:
 
 - Use single quotes around every value to keep YAML predictable with apostrophes.
 - Escape any embedded `'` by doubling it (`it''s`).
-- `url` and `source_url` are both required and usually identical. `source_url` is read by `scripts/fetch-article-images.ts` to download the og:image.
+- `url` and `source_url` are both required and usually identical. `source_url` is used by the image fetch step below to download the og:image.
 - No body content — frontmatter only. The `/news` page renders from frontmatter.
 - End the file with a trailing newline.
 
 ## Image fetch
 
-After writing the markdown file, the og:image needs to be downloaded to `public/news/`. The site reads `public/news/.cache.json` at build time to resolve each article's image path.
+The og:image for the article gets downloaded to `public/news/` and the resulting path is written back into the markdown frontmatter as an `image:` field. Two security gates apply:
 
-Show this command for the user to run:
+1. **Trusted-domain check.** The hostname of `source_url` must appear in `data/trusted-domains.json`. The list is suffix-matched: an entry `medium.com` matches `medium.com` and any `*.medium.com` subdomain.
+2. **og:image host check.** The hostname of the og:image URL parsed from the page HTML must also match the trusted list.
+
+### Step 1 — Check the source hostname
+
+Parse the hostname from the URL the user provided. Read `data/trusted-domains.json` (a JSON array of strings).
+
+- If the hostname matches (exact or `*.<entry>` suffix), proceed to Step 2.
+- If it does not match, ask the user:
+
+  > Hostname `<host>` is not in `data/trusted-domains.json`. Add it? (y/n)
+  - On **yes**: insert the hostname into the array, keep alphabetical order, show the diff for confirmation, then write the file with the Edit tool. Then proceed to Step 2.
+  - On **no**: abort the skill before writing the markdown file. Tell the user why.
+
+### Step 2 — Fetch the image
+
+After the markdown file is written, warn the user that a Chromium browser window will pop up for a few seconds (it is required to bypass anti-bot challenges on sources like Medium and GeekWire; the window closes itself when the fetch finishes — do not interact with it).
+
+Then run this command yourself with the Bash tool (the user has pre-authorised the image fetch step inside this skill — do not stop to ask):
 
 ```
-pnpm fetch:images
+pnpm article:image '<source_url>' <YYYY-MM-DD>-<slug>
 ```
 
 What it does:
 
-- Reads every `news/*.md`, finds the `source_url`, fetches the page HTML and parses the `<meta property="og:image">` tag.
-- Downloads the image to `public/news/<slug>.<ext>` and updates `public/news/.cache.json`.
-- Skips articles whose ETag/Last-Modified matches the cache (no re-download).
-- Skips articles that already have an `image:` field in their frontmatter.
+- Reads `data/trusted-domains.json` and verifies both the source host and the og:image host are on the list.
+- Fetches the source URL, parses the `<meta property="og:image">` tag, downloads the image to `public/news/<YYYY-MM-DD>-<slug>.<ext>` (atomic write).
+- Prints a single JSON line on stdout: `{ "imagePath": "/news/...", "ok": true }` on success, or `{ "imagePath": "/qas-icon.svg", "ok": false, "reason": "..." }` on failure (the process also exits non-zero on failure — that is expected, not an error condition for the skill).
 
-SSRF guards in the script (defense-in-depth — still only run on trusted URLs):
+### Step 3 — Write the image path back into the frontmatter
 
-- Only `http:` and `https:` schemes accepted.
-- DNS resolves hostname; rejects loopback, RFC1918 private, link-local, unique-local, carrier-grade NAT, multicast, reserved, and unspecified ranges (via `ipaddr.js`).
-- Redirect chain capped (max 3) with the same host check at every hop.
+Parse the JSON line from stdout. If `ok: true`, edit the article's frontmatter to add the `image:` field directly under `date:`:
 
-If the run prints `[warn] <slug>: ...`, deal with it before opening the PR:
+```yaml
+image: '<imagePath>'
+```
 
-- `og:image not found` or fetch failed → use the **manual image fallback** below.
-- `blocked range: ...` → the source's og:image points to an internal host. Almost always a bug on their side; use the manual fallback.
-- `scheme not allowed: ...` → og:image is not http(s); use the manual fallback.
+If `ok: false`, surface the `reason` to the user (common ones: `HTTP 403` for anti-bot-protected sources like Medium/GeekWire, `og:image not found`, `og:image host not trusted: <host>`). Do not write an `image:` field — the article will fall back to `/qas-icon.svg`. Offer the **manual image fallback** below; the user decides whether to use it or ship with the fallback icon.
 
 ### Manual image fallback
 
 1. Save a custom image to `public/news/<YYYY-MM-DD>-<slug>.<ext>` (`.jpg`, `.png`, `.webp`, or `.gif`).
-2. Add `image: '/news/<YYYY-MM-DD>-<slug>.<ext>'` to the article frontmatter — the script skips articles with an `image` override.
+2. Set `image: '/news/<YYYY-MM-DD>-<slug>.<ext>'` in the article frontmatter.
 
 ## Branch and pull request flow
 
@@ -98,9 +113,9 @@ Before showing commands, confirm:
 Then propose, in this order:
 
 1. `git checkout -b news/<slug>`
-2. After the markdown file is written and `pnpm fetch:images` has run, stage both:
+2. After the markdown file is written and `pnpm article:image` has run, stage both:
    - `git add news/<YYYY-MM-DD>-<slug>.md`
-   - `git add public/news/<YYYY-MM-DD>-<slug>.* public/news/.cache.json` (only if the fetch produced files)
+   - `git add public/news/<YYYY-MM-DD>-<slug>.*` (only if the fetch produced an image)
 3. `git commit -m "news: add <title>"` — keep the subject ≤72 chars; truncate the title if needed.
 4. `git push -u origin news/<slug>`
 5. `gh pr create --title "news: add <title>" --body "<body>"` where `<body>` is:
@@ -123,7 +138,7 @@ Show each command in its own fenced block with a one-sentence reason. Wait for t
 3. Derive slug and filename. Show them back for confirmation.
 4. Show the final markdown file content for approval before writing.
 5. After approval, write the file with the Write tool to `<repo>/news/<YYYY-MM-DD>-<slug>.md`. Create the `/news/` directory if it doesn't exist yet.
-6. Show the `pnpm fetch:images` command for the user to run. Inspect the output: success messages or warnings.
+6. Run the trusted-domain check (Image fetch — Step 1). Then show the `pnpm article:image '<source_url>' <YYYY-MM-DD>-<slug>` command for the user to run, capture the JSON line, and write the `image:` field back into the frontmatter (Image fetch — Steps 2 and 3).
 7. If a warning blocks the fetch, walk the user through the manual image fallback.
 8. Show the git/gh command sequence. User runs each.
 9. Stop after PR creation. Do not suggest further changes.
