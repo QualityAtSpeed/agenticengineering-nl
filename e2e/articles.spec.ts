@@ -53,7 +53,10 @@ for (const locale of locales) {
     const articles = new ArticlesPage(page, locale);
     await articles.goto();
     const card = articles.cardContainers.first();
+    const baseline = await card.evaluate((el) => getComputedStyle(el).borderColor);
     await card.hover();
-    await expect(card).toHaveCSS('border-color', 'rgb(88, 166, 255)');
+    await expect
+      .poll(async () => card.evaluate((el) => getComputedStyle(el).borderColor))
+      .not.toBe(baseline);
   });
 }

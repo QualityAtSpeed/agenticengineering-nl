@@ -27,6 +27,7 @@ export interface FetchOptions {
 
 const FALLBACK = '/qas-icon.svg';
 const GOTO_TIMEOUT_MS = 20_000;
+const ALLOWED_EXTS = new Set(['jpg', 'jpeg', 'png', 'webp', 'gif']);
 
 export async function fetchArticleImage(
   sourceUrl: string,
@@ -52,7 +53,16 @@ export async function fetchArticleImage(
 
   fs.mkdirSync(outputDir, { recursive: true });
 
-  const browser = await chromium.launch({ headless: false });
+  let browser: Awaited<ReturnType<typeof chromium.launch>>;
+  try {
+    browser = await chromium.launch({ headless: false });
+  } catch (err) {
+    return {
+      imagePath: FALLBACK,
+      ok: false,
+      reason: `chromium launch failed: ${err instanceof Error ? err.message : String(err)}`,
+    };
+  }
   try {
     const page = await browser.newPage();
     let rawOgImage: string | null;
@@ -102,15 +112,16 @@ export async function fetchArticleImage(
       const buf = Buffer.from(await imgRes.arrayBuffer());
       const ct = (imgRes.headers.get('content-type') ?? '').toLowerCase();
       const urlExt = path.extname(imgUrl.pathname).slice(1).toLowerCase();
-      const ext =
-        urlExt ||
-        (ct.includes('png')
-          ? 'png'
-          : ct.includes('webp')
-            ? 'webp'
-            : ct.includes('gif')
-              ? 'gif'
-              : 'jpg');
+      const ctExt = ct.includes('png')
+        ? 'png'
+        : ct.includes('webp')
+          ? 'webp'
+          : ct.includes('gif')
+            ? 'gif'
+            : ct.includes('jpeg') || ct.includes('jpg')
+              ? 'jpg'
+              : '';
+      const ext = ALLOWED_EXTS.has(urlExt) ? urlExt : ctExt || 'jpg';
       const filename = `${slug}.${ext}`;
       const tmp = path.join(outputDir, `${filename}.tmp`);
       fs.writeFileSync(tmp, buf);
@@ -140,8 +151,19 @@ if (isMain) {
       'This is required to bypass anti-bot challenges on sources like Medium and GeekWire. ' +
       'Do not interact with the window — it closes automatically when the fetch finishes.',
   );
-  fetchArticleImage(url, slug).then((r) => {
-    console.log(JSON.stringify(r));
-    process.exit(r.ok ? 0 : 1);
-  });
+  fetchArticleImage(url, slug)
+    .then((r) => {
+      console.log(JSON.stringify(r));
+      process.exit(r.ok ? 0 : 1);
+    })
+    .catch((err) => {
+      console.log(
+        JSON.stringify({
+          imagePath: FALLBACK,
+          ok: false,
+          reason: err instanceof Error ? err.message : String(err),
+        }),
+      );
+      process.exit(1);
+    });
 }

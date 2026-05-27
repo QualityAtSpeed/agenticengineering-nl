@@ -21,7 +21,6 @@ describe('getArticles', () => {
     expect(first.url).toBe('https://example.com/post');
     expect(first.sourceUrl).toBe('https://example.com/post');
     expect(first.date).toBe('2026-05-12');
-    expect(first.imageAlt).toBe('agent loops verschepen');
   });
 
   it('returns [] when the news directory does not exist', () => {

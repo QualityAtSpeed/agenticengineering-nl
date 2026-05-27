@@ -26,7 +26,6 @@ export interface Article {
   summaryNl: string;
   summaryEn: string;
   image: string;
-  imageAlt: string;
   tags?: string[];
   author?: string;
 }
@@ -63,7 +62,6 @@ export function getArticles(newsDir: string = DEFAULT_NEWS_DIR): Article[] {
       summaryNl: d.summary_nl,
       summaryEn: d.summary_en,
       image: d.image ?? '/qas-icon.svg',
-      imageAlt: d.title_nl,
     };
     if (d.tags !== undefined) article.tags = d.tags;
     if (d.author !== undefined) article.author = d.author;

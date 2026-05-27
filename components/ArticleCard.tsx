@@ -5,9 +5,10 @@ import type { Article } from '@/lib/articles';
 export function ArticleCard({ article, locale }: { article: Article; locale: string }) {
   const t = useTranslations('articles');
   const rawSummary = locale === 'nl' ? article.summaryNl : article.summaryEn;
-  const summary = rawSummary.length > 400 ? `${rawSummary.slice(0, 399).trimEnd()}…` : rawSummary;
+  const summary = rawSummary.length > 400 ? `${rawSummary.slice(0, 400).trimEnd()}…` : rawSummary;
   const title = locale === 'nl' ? article.titleNl : article.titleEn;
   const isFallback = article.image === '/qas-icon.svg';
+  const imageAlt = title;
 
   return (
     <article
@@ -17,7 +18,7 @@ export function ArticleCard({ article, locale }: { article: Article; locale: str
       <div className="bg-bg-base border-border-subtle relative aspect-[2/1] w-full border-b">
         <Image
           src={article.image}
-          alt={article.imageAlt}
+          alt={imageAlt}
           fill
           sizes="(min-width: 768px) 50vw, 100vw"
           className={isFallback ? 'object-contain p-6' : 'object-cover'}
