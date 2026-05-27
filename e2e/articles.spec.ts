@@ -59,4 +59,18 @@ for (const locale of locales) {
       .poll(async () => card.evaluate((el) => getComputedStyle(el).borderColor))
       .not.toBe(baseline);
   });
+
+  test(`articles: ${locale} clicking blogs filter narrows the URL and grid`, async ({ page }) => {
+    test.skip(!hasArticles, 'no articles in news/ — filter path not exercised');
+    const articles = new ArticlesPage(page, locale);
+    await articles.goto();
+    const allCount = await articles.cardContainers.count();
+    await articles.filterBlogs.click();
+    await expect(page).toHaveURL(/\?type=blog$/);
+    const blogCount = await articles.cardContainers.count();
+    expect(blogCount).toBeLessThanOrEqual(allCount);
+    await articles.filterAll.click();
+    await expect(page).toHaveURL(new RegExp(`/${locale}/articles$`));
+    await expect(articles.cardContainers).toHaveCount(allCount);
+  });
 }
