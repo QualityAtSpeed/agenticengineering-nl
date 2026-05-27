@@ -1,13 +1,17 @@
 import { setRequestLocale, getTranslations } from 'next-intl/server';
 import { ArticleCard } from '@/components/ArticleCard';
+import { BlogCard } from '@/components/BlogCard';
 import { getArticles } from '@/lib/articles';
+import { getBlogs } from '@/lib/blogs';
 import type { Locale } from '@/i18n/routing';
 
 export default async function ArticlesPage({ params }: { params: Promise<{ locale: Locale }> }) {
   const { locale } = await params;
   setRequestLocale(locale);
   const t = await getTranslations('articles');
+  const tBlogs = await getTranslations('blogs');
   const articles = getArticles();
+  const blogs = getBlogs();
 
   return (
     <main className="px-6 py-20">
@@ -24,6 +28,20 @@ export default async function ArticlesPage({ params }: { params: Promise<{ local
               <ArticleCard key={a.slug} article={a} locale={locale} />
             ))}
           </div>
+        )}
+
+        {blogs.length > 0 && (
+          <>
+            <h2 className="text-text-primary mt-24 font-mono text-4xl">
+              <span className="text-accent-green">&gt;</span> {tBlogs('title')}
+            </h2>
+            <p className="text-text-muted mt-6 max-w-2xl">{tBlogs('intro')}</p>
+            <div className="mt-12 grid gap-6 md:grid-cols-2">
+              {blogs.map((b) => (
+                <BlogCard key={b.slug} blog={b} locale={locale} />
+              ))}
+            </div>
+          </>
         )}
       </div>
     </main>
