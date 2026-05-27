@@ -1,0 +1,5126 @@
+{
+  "version": "1.0.0",
+  "project": {
+    "name": "agenticengineering-nl",
+    "languages": [
+      "css",
+      "javascript",
+      "json",
+      "markdown",
+      "typescript",
+      "yaml"
+    ],
+    "frameworks": [
+      "Next.js",
+      "React",
+      "Tailwind CSS",
+      "next-intl",
+      "Vitest",
+      "Playwright",
+      "Zod"
+    ],
+    "description": "Marketing and intake site for the Agentic Engineering training programme — bilingual (NL/EN), dark terminal-native aesthetic, built on Next.js 15 App Router and deployed on Vercel.",
+    "analyzedAt": "2026-05-26T17:32:57.482Z",
+    "gitCommitHash": "fc94616a173085c8cb333d10a199e26398a6f430"
+  },
+  "nodes": [
+    {
+      "id": "file:app/[locale]/about/page.tsx",
+      "type": "file",
+      "name": "page.tsx",
+      "filePath": "app/[locale]/about/page.tsx",
+      "summary": "Localized About page (RSC) that renders translated copy and an instructor grid via InstructorCard, using next-intl server translations.",
+      "tags": [
+        "component",
+        "entry-point",
+        "page",
+        "server-component",
+        "i18n"
+      ],
+      "complexity": "simple",
+      "languageNotes": "Next.js App Router async server component using setRequestLocale + getTranslations for static localization."
+    },
+    {
+      "id": "file:app/[locale]/page.tsx",
+      "type": "file",
+      "name": "page.tsx",
+      "filePath": "app/[locale]/page.tsx",
+      "summary": "Localized home page (RSC) composing Hero, ProofStrip, TrainingCard/TrainingDetail listings, instructor grid and JSON-LD structured data.",
+      "tags": [
+        "component",
+        "entry-point",
+        "page",
+        "server-component",
+        "i18n"
+      ],
+      "complexity": "moderate",
+      "languageNotes": "Aggregates multiple translation namespaces (tHero, tTrainings, tHome) and maps over the trainings data object."
+    },
+    {
+      "id": "file:components/DayAgenda.tsx",
+      "type": "file",
+      "name": "DayAgenda.tsx",
+      "filePath": "components/DayAgenda.tsx",
+      "summary": "Compact day-agenda pill strip component that renders a numbered list of training modules with translated labels.",
+      "tags": [
+        "component",
+        "ui",
+        "i18n",
+        "presentational",
+        "tested"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:components/Hero.tsx",
+      "type": "file",
+      "name": "Hero.tsx",
+      "filePath": "components/Hero.tsx",
+      "summary": "Presentational hero section accepting kicker, title, subtitle and CTA props to render the page header banner.",
+      "tags": [
+        "component",
+        "ui",
+        "presentational",
+        "hero"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:components/InstructorCard.tsx",
+      "type": "file",
+      "name": "InstructorCard.tsx",
+      "filePath": "components/InstructorCard.tsx",
+      "summary": "Renders a single instructor profile card by looking up the instructor in the instructors data and applying translated name/bio fields.",
+      "tags": [
+        "component",
+        "ui",
+        "i18n",
+        "data-model"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:components/JsonLd.tsx",
+      "type": "file",
+      "name": "JsonLd.tsx",
+      "filePath": "components/JsonLd.tsx",
+      "summary": "Tiny helper component that injects a JSON-LD structured-data script tag from a passed data object for SEO.",
+      "tags": [
+        "component",
+        "seo",
+        "utility",
+        "serialization"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:components/ProofStrip.tsx",
+      "type": "file",
+      "name": "ProofStrip.tsx",
+      "filePath": "components/ProofStrip.tsx",
+      "summary": "Social-proof strip rendering a set of translated proof pills and supporting copy beneath the hero.",
+      "tags": [
+        "component",
+        "ui",
+        "i18n",
+        "presentational",
+        "tested"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:components/TrainingCard.tsx",
+      "type": "file",
+      "name": "TrainingCard.tsx",
+      "filePath": "components/TrainingCard.tsx",
+      "summary": "Summary card for a training, looking up training data by id and rendering the first modules, price, and translated labels.",
+      "tags": [
+        "component",
+        "ui",
+        "i18n",
+        "data-model",
+        "tested"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "file:components/TrainingDetail.tsx",
+      "type": "file",
+      "name": "TrainingDetail.tsx",
+      "filePath": "components/TrainingDetail.tsx",
+      "summary": "Detailed training view rendering the full curriculum, outcomes/audience detail lists and pricing, with internal CurriculumList and DetailList helpers.",
+      "tags": [
+        "component",
+        "ui",
+        "i18n",
+        "data-model",
+        "curriculum"
+      ],
+      "complexity": "moderate",
+      "languageNotes": "Uses next-intl t.raw() to pull array-typed translation values for bullet lists, with a type cast to access .raw()."
+    },
+    {
+      "id": "file:data/instructors.ts",
+      "type": "file",
+      "name": "instructors.ts",
+      "filePath": "data/instructors.ts",
+      "summary": "Static data module exporting the list of instructor records consumed by InstructorCard and pages.",
+      "tags": [
+        "data-model",
+        "data",
+        "static-data"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:data/trainings.ts",
+      "type": "file",
+      "name": "trainings.ts",
+      "filePath": "data/trainings.ts",
+      "summary": "Static data module exporting the training catalogue (modules, pricing) consumed by training cards, detail views and tests.",
+      "tags": [
+        "data-model",
+        "data",
+        "static-data",
+        "catalogue",
+        "tested"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "file:tests/components/DayAgenda.test.tsx",
+      "type": "file",
+      "name": "DayAgenda.test.tsx",
+      "filePath": "tests/components/DayAgenda.test.tsx",
+      "summary": "Component test rendering DayAgenda with NextIntl message providers across locales to assert module labels appear.",
+      "tags": [
+        "test",
+        "component",
+        "i18n",
+        "unit-test"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:tests/components/ProofStrip.test.tsx",
+      "type": "file",
+      "name": "ProofStrip.test.tsx",
+      "filePath": "tests/components/ProofStrip.test.tsx",
+      "summary": "Component test rendering ProofStrip with NextIntl message providers to verify proof pill content per locale.",
+      "tags": [
+        "test",
+        "component",
+        "i18n",
+        "unit-test"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:tests/components/TrainingCard.test.tsx",
+      "type": "file",
+      "name": "TrainingCard.test.tsx",
+      "filePath": "tests/components/TrainingCard.test.tsx",
+      "summary": "Component test rendering TrainingCard for training ids and asserting translated labels/pricing using NL messages.",
+      "tags": [
+        "test",
+        "component",
+        "i18n",
+        "unit-test"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:tests/data/trainings.test.ts",
+      "type": "file",
+      "name": "trainings.test.ts",
+      "filePath": "tests/data/trainings.test.ts",
+      "summary": "Data integrity test asserting the trainings catalogue structure, module ids and pricing invariants.",
+      "tags": [
+        "test",
+        "data-model",
+        "validation",
+        "unit-test"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:app/[locale]/about/page.tsx:About",
+      "type": "function",
+      "name": "About",
+      "filePath": "app/[locale]/about/page.tsx",
+      "lineRange": [
+        6,
+        26
+      ],
+      "summary": "Async server-component default export rendering the localized About page with translated copy and an instructor grid.",
+      "tags": [
+        "component",
+        "server-component",
+        "page",
+        "i18n"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:app/[locale]/page.tsx:Home",
+      "type": "function",
+      "name": "Home",
+      "filePath": "app/[locale]/page.tsx",
+      "lineRange": [
+        13,
+        108
+      ],
+      "summary": "Async server-component default export composing the full home page: hero, proof strip, training listings, instructors and JSON-LD.",
+      "tags": [
+        "component",
+        "server-component",
+        "page",
+        "i18n",
+        "entry-point"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "function:components/DayAgenda.tsx:DayAgenda",
+      "type": "function",
+      "name": "DayAgenda",
+      "filePath": "components/DayAgenda.tsx",
+      "lineRange": [
+        4,
+        22
+      ],
+      "summary": "Renders a numbered, translated agenda strip from a modules array and a label.",
+      "tags": [
+        "component",
+        "ui",
+        "i18n"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:components/Hero.tsx:Hero",
+      "type": "function",
+      "name": "Hero",
+      "filePath": "components/Hero.tsx",
+      "lineRange": [
+        11,
+        39
+      ],
+      "summary": "Presentational hero banner rendering kicker, title, subtitle and primary/secondary CTAs from props.",
+      "tags": [
+        "component",
+        "ui",
+        "presentational"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:components/InstructorCard.tsx:InstructorCard",
+      "type": "function",
+      "name": "InstructorCard",
+      "filePath": "components/InstructorCard.tsx",
+      "lineRange": [
+        5,
+        27
+      ],
+      "summary": "Looks up an instructor by id and renders their card with translated name and bio.",
+      "tags": [
+        "component",
+        "ui",
+        "i18n",
+        "data-model"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:components/ProofStrip.tsx:ProofStrip",
+      "type": "function",
+      "name": "ProofStrip",
+      "filePath": "components/ProofStrip.tsx",
+      "lineRange": [
+        7,
+        40
+      ],
+      "summary": "Renders a strip of translated proof pills plus supporting heading/subcopy.",
+      "tags": [
+        "component",
+        "ui",
+        "i18n"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:components/TrainingCard.tsx:TrainingCard",
+      "type": "function",
+      "name": "TrainingCard",
+      "filePath": "components/TrainingCard.tsx",
+      "lineRange": [
+        5,
+        60
+      ],
+      "summary": "Renders a training summary card from training data: title, first modules, price and translated labels.",
+      "tags": [
+        "component",
+        "ui",
+        "i18n",
+        "data-model"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "function:components/TrainingDetail.tsx:TrainingDetail",
+      "type": "function",
+      "name": "TrainingDetail",
+      "filePath": "components/TrainingDetail.tsx",
+      "lineRange": [
+        5,
+        105
+      ],
+      "summary": "Renders the full training detail view including curriculum, audience/outcome detail lists and pricing using translated content.",
+      "tags": [
+        "component",
+        "ui",
+        "i18n",
+        "data-model"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "function:components/TrainingDetail.tsx:CurriculumList",
+      "type": "function",
+      "name": "CurriculumList",
+      "filePath": "components/TrainingDetail.tsx",
+      "lineRange": [
+        118,
+        159
+      ],
+      "summary": "Internal helper rendering the numbered curriculum module list with per-module bullet points from raw translations.",
+      "tags": [
+        "component",
+        "ui",
+        "i18n",
+        "presentational"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "function:components/TrainingDetail.tsx:DetailList",
+      "type": "function",
+      "name": "DetailList",
+      "filePath": "components/TrainingDetail.tsx",
+      "lineRange": [
+        161,
+        175
+      ],
+      "summary": "Internal helper rendering a titled bullet list from a title and items array.",
+      "tags": [
+        "component",
+        "ui",
+        "presentational"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:tests/components/DayAgenda.test.tsx:renderAgenda",
+      "type": "function",
+      "name": "renderAgenda",
+      "filePath": "tests/components/DayAgenda.test.tsx",
+      "lineRange": [
+        9,
+        16
+      ],
+      "summary": "Test helper rendering DayAgenda wrapped in a NextIntlClientProvider for a given locale, modules and label.",
+      "tags": [
+        "test",
+        "helper",
+        "i18n"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:tests/components/ProofStrip.test.tsx:renderStrip",
+      "type": "function",
+      "name": "renderStrip",
+      "filePath": "tests/components/ProofStrip.test.tsx",
+      "lineRange": [
+        8,
+        15
+      ],
+      "summary": "Test helper rendering ProofStrip wrapped in a NextIntlClientProvider for a given locale.",
+      "tags": [
+        "test",
+        "helper",
+        "i18n"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:tests/components/TrainingCard.test.tsx:renderCard",
+      "type": "function",
+      "name": "renderCard",
+      "filePath": "tests/components/TrainingCard.test.tsx",
+      "lineRange": [
+        8,
+        14
+      ],
+      "summary": "Test helper rendering TrainingCard wrapped in a NextIntlClientProvider for a given training id.",
+      "tags": [
+        "test",
+        "helper",
+        "i18n"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:app/[locale]/impressum/page.tsx",
+      "type": "file",
+      "name": "page.tsx",
+      "filePath": "app/[locale]/impressum/page.tsx",
+      "summary": "Impressum (legal imprint) page rendering company contact and registration details via localized translations.",
+      "tags": [
+        "component",
+        "page",
+        "i18n",
+        "legal"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:app/[locale]/layout.tsx",
+      "type": "file",
+      "name": "layout.tsx",
+      "filePath": "app/[locale]/layout.tsx",
+      "summary": "Root locale layout that validates the locale, sets request locale, and wraps pages with Nav and Footer; exports static params and per-locale metadata generators.",
+      "tags": [
+        "component",
+        "layout",
+        "i18n",
+        "metadata",
+        "entry-point"
+      ],
+      "complexity": "moderate",
+      "languageNotes": "Next.js App Router layout using next-intl helpers (setRequestLocale, getTranslations) plus generateStaticParams for static locale generation."
+    },
+    {
+      "id": "file:app/[locale]/opengraph-image.tsx",
+      "type": "file",
+      "name": "opengraph-image.tsx",
+      "filePath": "app/[locale]/opengraph-image.tsx",
+      "summary": "Generates the dynamic Open Graph social-share image per locale using the Next.js ImageResponse runtime.",
+      "tags": [
+        "component",
+        "image-generation",
+        "i18n",
+        "metadata",
+        "seo"
+      ],
+      "complexity": "moderate",
+      "languageNotes": "Uses Next.js edge ImageResponse API with exported runtime/size/contentType metadata constants."
+    },
+    {
+      "id": "file:app/sitemap.ts",
+      "type": "file",
+      "name": "sitemap.ts",
+      "filePath": "app/sitemap.ts",
+      "summary": "Generates the site's sitemap by expanding a fixed path list across all configured locales with hreflang alternates.",
+      "tags": [
+        "seo",
+        "sitemap",
+        "i18n",
+        "utility"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:components/Footer.tsx",
+      "type": "file",
+      "name": "Footer.tsx",
+      "filePath": "components/Footer.tsx",
+      "summary": "Site footer server component rendering navigation links, contact info, and legal text using locale-specific translations.",
+      "tags": [
+        "component",
+        "footer",
+        "i18n",
+        "navigation"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "file:components/LangSwitcher.tsx",
+      "type": "file",
+      "name": "LangSwitcher.tsx",
+      "filePath": "components/LangSwitcher.tsx",
+      "summary": "Client component that swaps the locale segment of the current pathname to let users switch languages.",
+      "tags": [
+        "component",
+        "client-component",
+        "i18n",
+        "navigation",
+        "tested"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:components/MobileMenu.tsx",
+      "type": "file",
+      "name": "MobileMenu.tsx",
+      "filePath": "components/MobileMenu.tsx",
+      "summary": "Client-side mobile navigation drawer with open/close state, Escape-to-close handling, and accessible focus management.",
+      "tags": [
+        "component",
+        "client-component",
+        "navigation",
+        "accessibility",
+        "i18n"
+      ],
+      "complexity": "moderate",
+      "languageNotes": "Uses React hooks (useState, useId, useRef, useEffect) and a keydown listener for Escape-key dismissal and focus restoration."
+    },
+    {
+      "id": "file:components/Nav.tsx",
+      "type": "file",
+      "name": "Nav.tsx",
+      "filePath": "components/Nav.tsx",
+      "summary": "Primary site navigation server component composing the language switcher and mobile menu with localized links.",
+      "tags": [
+        "component",
+        "navigation",
+        "i18n",
+        "layout"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:i18n/request.ts",
+      "type": "file",
+      "name": "request.ts",
+      "filePath": "i18n/request.ts",
+      "summary": "next-intl request configuration that resolves the active locale and loads the matching message bundle per request.",
+      "tags": [
+        "i18n",
+        "configuration",
+        "service"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:i18n/routing.ts",
+      "type": "file",
+      "name": "routing.ts",
+      "filePath": "i18n/routing.ts",
+      "summary": "Central next-intl routing definition declaring the supported locales and default locale used across the app.",
+      "tags": [
+        "i18n",
+        "configuration",
+        "routing",
+        "entry-point"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:middleware.ts",
+      "type": "file",
+      "name": "middleware.ts",
+      "filePath": "middleware.ts",
+      "summary": "Next.js middleware that applies next-intl locale routing and defines the path matcher config.",
+      "tags": [
+        "middleware",
+        "i18n",
+        "routing",
+        "entry-point"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:tests/components/LangSwitcher.test.tsx",
+      "type": "file",
+      "name": "LangSwitcher.test.tsx",
+      "filePath": "tests/components/LangSwitcher.test.tsx",
+      "summary": "Unit test verifying the LangSwitcher component renders locale options and swaps the pathname locale segment correctly.",
+      "tags": [
+        "test",
+        "component",
+        "i18n"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:app/[locale]/impressum/page.tsx:Impressum",
+      "type": "function",
+      "name": "Impressum",
+      "filePath": "app/[locale]/impressum/page.tsx",
+      "lineRange": [
+        4,
+        26
+      ],
+      "summary": "Async page component that sets the request locale and renders localized legal imprint rows.",
+      "tags": [
+        "component",
+        "page",
+        "i18n"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:app/[locale]/layout.tsx:generateMetadata",
+      "type": "function",
+      "name": "generateMetadata",
+      "filePath": "app/[locale]/layout.tsx",
+      "lineRange": [
+        22,
+        43
+      ],
+      "summary": "Builds per-locale page metadata (title, description, Open Graph fields) from translations.",
+      "tags": [
+        "metadata",
+        "i18n",
+        "seo"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:app/[locale]/layout.tsx:LocaleLayout",
+      "type": "function",
+      "name": "LocaleLayout",
+      "filePath": "app/[locale]/layout.tsx",
+      "lineRange": [
+        45,
+        74
+      ],
+      "summary": "Root layout component validating the locale, setting the request locale, and wrapping children with Nav and Footer.",
+      "tags": [
+        "component",
+        "layout",
+        "i18n"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "function:app/[locale]/layout.tsx:generateStaticParams",
+      "type": "function",
+      "name": "generateStaticParams",
+      "filePath": "app/[locale]/layout.tsx",
+      "lineRange": [
+        18,
+        20
+      ],
+      "summary": "Returns the list of locale params for static generation of locale-prefixed routes.",
+      "tags": [
+        "i18n",
+        "static-generation",
+        "routing"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:app/[locale]/opengraph-image.tsx:Image",
+      "type": "function",
+      "name": "Image",
+      "filePath": "app/[locale]/opengraph-image.tsx",
+      "lineRange": [
+        10,
+        54
+      ],
+      "summary": "Renders the localized Open Graph share image using the Next.js ImageResponse API.",
+      "tags": [
+        "image-generation",
+        "i18n",
+        "seo"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "function:app/sitemap.ts:sitemap",
+      "type": "function",
+      "name": "sitemap",
+      "filePath": "app/sitemap.ts",
+      "lineRange": [
+        7,
+        18
+      ],
+      "summary": "Produces sitemap entries by expanding all paths across every configured locale with hreflang alternates.",
+      "tags": [
+        "seo",
+        "sitemap",
+        "i18n"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:components/Footer.tsx:Footer",
+      "type": "function",
+      "name": "Footer",
+      "filePath": "components/Footer.tsx",
+      "lineRange": [
+        6,
+        86
+      ],
+      "summary": "Async footer component rendering localized navigation, contact details, and legal links.",
+      "tags": [
+        "component",
+        "footer",
+        "i18n"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "function:components/LangSwitcher.tsx:swapLocale",
+      "type": "function",
+      "name": "swapLocale",
+      "filePath": "components/LangSwitcher.tsx",
+      "lineRange": [
+        10,
+        17
+      ],
+      "summary": "Replaces the locale segment of a pathname with a target locale, falling back when no locale is present.",
+      "tags": [
+        "i18n",
+        "utility",
+        "routing"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:components/LangSwitcher.tsx:LangSwitcher",
+      "type": "function",
+      "name": "LangSwitcher",
+      "filePath": "components/LangSwitcher.tsx",
+      "lineRange": [
+        19,
+        41
+      ],
+      "summary": "Client component rendering per-locale links built from the current pathname for language switching.",
+      "tags": [
+        "component",
+        "client-component",
+        "i18n"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:components/MobileMenu.tsx:MobileMenu",
+      "type": "function",
+      "name": "MobileMenu",
+      "filePath": "components/MobileMenu.tsx",
+      "lineRange": [
+        8,
+        101
+      ],
+      "summary": "Client mobile navigation drawer managing open state, Escape-key dismissal, and accessible focus handling.",
+      "tags": [
+        "component",
+        "client-component",
+        "navigation",
+        "accessibility"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "function:components/Nav.tsx:Nav",
+      "type": "function",
+      "name": "Nav",
+      "filePath": "components/Nav.tsx",
+      "lineRange": [
+        8,
+        49
+      ],
+      "summary": "Server navigation component composing localized links with the language switcher and mobile menu.",
+      "tags": [
+        "component",
+        "navigation",
+        "i18n"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:app/api/contact/route.ts",
+      "type": "file",
+      "name": "route.ts",
+      "filePath": "app/api/contact/route.ts",
+      "summary": "Next.js App Router POST handler for the contact form: enforces same-origin, IP rate limiting, honeypot and Zod validation, then dispatches the email via the email lib.",
+      "tags": [
+        "api-handler",
+        "entry-point",
+        "validation",
+        "rate-limiting",
+        "server",
+        "tested"
+      ],
+      "complexity": "moderate",
+      "languageNotes": "Node runtime route handler returning NextResponse.json; layers origin allowlist, rate limit, honeypot and schema checks before side effects."
+    },
+    {
+      "id": "function:app/api/contact/route.ts:POST",
+      "type": "function",
+      "name": "POST",
+      "filePath": "app/api/contact/route.ts",
+      "lineRange": [
+        31,
+        72
+      ],
+      "summary": "Exported POST route handler that runs the full contact-submission guard chain (origin, rate limit, honeypot, Zod parse) and calls sendContactEmail on success.",
+      "tags": [
+        "api-handler",
+        "entry-point",
+        "validation",
+        "server"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "function:app/api/contact/route.ts:clientIp",
+      "type": "function",
+      "name": "clientIp",
+      "filePath": "app/api/contact/route.ts",
+      "lineRange": [
+        17,
+        29
+      ],
+      "summary": "Derives the client IP from x-real-ip / x-forwarded-for headers for use as the rate-limit bucket key.",
+      "tags": [
+        "utility",
+        "networking",
+        "rate-limiting"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:lib/email.ts",
+      "type": "file",
+      "name": "email.ts",
+      "filePath": "lib/email.ts",
+      "summary": "Builds and sends the contact notification email via Resend, sanitizing header-bound fields against CRLF injection and surfacing failures as a typed EmailError.",
+      "tags": [
+        "service",
+        "email",
+        "serialization",
+        "validation",
+        "tested"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:lib/email.ts:sendContactEmail",
+      "type": "function",
+      "name": "sendContactEmail",
+      "filePath": "lib/email.ts",
+      "lineRange": [
+        15,
+        51
+      ],
+      "summary": "Sanitizes contact fields with stripCRLF, composes the plain-text body, and sends it through the Resend client, throwing EmailError on failure.",
+      "tags": [
+        "service",
+        "email",
+        "serialization"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "class:lib/email.ts:EmailError",
+      "type": "class",
+      "name": "EmailError",
+      "filePath": "lib/email.ts",
+      "lineRange": [
+        5,
+        13
+      ],
+      "summary": "Custom Error subclass used to signal email-delivery failures distinctly from validation or transport errors.",
+      "tags": [
+        "error",
+        "type-definition",
+        "email"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:lib/rate-limit.ts",
+      "type": "file",
+      "name": "rate-limit.ts",
+      "filePath": "lib/rate-limit.ts",
+      "summary": "In-memory sliding/fixed-window rate limiter keyed by IP using a Map of buckets, with a test-only reset hook.",
+      "tags": [
+        "utility",
+        "rate-limiting",
+        "service",
+        "in-memory",
+        "tested"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:lib/rate-limit.ts:checkRateLimit",
+      "type": "function",
+      "name": "checkRateLimit",
+      "filePath": "lib/rate-limit.ts",
+      "lineRange": [
+        8,
+        27
+      ],
+      "summary": "Checks and updates the per-IP request bucket, returning whether the request is allowed plus retry-after seconds when throttled.",
+      "tags": [
+        "rate-limiting",
+        "utility",
+        "validation"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:lib/sanitize.ts",
+      "type": "file",
+      "name": "sanitize.ts",
+      "filePath": "lib/sanitize.ts",
+      "summary": "Single-purpose helper that strips CR/LF characters from a string to prevent email header injection.",
+      "tags": [
+        "utility",
+        "sanitization",
+        "security",
+        "tested"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:lib/validation.ts",
+      "type": "file",
+      "name": "validation.ts",
+      "filePath": "lib/validation.ts",
+      "summary": "Zod schema and enums defining the shape and constraints of contact-form submissions, shared by the API route and the client form.",
+      "tags": [
+        "validation",
+        "schema-definition",
+        "type-definition",
+        "data-model",
+        "tested"
+      ],
+      "complexity": "simple",
+      "languageNotes": "Exports Zod enums (trainingInterestEnum, deliveryPrefEnum) and contactSchema used for both client and server validation."
+    },
+    {
+      "id": "file:tests/api/contact.test.ts",
+      "type": "file",
+      "name": "contact.test.ts",
+      "filePath": "tests/api/contact.test.ts",
+      "summary": "Vitest suite exercising the contact POST route: origin rejection, rate limiting, honeypot and validation paths, mocking the email and rate-limit modules.",
+      "tags": [
+        "test",
+        "api-handler",
+        "integration-test"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "function:tests/api/contact.test.ts:make",
+      "type": "function",
+      "name": "make",
+      "filePath": "tests/api/contact.test.ts",
+      "lineRange": [
+        22,
+        33
+      ],
+      "summary": "Test helper that constructs a Request with JSON body and headers for invoking the POST route under test.",
+      "tags": [
+        "test",
+        "factory",
+        "utility"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:tests/lib/email.test.ts",
+      "type": "file",
+      "name": "email.test.ts",
+      "filePath": "tests/lib/email.test.ts",
+      "summary": "Vitest suite verifying sendContactEmail composes a sanitized body and raises EmailError when the Resend client fails.",
+      "tags": [
+        "test",
+        "email",
+        "unit-test"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:tests/lib/rate-limit.test.ts",
+      "type": "file",
+      "name": "rate-limit.test.ts",
+      "filePath": "tests/lib/rate-limit.test.ts",
+      "summary": "Vitest suite validating checkRateLimit window behavior and the test-only reset hook.",
+      "tags": [
+        "test",
+        "rate-limiting",
+        "unit-test"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:tests/lib/sanitize.test.ts",
+      "type": "file",
+      "name": "sanitize.test.ts",
+      "filePath": "tests/lib/sanitize.test.ts",
+      "summary": "Vitest suite asserting stripCRLF removes carriage-return and line-feed characters.",
+      "tags": [
+        "test",
+        "sanitization",
+        "unit-test"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:tests/lib/validation.test.ts",
+      "type": "file",
+      "name": "validation.test.ts",
+      "filePath": "tests/lib/validation.test.ts",
+      "summary": "Vitest suite checking contactSchema accepts valid submissions and rejects malformed or out-of-enum input.",
+      "tags": [
+        "test",
+        "validation",
+        "unit-test"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:e2e/articles.spec.ts",
+      "type": "file",
+      "name": "articles.spec.ts",
+      "filePath": "e2e/articles.spec.ts",
+      "summary": "Playwright e2e spec for the articles page, looping over NL/EN locales to assert heading and intro render, plus conditional empty-state and external-link card paths gated on the presence of .md files in news/.",
+      "tags": [
+        "test",
+        "e2e",
+        "playwright",
+        "page-object",
+        "i18n"
+      ],
+      "complexity": "simple",
+      "languageNotes": "Uses test.skip with a filesystem-derived hasArticles flag to switch between empty-state and populated-cards assertions."
+    },
+    {
+      "id": "file:e2e/contact.spec.ts",
+      "type": "file",
+      "name": "contact.spec.ts",
+      "filePath": "e2e/contact.spec.ts",
+      "summary": "Playwright e2e spec for the contact form covering client-side validation errors on empty submit and an optional live submission against the real /api/contact endpoint gated by E2E_LIVE_API.",
+      "tags": [
+        "test",
+        "e2e",
+        "playwright",
+        "form-validation",
+        "api"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:e2e/home.spec.ts",
+      "type": "file",
+      "name": "home.spec.ts",
+      "filePath": "e2e/home.spec.ts",
+      "summary": "Minimal Playwright e2e spec verifying the home page renders its hero heading via the HomePage page object.",
+      "tags": [
+        "test",
+        "e2e",
+        "playwright",
+        "page-object",
+        "smoke"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:e2e/language-switch.spec.ts",
+      "type": "file",
+      "name": "language-switch.spec.ts",
+      "filePath": "e2e/language-switch.spec.ts",
+      "summary": "Playwright e2e spec exercising the NL/EN locale switch through the Nav page object.",
+      "tags": [
+        "test",
+        "e2e",
+        "playwright",
+        "i18n",
+        "navigation"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:e2e/pages/about-page.ts",
+      "type": "file",
+      "name": "about-page.ts",
+      "filePath": "e2e/pages/about-page.ts",
+      "summary": "Page Object Model for the about page exposing locale-aware navigation and an instructor-by-name locator.",
+      "tags": [
+        "test",
+        "e2e",
+        "page-object",
+        "playwright"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:e2e/pages/articles-page.ts",
+      "type": "file",
+      "name": "articles-page.ts",
+      "filePath": "e2e/pages/articles-page.ts",
+      "summary": "Page Object Model for the articles page bundling locators for heading, intro, empty state, article cards, and external read links.",
+      "tags": [
+        "test",
+        "e2e",
+        "page-object",
+        "playwright",
+        "tested"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:e2e/pages/contact-page.ts",
+      "type": "file",
+      "name": "contact-page.ts",
+      "filePath": "e2e/pages/contact-page.ts",
+      "summary": "Page Object Model for the contact form exposing input locators and helper methods to fill, submit, and submit-and-await the /api/contact response, with locale-aware validation-error text.",
+      "tags": [
+        "test",
+        "e2e",
+        "page-object",
+        "playwright",
+        "form",
+        "tested"
+      ],
+      "complexity": "moderate",
+      "languageNotes": "submitAndWaitForApi uses Promise.all with page.waitForResponse to race the click against the API response."
+    },
+    {
+      "id": "file:e2e/pages/home-page.ts",
+      "type": "file",
+      "name": "home-page.ts",
+      "filePath": "e2e/pages/home-page.ts",
+      "summary": "Page Object Model for the home page with locators for the hero heading and training sections; also exports the shared Locale type used across e2e specs and page objects.",
+      "tags": [
+        "test",
+        "e2e",
+        "page-object",
+        "playwright",
+        "type-definition",
+        "tested"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:e2e/pages/nav.ts",
+      "type": "file",
+      "name": "nav.ts",
+      "filePath": "e2e/pages/nav.ts",
+      "summary": "Page Object Model for the navigation bar exposing a switchLocale helper that clicks the language link for the target locale.",
+      "tags": [
+        "test",
+        "e2e",
+        "page-object",
+        "playwright",
+        "i18n",
+        "tested"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:e2e/smoke.spec.ts",
+      "type": "file",
+      "name": "smoke.spec.ts",
+      "filePath": "e2e/smoke.spec.ts",
+      "summary": "Broad Playwright smoke suite asserting all key routes return 2xx, NL/EN home and training labels render without locale bleed, contact form and about-page instructors are present, html[lang] matches the locale, and security headers (CSP, HSTS, X-Content-Type-Options) are set.",
+      "tags": [
+        "test",
+        "e2e",
+        "playwright",
+        "smoke",
+        "security"
+      ],
+      "complexity": "moderate",
+      "languageNotes": "Data-driven route checks loop over a routes array generating one test per path; combines request-level and page-level assertions."
+    },
+    {
+      "id": "class:e2e/pages/about-page.ts:AboutPage",
+      "type": "class",
+      "name": "AboutPage",
+      "filePath": "e2e/pages/about-page.ts",
+      "lineRange": [
+        4,
+        17
+      ],
+      "summary": "Page object for the about page providing locale-aware goto navigation and an instructorByName text locator.",
+      "tags": [
+        "page-object",
+        "e2e",
+        "playwright"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "class:e2e/pages/articles-page.ts:ArticlesPage",
+      "type": "class",
+      "name": "ArticlesPage",
+      "filePath": "e2e/pages/articles-page.ts",
+      "lineRange": [
+        14,
+        35
+      ],
+      "summary": "Page object for the articles page that initializes role/text/locator-based locators in its constructor and exposes a locale-aware goto.",
+      "tags": [
+        "page-object",
+        "e2e",
+        "playwright"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "class:e2e/pages/contact-page.ts:ContactPage",
+      "type": "class",
+      "name": "ContactPage",
+      "filePath": "e2e/pages/contact-page.ts",
+      "lineRange": [
+        25,
+        70
+      ],
+      "summary": "Page object for the contact form with input/button/banner locators and fill, submit, and submitAndWaitForApi helpers for both validation and live-API e2e flows.",
+      "tags": [
+        "page-object",
+        "e2e",
+        "playwright",
+        "form"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "class:e2e/pages/home-page.ts:HomePage",
+      "type": "class",
+      "name": "HomePage",
+      "filePath": "e2e/pages/home-page.ts",
+      "lineRange": [
+        10,
+        37
+      ],
+      "summary": "Page object for the home page exposing hero and training-section locators plus goto and otherLocaleLabel helpers for locale-bleed assertions.",
+      "tags": [
+        "page-object",
+        "e2e",
+        "playwright"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "class:e2e/pages/nav.ts:Nav",
+      "type": "class",
+      "name": "Nav",
+      "filePath": "e2e/pages/nav.ts",
+      "lineRange": [
+        6,
+        12
+      ],
+      "summary": "Page object for the navigation bar with a switchLocale method that clicks the language link matching the target locale.",
+      "tags": [
+        "page-object",
+        "e2e",
+        "playwright",
+        "i18n"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:app/[locale]/articles/page.tsx",
+      "type": "file",
+      "name": "page.tsx",
+      "filePath": "app/[locale]/articles/page.tsx",
+      "summary": "Articles index route (RSC) that sets the request locale, loads news articles via getArticles, and renders a localized list of ArticleCard components.",
+      "tags": [
+        "entry-point",
+        "component",
+        "i18n",
+        "server-component"
+      ],
+      "complexity": "simple",
+      "languageNotes": "Next.js App Router server component using next-intl setRequestLocale/getTranslations for locale-aware rendering."
+    },
+    {
+      "id": "file:components/ArticleCard.tsx",
+      "type": "file",
+      "name": "ArticleCard.tsx",
+      "filePath": "components/ArticleCard.tsx",
+      "summary": "Presentational card component rendering a single news article's title, date, and summary with localized read-more labeling.",
+      "tags": [
+        "component",
+        "presentational",
+        "i18n",
+        "ui"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:lib/articles.ts",
+      "type": "file",
+      "name": "articles.ts",
+      "filePath": "lib/articles.ts",
+      "summary": "Filesystem-backed article loader that reads markdown files from the news directory, parses and Zod-validates their frontmatter, derives slugs, and returns articles sorted by date.",
+      "tags": [
+        "data-model",
+        "service",
+        "validation",
+        "filesystem",
+        "tested"
+      ],
+      "complexity": "moderate",
+      "languageNotes": "Uses synchronous Node fs APIs and a Zod schema (frontmatterSchema.safeParse) to validate frontmatter at read time."
+    },
+    {
+      "id": "file:lib/parseFrontmatter.ts",
+      "type": "file",
+      "name": "parseFrontmatter.ts",
+      "filePath": "lib/parseFrontmatter.ts",
+      "summary": "Small utility that extracts and parses YAML frontmatter from a raw markdown string using js-yaml, returning the parsed object plus the body.",
+      "tags": [
+        "utility",
+        "parser",
+        "serialization",
+        "markdown",
+        "tested"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:tests/lib/articles.test.ts",
+      "type": "file",
+      "name": "articles.test.ts",
+      "filePath": "tests/lib/articles.test.ts",
+      "summary": "Vitest suite exercising getArticles against fixture news directories, covering valid articles, sorting, missing fields, and bad URLs.",
+      "tags": [
+        "test",
+        "unit-test",
+        "validation"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:tests/lib/parseFrontmatter.test.ts",
+      "type": "file",
+      "name": "parseFrontmatter.test.ts",
+      "filePath": "tests/lib/parseFrontmatter.test.ts",
+      "summary": "Vitest suite validating parseFrontmatter behavior across well-formed, missing, and malformed frontmatter inputs.",
+      "tags": [
+        "test",
+        "unit-test",
+        "parser"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:app/[locale]/articles/page.tsx:ArticlesPage",
+      "type": "function",
+      "name": "ArticlesPage",
+      "filePath": "app/[locale]/articles/page.tsx",
+      "lineRange": [
+        6,
+        31
+      ],
+      "summary": "Async server component that resolves the locale, fetches translations and articles, and renders the localized articles listing page.",
+      "tags": [
+        "component",
+        "server-component",
+        "i18n",
+        "entry-point"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:components/ArticleCard.tsx:ArticleCard",
+      "type": "function",
+      "name": "ArticleCard",
+      "filePath": "components/ArticleCard.tsx",
+      "lineRange": [
+        4,
+        27
+      ],
+      "summary": "Renders an article preview card with localized read-more text from a single article record and locale prop.",
+      "tags": [
+        "component",
+        "presentational",
+        "i18n",
+        "ui"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:lib/articles.ts:getArticles",
+      "type": "function",
+      "name": "getArticles",
+      "filePath": "lib/articles.ts",
+      "lineRange": [
+        33,
+        70
+      ],
+      "summary": "Reads markdown files from the news directory, parses frontmatter, validates it with Zod, builds article records with slugs, and returns them sorted by date.",
+      "tags": [
+        "service",
+        "validation",
+        "filesystem",
+        "data-model"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "function:lib/parseFrontmatter.ts:parseFrontmatter",
+      "type": "function",
+      "name": "parseFrontmatter",
+      "filePath": "lib/parseFrontmatter.ts",
+      "lineRange": [
+        5,
+        18
+      ],
+      "summary": "Matches the leading YAML frontmatter block of a markdown string, parses it with js-yaml, and returns the data object alongside the remaining body.",
+      "tags": [
+        "utility",
+        "parser",
+        "serialization"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:app/[locale]/contact/page.tsx",
+      "type": "file",
+      "name": "page.tsx",
+      "filePath": "app/[locale]/contact/page.tsx",
+      "summary": "Localized contact route Server Component that sets the request locale, loads translations for metadata, and renders the ContactForm.",
+      "tags": [
+        "entry-point",
+        "component",
+        "api-handler",
+        "server-component",
+        "i18n"
+      ],
+      "complexity": "simple",
+      "languageNotes": "Next.js App Router page using setRequestLocale and getTranslations for next-intl server-side localization."
+    },
+    {
+      "id": "function:app/[locale]/contact/page.tsx:ContactPage",
+      "type": "function",
+      "name": "ContactPage",
+      "filePath": "app/[locale]/contact/page.tsx",
+      "lineRange": [
+        10,
+        29
+      ],
+      "summary": "Async Server Component for the contact page; resolves locale, fetches translated copy, and mounts the ContactForm with a default training preselection.",
+      "tags": [
+        "component",
+        "server-component",
+        "i18n",
+        "entry-point"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:components/ContactForm.tsx",
+      "type": "file",
+      "name": "ContactForm.tsx",
+      "filePath": "components/ContactForm.tsx",
+      "summary": "Client-side intake form using react-hook-form with a Zod resolver, posting submissions to the contact API and surfacing localized validation and status messages.",
+      "tags": [
+        "component",
+        "validation",
+        "form",
+        "client-component",
+        "event-handler",
+        "tested"
+      ],
+      "complexity": "moderate",
+      "languageNotes": "React client component ('use client') combining react-hook-form, zodResolver, and next-intl useTranslations for a fully validated, localized form."
+    },
+    {
+      "id": "function:components/ContactForm.tsx:ContactForm",
+      "type": "function",
+      "name": "ContactForm",
+      "filePath": "components/ContactForm.tsx",
+      "lineRange": [
+        11,
+        162
+      ],
+      "summary": "Main contact form component managing form state, Zod-backed validation, localized error mapping, and async submission to /api/contact with success/error status handling.",
+      "tags": [
+        "component",
+        "validation",
+        "form",
+        "event-handler",
+        "client-component"
+      ],
+      "complexity": "complex"
+    },
+    {
+      "id": "function:components/ContactForm.tsx:Field",
+      "type": "function",
+      "name": "Field",
+      "filePath": "components/ContactForm.tsx",
+      "lineRange": [
+        164,
+        180
+      ],
+      "summary": "Presentational wrapper rendering a labeled form field with associated error message markup.",
+      "tags": [
+        "component",
+        "form",
+        "presentational"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:tests/components/ContactForm.test.tsx",
+      "type": "file",
+      "name": "ContactForm.test.tsx",
+      "filePath": "tests/components/ContactForm.test.tsx",
+      "summary": "Component test suite for ContactForm, rendering it with NextIntl message context and asserting on form behavior and validation output.",
+      "tags": [
+        "test",
+        "component",
+        "validation",
+        "i18n"
+      ],
+      "complexity": "simple",
+      "languageNotes": "Uses Testing Library render plus a NextIntlClientProvider wrapper with Dutch messages to exercise the localized form."
+    },
+    {
+      "id": "function:tests/components/ContactForm.test.tsx:renderForm",
+      "type": "function",
+      "name": "renderForm",
+      "filePath": "tests/components/ContactForm.test.tsx",
+      "lineRange": [
+        15,
+        21
+      ],
+      "summary": "Test helper that renders ContactForm wrapped in the NextIntl provider with message fixtures.",
+      "tags": [
+        "test",
+        "test-helper",
+        "component"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "pipeline:.github/workflows/ci.yml",
+      "type": "pipeline",
+      "name": "ci.yml",
+      "filePath": ".github/workflows/ci.yml",
+      "summary": "Primary CI workflow triggered on push to main and pull requests, running parallel jobs: verify (actionlint, lint, typecheck, verify:i18n, coverage tests, build), audit (pnpm audit), osv (OSV vulnerability scan), gitleaks (secret detection), and e2e (Chromium Playwright suite).",
+      "tags": [
+        "ci-cd",
+        "deployment",
+        "infrastructure",
+        "testing",
+        "security"
+      ],
+      "complexity": "moderate",
+      "languageNotes": "Five independent jobs run in parallel; the e2e job uploads a Playwright report artifact only on failure."
+    },
+    {
+      "id": "pipeline:.github/workflows/metrics.yml",
+      "type": "pipeline",
+      "name": "metrics.yml",
+      "filePath": ".github/workflows/metrics.yml",
+      "summary": "Scheduled daily (and manually dispatchable) workflow whose report job computes a pipeline metrics report via the metrics script and writes it to the GitHub step summary.",
+      "tags": [
+        "ci-cd",
+        "monitoring",
+        "infrastructure"
+      ],
+      "complexity": "simple",
+      "languageNotes": "Triggered by a daily cron schedule and workflow_dispatch; reads GitHub Actions data via GH_TOKEN."
+    },
+    {
+      "id": "pipeline:.github/workflows/mutation.yml",
+      "type": "pipeline",
+      "name": "mutation.yml",
+      "filePath": ".github/workflows/mutation.yml",
+      "summary": "Weekly scheduled (and manually dispatchable) workflow whose stryker job runs Stryker mutation testing over lib/** and publishes the HTML mutation report as a retained artifact.",
+      "tags": [
+        "ci-cd",
+        "testing",
+        "infrastructure"
+      ],
+      "complexity": "simple",
+      "languageNotes": "Cron-scheduled weekly with a 15-minute timeout; uploads the mutation report with 30-day retention regardless of outcome."
+    },
+    {
+      "id": "pipeline:.github/workflows/post-deploy-smoke.yml",
+      "type": "pipeline",
+      "name": "post-deploy-smoke.yml",
+      "filePath": ".github/workflows/post-deploy-smoke.yml",
+      "summary": "Workflow triggered on successful production deployment_status events; its smoke job runs the Playwright smoke suite against the live production site, uploading the report on failure.",
+      "tags": [
+        "ci-cd",
+        "testing",
+        "monitoring",
+        "deployment"
+      ],
+      "complexity": "simple",
+      "languageNotes": "Gated by a conditional on deployment_status.state == 'success' and the Production environment; targets the live production URL."
+    },
+    {
+      "id": "pipeline:.github/workflows/prod-monitor.yml",
+      "type": "pipeline",
+      "name": "prod-monitor.yml",
+      "filePath": ".github/workflows/prod-monitor.yml",
+      "summary": "Every-15-minutes scheduled monitor whose probe job runs inline curl-based HTTP probes against the production site, asserting status codes, expected body text, and security headers on key routes.",
+      "tags": [
+        "ci-cd",
+        "monitoring",
+        "infrastructure",
+        "security"
+      ],
+      "complexity": "moderate",
+      "languageNotes": "Uses an inline bash script with assert_status/assert_contains/assert_header helpers and a concurrency group preventing overlapping monitor runs."
+    },
+    {
+      "id": "pipeline:.github/workflows/safari.yml",
+      "type": "pipeline",
+      "name": "safari.yml",
+      "filePath": ".github/workflows/safari.yml",
+      "summary": "Cross-browser workflow whose safari job runs the Playwright WebKit/Safari E2E suite on macOS, triggered on push to main, a weekly cron, and manual dispatch.",
+      "tags": [
+        "ci-cd",
+        "testing",
+        "e2e",
+        "infrastructure"
+      ],
+      "complexity": "simple",
+      "languageNotes": "Runs on macos-14 to exercise the WebKit engine with two retries; injects Resend test credentials like the Chromium e2e job."
+    },
+    {
+      "id": "config:.env.example",
+      "type": "config",
+      "name": ".env.example",
+      "filePath": ".env.example",
+      "summary": "Template of required environment variables for the contact pipeline (Resend API key, contact/from email addresses) plus the E2E_LIVE_API toggle for live end-to-end tests.",
+      "tags": [
+        "configuration",
+        "environment",
+        "security",
+        "email"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "document:DESIGN.md",
+      "type": "document",
+      "name": "DESIGN.md",
+      "filePath": "DESIGN.md",
+      "summary": "Visual design system reference covering colors, typography, elevation, and per-component styling (Hero, Trainings card, TrainingDetail, Nav, forms, banners) plus do's and don'ts.",
+      "tags": [
+        "documentation",
+        "design-system",
+        "branding",
+        "components"
+      ],
+      "complexity": "complex"
+    },
+    {
+      "id": "document:PRODUCT.md",
+      "type": "document",
+      "name": "PRODUCT.md",
+      "filePath": "PRODUCT.md",
+      "summary": "Product brief defining target users, product purpose, brand personality, anti-references, design principles, and accessibility goals for the training site.",
+      "tags": [
+        "documentation",
+        "product",
+        "branding",
+        "accessibility"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "document:README.md",
+      "type": "document",
+      "name": "README.md",
+      "filePath": "README.md",
+      "summary": "Primary project documentation covering the stack, getting started, repo layout, local development scripts, environment variables, contact-form pipeline, security headers, deployment/DNS, i18n, and testing.",
+      "tags": [
+        "documentation",
+        "entry-point",
+        "overview",
+        "deployment"
+      ],
+      "complexity": "complex"
+    },
+    {
+      "id": "config:lefthook.yml",
+      "type": "config",
+      "name": "lefthook.yml",
+      "filePath": "lefthook.yml",
+      "summary": "Lefthook pre-commit hook config running ESLint on staged TS/JS files and a Prettier format check on staged TS/JS/JSON/CSS/MD files in parallel.",
+      "tags": [
+        "configuration",
+        "git-hooks",
+        "linting",
+        "build-system"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "config:package.json",
+      "type": "config",
+      "name": "package.json",
+      "filePath": "package.json",
+      "summary": "npm/pnpm manifest declaring Next.js 15 + React 19 + next-intl + Zod dependencies, dev/build/test/lint/i18n/metrics/mutation scripts, and pnpm dependency overrides.",
+      "tags": [
+        "configuration",
+        "build-system",
+        "dependencies",
+        "scripts"
+      ],
+      "complexity": "moderate",
+      "languageNotes": "Pins packageManager to pnpm@9 and Node >=20; uses pnpm overrides to force patched postcss/qs versions."
+    },
+    {
+      "id": "config:tsconfig.json",
+      "type": "config",
+      "name": "tsconfig.json",
+      "filePath": "tsconfig.json",
+      "summary": "TypeScript compiler configuration with strict mode, bundler module resolution, noEmit, the Next.js plugin, and an @/* path alias mapping to the project root.",
+      "tags": [
+        "configuration",
+        "typescript",
+        "build-system"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "document:docs/superpowers/plans/2026-05-12-agenticengineering-site.md",
+      "type": "document",
+      "name": "2026-05-12-agenticengineering-site.md",
+      "filePath": "docs/superpowers/plans/2026-05-12-agenticengineering-site.md",
+      "summary": "Master vertical-slice implementation plan for the entire agenticengineering.nl site, covering 8 slices from Next.js/Vercel foundation through hero, bilingual routing, training sections, nav/footer/about, the contact form flow, security/SEO, and E2E/launch acceptance.",
+      "tags": [
+        "documentation",
+        "implementation-plan",
+        "architecture",
+        "tdd",
+        "roadmap"
+      ],
+      "complexity": "complex",
+      "languageNotes": "Extremely large (4123-line) task-by-task plan organized into numbered slices and sub-tasks, each with file paths, code snippets, and acceptance criteria."
+    },
+    {
+      "id": "document:docs/superpowers/plans/2026-05-20-articles-page.md",
+      "type": "document",
+      "name": "2026-05-20-articles-page.md",
+      "filePath": "docs/superpowers/plans/2026-05-20-articles-page.md",
+      "summary": "Step-by-step plan for the articles/news feature: js-yaml frontmatter parsing, the getArticles loader, ArticleCard component, the /[locale]/articles page, nav links, sitemap entry, and Playwright a11y/smoke coverage.",
+      "tags": [
+        "documentation",
+        "implementation-plan",
+        "feature-plan",
+        "tdd",
+        "content"
+      ],
+      "complexity": "complex"
+    },
+    {
+      "id": "document:docs/superpowers/plans/2026-05-21-training-redesign.md",
+      "type": "document",
+      "name": "2026-05-21-training-redesign.md",
+      "filePath": "docs/superpowers/plans/2026-05-21-training-redesign.md",
+      "summary": "Plan to restructure the training catalogue around durationDays day-splitting, rewriting data/trainings.ts plus EN/NL message bundles and fixing the TrainingCard duration assertion.",
+      "tags": [
+        "documentation",
+        "implementation-plan",
+        "refactor",
+        "data-model",
+        "i18n"
+      ],
+      "complexity": "complex"
+    },
+    {
+      "id": "document:docs/superpowers/plans/2026-05-23-basic-day1-quality-pivot.md",
+      "type": "document",
+      "name": "2026-05-23-basic-day1-quality-pivot.md",
+      "filePath": "docs/superpowers/plans/2026-05-23-basic-day1-quality-pivot.md",
+      "summary": "TDD plan pivoting the Basic training's Day-1 curriculum, updating data/trainings.ts, EN/NL module copy, and the DESIGN.md day-label example with full verification and rollback steps.",
+      "tags": [
+        "documentation",
+        "implementation-plan",
+        "tdd",
+        "content",
+        "i18n"
+      ],
+      "complexity": "complex"
+    },
+    {
+      "id": "document:docs/superpowers/plans/2026-05-23-brand-pivot-quality-engineering.md",
+      "type": "document",
+      "name": "2026-05-23-brand-pivot-quality-engineering.md",
+      "filePath": "docs/superpowers/plans/2026-05-23-brand-pivot-quality-engineering.md",
+      "summary": "Copy-focused brand-pivot plan toward 'Agentic AI Quality Engineering', loosening e2e regex assertions and updating EN/NL messages with manual verification and rollback.",
+      "tags": [
+        "documentation",
+        "implementation-plan",
+        "branding",
+        "i18n",
+        "copy"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "document:docs/superpowers/plans/2026-05-23-day-agenda-timeline.md",
+      "type": "document",
+      "name": "2026-05-23-day-agenda-timeline.md",
+      "filePath": "docs/superpowers/plans/2026-05-23-day-agenda-timeline.md",
+      "summary": "TDD plan for the DayAgenda pill-strip component: adding 32 module short-name i18n keys, a catalogue sweep test, building DayAgenda, wiring it into TrainingDetail, and adding e2e smoke assertions.",
+      "tags": [
+        "documentation",
+        "implementation-plan",
+        "component",
+        "tdd",
+        "i18n"
+      ],
+      "complexity": "complex"
+    },
+    {
+      "id": "document:docs/superpowers/plans/2026-05-23-proof-strip.md",
+      "type": "document",
+      "name": "2026-05-23-proof-strip.md",
+      "filePath": "docs/superpowers/plans/2026-05-23-proof-strip.md",
+      "summary": "TDD plan for the ProofStrip component: adding EN/NL i18n keys, a failing component test, the implementation, wiring it into the home page, and e2e smoke assertions.",
+      "tags": [
+        "documentation",
+        "implementation-plan",
+        "component",
+        "tdd",
+        "i18n"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "document:docs/superpowers/plans/2026-05-23-training-identity-cluster.md",
+      "type": "document",
+      "name": "2026-05-23-training-identity-cluster.md",
+      "filePath": "docs/superpowers/plans/2026-05-23-training-identity-cluster.md",
+      "summary": "TDD plan for a TeachingTeam instructor-cluster component: adding an i18n key, a failing test, the implementation, wiring it into TrainingDetail, and e2e smoke assertions.",
+      "tags": [
+        "documentation",
+        "implementation-plan",
+        "component",
+        "tdd",
+        "i18n"
+      ],
+      "complexity": "complex"
+    },
+    {
+      "id": "document:docs/superpowers/specs/2026-05-12-agenticengineering-site-design.md",
+      "type": "document",
+      "name": "2026-05-12-agenticengineering-site-design.md",
+      "filePath": "docs/superpowers/specs/2026-05-12-agenticengineering-site-design.md",
+      "summary": "Foundational site design specification covering purpose, training catalogue, stack, routes, data model, i18n, contact form, visual system, security, testing, CI/deploy, and launch acceptance criteria across 42 sections.",
+      "tags": [
+        "documentation",
+        "design-spec",
+        "architecture",
+        "overview",
+        "security"
+      ],
+      "complexity": "complex",
+      "languageNotes": "Comprehensive master spec; sections map directly to the implemented Next.js App Router structure, Tailwind tokens, and the POST /api/contact handler."
+    },
+    {
+      "id": "document:docs/superpowers/specs/2026-05-20-articles-page-design.md",
+      "type": "document",
+      "name": "2026-05-20-articles-page-design.md",
+      "filePath": "docs/superpowers/specs/2026-05-20-articles-page-design.md",
+      "summary": "Design spec for the /[locale]/articles page covering route, data layer reading from news/, the ArticleCard component, page composition, i18n strings, navigation, and sitemap integration.",
+      "tags": [
+        "documentation",
+        "design-spec",
+        "feature",
+        "articles",
+        "data-flow"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "document:docs/superpowers/specs/2026-05-21-training-redesign-design.md",
+      "type": "document",
+      "name": "2026-05-21-training-redesign-design.md",
+      "filePath": "docs/superpowers/specs/2026-05-21-training-redesign-design.md",
+      "summary": "Spec for the training catalogue redesign (Basic 2-day, Advanced 1-day) defining positioning, curriculum, module catalogue changes, and the resulting edits to data/trainings.ts and messages/{nl,en}.json.",
+      "tags": [
+        "documentation",
+        "design-spec",
+        "training",
+        "curriculum",
+        "i18n"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "document:docs/superpowers/specs/2026-05-23-basic-day1-quality-pivot-design.md",
+      "type": "document",
+      "name": "2026-05-23-basic-day1-quality-pivot-design.md",
+      "filePath": "docs/superpowers/specs/2026-05-23-basic-day1-quality-pivot-design.md",
+      "summary": "Spec pivoting the Basic Day-1 curriculum toward quality engineering with agents, detailing the new ModuleId union for data/trainings.ts, bilingual module copy diffs, and test updates.",
+      "tags": [
+        "documentation",
+        "design-spec",
+        "curriculum",
+        "i18n",
+        "copy-diff"
+      ],
+      "complexity": "complex"
+    },
+    {
+      "id": "document:docs/superpowers/specs/2026-05-23-brand-pivot-quality-engineering-design.md",
+      "type": "document",
+      "name": "2026-05-23-brand-pivot-quality-engineering-design.md",
+      "filePath": "docs/superpowers/specs/2026-05-23-brand-pivot-quality-engineering-design.md",
+      "summary": "Spec for the brand pivot toward agentic AI quality engineering, with EN/NL copy diffs to messages/{en,nl}.json and associated test updates.",
+      "tags": [
+        "documentation",
+        "design-spec",
+        "branding",
+        "i18n",
+        "copy-diff"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "document:docs/superpowers/specs/2026-05-23-day-agenda-timeline-design.md",
+      "type": "document",
+      "name": "2026-05-23-day-agenda-timeline-design.md",
+      "filePath": "docs/superpowers/specs/2026-05-23-day-agenda-timeline-design.md",
+      "summary": "Spec for the DayAgenda pill-strip component rendered above the dense curriculum, defining component shape, i18n keys, placement in TrainingDetail, and unit/e2e/a11y test scope.",
+      "tags": [
+        "documentation",
+        "design-spec",
+        "component",
+        "i18n",
+        "accessibility"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "document:docs/superpowers/specs/2026-05-23-proof-strip-design.md",
+      "type": "document",
+      "name": "2026-05-23-proof-strip-design.md",
+      "filePath": "docs/superpowers/specs/2026-05-23-proof-strip-design.md",
+      "summary": "Spec for the ProofStrip home-page component conveying \"we ship what we teach\" signals, defining component shape, placement, i18n keys, and unit/e2e/a11y tests.",
+      "tags": [
+        "documentation",
+        "design-spec",
+        "component",
+        "i18n",
+        "accessibility"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "document:docs/superpowers/specs/2026-05-23-training-identity-cluster-design.md",
+      "type": "document",
+      "name": "2026-05-23-training-identity-cluster-design.md",
+      "filePath": "docs/superpowers/specs/2026-05-23-training-identity-cluster-design.md",
+      "summary": "Spec for the TeachingTeam \"taught by\" identity cluster inside each training-detail block, defining component shape, placement in TrainingDetail, i18n keys, and test scope.",
+      "tags": [
+        "documentation",
+        "design-spec",
+        "component",
+        "instructors",
+        "i18n"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "document:docs/superpowers/specs/launch-checklist.md",
+      "type": "document",
+      "name": "launch-checklist.md",
+      "filePath": "docs/superpowers/specs/launch-checklist.md",
+      "summary": "Pre-launch checklist for agenticengineering.nl spanning content, infrastructure, security, functional, and performance acceptance items plus tracked residual risks.",
+      "tags": [
+        "documentation",
+        "checklist",
+        "launch",
+        "security",
+        "deployment"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "config:.claude/settings.json",
+      "type": "config",
+      "name": "settings.json",
+      "filePath": ".claude/settings.json",
+      "summary": "Claude Code project settings defining the permissions block for the local agent workspace.",
+      "tags": [
+        "configuration",
+        "claude-code",
+        "permissions",
+        "tooling"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "document:.claude/skills/new-article/PLACE-NEWS-ARTICLE.md",
+      "type": "document",
+      "name": "PLACE-NEWS-ARTICLE.md",
+      "filePath": ".claude/skills/new-article/PLACE-NEWS-ARTICLE.md",
+      "summary": "Skill instructions for authoring and placing a news article, covering inputs, filename/slug rules, frontmatter format, and the branch/PR workflow.",
+      "tags": [
+        "documentation",
+        "skill",
+        "content-authoring",
+        "workflow"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "config:.impeccable/live/config.json",
+      "type": "config",
+      "name": "config.json",
+      "filePath": ".impeccable/live/config.json",
+      "summary": "Impeccable live-edit tool configuration specifying tracked files, insertion anchor, comment syntax, and CSP check flag.",
+      "tags": [
+        "configuration",
+        "tooling",
+        "impeccable"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:.npmrc",
+      "type": "file",
+      "name": ".npmrc",
+      "filePath": ".npmrc",
+      "summary": "npm/pnpm configuration controlling registry and install behavior for the project.",
+      "tags": [
+        "configuration",
+        "package-manager",
+        "build-system"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:.nvmrc",
+      "type": "file",
+      "name": ".nvmrc",
+      "filePath": ".nvmrc",
+      "summary": "Pins the Node.js version used for local development and CI.",
+      "tags": [
+        "configuration",
+        "node-version",
+        "build-system"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:.prettierignore",
+      "type": "file",
+      "name": ".prettierignore",
+      "filePath": ".prettierignore",
+      "summary": "Lists paths excluded from Prettier formatting.",
+      "tags": [
+        "configuration",
+        "formatting",
+        "tooling"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:.understand-anything/.understandignore",
+      "type": "file",
+      "name": ".understandignore",
+      "filePath": ".understand-anything/.understandignore",
+      "summary": "Ignore patterns excluding files from the understand-anything codebase analysis scan.",
+      "tags": [
+        "configuration",
+        "tooling",
+        "ignore-rules"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:app/[locale]/not-found.tsx",
+      "type": "file",
+      "name": "not-found.tsx",
+      "filePath": "app/[locale]/not-found.tsx",
+      "summary": "Localized 404 not-found page rendered by the Next.js App Router for unmatched routes within a locale.",
+      "tags": [
+        "component",
+        "app-router",
+        "error-page",
+        "i18n"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:app/globals.css",
+      "type": "file",
+      "name": "globals.css",
+      "filePath": "app/globals.css",
+      "summary": "Global stylesheet importing Tailwind v4 and declaring the dark-mode design-token theme (colors, fonts) plus base body styles, focus-visible outlines, and reduced-motion handling.",
+      "tags": [
+        "stylesheet",
+        "tailwind",
+        "design-tokens",
+        "theming",
+        "accessibility"
+      ],
+      "complexity": "simple",
+      "languageNotes": "Tailwind v4 @theme block defines CSS custom properties consumed as utility token values."
+    },
+    {
+      "id": "file:app/robots.ts",
+      "type": "file",
+      "name": "robots.ts",
+      "filePath": "app/robots.ts",
+      "summary": "Next.js metadata route exporting a robots() function that generates the site's robots.txt rules.",
+      "tags": [
+        "app-router",
+        "seo",
+        "metadata-route"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:css.d.ts",
+      "type": "file",
+      "name": "css.d.ts",
+      "filePath": "css.d.ts",
+      "summary": "TypeScript ambient declaration enabling typed imports of CSS modules/stylesheets.",
+      "tags": [
+        "type-definition",
+        "typescript",
+        "css"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:e2e/a11y.spec.ts",
+      "type": "file",
+      "name": "a11y.spec.ts",
+      "filePath": "e2e/a11y.spec.ts",
+      "summary": "Playwright accessibility test suite that runs axe-core against each configured page and asserts zero WCAG 2.0/2.1 A/AA violations.",
+      "tags": [
+        "test",
+        "e2e",
+        "accessibility",
+        "playwright"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:e2e/constants.ts",
+      "type": "file",
+      "name": "constants.ts",
+      "filePath": "e2e/constants.ts",
+      "summary": "Shared end-to-end test fixtures: a sample contact submission and the list of localized page paths checked for accessibility.",
+      "tags": [
+        "test",
+        "e2e",
+        "fixtures",
+        "constants"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:eslint.config.mjs",
+      "type": "file",
+      "name": "eslint.config.mjs",
+      "filePath": "eslint.config.mjs",
+      "summary": "Flat ESLint configuration extending Next.js and TypeScript rule sets and defining lint behavior for the project.",
+      "tags": [
+        "configuration",
+        "linting",
+        "tooling",
+        "build-system"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "config:messages/en.json",
+      "type": "config",
+      "name": "en.json",
+      "filePath": "messages/en.json",
+      "summary": "English translation catalog for next-intl, organized by namespace (meta, nav, hero, trainings, modules, proof, footer, about, articles, contact, impressum, home).",
+      "tags": [
+        "configuration",
+        "i18n",
+        "translations",
+        "localization"
+      ],
+      "complexity": "complex"
+    },
+    {
+      "id": "config:messages/nl.json",
+      "type": "config",
+      "name": "nl.json",
+      "filePath": "messages/nl.json",
+      "summary": "Dutch translation catalog for next-intl, mirroring the English namespaces and serving as the primary site language.",
+      "tags": [
+        "configuration",
+        "i18n",
+        "translations",
+        "localization"
+      ],
+      "complexity": "complex"
+    },
+    {
+      "id": "file:news/.gitkeep",
+      "type": "file",
+      "name": ".gitkeep",
+      "filePath": "news/.gitkeep",
+      "summary": "Placeholder file keeping the empty news content directory tracked in version control.",
+      "tags": [
+        "placeholder",
+        "vcs",
+        "content-directory"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "document:news/2026-05-13-microsoft-mdash-tops-anthropic-mythos-cybersecurity-benchmark.md",
+      "type": "document",
+      "name": "2026-05-13-microsoft-mdash-tops-anthropic-mythos-cybersecurity-benchmark.md",
+      "filePath": "news/2026-05-13-microsoft-mdash-tops-anthropic-mythos-cybersecurity-benchmark.md",
+      "summary": "News article content file (frontmatter + body) surfaced on the site's articles page.",
+      "tags": [
+        "documentation",
+        "content",
+        "news-article",
+        "markdown"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "document:news/2026-05-13-two-weeks-after-context-is-the-new-code.md",
+      "type": "document",
+      "name": "2026-05-13-two-weeks-after-context-is-the-new-code.md",
+      "filePath": "news/2026-05-13-two-weeks-after-context-is-the-new-code.md",
+      "summary": "News article content file (frontmatter + body) surfaced on the site's articles page.",
+      "tags": [
+        "documentation",
+        "content",
+        "news-article",
+        "markdown"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:next-env.d.ts",
+      "type": "file",
+      "name": "next-env.d.ts",
+      "filePath": "next-env.d.ts",
+      "summary": "Auto-generated Next.js TypeScript ambient type references; should not be edited manually.",
+      "tags": [
+        "type-definition",
+        "typescript",
+        "generated",
+        "nextjs"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:next.config.ts",
+      "type": "file",
+      "name": "next.config.ts",
+      "filePath": "next.config.ts",
+      "summary": "Next.js configuration wrapping the app with the next-intl plugin and attaching strict production security headers including a Content-Security-Policy.",
+      "tags": [
+        "configuration",
+        "nextjs",
+        "security",
+        "i18n",
+        "build-system"
+      ],
+      "complexity": "moderate",
+      "languageNotes": "Composes config via the next-intl plugin HOF; security headers are only applied in production via the async headers() hook."
+    },
+    {
+      "id": "file:playwright.config.ts",
+      "type": "file",
+      "name": "playwright.config.ts",
+      "filePath": "playwright.config.ts",
+      "summary": "Playwright test runner configuration for the full end-to-end suite (test directory, base URL, browser projects, web server).",
+      "tags": [
+        "configuration",
+        "e2e",
+        "playwright",
+        "testing"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:playwright.smoke.config.ts",
+      "type": "file",
+      "name": "playwright.smoke.config.ts",
+      "filePath": "playwright.smoke.config.ts",
+      "summary": "Playwright configuration variant scoped to the post-deploy smoke test suite run against a live deployment.",
+      "tags": [
+        "configuration",
+        "e2e",
+        "playwright",
+        "smoke-test"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:postcss.config.mjs",
+      "type": "file",
+      "name": "postcss.config.mjs",
+      "filePath": "postcss.config.mjs",
+      "summary": "PostCSS configuration enabling the Tailwind CSS v4 PostCSS plugin for stylesheet processing.",
+      "tags": [
+        "configuration",
+        "postcss",
+        "tailwind",
+        "build-system"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:prettier.config.mjs",
+      "type": "file",
+      "name": "prettier.config.mjs",
+      "filePath": "prettier.config.mjs",
+      "summary": "Prettier formatting configuration defining code style options for the project.",
+      "tags": [
+        "configuration",
+        "formatting",
+        "tooling"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:app/[locale]/not-found.tsx:NotFound",
+      "type": "function",
+      "name": "NotFound",
+      "filePath": "app/[locale]/not-found.tsx",
+      "lineRange": [
+        1,
+        7
+      ],
+      "summary": "Default-exported React component rendering the localized 404 not-found UI.",
+      "tags": [
+        "component",
+        "error-page",
+        "app-router"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:app/robots.ts:robots",
+      "type": "function",
+      "name": "robots",
+      "filePath": "app/robots.ts",
+      "lineRange": [
+        3,
+        9
+      ],
+      "summary": "Default-exported metadata route handler returning the robots.txt rule set for crawlers.",
+      "tags": [
+        "seo",
+        "metadata-route",
+        "app-router"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:scripts/metrics.ts",
+      "type": "file",
+      "name": "metrics.ts",
+      "filePath": "scripts/metrics.ts",
+      "summary": "CLI script that computes CI/CD pipeline health metrics (median/p95 durations, pass rates, push-to-prod readiness) from the repository's GitHub Actions run history via `gh`, printing a Markdown report to stdout for GITHUB_STEP_SUMMARY.",
+      "tags": [
+        "script",
+        "metrics",
+        "ci-cd",
+        "monitoring",
+        "entry-point"
+      ],
+      "complexity": "complex",
+      "languageNotes": "tsx shebang script using node:child_process execSync to shell out to the GitHub CLI; aggregates runs by workflow with Map-based grouping."
+    },
+    {
+      "id": "function:scripts/metrics.ts:main",
+      "type": "function",
+      "name": "main",
+      "filePath": "scripts/metrics.ts",
+      "lineRange": [
+        74,
+        153
+      ],
+      "summary": "Orchestrates metric computation: fetches recent runs, filters by window, groups by workflow, derives latency percentiles and pass rates, and assembles the Markdown report lines printed to stdout.",
+      "tags": [
+        "entry-point",
+        "metrics",
+        "aggregation",
+        "ci-cd"
+      ],
+      "complexity": "complex"
+    },
+    {
+      "id": "file:scripts/verify-i18n.ts",
+      "type": "file",
+      "name": "verify-i18n.ts",
+      "filePath": "scripts/verify-i18n.ts",
+      "summary": "CLI guard that flattens the EN and NL message catalogs and asserts their key sets match, failing the build when translations drift out of sync.",
+      "tags": [
+        "script",
+        "i18n",
+        "validation",
+        "build-system"
+      ],
+      "complexity": "simple",
+      "languageNotes": "Recursive flatten via Object.entries(...).flatMap to compare nested translation key paths."
+    },
+    {
+      "id": "file:stryker.config.mjs",
+      "type": "file",
+      "name": "stryker.config.mjs",
+      "filePath": "stryker.config.mjs",
+      "summary": "Stryker mutation-testing configuration selecting the Vitest test runner and defining which source files are mutated and the mutation-score thresholds.",
+      "tags": [
+        "config",
+        "mutation-testing",
+        "test",
+        "build-system"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:tests/i18n-integrity.test.ts",
+      "type": "file",
+      "name": "i18n-integrity.test.ts",
+      "filePath": "tests/i18n-integrity.test.ts",
+      "summary": "Vitest test that flattens the EN and NL message catalogs and asserts the two translation key sets are identical, guarding against missing or extra keys.",
+      "tags": [
+        "test",
+        "i18n",
+        "validation"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "document:tests/lib/fixtures/news-bad-url/2026-05-12-baduri.md",
+      "type": "document",
+      "name": "2026-05-12-baduri.md",
+      "filePath": "tests/lib/fixtures/news-bad-url/2026-05-12-baduri.md",
+      "summary": "Test fixture: a news article with an invalid source URL, used to verify frontmatter URL validation rejects malformed links.",
+      "tags": [
+        "test-fixture",
+        "news",
+        "frontmatter",
+        "validation"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:tests/lib/fixtures/news-empty/.gitkeep",
+      "type": "file",
+      "name": ".gitkeep",
+      "filePath": "tests/lib/fixtures/news-empty/.gitkeep",
+      "summary": "Placeholder keeping the empty news-fixture directory tracked in git, used to test the no-articles code path.",
+      "tags": [
+        "test-fixture",
+        "placeholder",
+        "news"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "document:tests/lib/fixtures/news-missing-field/2026-05-12-missing.md",
+      "type": "document",
+      "name": "2026-05-12-missing.md",
+      "filePath": "tests/lib/fixtures/news-missing-field/2026-05-12-missing.md",
+      "summary": "Test fixture: a news article missing a required frontmatter field, used to verify validation rejects incomplete articles.",
+      "tags": [
+        "test-fixture",
+        "news",
+        "frontmatter",
+        "validation"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "document:tests/lib/fixtures/news-valid/2026-04-28-bar.md",
+      "type": "document",
+      "name": "2026-04-28-bar.md",
+      "filePath": "tests/lib/fixtures/news-valid/2026-04-28-bar.md",
+      "summary": "Test fixture: a well-formed news article with complete frontmatter, used to verify the valid-article parsing and sorting path.",
+      "tags": [
+        "test-fixture",
+        "news",
+        "frontmatter"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "document:tests/lib/fixtures/news-valid/2026-05-12-foo.md",
+      "type": "document",
+      "name": "2026-05-12-foo.md",
+      "filePath": "tests/lib/fixtures/news-valid/2026-05-12-foo.md",
+      "summary": "Test fixture: a second well-formed news article with complete frontmatter, used alongside the other valid fixture to verify date ordering.",
+      "tags": [
+        "test-fixture",
+        "news",
+        "frontmatter"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:vitest.config.ts",
+      "type": "file",
+      "name": "vitest.config.ts",
+      "filePath": "vitest.config.ts",
+      "summary": "Vitest configuration defining the jsdom/node test environment, global setup file, coverage settings, and test file include patterns.",
+      "tags": [
+        "config",
+        "test",
+        "build-system"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:vitest.setup.ts",
+      "type": "file",
+      "name": "vitest.setup.ts",
+      "filePath": "vitest.setup.ts",
+      "summary": "Global Vitest setup module that registers shared test matchers/environment hooks (e.g. jest-dom) before the suite runs.",
+      "tags": [
+        "config",
+        "test",
+        "setup"
+      ],
+      "complexity": "simple"
+    }
+  ],
+  "edges": [
+    {
+      "source": "file:app/[locale]/about/page.tsx",
+      "target": "file:components/InstructorCard.tsx",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:app/[locale]/about/page.tsx",
+      "target": "file:data/instructors.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:app/[locale]/about/page.tsx",
+      "target": "file:i18n/routing.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:app/[locale]/page.tsx",
+      "target": "file:components/Hero.tsx",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:app/[locale]/page.tsx",
+      "target": "file:components/InstructorCard.tsx",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:app/[locale]/page.tsx",
+      "target": "file:components/JsonLd.tsx",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:app/[locale]/page.tsx",
+      "target": "file:components/ProofStrip.tsx",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:app/[locale]/page.tsx",
+      "target": "file:components/TrainingCard.tsx",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:app/[locale]/page.tsx",
+      "target": "file:components/TrainingDetail.tsx",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:app/[locale]/page.tsx",
+      "target": "file:data/instructors.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:app/[locale]/page.tsx",
+      "target": "file:data/trainings.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:app/[locale]/page.tsx",
+      "target": "file:i18n/routing.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:components/DayAgenda.tsx",
+      "target": "file:data/trainings.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:components/InstructorCard.tsx",
+      "target": "file:data/instructors.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:components/ProofStrip.tsx",
+      "target": "file:i18n/routing.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:components/TrainingCard.tsx",
+      "target": "file:data/trainings.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:components/TrainingDetail.tsx",
+      "target": "file:data/trainings.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:tests/components/DayAgenda.test.tsx",
+      "target": "file:components/DayAgenda.tsx",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:tests/components/DayAgenda.test.tsx",
+      "target": "file:data/trainings.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:tests/components/ProofStrip.test.tsx",
+      "target": "file:components/ProofStrip.tsx",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:tests/components/TrainingCard.test.tsx",
+      "target": "file:components/TrainingCard.tsx",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:tests/components/TrainingCard.test.tsx",
+      "target": "file:data/trainings.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:tests/data/trainings.test.ts",
+      "target": "file:data/trainings.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:app/[locale]/about/page.tsx",
+      "target": "function:app/[locale]/about/page.tsx:About",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:app/[locale]/about/page.tsx",
+      "target": "function:app/[locale]/about/page.tsx:About",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:app/[locale]/page.tsx",
+      "target": "function:app/[locale]/page.tsx:Home",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:app/[locale]/page.tsx",
+      "target": "function:app/[locale]/page.tsx:Home",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:components/DayAgenda.tsx",
+      "target": "function:components/DayAgenda.tsx:DayAgenda",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:components/DayAgenda.tsx",
+      "target": "function:components/DayAgenda.tsx:DayAgenda",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:components/Hero.tsx",
+      "target": "function:components/Hero.tsx:Hero",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:components/Hero.tsx",
+      "target": "function:components/Hero.tsx:Hero",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:components/InstructorCard.tsx",
+      "target": "function:components/InstructorCard.tsx:InstructorCard",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:components/InstructorCard.tsx",
+      "target": "function:components/InstructorCard.tsx:InstructorCard",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:components/ProofStrip.tsx",
+      "target": "function:components/ProofStrip.tsx:ProofStrip",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:components/ProofStrip.tsx",
+      "target": "function:components/ProofStrip.tsx:ProofStrip",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:components/TrainingCard.tsx",
+      "target": "function:components/TrainingCard.tsx:TrainingCard",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:components/TrainingCard.tsx",
+      "target": "function:components/TrainingCard.tsx:TrainingCard",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:components/TrainingDetail.tsx",
+      "target": "function:components/TrainingDetail.tsx:TrainingDetail",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:components/TrainingDetail.tsx",
+      "target": "function:components/TrainingDetail.tsx:TrainingDetail",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:components/TrainingDetail.tsx",
+      "target": "function:components/TrainingDetail.tsx:CurriculumList",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:components/TrainingDetail.tsx",
+      "target": "function:components/TrainingDetail.tsx:DetailList",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:tests/components/DayAgenda.test.tsx",
+      "target": "function:tests/components/DayAgenda.test.tsx:renderAgenda",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:tests/components/ProofStrip.test.tsx",
+      "target": "function:tests/components/ProofStrip.test.tsx:renderStrip",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:tests/components/TrainingCard.test.tsx",
+      "target": "function:tests/components/TrainingCard.test.tsx:renderCard",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "function:components/TrainingDetail.tsx:TrainingDetail",
+      "target": "function:components/TrainingDetail.tsx:CurriculumList",
+      "type": "calls",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "function:components/TrainingDetail.tsx:TrainingDetail",
+      "target": "function:components/TrainingDetail.tsx:DetailList",
+      "type": "calls",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "function:app/[locale]/page.tsx:Home",
+      "target": "function:components/Hero.tsx:Hero",
+      "type": "calls",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "function:app/[locale]/page.tsx:Home",
+      "target": "function:components/ProofStrip.tsx:ProofStrip",
+      "type": "calls",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "function:app/[locale]/page.tsx:Home",
+      "target": "function:components/TrainingCard.tsx:TrainingCard",
+      "type": "calls",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "function:app/[locale]/page.tsx:Home",
+      "target": "function:components/TrainingDetail.tsx:TrainingDetail",
+      "type": "calls",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "function:app/[locale]/page.tsx:Home",
+      "target": "function:components/InstructorCard.tsx:InstructorCard",
+      "type": "calls",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "function:app/[locale]/about/page.tsx:About",
+      "target": "function:components/InstructorCard.tsx:InstructorCard",
+      "type": "calls",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:components/DayAgenda.tsx",
+      "target": "file:tests/components/DayAgenda.test.tsx",
+      "type": "tested_by",
+      "direction": "forward",
+      "weight": 0.5
+    },
+    {
+      "source": "file:components/ProofStrip.tsx",
+      "target": "file:tests/components/ProofStrip.test.tsx",
+      "type": "tested_by",
+      "direction": "forward",
+      "weight": 0.5
+    },
+    {
+      "source": "file:components/TrainingCard.tsx",
+      "target": "file:tests/components/TrainingCard.test.tsx",
+      "type": "tested_by",
+      "direction": "forward",
+      "weight": 0.5
+    },
+    {
+      "source": "file:data/trainings.ts",
+      "target": "file:tests/data/trainings.test.ts",
+      "type": "tested_by",
+      "direction": "forward",
+      "weight": 0.5
+    },
+    {
+      "source": "file:app/[locale]/impressum/page.tsx",
+      "target": "file:i18n/routing.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:app/[locale]/layout.tsx",
+      "target": "file:app/globals.css",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:app/[locale]/layout.tsx",
+      "target": "file:components/Footer.tsx",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:app/[locale]/layout.tsx",
+      "target": "file:components/Nav.tsx",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:app/[locale]/layout.tsx",
+      "target": "file:i18n/routing.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:app/[locale]/opengraph-image.tsx",
+      "target": "file:i18n/routing.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:app/sitemap.ts",
+      "target": "file:i18n/routing.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:components/Footer.tsx",
+      "target": "file:i18n/routing.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:components/LangSwitcher.tsx",
+      "target": "file:i18n/routing.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:components/MobileMenu.tsx",
+      "target": "file:i18n/routing.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:components/Nav.tsx",
+      "target": "file:components/LangSwitcher.tsx",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:components/Nav.tsx",
+      "target": "file:components/MobileMenu.tsx",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:components/Nav.tsx",
+      "target": "file:i18n/routing.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:i18n/request.ts",
+      "target": "file:i18n/routing.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:middleware.ts",
+      "target": "file:i18n/routing.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:tests/components/LangSwitcher.test.tsx",
+      "target": "file:components/LangSwitcher.tsx",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:app/[locale]/impressum/page.tsx",
+      "target": "function:app/[locale]/impressum/page.tsx:Impressum",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:app/[locale]/impressum/page.tsx",
+      "target": "function:app/[locale]/impressum/page.tsx:Impressum",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:app/[locale]/layout.tsx",
+      "target": "function:app/[locale]/layout.tsx:generateMetadata",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:app/[locale]/layout.tsx",
+      "target": "function:app/[locale]/layout.tsx:generateMetadata",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:app/[locale]/layout.tsx",
+      "target": "function:app/[locale]/layout.tsx:LocaleLayout",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:app/[locale]/layout.tsx",
+      "target": "function:app/[locale]/layout.tsx:LocaleLayout",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:app/[locale]/layout.tsx",
+      "target": "function:app/[locale]/layout.tsx:generateStaticParams",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:app/[locale]/layout.tsx",
+      "target": "function:app/[locale]/layout.tsx:generateStaticParams",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:app/[locale]/opengraph-image.tsx",
+      "target": "function:app/[locale]/opengraph-image.tsx:Image",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:app/[locale]/opengraph-image.tsx",
+      "target": "function:app/[locale]/opengraph-image.tsx:Image",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:app/sitemap.ts",
+      "target": "function:app/sitemap.ts:sitemap",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:app/sitemap.ts",
+      "target": "function:app/sitemap.ts:sitemap",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:components/Footer.tsx",
+      "target": "function:components/Footer.tsx:Footer",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:components/Footer.tsx",
+      "target": "function:components/Footer.tsx:Footer",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:components/LangSwitcher.tsx",
+      "target": "function:components/LangSwitcher.tsx:swapLocale",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:components/LangSwitcher.tsx",
+      "target": "function:components/LangSwitcher.tsx:LangSwitcher",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:components/LangSwitcher.tsx",
+      "target": "function:components/LangSwitcher.tsx:LangSwitcher",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:components/MobileMenu.tsx",
+      "target": "function:components/MobileMenu.tsx:MobileMenu",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:components/MobileMenu.tsx",
+      "target": "function:components/MobileMenu.tsx:MobileMenu",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:components/Nav.tsx",
+      "target": "function:components/Nav.tsx:Nav",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:components/Nav.tsx",
+      "target": "function:components/Nav.tsx:Nav",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "function:components/LangSwitcher.tsx:LangSwitcher",
+      "target": "function:components/LangSwitcher.tsx:swapLocale",
+      "type": "calls",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "function:components/Nav.tsx:Nav",
+      "target": "function:components/LangSwitcher.tsx:LangSwitcher",
+      "type": "calls",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "function:components/Nav.tsx:Nav",
+      "target": "function:components/MobileMenu.tsx:MobileMenu",
+      "type": "calls",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "function:app/[locale]/layout.tsx:LocaleLayout",
+      "target": "function:components/Nav.tsx:Nav",
+      "type": "calls",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "function:app/[locale]/layout.tsx:LocaleLayout",
+      "target": "function:components/Footer.tsx:Footer",
+      "type": "calls",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:components/LangSwitcher.tsx",
+      "target": "file:tests/components/LangSwitcher.test.tsx",
+      "type": "tested_by",
+      "direction": "forward",
+      "weight": 0.5
+    },
+    {
+      "source": "file:app/api/contact/route.ts",
+      "target": "file:lib/email.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:app/api/contact/route.ts",
+      "target": "file:lib/rate-limit.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:app/api/contact/route.ts",
+      "target": "file:lib/validation.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:lib/email.ts",
+      "target": "file:lib/sanitize.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:lib/email.ts",
+      "target": "file:lib/validation.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:tests/api/contact.test.ts",
+      "target": "file:app/api/contact/route.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:tests/api/contact.test.ts",
+      "target": "file:lib/email.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:tests/api/contact.test.ts",
+      "target": "file:lib/rate-limit.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:tests/lib/email.test.ts",
+      "target": "file:lib/email.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:tests/lib/rate-limit.test.ts",
+      "target": "file:lib/rate-limit.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:tests/lib/sanitize.test.ts",
+      "target": "file:lib/sanitize.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:tests/lib/validation.test.ts",
+      "target": "file:lib/validation.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:app/api/contact/route.ts",
+      "target": "function:app/api/contact/route.ts:POST",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:app/api/contact/route.ts",
+      "target": "function:app/api/contact/route.ts:clientIp",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:app/api/contact/route.ts",
+      "target": "function:app/api/contact/route.ts:POST",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:lib/email.ts",
+      "target": "function:lib/email.ts:sendContactEmail",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:lib/email.ts",
+      "target": "class:lib/email.ts:EmailError",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:lib/email.ts",
+      "target": "function:lib/email.ts:sendContactEmail",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:lib/email.ts",
+      "target": "class:lib/email.ts:EmailError",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:lib/rate-limit.ts",
+      "target": "function:lib/rate-limit.ts:checkRateLimit",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:lib/rate-limit.ts",
+      "target": "function:lib/rate-limit.ts:checkRateLimit",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:tests/api/contact.test.ts",
+      "target": "function:tests/api/contact.test.ts:make",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "function:app/api/contact/route.ts:POST",
+      "target": "function:lib/rate-limit.ts:checkRateLimit",
+      "type": "calls",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "function:app/api/contact/route.ts:POST",
+      "target": "function:lib/email.ts:sendContactEmail",
+      "type": "calls",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "function:app/api/contact/route.ts:POST",
+      "target": "function:app/api/contact/route.ts:clientIp",
+      "type": "calls",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "function:lib/email.ts:sendContactEmail",
+      "target": "file:lib/sanitize.ts",
+      "type": "calls",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:app/api/contact/route.ts",
+      "target": "file:tests/api/contact.test.ts",
+      "type": "tested_by",
+      "direction": "forward",
+      "weight": 0.5
+    },
+    {
+      "source": "file:lib/email.ts",
+      "target": "file:tests/lib/email.test.ts",
+      "type": "tested_by",
+      "direction": "forward",
+      "weight": 0.5
+    },
+    {
+      "source": "file:lib/rate-limit.ts",
+      "target": "file:tests/lib/rate-limit.test.ts",
+      "type": "tested_by",
+      "direction": "forward",
+      "weight": 0.5
+    },
+    {
+      "source": "file:lib/sanitize.ts",
+      "target": "file:tests/lib/sanitize.test.ts",
+      "type": "tested_by",
+      "direction": "forward",
+      "weight": 0.5
+    },
+    {
+      "source": "file:lib/validation.ts",
+      "target": "file:tests/lib/validation.test.ts",
+      "type": "tested_by",
+      "direction": "forward",
+      "weight": 0.5
+    },
+    {
+      "source": "file:e2e/articles.spec.ts",
+      "target": "file:e2e/pages/articles-page.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:e2e/articles.spec.ts",
+      "target": "file:e2e/pages/home-page.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:e2e/contact.spec.ts",
+      "target": "file:e2e/pages/contact-page.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:e2e/home.spec.ts",
+      "target": "file:e2e/pages/home-page.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:e2e/language-switch.spec.ts",
+      "target": "file:e2e/pages/nav.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:e2e/pages/about-page.ts",
+      "target": "file:e2e/pages/home-page.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:e2e/pages/articles-page.ts",
+      "target": "file:e2e/pages/home-page.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:e2e/pages/contact-page.ts",
+      "target": "file:e2e/pages/home-page.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:e2e/pages/nav.ts",
+      "target": "file:e2e/pages/home-page.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:e2e/smoke.spec.ts",
+      "target": "file:e2e/pages/about-page.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:e2e/smoke.spec.ts",
+      "target": "file:e2e/pages/contact-page.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:e2e/smoke.spec.ts",
+      "target": "file:e2e/pages/home-page.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:e2e/pages/about-page.ts",
+      "target": "class:e2e/pages/about-page.ts:AboutPage",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:e2e/pages/articles-page.ts",
+      "target": "class:e2e/pages/articles-page.ts:ArticlesPage",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:e2e/pages/contact-page.ts",
+      "target": "class:e2e/pages/contact-page.ts:ContactPage",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:e2e/pages/home-page.ts",
+      "target": "class:e2e/pages/home-page.ts:HomePage",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:e2e/pages/nav.ts",
+      "target": "class:e2e/pages/nav.ts:Nav",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:e2e/pages/about-page.ts",
+      "target": "class:e2e/pages/about-page.ts:AboutPage",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:e2e/pages/articles-page.ts",
+      "target": "class:e2e/pages/articles-page.ts:ArticlesPage",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:e2e/pages/contact-page.ts",
+      "target": "class:e2e/pages/contact-page.ts:ContactPage",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:e2e/pages/home-page.ts",
+      "target": "class:e2e/pages/home-page.ts:HomePage",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:e2e/pages/nav.ts",
+      "target": "class:e2e/pages/nav.ts:Nav",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:e2e/pages/articles-page.ts",
+      "target": "file:e2e/articles.spec.ts",
+      "type": "tested_by",
+      "direction": "forward",
+      "weight": 0.5
+    },
+    {
+      "source": "file:e2e/pages/contact-page.ts",
+      "target": "file:e2e/contact.spec.ts",
+      "type": "tested_by",
+      "direction": "forward",
+      "weight": 0.5
+    },
+    {
+      "source": "file:e2e/pages/home-page.ts",
+      "target": "file:e2e/home.spec.ts",
+      "type": "tested_by",
+      "direction": "forward",
+      "weight": 0.5
+    },
+    {
+      "source": "file:e2e/pages/nav.ts",
+      "target": "file:e2e/language-switch.spec.ts",
+      "type": "tested_by",
+      "direction": "forward",
+      "weight": 0.5
+    },
+    {
+      "source": "file:app/[locale]/articles/page.tsx",
+      "target": "file:components/ArticleCard.tsx",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:app/[locale]/articles/page.tsx",
+      "target": "file:i18n/routing.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:app/[locale]/articles/page.tsx",
+      "target": "file:lib/articles.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:components/ArticleCard.tsx",
+      "target": "file:lib/articles.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:lib/articles.ts",
+      "target": "file:lib/parseFrontmatter.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:tests/lib/articles.test.ts",
+      "target": "file:lib/articles.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:tests/lib/parseFrontmatter.test.ts",
+      "target": "file:lib/parseFrontmatter.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:app/[locale]/articles/page.tsx",
+      "target": "function:app/[locale]/articles/page.tsx:ArticlesPage",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:app/[locale]/articles/page.tsx",
+      "target": "function:app/[locale]/articles/page.tsx:ArticlesPage",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:components/ArticleCard.tsx",
+      "target": "function:components/ArticleCard.tsx:ArticleCard",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:components/ArticleCard.tsx",
+      "target": "function:components/ArticleCard.tsx:ArticleCard",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:lib/articles.ts",
+      "target": "function:lib/articles.ts:getArticles",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:lib/articles.ts",
+      "target": "function:lib/articles.ts:getArticles",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:lib/parseFrontmatter.ts",
+      "target": "function:lib/parseFrontmatter.ts:parseFrontmatter",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:lib/parseFrontmatter.ts",
+      "target": "function:lib/parseFrontmatter.ts:parseFrontmatter",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "function:app/[locale]/articles/page.tsx:ArticlesPage",
+      "target": "function:lib/articles.ts:getArticles",
+      "type": "calls",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "function:lib/articles.ts:getArticles",
+      "target": "function:lib/parseFrontmatter.ts:parseFrontmatter",
+      "type": "calls",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:lib/articles.ts",
+      "target": "file:tests/lib/articles.test.ts",
+      "type": "tested_by",
+      "direction": "forward",
+      "weight": 0.5
+    },
+    {
+      "source": "file:lib/parseFrontmatter.ts",
+      "target": "file:tests/lib/parseFrontmatter.test.ts",
+      "type": "tested_by",
+      "direction": "forward",
+      "weight": 0.5
+    },
+    {
+      "source": "file:app/[locale]/contact/page.tsx",
+      "target": "file:components/ContactForm.tsx",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:app/[locale]/contact/page.tsx",
+      "target": "file:i18n/routing.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:components/ContactForm.tsx",
+      "target": "file:lib/validation.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:tests/components/ContactForm.test.tsx",
+      "target": "file:components/ContactForm.tsx",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:app/[locale]/contact/page.tsx",
+      "target": "function:app/[locale]/contact/page.tsx:ContactPage",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:app/[locale]/contact/page.tsx",
+      "target": "function:app/[locale]/contact/page.tsx:ContactPage",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:components/ContactForm.tsx",
+      "target": "function:components/ContactForm.tsx:ContactForm",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:components/ContactForm.tsx",
+      "target": "function:components/ContactForm.tsx:ContactForm",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:components/ContactForm.tsx",
+      "target": "function:components/ContactForm.tsx:Field",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:tests/components/ContactForm.test.tsx",
+      "target": "function:tests/components/ContactForm.test.tsx:renderForm",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "function:components/ContactForm.tsx:ContactForm",
+      "target": "function:components/ContactForm.tsx:Field",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "function:app/[locale]/contact/page.tsx:ContactPage",
+      "target": "function:components/ContactForm.tsx:ContactForm",
+      "type": "calls",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:components/ContactForm.tsx",
+      "target": "file:tests/components/ContactForm.test.tsx",
+      "type": "tested_by",
+      "direction": "forward",
+      "weight": 0.5
+    },
+    {
+      "source": "pipeline:.github/workflows/ci.yml",
+      "target": "file:scripts/verify-i18n.ts",
+      "type": "triggers",
+      "direction": "forward",
+      "weight": 0.6
+    },
+    {
+      "source": "pipeline:.github/workflows/ci.yml",
+      "target": "file:e2e/smoke.spec.ts",
+      "type": "triggers",
+      "direction": "forward",
+      "weight": 0.6
+    },
+    {
+      "source": "pipeline:.github/workflows/ci.yml",
+      "target": "file:e2e/home.spec.ts",
+      "type": "triggers",
+      "direction": "forward",
+      "weight": 0.6
+    },
+    {
+      "source": "pipeline:.github/workflows/ci.yml",
+      "target": "file:e2e/contact.spec.ts",
+      "type": "triggers",
+      "direction": "forward",
+      "weight": 0.6
+    },
+    {
+      "source": "pipeline:.github/workflows/ci.yml",
+      "target": "file:e2e/articles.spec.ts",
+      "type": "triggers",
+      "direction": "forward",
+      "weight": 0.6
+    },
+    {
+      "source": "pipeline:.github/workflows/ci.yml",
+      "target": "file:e2e/a11y.spec.ts",
+      "type": "triggers",
+      "direction": "forward",
+      "weight": 0.6
+    },
+    {
+      "source": "pipeline:.github/workflows/ci.yml",
+      "target": "file:e2e/language-switch.spec.ts",
+      "type": "triggers",
+      "direction": "forward",
+      "weight": 0.6
+    },
+    {
+      "source": "pipeline:.github/workflows/ci.yml",
+      "target": "file:playwright.config.ts",
+      "type": "depends_on",
+      "direction": "forward",
+      "weight": 0.6
+    },
+    {
+      "source": "pipeline:.github/workflows/metrics.yml",
+      "target": "file:scripts/metrics.ts",
+      "type": "triggers",
+      "direction": "forward",
+      "weight": 0.6
+    },
+    {
+      "source": "pipeline:.github/workflows/mutation.yml",
+      "target": "file:stryker.config.mjs",
+      "type": "depends_on",
+      "direction": "forward",
+      "weight": 0.6
+    },
+    {
+      "source": "pipeline:.github/workflows/post-deploy-smoke.yml",
+      "target": "file:e2e/smoke.spec.ts",
+      "type": "triggers",
+      "direction": "forward",
+      "weight": 0.6
+    },
+    {
+      "source": "pipeline:.github/workflows/post-deploy-smoke.yml",
+      "target": "file:playwright.smoke.config.ts",
+      "type": "depends_on",
+      "direction": "forward",
+      "weight": 0.6
+    },
+    {
+      "source": "pipeline:.github/workflows/safari.yml",
+      "target": "file:e2e/smoke.spec.ts",
+      "type": "triggers",
+      "direction": "forward",
+      "weight": 0.6
+    },
+    {
+      "source": "pipeline:.github/workflows/safari.yml",
+      "target": "file:playwright.config.ts",
+      "type": "depends_on",
+      "direction": "forward",
+      "weight": 0.6
+    },
+    {
+      "source": "config:tsconfig.json",
+      "target": "file:app/[locale]/layout.tsx",
+      "type": "configures",
+      "direction": "forward",
+      "weight": 0.6
+    },
+    {
+      "source": "config:tsconfig.json",
+      "target": "file:app/[locale]/page.tsx",
+      "type": "configures",
+      "direction": "forward",
+      "weight": 0.6
+    },
+    {
+      "source": "config:package.json",
+      "target": "file:next.config.ts",
+      "type": "configures",
+      "direction": "forward",
+      "weight": 0.6
+    },
+    {
+      "source": "config:package.json",
+      "target": "config:tsconfig.json",
+      "type": "configures",
+      "direction": "forward",
+      "weight": 0.6
+    },
+    {
+      "source": "config:lefthook.yml",
+      "target": "file:eslint.config.mjs",
+      "type": "configures",
+      "direction": "forward",
+      "weight": 0.6
+    },
+    {
+      "source": "config:lefthook.yml",
+      "target": "file:prettier.config.mjs",
+      "type": "configures",
+      "direction": "forward",
+      "weight": 0.6
+    },
+    {
+      "source": "config:.env.example",
+      "target": "file:lib/email.ts",
+      "type": "configures",
+      "direction": "forward",
+      "weight": 0.6
+    },
+    {
+      "source": "config:.env.example",
+      "target": "file:app/api/contact/route.ts",
+      "type": "configures",
+      "direction": "forward",
+      "weight": 0.6
+    },
+    {
+      "source": "document:README.md",
+      "target": "file:app/[locale]/page.tsx",
+      "type": "documents",
+      "direction": "forward",
+      "weight": 0.5
+    },
+    {
+      "source": "document:README.md",
+      "target": "file:app/api/contact/route.ts",
+      "type": "documents",
+      "direction": "forward",
+      "weight": 0.5
+    },
+    {
+      "source": "document:README.md",
+      "target": "config:.env.example",
+      "type": "documents",
+      "direction": "forward",
+      "weight": 0.5
+    },
+    {
+      "source": "document:README.md",
+      "target": "file:scripts/verify-i18n.ts",
+      "type": "documents",
+      "direction": "forward",
+      "weight": 0.5
+    },
+    {
+      "source": "document:DESIGN.md",
+      "target": "file:components/Hero.tsx",
+      "type": "documents",
+      "direction": "forward",
+      "weight": 0.5
+    },
+    {
+      "source": "document:DESIGN.md",
+      "target": "file:components/TrainingDetail.tsx",
+      "type": "documents",
+      "direction": "forward",
+      "weight": 0.5
+    },
+    {
+      "source": "document:DESIGN.md",
+      "target": "file:components/Nav.tsx",
+      "type": "documents",
+      "direction": "forward",
+      "weight": 0.5
+    },
+    {
+      "source": "document:DESIGN.md",
+      "target": "file:components/TrainingCard.tsx",
+      "type": "documents",
+      "direction": "forward",
+      "weight": 0.5
+    },
+    {
+      "source": "document:PRODUCT.md",
+      "target": "document:DESIGN.md",
+      "type": "related",
+      "direction": "forward",
+      "weight": 0.5
+    },
+    {
+      "source": "document:README.md",
+      "target": "document:DESIGN.md",
+      "type": "related",
+      "direction": "forward",
+      "weight": 0.5
+    },
+    {
+      "source": "document:README.md",
+      "target": "document:PRODUCT.md",
+      "type": "related",
+      "direction": "forward",
+      "weight": 0.5
+    },
+    {
+      "source": "document:docs/superpowers/plans/2026-05-12-agenticengineering-site.md",
+      "target": "file:components/Hero.tsx",
+      "type": "documents",
+      "direction": "forward",
+      "weight": 0.5
+    },
+    {
+      "source": "document:docs/superpowers/plans/2026-05-12-agenticengineering-site.md",
+      "target": "file:components/LangSwitcher.tsx",
+      "type": "documents",
+      "direction": "forward",
+      "weight": 0.5
+    },
+    {
+      "source": "document:docs/superpowers/plans/2026-05-12-agenticengineering-site.md",
+      "target": "file:components/TrainingDetail.tsx",
+      "type": "documents",
+      "direction": "forward",
+      "weight": 0.5
+    },
+    {
+      "source": "document:docs/superpowers/plans/2026-05-12-agenticengineering-site.md",
+      "target": "file:components/TrainingCard.tsx",
+      "type": "documents",
+      "direction": "forward",
+      "weight": 0.5
+    },
+    {
+      "source": "document:docs/superpowers/plans/2026-05-12-agenticengineering-site.md",
+      "target": "file:components/Nav.tsx",
+      "type": "documents",
+      "direction": "forward",
+      "weight": 0.5
+    },
+    {
+      "source": "document:docs/superpowers/plans/2026-05-12-agenticengineering-site.md",
+      "target": "file:components/Footer.tsx",
+      "type": "documents",
+      "direction": "forward",
+      "weight": 0.5
+    },
+    {
+      "source": "document:docs/superpowers/plans/2026-05-12-agenticengineering-site.md",
+      "target": "file:components/ContactForm.tsx",
+      "type": "documents",
+      "direction": "forward",
+      "weight": 0.5
+    },
+    {
+      "source": "document:docs/superpowers/plans/2026-05-12-agenticengineering-site.md",
+      "target": "file:components/JsonLd.tsx",
+      "type": "documents",
+      "direction": "forward",
+      "weight": 0.5
+    },
+    {
+      "source": "document:docs/superpowers/plans/2026-05-12-agenticengineering-site.md",
+      "target": "file:lib/validation.ts",
+      "type": "documents",
+      "direction": "forward",
+      "weight": 0.5
+    },
+    {
+      "source": "document:docs/superpowers/plans/2026-05-12-agenticengineering-site.md",
+      "target": "file:lib/email.ts",
+      "type": "documents",
+      "direction": "forward",
+      "weight": 0.5
+    },
+    {
+      "source": "document:docs/superpowers/plans/2026-05-12-agenticengineering-site.md",
+      "target": "file:lib/rate-limit.ts",
+      "type": "documents",
+      "direction": "forward",
+      "weight": 0.5
+    },
+    {
+      "source": "document:docs/superpowers/plans/2026-05-12-agenticengineering-site.md",
+      "target": "file:app/api/contact/route.ts",
+      "type": "documents",
+      "direction": "forward",
+      "weight": 0.5
+    },
+    {
+      "source": "document:docs/superpowers/plans/2026-05-12-agenticengineering-site.md",
+      "target": "file:data/trainings.ts",
+      "type": "documents",
+      "direction": "forward",
+      "weight": 0.5
+    },
+    {
+      "source": "document:docs/superpowers/plans/2026-05-12-agenticengineering-site.md",
+      "target": "file:app/sitemap.ts",
+      "type": "documents",
+      "direction": "forward",
+      "weight": 0.5
+    },
+    {
+      "source": "document:docs/superpowers/plans/2026-05-12-agenticengineering-site.md",
+      "target": "file:app/robots.ts",
+      "type": "documents",
+      "direction": "forward",
+      "weight": 0.5
+    },
+    {
+      "source": "document:docs/superpowers/plans/2026-05-12-agenticengineering-site.md",
+      "target": "file:next.config.ts",
+      "type": "documents",
+      "direction": "forward",
+      "weight": 0.5
+    },
+    {
+      "source": "document:docs/superpowers/plans/2026-05-12-agenticengineering-site.md",
+      "target": "file:app/[locale]/impressum/page.tsx",
+      "type": "documents",
+      "direction": "forward",
+      "weight": 0.5
+    },
+    {
+      "source": "document:docs/superpowers/plans/2026-05-20-articles-page.md",
+      "target": "file:lib/parseFrontmatter.ts",
+      "type": "documents",
+      "direction": "forward",
+      "weight": 0.5
+    },
+    {
+      "source": "document:docs/superpowers/plans/2026-05-20-articles-page.md",
+      "target": "file:lib/articles.ts",
+      "type": "documents",
+      "direction": "forward",
+      "weight": 0.5
+    },
+    {
+      "source": "document:docs/superpowers/plans/2026-05-20-articles-page.md",
+      "target": "file:components/ArticleCard.tsx",
+      "type": "documents",
+      "direction": "forward",
+      "weight": 0.5
+    },
+    {
+      "source": "document:docs/superpowers/plans/2026-05-20-articles-page.md",
+      "target": "file:app/[locale]/articles/page.tsx",
+      "type": "documents",
+      "direction": "forward",
+      "weight": 0.5
+    },
+    {
+      "source": "document:docs/superpowers/plans/2026-05-20-articles-page.md",
+      "target": "file:components/Nav.tsx",
+      "type": "documents",
+      "direction": "forward",
+      "weight": 0.5
+    },
+    {
+      "source": "document:docs/superpowers/plans/2026-05-20-articles-page.md",
+      "target": "file:components/MobileMenu.tsx",
+      "type": "documents",
+      "direction": "forward",
+      "weight": 0.5
+    },
+    {
+      "source": "document:docs/superpowers/plans/2026-05-20-articles-page.md",
+      "target": "file:app/sitemap.ts",
+      "type": "documents",
+      "direction": "forward",
+      "weight": 0.5
+    },
+    {
+      "source": "document:docs/superpowers/plans/2026-05-21-training-redesign.md",
+      "target": "file:data/trainings.ts",
+      "type": "documents",
+      "direction": "forward",
+      "weight": 0.5
+    },
+    {
+      "source": "document:docs/superpowers/plans/2026-05-21-training-redesign.md",
+      "target": "config:messages/en.json",
+      "type": "documents",
+      "direction": "forward",
+      "weight": 0.5
+    },
+    {
+      "source": "document:docs/superpowers/plans/2026-05-21-training-redesign.md",
+      "target": "config:messages/nl.json",
+      "type": "documents",
+      "direction": "forward",
+      "weight": 0.5
+    },
+    {
+      "source": "document:docs/superpowers/plans/2026-05-21-training-redesign.md",
+      "target": "file:tests/components/TrainingCard.test.tsx",
+      "type": "documents",
+      "direction": "forward",
+      "weight": 0.5
+    },
+    {
+      "source": "document:docs/superpowers/plans/2026-05-23-basic-day1-quality-pivot.md",
+      "target": "file:data/trainings.ts",
+      "type": "documents",
+      "direction": "forward",
+      "weight": 0.5
+    },
+    {
+      "source": "document:docs/superpowers/plans/2026-05-23-basic-day1-quality-pivot.md",
+      "target": "config:messages/en.json",
+      "type": "documents",
+      "direction": "forward",
+      "weight": 0.5
+    },
+    {
+      "source": "document:docs/superpowers/plans/2026-05-23-basic-day1-quality-pivot.md",
+      "target": "config:messages/nl.json",
+      "type": "documents",
+      "direction": "forward",
+      "weight": 0.5
+    },
+    {
+      "source": "document:docs/superpowers/plans/2026-05-23-basic-day1-quality-pivot.md",
+      "target": "file:tests/data/trainings.test.ts",
+      "type": "documents",
+      "direction": "forward",
+      "weight": 0.5
+    },
+    {
+      "source": "document:docs/superpowers/plans/2026-05-23-basic-day1-quality-pivot.md",
+      "target": "document:DESIGN.md",
+      "type": "related",
+      "direction": "forward",
+      "weight": 0.5
+    },
+    {
+      "source": "document:docs/superpowers/plans/2026-05-23-brand-pivot-quality-engineering.md",
+      "target": "config:messages/en.json",
+      "type": "documents",
+      "direction": "forward",
+      "weight": 0.5
+    },
+    {
+      "source": "document:docs/superpowers/plans/2026-05-23-brand-pivot-quality-engineering.md",
+      "target": "config:messages/nl.json",
+      "type": "documents",
+      "direction": "forward",
+      "weight": 0.5
+    },
+    {
+      "source": "document:docs/superpowers/plans/2026-05-23-day-agenda-timeline.md",
+      "target": "file:components/DayAgenda.tsx",
+      "type": "documents",
+      "direction": "forward",
+      "weight": 0.5
+    },
+    {
+      "source": "document:docs/superpowers/plans/2026-05-23-day-agenda-timeline.md",
+      "target": "file:components/TrainingDetail.tsx",
+      "type": "documents",
+      "direction": "forward",
+      "weight": 0.5
+    },
+    {
+      "source": "document:docs/superpowers/plans/2026-05-23-day-agenda-timeline.md",
+      "target": "file:tests/components/DayAgenda.test.tsx",
+      "type": "documents",
+      "direction": "forward",
+      "weight": 0.5
+    },
+    {
+      "source": "document:docs/superpowers/plans/2026-05-23-day-agenda-timeline.md",
+      "target": "config:messages/en.json",
+      "type": "documents",
+      "direction": "forward",
+      "weight": 0.5
+    },
+    {
+      "source": "document:docs/superpowers/plans/2026-05-23-day-agenda-timeline.md",
+      "target": "config:messages/nl.json",
+      "type": "documents",
+      "direction": "forward",
+      "weight": 0.5
+    },
+    {
+      "source": "document:docs/superpowers/plans/2026-05-23-proof-strip.md",
+      "target": "file:components/ProofStrip.tsx",
+      "type": "documents",
+      "direction": "forward",
+      "weight": 0.5
+    },
+    {
+      "source": "document:docs/superpowers/plans/2026-05-23-proof-strip.md",
+      "target": "file:tests/components/ProofStrip.test.tsx",
+      "type": "documents",
+      "direction": "forward",
+      "weight": 0.5
+    },
+    {
+      "source": "document:docs/superpowers/plans/2026-05-23-proof-strip.md",
+      "target": "file:app/[locale]/page.tsx",
+      "type": "documents",
+      "direction": "forward",
+      "weight": 0.5
+    },
+    {
+      "source": "document:docs/superpowers/plans/2026-05-23-proof-strip.md",
+      "target": "config:messages/en.json",
+      "type": "documents",
+      "direction": "forward",
+      "weight": 0.5
+    },
+    {
+      "source": "document:docs/superpowers/plans/2026-05-23-proof-strip.md",
+      "target": "config:messages/nl.json",
+      "type": "documents",
+      "direction": "forward",
+      "weight": 0.5
+    },
+    {
+      "source": "document:docs/superpowers/plans/2026-05-23-training-identity-cluster.md",
+      "target": "file:components/TrainingDetail.tsx",
+      "type": "documents",
+      "direction": "forward",
+      "weight": 0.5
+    },
+    {
+      "source": "document:docs/superpowers/plans/2026-05-23-training-identity-cluster.md",
+      "target": "config:messages/en.json",
+      "type": "documents",
+      "direction": "forward",
+      "weight": 0.5
+    },
+    {
+      "source": "document:docs/superpowers/plans/2026-05-23-training-identity-cluster.md",
+      "target": "config:messages/nl.json",
+      "type": "documents",
+      "direction": "forward",
+      "weight": 0.5
+    },
+    {
+      "source": "document:docs/superpowers/specs/2026-05-12-agenticengineering-site-design.md",
+      "target": "file:app/[locale]/page.tsx",
+      "type": "documents",
+      "direction": "forward",
+      "weight": 0.5
+    },
+    {
+      "source": "document:docs/superpowers/specs/2026-05-12-agenticengineering-site-design.md",
+      "target": "file:app/api/contact/route.ts",
+      "type": "documents",
+      "direction": "forward",
+      "weight": 0.5
+    },
+    {
+      "source": "document:docs/superpowers/specs/2026-05-12-agenticengineering-site-design.md",
+      "target": "file:data/trainings.ts",
+      "type": "documents",
+      "direction": "forward",
+      "weight": 0.5
+    },
+    {
+      "source": "document:docs/superpowers/specs/2026-05-12-agenticengineering-site-design.md",
+      "target": "file:components/ContactForm.tsx",
+      "type": "documents",
+      "direction": "forward",
+      "weight": 0.5
+    },
+    {
+      "source": "document:docs/superpowers/specs/2026-05-12-agenticengineering-site-design.md",
+      "target": "config:.env.example",
+      "type": "related",
+      "direction": "forward",
+      "weight": 0.5
+    },
+    {
+      "source": "document:docs/superpowers/specs/2026-05-20-articles-page-design.md",
+      "target": "file:app/[locale]/articles/page.tsx",
+      "type": "documents",
+      "direction": "forward",
+      "weight": 0.5
+    },
+    {
+      "source": "document:docs/superpowers/specs/2026-05-20-articles-page-design.md",
+      "target": "file:components/ArticleCard.tsx",
+      "type": "documents",
+      "direction": "forward",
+      "weight": 0.5
+    },
+    {
+      "source": "document:docs/superpowers/specs/2026-05-20-articles-page-design.md",
+      "target": "file:lib/articles.ts",
+      "type": "documents",
+      "direction": "forward",
+      "weight": 0.5
+    },
+    {
+      "source": "document:docs/superpowers/specs/2026-05-21-training-redesign-design.md",
+      "target": "file:data/trainings.ts",
+      "type": "documents",
+      "direction": "forward",
+      "weight": 0.5
+    },
+    {
+      "source": "document:docs/superpowers/specs/2026-05-21-training-redesign-design.md",
+      "target": "config:messages/en.json",
+      "type": "documents",
+      "direction": "forward",
+      "weight": 0.5
+    },
+    {
+      "source": "document:docs/superpowers/specs/2026-05-21-training-redesign-design.md",
+      "target": "config:messages/nl.json",
+      "type": "documents",
+      "direction": "forward",
+      "weight": 0.5
+    },
+    {
+      "source": "document:docs/superpowers/specs/2026-05-23-basic-day1-quality-pivot-design.md",
+      "target": "file:data/trainings.ts",
+      "type": "documents",
+      "direction": "forward",
+      "weight": 0.5
+    },
+    {
+      "source": "document:docs/superpowers/specs/2026-05-23-basic-day1-quality-pivot-design.md",
+      "target": "config:messages/en.json",
+      "type": "documents",
+      "direction": "forward",
+      "weight": 0.5
+    },
+    {
+      "source": "document:docs/superpowers/specs/2026-05-23-basic-day1-quality-pivot-design.md",
+      "target": "config:messages/nl.json",
+      "type": "documents",
+      "direction": "forward",
+      "weight": 0.5
+    },
+    {
+      "source": "document:docs/superpowers/specs/2026-05-23-basic-day1-quality-pivot-design.md",
+      "target": "file:tests/data/trainings.test.ts",
+      "type": "documents",
+      "direction": "forward",
+      "weight": 0.5
+    },
+    {
+      "source": "document:docs/superpowers/specs/2026-05-23-brand-pivot-quality-engineering-design.md",
+      "target": "config:messages/en.json",
+      "type": "documents",
+      "direction": "forward",
+      "weight": 0.5
+    },
+    {
+      "source": "document:docs/superpowers/specs/2026-05-23-brand-pivot-quality-engineering-design.md",
+      "target": "config:messages/nl.json",
+      "type": "documents",
+      "direction": "forward",
+      "weight": 0.5
+    },
+    {
+      "source": "document:docs/superpowers/specs/2026-05-23-day-agenda-timeline-design.md",
+      "target": "file:components/DayAgenda.tsx",
+      "type": "documents",
+      "direction": "forward",
+      "weight": 0.5
+    },
+    {
+      "source": "document:docs/superpowers/specs/2026-05-23-day-agenda-timeline-design.md",
+      "target": "file:components/TrainingDetail.tsx",
+      "type": "documents",
+      "direction": "forward",
+      "weight": 0.5
+    },
+    {
+      "source": "document:docs/superpowers/specs/2026-05-23-day-agenda-timeline-design.md",
+      "target": "file:tests/components/DayAgenda.test.tsx",
+      "type": "documents",
+      "direction": "forward",
+      "weight": 0.5
+    },
+    {
+      "source": "document:docs/superpowers/specs/2026-05-23-proof-strip-design.md",
+      "target": "file:components/ProofStrip.tsx",
+      "type": "documents",
+      "direction": "forward",
+      "weight": 0.5
+    },
+    {
+      "source": "document:docs/superpowers/specs/2026-05-23-proof-strip-design.md",
+      "target": "file:tests/components/ProofStrip.test.tsx",
+      "type": "documents",
+      "direction": "forward",
+      "weight": 0.5
+    },
+    {
+      "source": "document:docs/superpowers/specs/2026-05-23-training-identity-cluster-design.md",
+      "target": "file:components/TrainingDetail.tsx",
+      "type": "documents",
+      "direction": "forward",
+      "weight": 0.5
+    },
+    {
+      "source": "document:docs/superpowers/specs/2026-05-23-training-identity-cluster-design.md",
+      "target": "file:components/InstructorCard.tsx",
+      "type": "documents",
+      "direction": "forward",
+      "weight": 0.5
+    },
+    {
+      "source": "document:docs/superpowers/specs/2026-05-23-training-identity-cluster-design.md",
+      "target": "file:data/instructors.ts",
+      "type": "documents",
+      "direction": "forward",
+      "weight": 0.5
+    },
+    {
+      "source": "file:e2e/a11y.spec.ts",
+      "target": "file:e2e/constants.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:app/[locale]/not-found.tsx",
+      "target": "function:app/[locale]/not-found.tsx:NotFound",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:app/[locale]/not-found.tsx",
+      "target": "function:app/[locale]/not-found.tsx:NotFound",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:app/robots.ts",
+      "target": "function:app/robots.ts:robots",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:app/robots.ts",
+      "target": "function:app/robots.ts:robots",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:next.config.ts",
+      "target": "file:app/[locale]/layout.tsx",
+      "type": "configures",
+      "direction": "forward",
+      "weight": 0.6
+    },
+    {
+      "source": "config:messages/en.json",
+      "target": "file:app/[locale]/layout.tsx",
+      "type": "configures",
+      "direction": "forward",
+      "weight": 0.6
+    },
+    {
+      "source": "config:messages/nl.json",
+      "target": "file:app/[locale]/layout.tsx",
+      "type": "configures",
+      "direction": "forward",
+      "weight": 0.6
+    },
+    {
+      "source": "file:app/globals.css",
+      "target": "file:app/[locale]/layout.tsx",
+      "type": "related",
+      "direction": "forward",
+      "weight": 0.5
+    },
+    {
+      "source": "file:playwright.config.ts",
+      "target": "file:e2e/a11y.spec.ts",
+      "type": "triggers",
+      "direction": "forward",
+      "weight": 0.6
+    },
+    {
+      "source": "file:playwright.smoke.config.ts",
+      "target": "file:e2e/smoke.spec.ts",
+      "type": "triggers",
+      "direction": "forward",
+      "weight": 0.6
+    },
+    {
+      "source": "document:news/2026-05-13-microsoft-mdash-tops-anthropic-mythos-cybersecurity-benchmark.md",
+      "target": "file:lib/articles.ts",
+      "type": "related",
+      "direction": "forward",
+      "weight": 0.5
+    },
+    {
+      "source": "document:news/2026-05-13-two-weeks-after-context-is-the-new-code.md",
+      "target": "file:lib/articles.ts",
+      "type": "related",
+      "direction": "forward",
+      "weight": 0.5
+    },
+    {
+      "source": "file:scripts/metrics.ts",
+      "target": "function:scripts/metrics.ts:main",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:scripts/verify-i18n.ts",
+      "target": "config:messages/en.json",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:scripts/verify-i18n.ts",
+      "target": "config:messages/nl.json",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:tests/components/ContactForm.test.tsx",
+      "target": "config:messages/nl.json",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:tests/components/DayAgenda.test.tsx",
+      "target": "config:messages/en.json",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:tests/components/DayAgenda.test.tsx",
+      "target": "config:messages/nl.json",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:tests/components/ProofStrip.test.tsx",
+      "target": "config:messages/en.json",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:tests/components/ProofStrip.test.tsx",
+      "target": "config:messages/nl.json",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:tests/components/TrainingCard.test.tsx",
+      "target": "config:messages/nl.json",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:tests/i18n-integrity.test.ts",
+      "target": "config:messages/en.json",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:tests/i18n-integrity.test.ts",
+      "target": "config:messages/nl.json",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    }
+  ],
+  "layers": [
+    {
+      "id": "layer:ui",
+      "name": "UI Layer",
+      "description": "Localized App Router pages, layouts, SEO/metadata routes, global styles, and reusable React components for the bilingual marketing site.",
+      "nodeIds": [
+        "file:components/DayAgenda.tsx",
+        "file:components/Hero.tsx",
+        "file:components/InstructorCard.tsx",
+        "file:components/JsonLd.tsx",
+        "file:components/ProofStrip.tsx",
+        "file:components/TrainingCard.tsx",
+        "file:components/TrainingDetail.tsx",
+        "file:components/Footer.tsx",
+        "file:components/LangSwitcher.tsx",
+        "file:components/MobileMenu.tsx",
+        "file:components/Nav.tsx",
+        "file:components/ArticleCard.tsx",
+        "file:components/ContactForm.tsx",
+        "file:app/[locale]/about/page.tsx",
+        "file:app/[locale]/page.tsx",
+        "file:app/[locale]/impressum/page.tsx",
+        "file:app/[locale]/layout.tsx",
+        "file:app/[locale]/opengraph-image.tsx",
+        "file:app/sitemap.ts",
+        "file:app/[locale]/articles/page.tsx",
+        "file:app/[locale]/contact/page.tsx",
+        "file:app/[locale]/not-found.tsx",
+        "file:app/globals.css",
+        "file:app/robots.ts"
+      ]
+    },
+    {
+      "id": "layer:api",
+      "name": "API & Edge Layer",
+      "description": "The contact form serverless route handler (Zod validation, rate limiting, Resend email) and the next-intl locale-routing edge middleware.",
+      "nodeIds": [
+        "file:app/api/contact/route.ts",
+        "file:middleware.ts"
+      ]
+    },
+    {
+      "id": "layer:service",
+      "name": "Service Layer",
+      "description": "Server-side business logic and i18n configuration: validation/sanitization, email dispatch, rate limiting, markdown article loading, and next-intl request/routing setup.",
+      "nodeIds": [
+        "file:lib/email.ts",
+        "file:lib/rate-limit.ts",
+        "file:lib/sanitize.ts",
+        "file:lib/validation.ts",
+        "file:lib/articles.ts",
+        "file:lib/parseFrontmatter.ts",
+        "file:i18n/request.ts",
+        "file:i18n/routing.ts"
+      ]
+    },
+    {
+      "id": "layer:data",
+      "name": "Data & Content Layer",
+      "description": "Static catalogue data (trainings, instructors) and the NL/EN translation message catalogues consumed across pages, components, and tests.",
+      "nodeIds": [
+        "file:data/instructors.ts",
+        "file:data/trainings.ts",
+        "config:messages/en.json",
+        "config:messages/nl.json"
+      ]
+    },
+    {
+      "id": "layer:config",
+      "name": "Configuration Layer",
+      "description": "Build, tooling, and environment configuration (Next.js, TypeScript, Tailwind/PostCSS, ESLint/Prettier, Vitest/Playwright/Stryker, lefthook, package manifests) plus editor/tool settings.",
+      "nodeIds": [
+        "config:.env.example",
+        "config:lefthook.yml",
+        "config:package.json",
+        "config:tsconfig.json",
+        "config:.claude/settings.json",
+        "config:.impeccable/live/config.json",
+        "file:.npmrc",
+        "file:.nvmrc",
+        "file:.prettierignore",
+        "file:.understand-anything/.understandignore",
+        "file:css.d.ts",
+        "file:eslint.config.mjs",
+        "file:next-env.d.ts",
+        "file:next.config.ts",
+        "file:playwright.config.ts",
+        "file:playwright.smoke.config.ts",
+        "file:postcss.config.mjs",
+        "file:prettier.config.mjs",
+        "file:stryker.config.mjs",
+        "file:vitest.config.ts",
+        "file:vitest.setup.ts"
+      ]
+    },
+    {
+      "id": "layer:test",
+      "name": "Test Layer",
+      "description": "Vitest unit/component specs and Playwright end-to-end specs with page objects covering the site and contact flow.",
+      "nodeIds": [
+        "file:tests/components/DayAgenda.test.tsx",
+        "file:tests/components/ProofStrip.test.tsx",
+        "file:tests/components/TrainingCard.test.tsx",
+        "file:tests/data/trainings.test.ts",
+        "file:tests/components/LangSwitcher.test.tsx",
+        "file:tests/api/contact.test.ts",
+        "file:tests/lib/email.test.ts",
+        "file:tests/lib/rate-limit.test.ts",
+        "file:tests/lib/sanitize.test.ts",
+        "file:tests/lib/validation.test.ts",
+        "file:tests/lib/articles.test.ts",
+        "file:tests/lib/parseFrontmatter.test.ts",
+        "file:tests/components/ContactForm.test.tsx",
+        "file:tests/i18n-integrity.test.ts",
+        "document:tests/lib/fixtures/news-bad-url/2026-05-12-baduri.md",
+        "file:tests/lib/fixtures/news-empty/.gitkeep",
+        "document:tests/lib/fixtures/news-missing-field/2026-05-12-missing.md",
+        "document:tests/lib/fixtures/news-valid/2026-04-28-bar.md",
+        "document:tests/lib/fixtures/news-valid/2026-05-12-foo.md",
+        "file:e2e/articles.spec.ts",
+        "file:e2e/contact.spec.ts",
+        "file:e2e/home.spec.ts",
+        "file:e2e/language-switch.spec.ts",
+        "file:e2e/pages/about-page.ts",
+        "file:e2e/pages/articles-page.ts",
+        "file:e2e/pages/contact-page.ts",
+        "file:e2e/pages/home-page.ts",
+        "file:e2e/pages/nav.ts",
+        "file:e2e/smoke.spec.ts",
+        "file:e2e/a11y.spec.ts",
+        "file:e2e/constants.ts"
+      ]
+    },
+    {
+      "id": "layer:ci-cd",
+      "name": "CI/CD & Tooling Layer",
+      "description": "GitHub Actions workflows plus build/verification scripts (i18n verification, metrics) that gate and automate the pipeline.",
+      "nodeIds": [
+        "pipeline:.github/workflows/ci.yml",
+        "pipeline:.github/workflows/metrics.yml",
+        "pipeline:.github/workflows/mutation.yml",
+        "pipeline:.github/workflows/post-deploy-smoke.yml",
+        "pipeline:.github/workflows/prod-monitor.yml",
+        "pipeline:.github/workflows/safari.yml",
+        "file:scripts/metrics.ts",
+        "file:scripts/verify-i18n.ts"
+      ]
+    },
+    {
+      "id": "layer:documentation",
+      "name": "Documentation & Content Layer",
+      "description": "Project docs and design/product specs, root READMEs, authored news articles, and the article-authoring skill guide.",
+      "nodeIds": [
+        "document:docs/superpowers/plans/2026-05-12-agenticengineering-site.md",
+        "document:docs/superpowers/plans/2026-05-20-articles-page.md",
+        "document:docs/superpowers/plans/2026-05-21-training-redesign.md",
+        "document:docs/superpowers/plans/2026-05-23-basic-day1-quality-pivot.md",
+        "document:docs/superpowers/plans/2026-05-23-brand-pivot-quality-engineering.md",
+        "document:docs/superpowers/plans/2026-05-23-day-agenda-timeline.md",
+        "document:docs/superpowers/plans/2026-05-23-proof-strip.md",
+        "document:docs/superpowers/plans/2026-05-23-training-identity-cluster.md",
+        "document:docs/superpowers/specs/2026-05-12-agenticengineering-site-design.md",
+        "document:docs/superpowers/specs/2026-05-20-articles-page-design.md",
+        "document:docs/superpowers/specs/2026-05-21-training-redesign-design.md",
+        "document:docs/superpowers/specs/2026-05-23-basic-day1-quality-pivot-design.md",
+        "document:docs/superpowers/specs/2026-05-23-brand-pivot-quality-engineering-design.md",
+        "document:docs/superpowers/specs/2026-05-23-day-agenda-timeline-design.md",
+        "document:docs/superpowers/specs/2026-05-23-proof-strip-design.md",
+        "document:docs/superpowers/specs/2026-05-23-training-identity-cluster-design.md",
+        "document:docs/superpowers/specs/launch-checklist.md",
+        "file:news/.gitkeep",
+        "document:news/2026-05-13-microsoft-mdash-tops-anthropic-mythos-cybersecurity-benchmark.md",
+        "document:news/2026-05-13-two-weeks-after-context-is-the-new-code.md",
+        "document:DESIGN.md",
+        "document:PRODUCT.md",
+        "document:README.md",
+        "document:.claude/skills/new-article/PLACE-NEWS-ARTICLE.md"
+      ]
+    }
+  ],
+  "tour": [
+    {
+      "order": 1,
+      "title": "Project Overview",
+      "description": "Start with the README to understand what this project is: the marketing and intake site for the Agentic Engineering training programme, a bilingual (NL/EN) Next.js 15 App Router app with a dark, terminal-native aesthetic deployed on Vercel. The README lays out the stack, repo layout, the contact-form pipeline, security headers, deployment, and the i18n parity gate. It is the roadmap for everything the rest of this tour explores in code.",
+      "nodeIds": [
+        "document:README.md"
+      ]
+    },
+    {
+      "order": 2,
+      "title": "Locale Routing Entry Point",
+      "description": "Every request first hits middleware.ts, which runs next-intl locale routing before any page renders, so visiting `/` redirects to `/nl` (the default locale). The routing rules and supported locales are declared centrally in i18n/routing.ts, while i18n/request.ts resolves the active locale per request and loads the matching message bundle. Together these form the bilingual foundation the entire UI depends on.",
+      "nodeIds": [
+        "file:middleware.ts",
+        "file:i18n/routing.ts",
+        "file:i18n/request.ts"
+      ],
+      "languageLesson": "next-intl middleware intercepts requests at the edge and rewrites/redirects based on a locale prefix. The matcher config keeps it off static assets and API routes, so only page navigations pay the routing cost."
+    },
+    {
+      "order": 3,
+      "title": "Translation Catalogs and Parity Gate",
+      "description": "The locale bundles loaded in Step 2 live as namespaced JSON: messages/nl.json (the primary Dutch catalog) mirrored by messages/en.json. These two files are the highest fan-in nodes in the codebase, consumed by nearly every page, component, and test. scripts/verify-i18n.ts flattens both catalogs and fails the build if their key sets diverge, preventing translation drift between the two languages.",
+      "nodeIds": [
+        "config:messages/nl.json",
+        "config:messages/en.json",
+        "file:scripts/verify-i18n.ts"
+      ]
+    },
+    {
+      "order": 4,
+      "title": "Root Layout and Design Tokens",
+      "description": "Once the locale is resolved, app/[locale]/layout.tsx validates it, sets the request locale, and wraps every page with shared Nav and Footer chrome plus per-locale metadata. app/globals.css imports Tailwind v4 and declares the dark-mode design system as @theme tokens (colors, fonts), the single source of truth for the terminal-native look defined in DESIGN.md. This layout is the frame all routes from here on render inside.",
+      "nodeIds": [
+        "file:app/[locale]/layout.tsx",
+        "file:app/globals.css",
+        "document:DESIGN.md"
+      ],
+      "languageLesson": "Tailwind v4 replaces the JS config file with a CSS-native @theme block. Design tokens declared there become both CSS custom properties and Tailwind utility classes, so colors and fonts have one authoritative definition."
+    },
+    {
+      "order": 5,
+      "title": "The Home Page Composition",
+      "description": "app/[locale]/page.tsx is the localized home page, a React Server Component that assembles the marketing narrative: the Hero banner up top, the ProofStrip of social-proof pills beneath it, then the training listings and instructor grid, finishing with JSON-LD structured data for SEO. It reads its copy through the next-intl catalogs from Step 3 and renders inside the layout from Step 4, giving you a bird's-eye view of how a page is built from presentational components.",
+      "nodeIds": [
+        "file:app/[locale]/page.tsx",
+        "file:components/Hero.tsx",
+        "file:components/ProofStrip.tsx"
+      ]
+    },
+    {
+      "order": 6,
+      "title": "The Training Domain",
+      "description": "The site's core subject matter lives in data/trainings.ts, a typed static catalogue of trainings, modules, and pricing. Two components consume it: TrainingCard renders a compact summary used in the home listing from Step 5, while TrainingDetail expands the full curriculum, outcomes, and audience, with DayAgenda showing a numbered module pill strip. This is one of the most tightly coupled clusters in the codebase, with the data module feeding cards, detail views, and tests alike.",
+      "nodeIds": [
+        "file:data/trainings.ts",
+        "file:components/TrainingCard.tsx",
+        "file:components/TrainingDetail.tsx",
+        "file:components/DayAgenda.tsx"
+      ]
+    },
+    {
+      "order": 7,
+      "title": "Instructors and the About Page",
+      "description": "Mirroring the training domain from Step 6, data/instructors.ts holds the typed instructor records, surfaced through InstructorCard which looks up a record and applies translated name and bio fields. app/[locale]/about/page.tsx is a server component that renders an instructor grid using these pieces, showing the same data-plus-component pattern applied to a second content type.",
+      "nodeIds": [
+        "file:data/instructors.ts",
+        "file:components/InstructorCard.tsx",
+        "file:app/[locale]/about/page.tsx"
+      ]
+    },
+    {
+      "order": 8,
+      "title": "The Intake Form",
+      "description": "ContactForm is the client-side intake form, built with react-hook-form and a Zod resolver, posting submissions to the contact API and surfacing localized validation and status messages. Its validation rules come from lib/validation.ts, the shared Zod schema and enums that define the exact shape of a valid submission. Crucially, this same schema is reused server-side in Step 9, so the client and server agree on what valid input means.",
+      "nodeIds": [
+        "file:components/ContactForm.tsx",
+        "file:lib/validation.ts",
+        "file:app/[locale]/contact/page.tsx"
+      ]
+    },
+    {
+      "order": 9,
+      "title": "The Contact API Pipeline",
+      "description": "The form from Step 8 posts to app/api/contact/route.ts, the strongest cluster in the codebase and the security-critical heart of the backend. The handler runs a defence-in-depth gauntlet: same-origin/CSRF check, per-IP rate limiting via lib/rate-limit.ts, a honeypot silent-drop, and the shared Zod schema from Step 8, before dispatching through lib/email.ts. The email lib sends via Resend and runs every header-bound field through lib/sanitize.ts to strip CRLF and block header injection.",
+      "nodeIds": [
+        "file:app/api/contact/route.ts",
+        "file:lib/email.ts",
+        "file:lib/rate-limit.ts",
+        "file:lib/sanitize.ts"
+      ],
+      "languageLesson": "Next.js App Router route handlers export named HTTP-verb functions (POST) that return a Response. Validating the parsed body with Zod's safeParse keeps untrusted input from reaching side effects, and returning typed errors maps cleanly to 400/403/429/502 status codes."
+    },
+    {
+      "order": 10,
+      "title": "The News Article Pipeline",
+      "description": "Beyond the static catalogues, the site loads editorial content from the filesystem. lib/articles.ts reads markdown files from the news directory, derives slugs, and Zod-validates their frontmatter, returning articles sorted by date; lib/parseFrontmatter.ts is the small YAML-extraction helper it leans on. app/[locale]/articles/page.tsx is the server component that calls getArticles and renders the localized list, echoing the Zod-validation discipline you saw in Steps 8 and 9 applied to content.",
+      "nodeIds": [
+        "file:lib/articles.ts",
+        "file:lib/parseFrontmatter.ts",
+        "file:app/[locale]/articles/page.tsx"
+      ]
+    },
+    {
+      "order": 11,
+      "title": "The SEO and Metadata Surface",
+      "description": "A marketing site lives or dies on discoverability, so several metadata routes round out the pages from Steps 5 through 10. app/sitemap.ts expands a fixed path list across both locales with hreflang alternates, app/robots.ts emits robots.txt rules, app/[locale]/opengraph-image.tsx generates per-locale social-share images at the edge, and JsonLd.tsx injects structured-data scripts (used on the home page in Step 5). Together they make the bilingual content legible to crawlers and social platforms.",
+      "nodeIds": [
+        "file:app/sitemap.ts",
+        "file:app/robots.ts",
+        "file:app/[locale]/opengraph-image.tsx",
+        "file:components/JsonLd.tsx"
+      ]
+    },
+    {
+      "order": 12,
+      "title": "Security Headers and CI Capstone",
+      "description": "Finally, the production hardening. next.config.ts wraps the app with the next-intl plugin and attaches strict production security headers, including a Content-Security-Policy that allowlists only the origins the app actually talks to (such as the Resend API from Step 9). The CI workflow in ci.yml gates every push and PR with parallel jobs: lint, typecheck, the verify:i18n parity check from Step 3, coverage tests, a build, dependency and secret scans, and a Playwright e2e suite, automating the quality bar the whole tour has walked through.",
+      "nodeIds": [
+        "file:next.config.ts",
+        "pipeline:.github/workflows/ci.yml",
+        "document:PRODUCT.md"
+      ],
+      "languageLesson": "A Content-Security-Policy is a single header string of source directives; tightening connect-src and script-src to specific hosts limits exfiltration and injection. GitHub Actions runs the listed jobs in parallel by default, so a slow e2e job does not block fast lint/typecheck feedback."
+    }
+  ]
+}
