@@ -19,6 +19,7 @@ describe('getArticles', () => {
     expect(first.titleNl).toBe('agent loops verschepen');
     expect(first.titleEn).toBe('shipping agent loops');
     expect(first.url).toBe('https://example.com/post');
+    expect(first.sourceUrl).toBe('https://example.com/post');
     expect(first.date).toBe('2026-05-12');
   });
 
@@ -36,5 +37,21 @@ describe('getArticles', () => {
 
   it('throws when an article is missing a required field', () => {
     expect(() => getArticles(path.join(fixturesRoot, 'news-missing-field'))).toThrow(/summary_en/i);
+  });
+
+  it('throws when source_url is missing', () => {
+    expect(() => getArticles(path.join(fixturesRoot, 'news-missing-source-url'))).toThrow(
+      /source_url/i,
+    );
+  });
+
+  it('falls back to /qas-icon.svg when frontmatter has no image field', () => {
+    const [first] = getArticles(path.join(fixturesRoot, 'news-valid'));
+    expect(first.image).toBe('/qas-icon.svg');
+  });
+
+  it('uses the frontmatter image field when provided', () => {
+    const [first] = getArticles(path.join(fixturesRoot, 'news-image-override'));
+    expect(first.image).toBe('/custom/override.jpg');
   });
 });

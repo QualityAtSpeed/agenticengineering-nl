@@ -16,6 +16,8 @@ export class ArticlesPage {
   readonly intro: Locator;
   readonly emptyState: Locator;
   readonly articleCards: Locator;
+  readonly cardContainers: Locator;
+  readonly cardImages: Locator;
   readonly readExternalLinks: Locator;
 
   constructor(
@@ -26,6 +28,8 @@ export class ArticlesPage {
     this.intro = page.getByRole('main').locator('p').first();
     this.emptyState = page.getByText(EMPTY_STATE[locale]);
     this.articleCards = page.locator('[data-testid^="article-link-"]');
+    this.cardContainers = page.locator('[data-testid^="article-card-"]');
+    this.cardImages = page.locator('[data-testid^="article-card-"] img');
     this.readExternalLinks = page.getByText(READ_EXTERNAL[locale]);
   }
 
