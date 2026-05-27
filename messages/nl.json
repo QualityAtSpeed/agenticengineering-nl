@@ -273,7 +273,16 @@
     "title": "artikelen",
     "intro": "Externe artikelen die wij schreven of aanraden. Elke link wijst naar het origineel.",
     "readExternal": "lees op externe site ↗",
-    "emptyState": "nog geen artikelen"
+    "emptyState": "nog geen artikelen",
+    "filter": {
+      "all": "alle",
+      "blogs": "blogs",
+      "articles": "artikelen"
+    },
+    "type": {
+      "blog": "blog",
+      "article": "artikel"
+    }
   },
   "blogs": {
     "title": "blogs",

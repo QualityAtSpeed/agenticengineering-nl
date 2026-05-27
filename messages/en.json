@@ -267,7 +267,16 @@
     "title": "articles",
     "intro": "External articles we wrote or recommend. Each one links out to its original home.",
     "readExternal": "read on external site ↗",
-    "emptyState": "no articles yet"
+    "emptyState": "no articles yet",
+    "filter": {
+      "all": "all",
+      "blogs": "blogs",
+      "articles": "articles"
+    },
+    "type": {
+      "blog": "blog",
+      "article": "article"
+    }
   },
   "blogs": {
     "title": "blogs",
