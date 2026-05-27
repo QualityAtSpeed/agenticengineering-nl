@@ -1,7 +1,7 @@
 {
   "version": "1.0.0",
-  "gitCommitHash": "fc94616a173085c8cb333d10a199e26398a6f430",
-  "generatedAt": "2026-05-26T17:33:35.123Z",
+  "gitCommitHash": "da549737ba4a97f3825f0be90d88b218b619b8f6",
+  "generatedAt": "2026-05-27T14:25:05.962Z",
   "files": {
     ".claude/settings.json": {
       "filePath": ".claude/settings.json",
@@ -13,14 +13,24 @@
       "totalLines": 6,
       "hasStructuralAnalysis": true
     },
-    ".claude/skills/new-article/PLACE-NEWS-ARTICLE.md": {
-      "filePath": ".claude/skills/new-article/PLACE-NEWS-ARTICLE.md",
-      "contentHash": "8b22cf6cd35b1456e9fe14fe64f55082b713f70cf57acf0ec299ca6dd8cb2c43",
+    ".claude/skills/blog-creator/SKILL.md": {
+      "filePath": ".claude/skills/blog-creator/SKILL.md",
+      "contentHash": "5726ad57807438742832c4268e185b66a1f70ab8ee3af9766590f37579080353",
       "functions": [],
       "classes": [],
       "imports": [],
       "exports": [],
-      "totalLines": 104,
+      "totalLines": 108,
+      "hasStructuralAnalysis": true
+    },
+    ".claude/skills/new-article/PLACE-NEWS-ARTICLE.md": {
+      "filePath": ".claude/skills/new-article/PLACE-NEWS-ARTICLE.md",
+      "contentHash": "4f0fb993e2d60a022cdd9f9e6aff12eafff40eb78c3b57f3d3e18443b5bd8241",
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 160,
       "hasStructuralAnalysis": true
     },
     ".env.example": {
@@ -125,22 +135,12 @@
     },
     ".prettierignore": {
       "filePath": ".prettierignore",
-      "contentHash": "1eeca3123554f639cdaf712ab09d761817d36790e7438c85be69fdc528938cd0",
+      "contentHash": "713a005fb0167a1a309c69495c72cc1280a081a8ac506ad4455f042e4ff66ff5",
       "functions": [],
       "classes": [],
       "imports": [],
       "exports": [],
-      "totalLines": 7,
-      "hasStructuralAnalysis": false
-    },
-    ".understand-anything/.understandignore": {
-      "filePath": ".understand-anything/.understandignore",
-      "contentHash": "767090ba9780d2b6231cb538ec751350f523f53d1cedd418a655bc347396c4b6",
-      "functions": [],
-      "classes": [],
-      "imports": [],
-      "exports": [],
-      "totalLines": 46,
+      "totalLines": 8,
       "hasStructuralAnalysis": false
     },
     "app/[locale]/about/page.tsx": {
@@ -190,17 +190,23 @@
       "totalLines": 27,
       "hasStructuralAnalysis": true
     },
-    "app/[locale]/articles/page.tsx": {
-      "filePath": "app/[locale]/articles/page.tsx",
-      "contentHash": "89ed00415b7d5e897b4537c3a1a9567d38b759118349388f8893f71523ee4751",
+    "app/[locale]/articles/[slug]/page.tsx": {
+      "filePath": "app/[locale]/articles/[slug]/page.tsx",
+      "contentHash": "0e44d8949d309f8e8d75fc6f37d902697aae1a3933f694a653b4767db9622ab0",
       "functions": [
         {
-          "name": "ArticlesPage",
+          "name": "generateStaticParams",
+          "params": [],
+          "exported": true,
+          "lineCount": 4
+        },
+        {
+          "name": "BlogPostPage",
           "params": [
-            "{ params }"
+            "{\n  params,\n}"
           ],
           "exported": true,
-          "lineCount": 26
+          "lineCount": 33
         }
       ],
       "classes": [],
@@ -213,15 +219,79 @@
           ]
         },
         {
-          "source": "@/components/ArticleCard",
+          "source": "next/navigation",
           "specifiers": [
-            "ArticleCard"
+            "notFound"
+          ]
+        },
+        {
+          "source": "next/link",
+          "specifiers": [
+            "Link"
+          ]
+        },
+        {
+          "source": "@/lib/blogs",
+          "specifiers": [
+            "getBlogs",
+            "getBlogBySlug"
+          ]
+        },
+        {
+          "source": "@/i18n/routing",
+          "specifiers": [
+            "routing",
+            "Locale"
+          ]
+        }
+      ],
+      "exports": [
+        "dynamicParams",
+        "generateStaticParams",
+        "BlogPostPage"
+      ],
+      "totalLines": 47,
+      "hasStructuralAnalysis": true
+    },
+    "app/[locale]/articles/page.tsx": {
+      "filePath": "app/[locale]/articles/page.tsx",
+      "contentHash": "1b4e1e61c601e681dbd978d14bba9043fe5aa5364dfd594b6d4da1fdd5852a1b",
+      "functions": [
+        {
+          "name": "ArticlesPage",
+          "params": [
+            "{ params }"
+          ],
+          "exported": true,
+          "lineCount": 36
+        }
+      ],
+      "classes": [],
+      "imports": [
+        {
+          "source": "next-intl/server",
+          "specifiers": [
+            "setRequestLocale",
+            "getTranslations"
+          ]
+        },
+        {
+          "source": "@/components/TimelineEntry",
+          "specifiers": [
+            "TimelineEntryRow",
+            "TimelineEntry"
           ]
         },
         {
           "source": "@/lib/articles",
           "specifiers": [
             "getArticles"
+          ]
+        },
+        {
+          "source": "@/lib/blogs",
+          "specifiers": [
+            "getBlogs"
           ]
         },
         {
@@ -234,7 +304,7 @@
       "exports": [
         "ArticlesPage"
       ],
-      "totalLines": 32,
+      "totalLines": 43,
       "hasStructuralAnalysis": true
     },
     "app/[locale]/contact/page.tsx": {
@@ -704,7 +774,7 @@
     },
     "components/ArticleCard.tsx": {
       "filePath": "components/ArticleCard.tsx",
-      "contentHash": "5eed65a797fafaa2e0816752c97c9e6c1c2e1bbd3d6d04f4837d4c618bfef9af",
+      "contentHash": "6bb5713c8664d1f4929766c24b2dce9431ac1defb5038b21dabcb4f79cf0c753",
       "functions": [
         {
           "name": "ArticleCard",
@@ -712,11 +782,17 @@
             "{ article, locale }"
           ],
           "exported": true,
-          "lineCount": 24
+          "lineCount": 44
         }
       ],
       "classes": [],
       "imports": [
+        {
+          "source": "next/image",
+          "specifiers": [
+            "Image"
+          ]
+        },
         {
           "source": "next-intl",
           "specifiers": [
@@ -733,7 +809,53 @@
       "exports": [
         "ArticleCard"
       ],
-      "totalLines": 28,
+      "totalLines": 49,
+      "hasStructuralAnalysis": true
+    },
+    "components/BlogCard.tsx": {
+      "filePath": "components/BlogCard.tsx",
+      "contentHash": "34629736190c3edd8c8e745f27c5f70736dc5cecd6963e669087d2a788c5c716",
+      "functions": [
+        {
+          "name": "BlogCard",
+          "params": [
+            "{ blog, locale }"
+          ],
+          "exported": true,
+          "lineCount": 21
+        }
+      ],
+      "classes": [],
+      "imports": [
+        {
+          "source": "next/link",
+          "specifiers": [
+            "Link"
+          ]
+        },
+        {
+          "source": "next-intl",
+          "specifiers": [
+            "useTranslations"
+          ]
+        },
+        {
+          "source": "@/lib/blogs",
+          "specifiers": [
+            "Blog"
+          ]
+        },
+        {
+          "source": "@/i18n/routing",
+          "specifiers": [
+            "Locale"
+          ]
+        }
+      ],
+      "exports": [
+        "BlogCard"
+      ],
+      "totalLines": 27,
       "hasStructuralAnalysis": true
     },
     "components/ContactForm.tsx": {
@@ -1171,6 +1293,64 @@
       "totalLines": 41,
       "hasStructuralAnalysis": true
     },
+    "components/TimelineEntry.tsx": {
+      "filePath": "components/TimelineEntry.tsx",
+      "contentHash": "7cd19f723e2b7abe79743259d4d82dc763e8d940b6e5495f6704d12d255aba7e",
+      "functions": [
+        {
+          "name": "TimelineEntryRow",
+          "params": [
+            "{ entry, locale }"
+          ],
+          "exported": true,
+          "lineCount": 85
+        }
+      ],
+      "classes": [],
+      "imports": [
+        {
+          "source": "next/image",
+          "specifiers": [
+            "Image"
+          ]
+        },
+        {
+          "source": "next/link",
+          "specifiers": [
+            "Link"
+          ]
+        },
+        {
+          "source": "next-intl",
+          "specifiers": [
+            "useTranslations"
+          ]
+        },
+        {
+          "source": "@/lib/articles",
+          "specifiers": [
+            "Article"
+          ]
+        },
+        {
+          "source": "@/lib/blogs",
+          "specifiers": [
+            "Blog"
+          ]
+        },
+        {
+          "source": "@/i18n/routing",
+          "specifiers": [
+            "Locale"
+          ]
+        }
+      ],
+      "exports": [
+        "TimelineEntryRow"
+      ],
+      "totalLines": 99,
+      "hasStructuralAnalysis": true
+    },
     "components/TrainingCard.tsx": {
       "filePath": "components/TrainingCard.tsx",
       "contentHash": "b0acea08f827bc69d770524a41b0a794c4b6b49258b726d0f368d90b59873e56",
@@ -1304,6 +1484,16 @@
       "totalLines": 70,
       "hasStructuralAnalysis": true
     },
+    "data/trusted-domains.json": {
+      "filePath": "data/trusted-domains.json",
+      "contentHash": "a2ba60b58249d6628b82129cc29fa08fb954cd0556ef847d434e98fd742c561d",
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 2,
+      "hasStructuralAnalysis": true
+    },
     "DESIGN.md": {
       "filePath": "DESIGN.md",
       "contentHash": "d5cf7b47502bd2e1b92c91d749b2e0b06739505b84f14e7ba811153f4393b23d",
@@ -1326,7 +1516,7 @@
     },
     "docs/superpowers/plans/2026-05-20-articles-page.md": {
       "filePath": "docs/superpowers/plans/2026-05-20-articles-page.md",
-      "contentHash": "e98bed3519ea1bc0eea5ad6c1c167da59a6ae76ff05179430f4f0446d18c6624",
+      "contentHash": "20260592dea4e86d1338e58fb66c67d12fdd23767ec28a28d7dbf3ceba23f8be",
       "functions": [],
       "classes": [],
       "imports": [],
@@ -1516,7 +1706,7 @@
     },
     "e2e/articles.spec.ts": {
       "filePath": "e2e/articles.spec.ts",
-      "contentHash": "cc1a0ea058599214831dd567cf702633472608f4ea3c8c05cfb4f8d4da2e34b3",
+      "contentHash": "1f7a0701e761f2fbc7d93fbd6a5be270aa2d37435b76d0c6ffb8b03a92553bab",
       "functions": [],
       "classes": [],
       "imports": [
@@ -1553,7 +1743,7 @@
         }
       ],
       "exports": [],
-      "totalLines": 39,
+      "totalLines": 64,
       "hasStructuralAnalysis": true
     },
     "e2e/constants.ts": {
@@ -1681,7 +1871,7 @@
     },
     "e2e/pages/articles-page.ts": {
       "filePath": "e2e/pages/articles-page.ts",
-      "contentHash": "03ec92d6d45b564c303e18a715ddb1d733e1ed8b1c1402869bd4d394b4a450bd",
+      "contentHash": "7c8111d9062b554d79f538f06dc91dde85a2645ec32ef98c156378d438d95c98",
       "functions": [],
       "classes": [
         {
@@ -1695,10 +1885,12 @@
             "intro",
             "emptyState",
             "articleCards",
+            "cardContainers",
+            "cardImages",
             "readExternalLinks"
           ],
           "exported": true,
-          "lineCount": 22
+          "lineCount": 26
         }
       ],
       "imports": [
@@ -1719,7 +1911,7 @@
       "exports": [
         "ArticlesPage"
       ],
-      "totalLines": 36,
+      "totalLines": 40,
       "hasStructuralAnalysis": true
     },
     "e2e/pages/contact-page.ts": {
@@ -1988,7 +2180,7 @@
     },
     "lib/articles.ts": {
       "filePath": "lib/articles.ts",
-      "contentHash": "644dec0680fa50668aac6a20587b8c54ae79f893572602480db484ff0bd63947",
+      "contentHash": "f61d99cb4927278d0572111f5edb1825a99ee0d3920b9e45046459c66717ca3a",
       "functions": [
         {
           "name": "getArticles",
@@ -1997,7 +2189,7 @@
           ],
           "returnType": "Article[]",
           "exported": true,
-          "lineCount": 38
+          "lineCount": 39
         }
       ],
       "classes": [],
@@ -2030,7 +2222,85 @@
       "exports": [
         "getArticles"
       ],
-      "totalLines": 71,
+      "totalLines": 74,
+      "hasStructuralAnalysis": true
+    },
+    "lib/blogs.ts": {
+      "filePath": "lib/blogs.ts",
+      "contentHash": "09e44cd3da8c233a73ad9361650159ae0e21e5e697c7a87471a876180b857db4",
+      "functions": [
+        {
+          "name": "sharedFieldEqual",
+          "params": [
+            "a",
+            "b"
+          ],
+          "returnType": "boolean",
+          "exported": false,
+          "lineCount": 7
+        },
+        {
+          "name": "parseBlogFile",
+          "params": [
+            "filePath",
+            "filename"
+          ],
+          "returnType": "Frontmatter",
+          "exported": false,
+          "lineCount": 11
+        },
+        {
+          "name": "getBlogs",
+          "params": [
+            "blogsDir"
+          ],
+          "returnType": "Blog[]",
+          "exported": true,
+          "lineCount": 53
+        },
+        {
+          "name": "getBlogBySlug",
+          "params": [
+            "slug",
+            "blogsDir"
+          ],
+          "returnType": "Blog | null",
+          "exported": true,
+          "lineCount": 3
+        }
+      ],
+      "classes": [],
+      "imports": [
+        {
+          "source": "node:fs",
+          "specifiers": [
+            "fs"
+          ]
+        },
+        {
+          "source": "node:path",
+          "specifiers": [
+            "path"
+          ]
+        },
+        {
+          "source": "zod",
+          "specifiers": [
+            "z"
+          ]
+        },
+        {
+          "source": "./parseFrontmatter",
+          "specifiers": [
+            "parseFrontmatter"
+          ]
+        }
+      ],
+      "exports": [
+        "getBlogs",
+        "getBlogBySlug"
+      ],
+      "totalLines": 119,
       "hasStructuralAnalysis": true
     },
     "lib/email.ts": {
@@ -2189,22 +2459,22 @@
     },
     "messages/en.json": {
       "filePath": "messages/en.json",
-      "contentHash": "bd2eea8d1d407fc4486a0c33c414802b143921642a9cd80691b8cf1dc7b65a89",
+      "contentHash": "811251d7aa86082503d16f5e387ae30714903caf96dc001c01867bf3f5337aea",
       "functions": [],
       "classes": [],
       "imports": [],
       "exports": [],
-      "totalLines": 329,
+      "totalLines": 336,
       "hasStructuralAnalysis": true
     },
     "messages/nl.json": {
       "filePath": "messages/nl.json",
-      "contentHash": "f37f45154d186670623215c7e897a21bd0c2dab51d5e2fcb9c295f253c2ab14f",
+      "contentHash": "b7fdb4e8aa5a8c9931c749c7a28f5a2de2cc30eea836825a78d9b9d2fd75a29e",
       "functions": [],
       "classes": [],
       "imports": [],
       "exports": [],
-      "totalLines": 335,
+      "totalLines": 342,
       "hasStructuralAnalysis": true
     },
     "middleware.ts": {
@@ -2242,24 +2512,34 @@
       "totalLines": 1,
       "hasStructuralAnalysis": false
     },
-    "news/2026-05-13-microsoft-mdash-tops-anthropic-mythos-cybersecurity-benchmark.md": {
-      "filePath": "news/2026-05-13-microsoft-mdash-tops-anthropic-mythos-cybersecurity-benchmark.md",
-      "contentHash": "c90002618f5670f00f6377869b86dbd1b6e5628e032b86b7ff58bf286ca42232",
+    "news/2026-05-03-graphify-knowledge-graph-token-tax.md": {
+      "filePath": "news/2026-05-03-graphify-knowledge-graph-token-tax.md",
+      "contentHash": "a91fb6dc54ad9b9051b9599557cb860ebec5370e42169991eeaa2d08f665af51",
       "functions": [],
       "classes": [],
       "imports": [],
       "exports": [],
-      "totalLines": 10,
+      "totalLines": 12,
+      "hasStructuralAnalysis": true
+    },
+    "news/2026-05-13-microsoft-mdash-tops-anthropic-mythos-cybersecurity-benchmark.md": {
+      "filePath": "news/2026-05-13-microsoft-mdash-tops-anthropic-mythos-cybersecurity-benchmark.md",
+      "contentHash": "aff617efdb560dc74f6f062ce0115f875f706a3bfbf55cd897d798b9f3d799d2",
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 12,
       "hasStructuralAnalysis": true
     },
     "news/2026-05-13-two-weeks-after-context-is-the-new-code.md": {
       "filePath": "news/2026-05-13-two-weeks-after-context-is-the-new-code.md",
-      "contentHash": "3ff27eb71419a575ab6eca738814fc1e7eced1db5791f7f491b4860f1b8d4303",
+      "contentHash": "3f70ff99c7a99efdb336d8da558458fc0be7f7305747d9dc47b289d2ebb3ed56",
       "functions": [],
       "classes": [],
       "imports": [],
       "exports": [],
-      "totalLines": 10,
+      "totalLines": 12,
       "hasStructuralAnalysis": true
     },
     "next-env.d.ts": {
@@ -2297,12 +2577,12 @@
     },
     "package.json": {
       "filePath": "package.json",
-      "contentHash": "0ce7fcab9fe68e68785faa5f4c2e13cef98f4f239f6c38347549fefc4402437d",
+      "contentHash": "aae26d450d297ad5aacc6be79d9a69674d2060545c5dab2a66381607ced6332f",
       "functions": [],
       "classes": [],
       "imports": [],
       "exports": [],
-      "totalLines": 77,
+      "totalLines": 78,
       "hasStructuralAnalysis": true
     },
     "playwright.config.ts": {
@@ -2371,6 +2651,16 @@
       "totalLines": 41,
       "hasStructuralAnalysis": true
     },
+    "public/news/.gitkeep": {
+      "filePath": "public/news/.gitkeep",
+      "contentHash": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 1,
+      "hasStructuralAnalysis": false
+    },
     "README.md": {
       "filePath": "README.md",
       "contentHash": "75ceb18fb819fdb0f4deb64d294f34c0bad882ab516364832fd482c2840e56dd",
@@ -2379,6 +2669,76 @@
       "imports": [],
       "exports": [],
       "totalLines": 280,
+      "hasStructuralAnalysis": true
+    },
+    "scripts/fetch-article-images.ts": {
+      "filePath": "scripts/fetch-article-images.ts",
+      "contentHash": "a9885c23d98a6de88a173e84f4a9ba2bc8ee97ae80395a61523378a6a488f973",
+      "functions": [
+        {
+          "name": "loadTrusted",
+          "params": [
+            "file"
+          ],
+          "returnType": "string[]",
+          "exported": true,
+          "lineCount": 4
+        },
+        {
+          "name": "isTrusted",
+          "params": [
+            "hostname",
+            "trusted"
+          ],
+          "returnType": "boolean",
+          "exported": true,
+          "lineCount": 3
+        },
+        {
+          "name": "fetchArticleImage",
+          "params": [
+            "sourceUrl",
+            "slug",
+            "options"
+          ],
+          "returnType": "Promise<FetchResult>",
+          "exported": true,
+          "lineCount": 109
+        }
+      ],
+      "classes": [],
+      "imports": [
+        {
+          "source": "node:fs",
+          "specifiers": [
+            "fs"
+          ]
+        },
+        {
+          "source": "node:path",
+          "specifiers": [
+            "path"
+          ]
+        },
+        {
+          "source": "node:url",
+          "specifiers": [
+            "fileURLToPath"
+          ]
+        },
+        {
+          "source": "playwright",
+          "specifiers": [
+            "chromium"
+          ]
+        }
+      ],
+      "exports": [
+        "loadTrusted",
+        "isTrusted",
+        "fetchArticleImage"
+      ],
+      "totalLines": 170,
       "hasStructuralAnalysis": true
     },
     "scripts/metrics.ts": {
@@ -2570,6 +2930,71 @@
       ],
       "exports": [],
       "totalLines": 81,
+      "hasStructuralAnalysis": true
+    },
+    "tests/components/BlogCard.test.tsx": {
+      "filePath": "tests/components/BlogCard.test.tsx",
+      "contentHash": "9aeacb5d03199af365716de755873be6de01c0055331e289dc8c9aeeed15499f",
+      "functions": [
+        {
+          "name": "renderWith",
+          "params": [
+            "locale"
+          ],
+          "exported": false,
+          "lineCount": 8
+        }
+      ],
+      "classes": [],
+      "imports": [
+        {
+          "source": "vitest",
+          "specifiers": [
+            "describe",
+            "it",
+            "expect"
+          ]
+        },
+        {
+          "source": "@testing-library/react",
+          "specifiers": [
+            "render",
+            "screen"
+          ]
+        },
+        {
+          "source": "next-intl",
+          "specifiers": [
+            "NextIntlClientProvider"
+          ]
+        },
+        {
+          "source": "@/components/BlogCard",
+          "specifiers": [
+            "BlogCard"
+          ]
+        },
+        {
+          "source": "@/lib/blogs",
+          "specifiers": [
+            "Blog"
+          ]
+        },
+        {
+          "source": "@/messages/en.json",
+          "specifiers": [
+            "messagesEn"
+          ]
+        },
+        {
+          "source": "@/messages/nl.json",
+          "specifiers": [
+            "messagesNl"
+          ]
+        }
+      ],
+      "exports": [],
+      "totalLines": 50,
       "hasStructuralAnalysis": true
     },
     "tests/components/ContactForm.test.tsx": {
@@ -2926,7 +3351,7 @@
     },
     "tests/lib/articles.test.ts": {
       "filePath": "tests/lib/articles.test.ts",
-      "contentHash": "caf8a0abb0f2c1fc2fec938713c83919238e1ad7391fff506a29bdb26cc170ae",
+      "contentHash": "adfc03dd6c0d0e2c237ee56336f36e3412e0df7ec7b7d467acee98a3f31a0c24",
       "functions": [],
       "classes": [],
       "imports": [
@@ -2952,7 +3377,48 @@
         }
       ],
       "exports": [],
-      "totalLines": 41,
+      "totalLines": 58,
+      "hasStructuralAnalysis": true
+    },
+    "tests/lib/blogs.test.ts": {
+      "filePath": "tests/lib/blogs.test.ts",
+      "contentHash": "ac6db799f14425efb78b88c033df18272f6af2b905feef139dbc0b6312b294ed",
+      "functions": [
+        {
+          "name": "fixture",
+          "params": [
+            "name"
+          ],
+          "exported": false,
+          "lineCount": 1
+        }
+      ],
+      "classes": [],
+      "imports": [
+        {
+          "source": "vitest",
+          "specifiers": [
+            "describe",
+            "it",
+            "expect"
+          ]
+        },
+        {
+          "source": "node:path",
+          "specifiers": [
+            "path"
+          ]
+        },
+        {
+          "source": "@/lib/blogs",
+          "specifiers": [
+            "getBlogs",
+            "getBlogBySlug"
+          ]
+        }
+      ],
+      "exports": [],
+      "totalLines": 87,
       "hasStructuralAnalysis": true
     },
     "tests/lib/email.test.ts": {
@@ -2983,14 +3449,194 @@
       "totalLines": 53,
       "hasStructuralAnalysis": true
     },
-    "tests/lib/fixtures/news-bad-url/2026-05-12-baduri.md": {
-      "filePath": "tests/lib/fixtures/news-bad-url/2026-05-12-baduri.md",
-      "contentHash": "7c67c4ce24c3bedaa52747ca8fb442e270ea94c6ceafab443550e07831cdb32e",
+    "tests/lib/fixtures/blogs-author-mismatch/post.en.md": {
+      "filePath": "tests/lib/fixtures/blogs-author-mismatch/post.en.md",
+      "contentHash": "7bb7ed4820d97efe3d9e6c0bb3ffbdf5063a0a1d7f953ca804e7ee5d1f3c6523",
       "functions": [],
       "classes": [],
       "imports": [],
       "exports": [],
-      "totalLines": 9,
+      "totalLines": 7,
+      "hasStructuralAnalysis": true
+    },
+    "tests/lib/fixtures/blogs-author-mismatch/post.nl.md": {
+      "filePath": "tests/lib/fixtures/blogs-author-mismatch/post.nl.md",
+      "contentHash": "b7f2e89231244c9e44a79ba8912513e88910f69d3cf72bc17fd235a9ef7e412b",
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 7,
+      "hasStructuralAnalysis": true
+    },
+    "tests/lib/fixtures/blogs-date-mismatch/post.en.md": {
+      "filePath": "tests/lib/fixtures/blogs-date-mismatch/post.en.md",
+      "contentHash": "66d94a64820c1c4b4837f83f896670559e886a75c73ae9d80c353ab7395219f1",
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 6,
+      "hasStructuralAnalysis": true
+    },
+    "tests/lib/fixtures/blogs-date-mismatch/post.nl.md": {
+      "filePath": "tests/lib/fixtures/blogs-date-mismatch/post.nl.md",
+      "contentHash": "732d64feb7a0ddc8b1de73380166c450a5cb1fd9025bdb44c6a8829b822b055d",
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 6,
+      "hasStructuralAnalysis": true
+    },
+    "tests/lib/fixtures/blogs-empty/.gitkeep": {
+      "filePath": "tests/lib/fixtures/blogs-empty/.gitkeep",
+      "contentHash": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 1,
+      "hasStructuralAnalysis": false
+    },
+    "tests/lib/fixtures/blogs-image-mismatch/post.en.md": {
+      "filePath": "tests/lib/fixtures/blogs-image-mismatch/post.en.md",
+      "contentHash": "fadc788c49cc0572d7557508bd55bd76832dee0d36dc032001633f89ff446d17",
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 7,
+      "hasStructuralAnalysis": true
+    },
+    "tests/lib/fixtures/blogs-image-mismatch/post.nl.md": {
+      "filePath": "tests/lib/fixtures/blogs-image-mismatch/post.nl.md",
+      "contentHash": "56ecbf06279afb06c532c6ca77e56e78871aa2fba63ec98ee2b07f04b2aa2168",
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 7,
+      "hasStructuralAnalysis": true
+    },
+    "tests/lib/fixtures/blogs-missing-field/post.en.md": {
+      "filePath": "tests/lib/fixtures/blogs-missing-field/post.en.md",
+      "contentHash": "1d7193482b13371067c152f5f6d66f28acacc887d87e47a4215bdee45e3fd8d4",
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 6,
+      "hasStructuralAnalysis": true
+    },
+    "tests/lib/fixtures/blogs-missing-field/post.nl.md": {
+      "filePath": "tests/lib/fixtures/blogs-missing-field/post.nl.md",
+      "contentHash": "00666c0aed42deffe8b52958b8a32d1c6625d5ee5185a295eafd662299239558",
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 5,
+      "hasStructuralAnalysis": true
+    },
+    "tests/lib/fixtures/blogs-missing-locale/lonely.nl.md": {
+      "filePath": "tests/lib/fixtures/blogs-missing-locale/lonely.nl.md",
+      "contentHash": "c4342011cd4385d4c5636a2c739d659da917d47353b46b568f0d583d3c1fa2cc",
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 6,
+      "hasStructuralAnalysis": true
+    },
+    "tests/lib/fixtures/blogs-no-frontmatter/post.en.md": {
+      "filePath": "tests/lib/fixtures/blogs-no-frontmatter/post.en.md",
+      "contentHash": "637916e6db52ff2ff20081c4ed4cf74934cb0f71cf8de762e2c49ae00b063780",
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 2,
+      "hasStructuralAnalysis": true
+    },
+    "tests/lib/fixtures/blogs-no-frontmatter/post.nl.md": {
+      "filePath": "tests/lib/fixtures/blogs-no-frontmatter/post.nl.md",
+      "contentHash": "e61158ce1f18948ef4159552833ccfb0f360700213c3423a8877a53318787c99",
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 2,
+      "hasStructuralAnalysis": true
+    },
+    "tests/lib/fixtures/blogs-tags-mismatch/post.en.md": {
+      "filePath": "tests/lib/fixtures/blogs-tags-mismatch/post.en.md",
+      "contentHash": "04162798cc12e7a120896b652d34a597711655674f1429c8f3b8f05b079d0a55",
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 7,
+      "hasStructuralAnalysis": true
+    },
+    "tests/lib/fixtures/blogs-tags-mismatch/post.nl.md": {
+      "filePath": "tests/lib/fixtures/blogs-tags-mismatch/post.nl.md",
+      "contentHash": "c325bb337e7a0b9d87afd49c7b767e58dfbfe3bf35e653feea8564bdc6a16399",
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 7,
+      "hasStructuralAnalysis": true
+    },
+    "tests/lib/fixtures/blogs-valid/2026-04-28-bar.en.md": {
+      "filePath": "tests/lib/fixtures/blogs-valid/2026-04-28-bar.en.md",
+      "contentHash": "07d9a697bc8c22e61c8bdaf45920a142a0d0291d3956a947d91291a64dbe136c",
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 6,
+      "hasStructuralAnalysis": true
+    },
+    "tests/lib/fixtures/blogs-valid/2026-04-28-bar.nl.md": {
+      "filePath": "tests/lib/fixtures/blogs-valid/2026-04-28-bar.nl.md",
+      "contentHash": "c74c9fde7a8fb2057025c43becce5eb18a2ca16b252a62eb54a3815a5d6afd69",
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 6,
+      "hasStructuralAnalysis": true
+    },
+    "tests/lib/fixtures/blogs-valid/2026-05-12-foo.en.md": {
+      "filePath": "tests/lib/fixtures/blogs-valid/2026-05-12-foo.en.md",
+      "contentHash": "032077c96931e007ce14b09b8bbdc617dc672c58c872242915a4599e7c8f092d",
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 8,
+      "hasStructuralAnalysis": true
+    },
+    "tests/lib/fixtures/blogs-valid/2026-05-12-foo.nl.md": {
+      "filePath": "tests/lib/fixtures/blogs-valid/2026-05-12-foo.nl.md",
+      "contentHash": "ab5a8881517f51ee5c081a6c250873fb12dc4ab344a6885d3472ab405d7d45dc",
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 8,
+      "hasStructuralAnalysis": true
+    },
+    "tests/lib/fixtures/news-bad-url/2026-05-12-baduri.md": {
+      "filePath": "tests/lib/fixtures/news-bad-url/2026-05-12-baduri.md",
+      "contentHash": "0431698d615d7743cc0f2f0deee32636ba37b7c704a96ca25dd43eb486e1143e",
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 10,
       "hasStructuralAnalysis": true
     },
     "tests/lib/fixtures/news-empty/.gitkeep": {
@@ -3003,34 +3649,54 @@
       "totalLines": 1,
       "hasStructuralAnalysis": false
     },
-    "tests/lib/fixtures/news-missing-field/2026-05-12-missing.md": {
-      "filePath": "tests/lib/fixtures/news-missing-field/2026-05-12-missing.md",
-      "contentHash": "7ba254ca277b3d0265573074c83d8436a3529dadd25f37aab2ef3acd2f434b92",
+    "tests/lib/fixtures/news-image-override/2026-05-12-override.md": {
+      "filePath": "tests/lib/fixtures/news-image-override/2026-05-12-override.md",
+      "contentHash": "1500e9be8504999ca6170049e332d9e5d5723c333dbbdeb155a6656f9407d64b",
       "functions": [],
       "classes": [],
       "imports": [],
       "exports": [],
-      "totalLines": 8,
+      "totalLines": 11,
+      "hasStructuralAnalysis": true
+    },
+    "tests/lib/fixtures/news-missing-field/2026-05-12-missing.md": {
+      "filePath": "tests/lib/fixtures/news-missing-field/2026-05-12-missing.md",
+      "contentHash": "685ca152e658accf5fa6a8d7512cbbc38a5055b2a53288548d45cd0cacf721e9",
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 9,
+      "hasStructuralAnalysis": true
+    },
+    "tests/lib/fixtures/news-missing-source-url/2026-05-12-no-source.md": {
+      "filePath": "tests/lib/fixtures/news-missing-source-url/2026-05-12-no-source.md",
+      "contentHash": "04bb05911bb06a76fd5c7d24bdfbdc201b98b347a980f6ff87c13ba80b219430",
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 9,
       "hasStructuralAnalysis": true
     },
     "tests/lib/fixtures/news-valid/2026-04-28-bar.md": {
       "filePath": "tests/lib/fixtures/news-valid/2026-04-28-bar.md",
-      "contentHash": "e0ada0ac4f6ee14fa4ddc26aa8d625e9eae40d3f3b59064ed9acdca31be9c023",
+      "contentHash": "c9645784d167e192e6e63663aedf197532f78b5f1d3339901810c8f727d2daa1",
       "functions": [],
       "classes": [],
       "imports": [],
       "exports": [],
-      "totalLines": 9,
+      "totalLines": 10,
       "hasStructuralAnalysis": true
     },
     "tests/lib/fixtures/news-valid/2026-05-12-foo.md": {
       "filePath": "tests/lib/fixtures/news-valid/2026-05-12-foo.md",
-      "contentHash": "64a2d3cc3c78f5741f10135f9ffc679061350b56203e2960f53240a3a16ba47b",
+      "contentHash": "ca8b52eca28e1a3c3450f8133c835a2304899af25efc652c1a5c8512c1866806",
       "functions": [],
       "classes": [],
       "imports": [],
       "exports": [],
-      "totalLines": 9,
+      "totalLines": 10,
       "hasStructuralAnalysis": true
     },
     "tests/lib/parseFrontmatter.test.ts": {
@@ -3134,6 +3800,71 @@
       ],
       "exports": [],
       "totalLines": 39,
+      "hasStructuralAnalysis": true
+    },
+    "tests/scripts/fetch-article-images.test.ts": {
+      "filePath": "tests/scripts/fetch-article-images.test.ts",
+      "contentHash": "30286f35efe18c33ee0de7bed227fd3b3dc229c0926c74e30ff4efae35b429dc",
+      "functions": [
+        {
+          "name": "makeWorkspace",
+          "params": [
+            "trusted"
+          ],
+          "exported": false,
+          "lineCount": 8
+        },
+        {
+          "name": "mockImageFetch",
+          "params": [
+            "responses"
+          ],
+          "exported": false,
+          "lineCount": 32
+        }
+      ],
+      "classes": [],
+      "imports": [
+        {
+          "source": "vitest",
+          "specifiers": [
+            "describe",
+            "it",
+            "expect",
+            "vi",
+            "beforeEach",
+            "afterEach"
+          ]
+        },
+        {
+          "source": "node:fs",
+          "specifiers": [
+            "fs"
+          ]
+        },
+        {
+          "source": "node:path",
+          "specifiers": [
+            "path"
+          ]
+        },
+        {
+          "source": "node:os",
+          "specifiers": [
+            "os"
+          ]
+        },
+        {
+          "source": "@/scripts/fetch-article-images",
+          "specifiers": [
+            "fetchArticleImage",
+            "isTrusted",
+            "loadTrusted"
+          ]
+        }
+      ],
+      "exports": [],
+      "totalLines": 286,
       "hasStructuralAnalysis": true
     },
     "tsconfig.json": {
