@@ -109,9 +109,6 @@ importers:
       eslint-plugin-security:
         specifier: ^4.0.0
         version: 4.0.0
-      ipaddr.js:
-        specifier: ^2.4.0
-        version: 2.4.0
       jsdom:
         specifier: ^29.1.1
         version: 29.1.1
@@ -2418,10 +2415,6 @@ packages:
 
   intl-messageformat@11.2.5:
     resolution: {integrity: sha512-zaROHiUsnlSFXVypU54AsQuAm3DLmmSH8KfDhiUuG1XZ9NTQ4o3xlxIJYVNmeWAklyp3CWg0lhexNUnee8PsYQ==}
-
-  ipaddr.js@2.4.0:
-    resolution: {integrity: sha512-9VGk3HGanVE6JoZXHiCpnGy5X0jYDnN4EA4lntFPj+1vIWlFhIylq2CrrCOJH9EAhc5CYhq18F2Av2tgoAPsYQ==}
-    engines: {node: '>= 10'}
 
   is-array-buffer@3.0.5:
     resolution: {integrity: sha512-DDfANUiiG2wC1qawP66qlTugJeL5HyzMpfr8lLK+jMQirGzNod0B12cFB/9q838Ru27sBwfw78/rdoU7RERz6A==}
@@ -6030,8 +6023,6 @@ snapshots:
     dependencies:
       '@formatjs/fast-memoize': 3.1.5
       '@formatjs/icu-messageformat-parser': 3.5.8
-
-  ipaddr.js@2.4.0: {}
 
   is-array-buffer@3.0.5:
     dependencies:
