@@ -8,6 +8,9 @@ export default defineConfig({
     url: 'http://localhost:3000/nl',
     reuseExistingServer: !process.env.CI,
     timeout: 120_000,
+    env: {
+      BLOGS_ENABLED: 'true',
+    },
   },
   use: { baseURL: 'http://localhost:3000', locale: 'nl-NL' },
   projects: [

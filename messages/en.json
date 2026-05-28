@@ -267,14 +267,17 @@
     "title": "articles",
     "intro": "External articles we wrote or recommend. Each one links out to its original home.",
     "readExternal": "read on external site ",
-    "emptyState": "no articles yet"
-  },
-  "blogs": {
-    "title": "blogs",
-    "intro": "Blogs written by us for you",
-    "emptyState": "No blogs yet",
-    "readMore": "read post",
-    "backLink": "← back to articles"
+    "emptyState": "no articles yet",
+    "filter": {
+      "ariaLabel": "article filter",
+      "all": "all",
+      "blogs": "blogs",
+      "articles": "articles"
+    },
+    "type": {
+      "blog": "blog",
+      "article": "article"
+    }
   },
   "contact": {
     "title": "Contact",
