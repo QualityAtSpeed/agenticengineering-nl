@@ -31,7 +31,7 @@ nvm use                   # picks Node 20 from .nvmrc
 corepack enable           # provides pnpm 9
 pnpm install
 pnpm exec playwright install   # one-time, only if you'll run e2e
-cp .env.example .env.local     # only needed to test contact form locally
+cp .env.example .env.local     # required: copy and fill in for local dev (contact form + feature flags)
 pnpm dev                  # http://localhost:3000 → redirects to /nl
 ```
 
@@ -108,11 +108,18 @@ A pre-commit `lefthook` hook runs `format` + `lint`. Don't bypass with `--no-ver
 
 ## Environment variables
 
-| Key                  | Scope  | Purpose                                                                                                      |
-| -------------------- | ------ | ------------------------------------------------------------------------------------------------------------ |
-| `RESEND_API_KEY`     | server | Auth for Resend API (40+ char `re_...` token). Never a placeholder. Separate key per env.                    |
-| `CONTACT_FROM_EMAIL` | server | FROM address on outbound mail. Must be on a Resend-verified domain. Currently `hello@agenticengineering.nl`. |
-| `CONTACT_EMAIL`      | server | TO address (inbox that receives form submissions). Differs by env (see Preview section below).               |
+Copy `.env.example` to `.env.local` and fill in the keys you need. Everything except the contact-form keys has a safe default when unset.
+
+```bash
+cp .env.example .env.local
+```
+
+| Key                  | Scope  | Purpose                                                                                                                                                      |
+| -------------------- | ------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| `RESEND_API_KEY`     | server | Auth for Resend API (40+ char `re_...` token). Never a placeholder. Separate key per env.                                                                    |
+| `CONTACT_FROM_EMAIL` | server | FROM address on outbound mail. Must be on a Resend-verified domain. Currently `hello@agenticengineering.nl`.                                                 |
+| `CONTACT_EMAIL`      | server | TO address (inbox that receives form submissions). Differs by env (see Preview section below).                                                               |
+| `BLOGS_ENABLED`      | server | Feature flag for blog entries on `/articles`. Set to `'true'` to show blog entries and the all/blogs/articles filter bar. Unset/empty hides both. See below. |
 
 All three are set in **Production** and **Preview** scopes (Development scope is intentionally empty — local dev uses `.env.local`). Set via Vercel CLI or UI:
 
@@ -129,6 +136,24 @@ vercel env add CONTACT_EMAIL preview
 Or paste real values in Vercel UI → Project → Settings → Environment Variables. After editing, redeploy (`vercel --prod` for production, or push a branch for preview) for new values to land in the function.
 
 Local dev does not need these (contact form requires them at runtime). For local mail testing, create `.env.local` with the same keys.
+
+### Feature flags
+
+`BLOGS_ENABLED` gates the blog feature on `/articles`. Implementation in `lib/flags.ts`.
+
+| Value                         | Behavior                                                                                                |
+| ----------------------------- | ------------------------------------------------------------------------------------------------------- |
+| `'true'`                      | Blog entries (frontmatter `type: blog`) appear on `/articles`; filter bar (all/blogs/articles) renders. |
+| unset / empty / anything else | Blog entries are filtered out; filter bar is hidden entirely.                                           |
+
+Production stays gated until launch. To preview the flag locally, set `BLOGS_ENABLED=true` in `.env.local` (or inline: `BLOGS_ENABLED=true pnpm dev`). Playwright e2e already sets it via `playwright.config.ts` so the filter-bar tests run.
+
+When flipping the flag on in Vercel, set it for the relevant scope:
+
+```bash
+vercel env add BLOGS_ENABLED preview     # paste: true
+vercel env add BLOGS_ENABLED production  # paste: true (when ready to launch)
+```
 
 ## Contact form pipeline
 
