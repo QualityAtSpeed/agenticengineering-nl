@@ -1,0 +1,3925 @@
+{
+  "version": "1.0.0",
+  "gitCommitHash": "da549737ba4a97f3825f0be90d88b218b619b8f6",
+  "generatedAt": "2026-05-27T14:25:05.962Z",
+  "files": {
+    ".claude/settings.json": {
+      "filePath": ".claude/settings.json",
+      "contentHash": "e2f21f6af7913c63b86629d38d6d00d34519fed4689e7dd50bac6bb2322d07a6",
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 6,
+      "hasStructuralAnalysis": true
+    },
+    ".claude/skills/blog-creator/SKILL.md": {
+      "filePath": ".claude/skills/blog-creator/SKILL.md",
+      "contentHash": "5726ad57807438742832c4268e185b66a1f70ab8ee3af9766590f37579080353",
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 108,
+      "hasStructuralAnalysis": true
+    },
+    ".claude/skills/new-article/PLACE-NEWS-ARTICLE.md": {
+      "filePath": ".claude/skills/new-article/PLACE-NEWS-ARTICLE.md",
+      "contentHash": "4f0fb993e2d60a022cdd9f9e6aff12eafff40eb78c3b57f3d3e18443b5bd8241",
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 160,
+      "hasStructuralAnalysis": true
+    },
+    ".env.example": {
+      "filePath": ".env.example",
+      "contentHash": "f93e0e1bda9f29f66870235f8b59fc700ad4742857085f14f6018d37fc60f697",
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 13,
+      "hasStructuralAnalysis": true
+    },
+    ".github/workflows/ci.yml": {
+      "filePath": ".github/workflows/ci.yml",
+      "contentHash": "3a6c32af993a2e2154f0c61b79d4d5b350be3ff30a36edc70b590205bead74dc",
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 87,
+      "hasStructuralAnalysis": true
+    },
+    ".github/workflows/metrics.yml": {
+      "filePath": ".github/workflows/metrics.yml",
+      "contentHash": "bbcfb7bf6990e10946c6042556c58869e313ef26c5523bd93c6fa6e86f4612b0",
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 28,
+      "hasStructuralAnalysis": true
+    },
+    ".github/workflows/mutation.yml": {
+      "filePath": ".github/workflows/mutation.yml",
+      "contentHash": "4b2f41a812c9d91154a1a40e16ab231a2268cbdc0d938d995aaa51b22b5e0106",
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 32,
+      "hasStructuralAnalysis": true
+    },
+    ".github/workflows/post-deploy-smoke.yml": {
+      "filePath": ".github/workflows/post-deploy-smoke.yml",
+      "contentHash": "4af79f8216297e7c13b184f8c7b47ea2c67e589cfbdb068bea709f055e1cabbe",
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 33,
+      "hasStructuralAnalysis": true
+    },
+    ".github/workflows/prod-monitor.yml": {
+      "filePath": ".github/workflows/prod-monitor.yml",
+      "contentHash": "c42b4d2f047e9058fafe36b48435e99663e9cc003bb7dd9871f11e943d080341",
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 80,
+      "hasStructuralAnalysis": true
+    },
+    ".github/workflows/safari.yml": {
+      "filePath": ".github/workflows/safari.yml",
+      "contentHash": "a6d2469849cd8626d87b04bce3f2b826c9db85e55036d4c6fc314273392b5ec5",
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 37,
+      "hasStructuralAnalysis": true
+    },
+    ".impeccable/live/config.json": {
+      "filePath": ".impeccable/live/config.json",
+      "contentHash": "5a1344054a8883b471c5b5546df9b7a5305fc3c5af53d23969d23aab64b002df",
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 7,
+      "hasStructuralAnalysis": true
+    },
+    ".npmrc": {
+      "filePath": ".npmrc",
+      "contentHash": "7a8aa88ec254540ce07d5c9a8aa6cca3b4af78135533c9a15b928223127bcfc1",
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 4,
+      "hasStructuralAnalysis": false
+    },
+    ".nvmrc": {
+      "filePath": ".nvmrc",
+      "contentHash": "5378796307535df3ec8d8b15a2e2dc5641419c3d3060cfe32238c0fa973f7aa3",
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 2,
+      "hasStructuralAnalysis": false
+    },
+    ".prettierignore": {
+      "filePath": ".prettierignore",
+      "contentHash": "713a005fb0167a1a309c69495c72cc1280a081a8ac506ad4455f042e4ff66ff5",
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 8,
+      "hasStructuralAnalysis": false
+    },
+    "app/[locale]/about/page.tsx": {
+      "filePath": "app/[locale]/about/page.tsx",
+      "contentHash": "9fce433a9448931dac1ec195b0951539007c14a7411be3f6316b3c2b3321ca2d",
+      "functions": [
+        {
+          "name": "About",
+          "params": [
+            "{ params }"
+          ],
+          "exported": true,
+          "lineCount": 21
+        }
+      ],
+      "classes": [],
+      "imports": [
+        {
+          "source": "next-intl/server",
+          "specifiers": [
+            "setRequestLocale",
+            "getTranslations"
+          ]
+        },
+        {
+          "source": "@/components/InstructorCard",
+          "specifiers": [
+            "InstructorCard"
+          ]
+        },
+        {
+          "source": "@/data/instructors",
+          "specifiers": [
+            "instructors"
+          ]
+        },
+        {
+          "source": "@/i18n/routing",
+          "specifiers": [
+            "Locale"
+          ]
+        }
+      ],
+      "exports": [
+        "About"
+      ],
+      "totalLines": 27,
+      "hasStructuralAnalysis": true
+    },
+    "app/[locale]/articles/[slug]/page.tsx": {
+      "filePath": "app/[locale]/articles/[slug]/page.tsx",
+      "contentHash": "0e44d8949d309f8e8d75fc6f37d902697aae1a3933f694a653b4767db9622ab0",
+      "functions": [
+        {
+          "name": "generateStaticParams",
+          "params": [],
+          "exported": true,
+          "lineCount": 4
+        },
+        {
+          "name": "BlogPostPage",
+          "params": [
+            "{\n  params,\n}"
+          ],
+          "exported": true,
+          "lineCount": 33
+        }
+      ],
+      "classes": [],
+      "imports": [
+        {
+          "source": "next-intl/server",
+          "specifiers": [
+            "setRequestLocale",
+            "getTranslations"
+          ]
+        },
+        {
+          "source": "next/navigation",
+          "specifiers": [
+            "notFound"
+          ]
+        },
+        {
+          "source": "next/link",
+          "specifiers": [
+            "Link"
+          ]
+        },
+        {
+          "source": "@/lib/blogs",
+          "specifiers": [
+            "getBlogs",
+            "getBlogBySlug"
+          ]
+        },
+        {
+          "source": "@/i18n/routing",
+          "specifiers": [
+            "routing",
+            "Locale"
+          ]
+        }
+      ],
+      "exports": [
+        "dynamicParams",
+        "generateStaticParams",
+        "BlogPostPage"
+      ],
+      "totalLines": 47,
+      "hasStructuralAnalysis": true
+    },
+    "app/[locale]/articles/page.tsx": {
+      "filePath": "app/[locale]/articles/page.tsx",
+      "contentHash": "1b4e1e61c601e681dbd978d14bba9043fe5aa5364dfd594b6d4da1fdd5852a1b",
+      "functions": [
+        {
+          "name": "ArticlesPage",
+          "params": [
+            "{ params }"
+          ],
+          "exported": true,
+          "lineCount": 36
+        }
+      ],
+      "classes": [],
+      "imports": [
+        {
+          "source": "next-intl/server",
+          "specifiers": [
+            "setRequestLocale",
+            "getTranslations"
+          ]
+        },
+        {
+          "source": "@/components/TimelineEntry",
+          "specifiers": [
+            "TimelineEntryRow",
+            "TimelineEntry"
+          ]
+        },
+        {
+          "source": "@/lib/articles",
+          "specifiers": [
+            "getArticles"
+          ]
+        },
+        {
+          "source": "@/lib/blogs",
+          "specifiers": [
+            "getBlogs"
+          ]
+        },
+        {
+          "source": "@/i18n/routing",
+          "specifiers": [
+            "Locale"
+          ]
+        }
+      ],
+      "exports": [
+        "ArticlesPage"
+      ],
+      "totalLines": 43,
+      "hasStructuralAnalysis": true
+    },
+    "app/[locale]/contact/page.tsx": {
+      "filePath": "app/[locale]/contact/page.tsx",
+      "contentHash": "abd768ab554f476bcbff0a324032b775e177d4568de63b0cf2b2210242bdc9f9",
+      "functions": [
+        {
+          "name": "ContactPage",
+          "params": [
+            "{ params, searchParams }"
+          ],
+          "exported": true,
+          "lineCount": 20
+        }
+      ],
+      "classes": [],
+      "imports": [
+        {
+          "source": "next-intl/server",
+          "specifiers": [
+            "setRequestLocale",
+            "getTranslations"
+          ]
+        },
+        {
+          "source": "@/components/ContactForm",
+          "specifiers": [
+            "ContactForm"
+          ]
+        },
+        {
+          "source": "@/i18n/routing",
+          "specifiers": [
+            "Locale"
+          ]
+        }
+      ],
+      "exports": [
+        "ContactPage"
+      ],
+      "totalLines": 30,
+      "hasStructuralAnalysis": true
+    },
+    "app/[locale]/impressum/page.tsx": {
+      "filePath": "app/[locale]/impressum/page.tsx",
+      "contentHash": "180a15c1c08d171c5170846b00aa177690e9b16a62a3eba204e11c7c10380bd2",
+      "functions": [
+        {
+          "name": "Impressum",
+          "params": [
+            "{ params }"
+          ],
+          "exported": true,
+          "lineCount": 23
+        },
+        {
+          "name": "Row",
+          "params": [
+            "{ label, value }"
+          ],
+          "exported": false,
+          "lineCount": 8
+        }
+      ],
+      "classes": [],
+      "imports": [
+        {
+          "source": "next-intl/server",
+          "specifiers": [
+            "setRequestLocale",
+            "getTranslations"
+          ]
+        },
+        {
+          "source": "@/i18n/routing",
+          "specifiers": [
+            "Locale"
+          ]
+        }
+      ],
+      "exports": [
+        "Impressum"
+      ],
+      "totalLines": 36,
+      "hasStructuralAnalysis": true
+    },
+    "app/[locale]/layout.tsx": {
+      "filePath": "app/[locale]/layout.tsx",
+      "contentHash": "2e8c0459d4793c802f854056c7d51631e357f2185884aa31eefbf52679472609",
+      "functions": [
+        {
+          "name": "generateStaticParams",
+          "params": [],
+          "exported": true,
+          "lineCount": 3
+        },
+        {
+          "name": "generateMetadata",
+          "params": [
+            "{ params }"
+          ],
+          "exported": true,
+          "lineCount": 22
+        },
+        {
+          "name": "LocaleLayout",
+          "params": [
+            "{\n  children,\n  params,\n}"
+          ],
+          "exported": true,
+          "lineCount": 30
+        }
+      ],
+      "classes": [],
+      "imports": [
+        {
+          "source": "../globals.css",
+          "specifiers": []
+        },
+        {
+          "source": "react",
+          "specifiers": [
+            "ReactNode"
+          ]
+        },
+        {
+          "source": "next/navigation",
+          "specifiers": [
+            "notFound"
+          ]
+        },
+        {
+          "source": "next-intl",
+          "specifiers": [
+            "NextIntlClientProvider",
+            "hasLocale"
+          ]
+        },
+        {
+          "source": "next-intl/server",
+          "specifiers": [
+            "getTranslations",
+            "setRequestLocale"
+          ]
+        },
+        {
+          "source": "next/font/google",
+          "specifiers": [
+            "Inter",
+            "JetBrains_Mono"
+          ]
+        },
+        {
+          "source": "@/i18n/routing",
+          "specifiers": [
+            "routing",
+            "Locale"
+          ]
+        },
+        {
+          "source": "@/components/Nav",
+          "specifiers": [
+            "Nav"
+          ]
+        },
+        {
+          "source": "@/components/Footer",
+          "specifiers": [
+            "Footer"
+          ]
+        }
+      ],
+      "exports": [
+        "generateStaticParams",
+        "generateMetadata",
+        "LocaleLayout"
+      ],
+      "totalLines": 75,
+      "hasStructuralAnalysis": true
+    },
+    "app/[locale]/not-found.tsx": {
+      "filePath": "app/[locale]/not-found.tsx",
+      "contentHash": "029f32812642cde69c7d284251db5fe07f70fb9896ec4ba97225f274cd65db87",
+      "functions": [
+        {
+          "name": "NotFound",
+          "params": [],
+          "exported": true,
+          "lineCount": 7
+        }
+      ],
+      "classes": [],
+      "imports": [],
+      "exports": [
+        "NotFound"
+      ],
+      "totalLines": 8,
+      "hasStructuralAnalysis": true
+    },
+    "app/[locale]/opengraph-image.tsx": {
+      "filePath": "app/[locale]/opengraph-image.tsx",
+      "contentHash": "68b3e022d2ffa68d2c96065089ca044291a677c181f6075620e55f8df97f25b4",
+      "functions": [
+        {
+          "name": "Image",
+          "params": [
+            "{ params }"
+          ],
+          "exported": true,
+          "lineCount": 45
+        }
+      ],
+      "classes": [],
+      "imports": [
+        {
+          "source": "next/og",
+          "specifiers": [
+            "ImageResponse"
+          ]
+        },
+        {
+          "source": "next-intl/server",
+          "specifiers": [
+            "getTranslations"
+          ]
+        },
+        {
+          "source": "@/i18n/routing",
+          "specifiers": [
+            "Locale"
+          ]
+        }
+      ],
+      "exports": [
+        "runtime",
+        "alt",
+        "size",
+        "contentType",
+        "Image"
+      ],
+      "totalLines": 55,
+      "hasStructuralAnalysis": true
+    },
+    "app/[locale]/page.tsx": {
+      "filePath": "app/[locale]/page.tsx",
+      "contentHash": "825bf317007885c9d434b1486459a36959979765d4e4478a8789757e56b6cbbb",
+      "functions": [
+        {
+          "name": "Home",
+          "params": [
+            "{ params }"
+          ],
+          "exported": true,
+          "lineCount": 96
+        }
+      ],
+      "classes": [],
+      "imports": [
+        {
+          "source": "next/link",
+          "specifiers": [
+            "Link"
+          ]
+        },
+        {
+          "source": "next-intl/server",
+          "specifiers": [
+            "setRequestLocale",
+            "getTranslations"
+          ]
+        },
+        {
+          "source": "@/components/Hero",
+          "specifiers": [
+            "Hero"
+          ]
+        },
+        {
+          "source": "@/components/TrainingCard",
+          "specifiers": [
+            "TrainingCard"
+          ]
+        },
+        {
+          "source": "@/components/TrainingDetail",
+          "specifiers": [
+            "TrainingDetail"
+          ]
+        },
+        {
+          "source": "@/components/ProofStrip",
+          "specifiers": [
+            "ProofStrip"
+          ]
+        },
+        {
+          "source": "@/components/InstructorCard",
+          "specifiers": [
+            "InstructorCard"
+          ]
+        },
+        {
+          "source": "@/components/JsonLd",
+          "specifiers": [
+            "JsonLd"
+          ]
+        },
+        {
+          "source": "@/data/instructors",
+          "specifiers": [
+            "instructors"
+          ]
+        },
+        {
+          "source": "@/data/trainings",
+          "specifiers": [
+            "trainings"
+          ]
+        },
+        {
+          "source": "@/i18n/routing",
+          "specifiers": [
+            "Locale"
+          ]
+        }
+      ],
+      "exports": [
+        "Home"
+      ],
+      "totalLines": 109,
+      "hasStructuralAnalysis": true
+    },
+    "app/api/contact/route.ts": {
+      "filePath": "app/api/contact/route.ts",
+      "contentHash": "15554be9c72193bd78baa6194cf70d8750483286558cd87883b0024b14131512",
+      "functions": [
+        {
+          "name": "isAllowedOrigin",
+          "params": [
+            "origin"
+          ],
+          "returnType": "boolean",
+          "exported": false,
+          "lineCount": 4
+        },
+        {
+          "name": "clientIp",
+          "params": [
+            "req"
+          ],
+          "returnType": "string",
+          "exported": false,
+          "lineCount": 13
+        },
+        {
+          "name": "POST",
+          "params": [
+            "req"
+          ],
+          "exported": true,
+          "lineCount": 42
+        }
+      ],
+      "classes": [],
+      "imports": [
+        {
+          "source": "next/server",
+          "specifiers": [
+            "NextResponse"
+          ]
+        },
+        {
+          "source": "@/lib/validation",
+          "specifiers": [
+            "contactSchema"
+          ]
+        },
+        {
+          "source": "@/lib/email",
+          "specifiers": [
+            "sendContactEmail"
+          ]
+        },
+        {
+          "source": "@/lib/rate-limit",
+          "specifiers": [
+            "checkRateLimit"
+          ]
+        }
+      ],
+      "exports": [
+        "POST",
+        "runtime"
+      ],
+      "totalLines": 75,
+      "hasStructuralAnalysis": true
+    },
+    "app/globals.css": {
+      "filePath": "app/globals.css",
+      "contentHash": "dcf59bd26c7e3a732c27e4c65b41570ac0d95727a9f89d492baef185f9e8c3f4",
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 43,
+      "hasStructuralAnalysis": false
+    },
+    "app/robots.ts": {
+      "filePath": "app/robots.ts",
+      "contentHash": "27de9272c6b9032a873fd03ef0ff58a88d39777cf7c0be45dd9f49a3f24eec80",
+      "functions": [
+        {
+          "name": "robots",
+          "params": [],
+          "returnType": "MetadataRoute.Robots",
+          "exported": true,
+          "lineCount": 7
+        }
+      ],
+      "classes": [],
+      "imports": [
+        {
+          "source": "next",
+          "specifiers": [
+            "MetadataRoute"
+          ]
+        }
+      ],
+      "exports": [
+        "robots"
+      ],
+      "totalLines": 10,
+      "hasStructuralAnalysis": true
+    },
+    "app/sitemap.ts": {
+      "filePath": "app/sitemap.ts",
+      "contentHash": "eac7154afbcfb0bc0fae26c69173dc1356dcf79c74b039f28aeab01fc4fb1503",
+      "functions": [
+        {
+          "name": "sitemap",
+          "params": [],
+          "returnType": "MetadataRoute.Sitemap",
+          "exported": true,
+          "lineCount": 12
+        }
+      ],
+      "classes": [],
+      "imports": [
+        {
+          "source": "next",
+          "specifiers": [
+            "MetadataRoute"
+          ]
+        },
+        {
+          "source": "@/i18n/routing",
+          "specifiers": [
+            "routing"
+          ]
+        }
+      ],
+      "exports": [
+        "sitemap"
+      ],
+      "totalLines": 19,
+      "hasStructuralAnalysis": true
+    },
+    "components/ArticleCard.tsx": {
+      "filePath": "components/ArticleCard.tsx",
+      "contentHash": "6bb5713c8664d1f4929766c24b2dce9431ac1defb5038b21dabcb4f79cf0c753",
+      "functions": [
+        {
+          "name": "ArticleCard",
+          "params": [
+            "{ article, locale }"
+          ],
+          "exported": true,
+          "lineCount": 44
+        }
+      ],
+      "classes": [],
+      "imports": [
+        {
+          "source": "next/image",
+          "specifiers": [
+            "Image"
+          ]
+        },
+        {
+          "source": "next-intl",
+          "specifiers": [
+            "useTranslations"
+          ]
+        },
+        {
+          "source": "@/lib/articles",
+          "specifiers": [
+            "Article"
+          ]
+        }
+      ],
+      "exports": [
+        "ArticleCard"
+      ],
+      "totalLines": 49,
+      "hasStructuralAnalysis": true
+    },
+    "components/BlogCard.tsx": {
+      "filePath": "components/BlogCard.tsx",
+      "contentHash": "34629736190c3edd8c8e745f27c5f70736dc5cecd6963e669087d2a788c5c716",
+      "functions": [
+        {
+          "name": "BlogCard",
+          "params": [
+            "{ blog, locale }"
+          ],
+          "exported": true,
+          "lineCount": 21
+        }
+      ],
+      "classes": [],
+      "imports": [
+        {
+          "source": "next/link",
+          "specifiers": [
+            "Link"
+          ]
+        },
+        {
+          "source": "next-intl",
+          "specifiers": [
+            "useTranslations"
+          ]
+        },
+        {
+          "source": "@/lib/blogs",
+          "specifiers": [
+            "Blog"
+          ]
+        },
+        {
+          "source": "@/i18n/routing",
+          "specifiers": [
+            "Locale"
+          ]
+        }
+      ],
+      "exports": [
+        "BlogCard"
+      ],
+      "totalLines": 27,
+      "hasStructuralAnalysis": true
+    },
+    "components/ContactForm.tsx": {
+      "filePath": "components/ContactForm.tsx",
+      "contentHash": "2de4ba5c20c629d4a36a2d74b1ae4c006e2d09d487f19b937744eceaabb1648d",
+      "functions": [
+        {
+          "name": "ContactForm",
+          "params": [
+            "{ defaultTraining }"
+          ],
+          "exported": true,
+          "lineCount": 152
+        },
+        {
+          "name": "Field",
+          "params": [
+            "{\n  label,\n  error,\n  children,\n}"
+          ],
+          "exported": false,
+          "lineCount": 17
+        }
+      ],
+      "classes": [],
+      "imports": [
+        {
+          "source": "react",
+          "specifiers": [
+            "useState"
+          ]
+        },
+        {
+          "source": "react-hook-form",
+          "specifiers": [
+            "useForm"
+          ]
+        },
+        {
+          "source": "@hookform/resolvers/zod",
+          "specifiers": [
+            "zodResolver"
+          ]
+        },
+        {
+          "source": "next-intl",
+          "specifiers": [
+            "useTranslations"
+          ]
+        },
+        {
+          "source": "@/lib/validation",
+          "specifiers": [
+            "contactSchema",
+            "ContactInput"
+          ]
+        }
+      ],
+      "exports": [
+        "ContactForm"
+      ],
+      "totalLines": 181,
+      "hasStructuralAnalysis": true
+    },
+    "components/DayAgenda.tsx": {
+      "filePath": "components/DayAgenda.tsx",
+      "contentHash": "27c30b85dfbe9320015c59281898ce729bd1f66e785506cfe8dd68f8a6bf0acd",
+      "functions": [
+        {
+          "name": "DayAgenda",
+          "params": [
+            "{ label, modules }"
+          ],
+          "exported": true,
+          "lineCount": 19
+        }
+      ],
+      "classes": [],
+      "imports": [
+        {
+          "source": "next-intl",
+          "specifiers": [
+            "useTranslations"
+          ]
+        },
+        {
+          "source": "@/data/trainings",
+          "specifiers": [
+            "Module"
+          ]
+        }
+      ],
+      "exports": [
+        "DayAgenda"
+      ],
+      "totalLines": 23,
+      "hasStructuralAnalysis": true
+    },
+    "components/Footer.tsx": {
+      "filePath": "components/Footer.tsx",
+      "contentHash": "160096cf1efefc2357570ae34ecebc698ae80631d8617b6b584ed50ede7182d0",
+      "functions": [
+        {
+          "name": "Footer",
+          "params": [
+            "{ locale }"
+          ],
+          "exported": true,
+          "lineCount": 81
+        }
+      ],
+      "classes": [],
+      "imports": [
+        {
+          "source": "next/image",
+          "specifiers": [
+            "Image"
+          ]
+        },
+        {
+          "source": "next/link",
+          "specifiers": [
+            "Link"
+          ]
+        },
+        {
+          "source": "next-intl/server",
+          "specifiers": [
+            "getTranslations"
+          ]
+        },
+        {
+          "source": "@/i18n/routing",
+          "specifiers": [
+            "Locale"
+          ]
+        }
+      ],
+      "exports": [
+        "Footer"
+      ],
+      "totalLines": 87,
+      "hasStructuralAnalysis": true
+    },
+    "components/Hero.tsx": {
+      "filePath": "components/Hero.tsx",
+      "contentHash": "1ee57b6b0fcc9c30b3f126c79f294fc0826b45cd70da4ef0b26761423cd658f9",
+      "functions": [
+        {
+          "name": "Hero",
+          "params": [
+            "{ kicker, title, subtitle, primaryCta, secondaryCta }"
+          ],
+          "exported": true,
+          "lineCount": 29
+        }
+      ],
+      "classes": [],
+      "imports": [
+        {
+          "source": "next/link",
+          "specifiers": [
+            "Link"
+          ]
+        }
+      ],
+      "exports": [
+        "Hero"
+      ],
+      "totalLines": 40,
+      "hasStructuralAnalysis": true
+    },
+    "components/InstructorCard.tsx": {
+      "filePath": "components/InstructorCard.tsx",
+      "contentHash": "f797f2d59aae75928557baee83f19059b027e688ad1b7d83a9735475650cbff8",
+      "functions": [
+        {
+          "name": "InstructorCard",
+          "params": [
+            "{ id }"
+          ],
+          "exported": true,
+          "lineCount": 23
+        }
+      ],
+      "classes": [],
+      "imports": [
+        {
+          "source": "next/image",
+          "specifiers": [
+            "Image"
+          ]
+        },
+        {
+          "source": "next-intl",
+          "specifiers": [
+            "useTranslations"
+          ]
+        },
+        {
+          "source": "@/data/instructors",
+          "specifiers": [
+            "instructors",
+            "InstructorId"
+          ]
+        }
+      ],
+      "exports": [
+        "InstructorCard"
+      ],
+      "totalLines": 28,
+      "hasStructuralAnalysis": true
+    },
+    "components/JsonLd.tsx": {
+      "filePath": "components/JsonLd.tsx",
+      "contentHash": "b7cd4c9e4f85022df3f2417426531a9d32175d5fc02927b5e50db553110df226",
+      "functions": [
+        {
+          "name": "JsonLd",
+          "params": [
+            "{ data }"
+          ],
+          "exported": true,
+          "lineCount": 5
+        }
+      ],
+      "classes": [],
+      "imports": [],
+      "exports": [
+        "JsonLd"
+      ],
+      "totalLines": 8,
+      "hasStructuralAnalysis": true
+    },
+    "components/LangSwitcher.tsx": {
+      "filePath": "components/LangSwitcher.tsx",
+      "contentHash": "6a9c6ee9ffbddf9b324100eb468ad9b2ca435297a2fc1d3f493567e3a668e257",
+      "functions": [
+        {
+          "name": "swapLocale",
+          "params": [
+            "pathname",
+            "target"
+          ],
+          "returnType": "string",
+          "exported": false,
+          "lineCount": 8
+        },
+        {
+          "name": "LangSwitcher",
+          "params": [
+            "{ currentLocale }"
+          ],
+          "exported": true,
+          "lineCount": 23
+        }
+      ],
+      "classes": [],
+      "imports": [
+        {
+          "source": "next/link",
+          "specifiers": [
+            "Link"
+          ]
+        },
+        {
+          "source": "next/navigation",
+          "specifiers": [
+            "usePathname"
+          ]
+        },
+        {
+          "source": "next-intl",
+          "specifiers": [
+            "useTranslations"
+          ]
+        },
+        {
+          "source": "@/i18n/routing",
+          "specifiers": [
+            "routing",
+            "Locale"
+          ]
+        }
+      ],
+      "exports": [
+        "LangSwitcher"
+      ],
+      "totalLines": 42,
+      "hasStructuralAnalysis": true
+    },
+    "components/MobileMenu.tsx": {
+      "filePath": "components/MobileMenu.tsx",
+      "contentHash": "30ce09e2506d7180e32f2568dfc531acb1dcbe527ab9088244a2750410c5debf",
+      "functions": [
+        {
+          "name": "MobileMenu",
+          "params": [
+            "{ locale }"
+          ],
+          "exported": true,
+          "lineCount": 94
+        }
+      ],
+      "classes": [],
+      "imports": [
+        {
+          "source": "next/link",
+          "specifiers": [
+            "Link"
+          ]
+        },
+        {
+          "source": "next-intl",
+          "specifiers": [
+            "useTranslations"
+          ]
+        },
+        {
+          "source": "react",
+          "specifiers": [
+            "useEffect",
+            "useId",
+            "useRef",
+            "useState"
+          ]
+        },
+        {
+          "source": "@/i18n/routing",
+          "specifiers": [
+            "Locale"
+          ]
+        }
+      ],
+      "exports": [
+        "MobileMenu"
+      ],
+      "totalLines": 102,
+      "hasStructuralAnalysis": true
+    },
+    "components/Nav.tsx": {
+      "filePath": "components/Nav.tsx",
+      "contentHash": "a1b15806bd19233992044debbe3fae5839e7ad489f5e19e349fcfaa78221d4f0",
+      "functions": [
+        {
+          "name": "Nav",
+          "params": [
+            "{ locale }"
+          ],
+          "exported": true,
+          "lineCount": 42
+        }
+      ],
+      "classes": [],
+      "imports": [
+        {
+          "source": "next/image",
+          "specifiers": [
+            "Image"
+          ]
+        },
+        {
+          "source": "next/link",
+          "specifiers": [
+            "Link"
+          ]
+        },
+        {
+          "source": "next-intl/server",
+          "specifiers": [
+            "getTranslations"
+          ]
+        },
+        {
+          "source": "./LangSwitcher",
+          "specifiers": [
+            "LangSwitcher"
+          ]
+        },
+        {
+          "source": "./MobileMenu",
+          "specifiers": [
+            "MobileMenu"
+          ]
+        },
+        {
+          "source": "@/i18n/routing",
+          "specifiers": [
+            "Locale"
+          ]
+        }
+      ],
+      "exports": [
+        "Nav"
+      ],
+      "totalLines": 50,
+      "hasStructuralAnalysis": true
+    },
+    "components/ProofStrip.tsx": {
+      "filePath": "components/ProofStrip.tsx",
+      "contentHash": "4a30fc552b0abfd2f3d05f193591589f34b85a7a2da31592cd4e1b96751a9f06",
+      "functions": [
+        {
+          "name": "ProofStrip",
+          "params": [
+            "{ locale: _locale }"
+          ],
+          "exported": true,
+          "lineCount": 34
+        }
+      ],
+      "classes": [],
+      "imports": [
+        {
+          "source": "next/link",
+          "specifiers": [
+            "Link"
+          ]
+        },
+        {
+          "source": "next-intl",
+          "specifiers": [
+            "useTranslations"
+          ]
+        },
+        {
+          "source": "@/i18n/routing",
+          "specifiers": [
+            "Locale"
+          ]
+        }
+      ],
+      "exports": [
+        "ProofStrip"
+      ],
+      "totalLines": 41,
+      "hasStructuralAnalysis": true
+    },
+    "components/TimelineEntry.tsx": {
+      "filePath": "components/TimelineEntry.tsx",
+      "contentHash": "7cd19f723e2b7abe79743259d4d82dc763e8d940b6e5495f6704d12d255aba7e",
+      "functions": [
+        {
+          "name": "TimelineEntryRow",
+          "params": [
+            "{ entry, locale }"
+          ],
+          "exported": true,
+          "lineCount": 85
+        }
+      ],
+      "classes": [],
+      "imports": [
+        {
+          "source": "next/image",
+          "specifiers": [
+            "Image"
+          ]
+        },
+        {
+          "source": "next/link",
+          "specifiers": [
+            "Link"
+          ]
+        },
+        {
+          "source": "next-intl",
+          "specifiers": [
+            "useTranslations"
+          ]
+        },
+        {
+          "source": "@/lib/articles",
+          "specifiers": [
+            "Article"
+          ]
+        },
+        {
+          "source": "@/lib/blogs",
+          "specifiers": [
+            "Blog"
+          ]
+        },
+        {
+          "source": "@/i18n/routing",
+          "specifiers": [
+            "Locale"
+          ]
+        }
+      ],
+      "exports": [
+        "TimelineEntryRow"
+      ],
+      "totalLines": 99,
+      "hasStructuralAnalysis": true
+    },
+    "components/TrainingCard.tsx": {
+      "filePath": "components/TrainingCard.tsx",
+      "contentHash": "b0acea08f827bc69d770524a41b0a794c4b6b49258b726d0f368d90b59873e56",
+      "functions": [
+        {
+          "name": "TrainingCard",
+          "params": [
+            "{\n  trainingId,\n  locale: _locale,\n}"
+          ],
+          "exported": true,
+          "lineCount": 56
+        }
+      ],
+      "classes": [],
+      "imports": [
+        {
+          "source": "next/link",
+          "specifiers": [
+            "Link"
+          ]
+        },
+        {
+          "source": "next-intl",
+          "specifiers": [
+            "useTranslations"
+          ]
+        },
+        {
+          "source": "@/data/trainings",
+          "specifiers": [
+            "trainings",
+            "TrainingId"
+          ]
+        }
+      ],
+      "exports": [
+        "TrainingCard"
+      ],
+      "totalLines": 61,
+      "hasStructuralAnalysis": true
+    },
+    "components/TrainingDetail.tsx": {
+      "filePath": "components/TrainingDetail.tsx",
+      "contentHash": "320d92138c2bf85f0859f5238e9cde11bf4bad87616a9c0e67e885581c7d8ba5",
+      "functions": [
+        {
+          "name": "TrainingDetail",
+          "params": [
+            "{ trainingId, locale }"
+          ],
+          "exported": true,
+          "lineCount": 101
+        },
+        {
+          "name": "CurriculumList",
+          "params": [
+            "{\n  modules,\n  tModules,\n}"
+          ],
+          "exported": false,
+          "lineCount": 42
+        },
+        {
+          "name": "DetailList",
+          "params": [
+            "{ title, items }"
+          ],
+          "exported": false,
+          "lineCount": 15
+        }
+      ],
+      "classes": [],
+      "imports": [
+        {
+          "source": "next/link",
+          "specifiers": [
+            "Link"
+          ]
+        },
+        {
+          "source": "next-intl",
+          "specifiers": [
+            "useTranslations"
+          ]
+        },
+        {
+          "source": "@/data/trainings",
+          "specifiers": [
+            "trainings",
+            "TrainingId",
+            "Module"
+          ]
+        }
+      ],
+      "exports": [
+        "TrainingDetail"
+      ],
+      "totalLines": 176,
+      "hasStructuralAnalysis": true
+    },
+    "css.d.ts": {
+      "filePath": "css.d.ts",
+      "contentHash": "76aa5843f08af26db0fe30c491d0764d78eae7a91f76e6c4918a67bcf337c59f",
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 5,
+      "hasStructuralAnalysis": true
+    },
+    "data/instructors.ts": {
+      "filePath": "data/instructors.ts",
+      "contentHash": "da7c046941adbd910d49df7a5430d3d9443734225775666410b60fc311a6f9cf",
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "exports": [
+        "instructors"
+      ],
+      "totalLines": 13,
+      "hasStructuralAnalysis": true
+    },
+    "data/trainings.ts": {
+      "filePath": "data/trainings.ts",
+      "contentHash": "471a357215af8e6dee4e0b5931f13cceebbdaf9188c970e6348963e28a1f4f7a",
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "exports": [
+        "trainings"
+      ],
+      "totalLines": 70,
+      "hasStructuralAnalysis": true
+    },
+    "data/trusted-domains.json": {
+      "filePath": "data/trusted-domains.json",
+      "contentHash": "a2ba60b58249d6628b82129cc29fa08fb954cd0556ef847d434e98fd742c561d",
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 2,
+      "hasStructuralAnalysis": true
+    },
+    "DESIGN.md": {
+      "filePath": "DESIGN.md",
+      "contentHash": "d5cf7b47502bd2e1b92c91d749b2e0b06739505b84f14e7ba811153f4393b23d",
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 246,
+      "hasStructuralAnalysis": true
+    },
+    "docs/superpowers/plans/2026-05-12-agenticengineering-site.md": {
+      "filePath": "docs/superpowers/plans/2026-05-12-agenticengineering-site.md",
+      "contentHash": "660d64a2670368b25be6dea562d5377b72ff2e3990343daf305ba5d599b69436",
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 4124,
+      "hasStructuralAnalysis": true
+    },
+    "docs/superpowers/plans/2026-05-20-articles-page.md": {
+      "filePath": "docs/superpowers/plans/2026-05-20-articles-page.md",
+      "contentHash": "20260592dea4e86d1338e58fb66c67d12fdd23767ec28a28d7dbf3ceba23f8be",
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 900,
+      "hasStructuralAnalysis": true
+    },
+    "docs/superpowers/plans/2026-05-21-training-redesign.md": {
+      "filePath": "docs/superpowers/plans/2026-05-21-training-redesign.md",
+      "contentHash": "1d1b47ef1e5bf6ad44520ca2c64bf97cb7376f1f5d792f03c98c4b94548c2c3b",
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 978,
+      "hasStructuralAnalysis": true
+    },
+    "docs/superpowers/plans/2026-05-23-basic-day1-quality-pivot.md": {
+      "filePath": "docs/superpowers/plans/2026-05-23-basic-day1-quality-pivot.md",
+      "contentHash": "b72f2aca84aaebf8c7053625fd58ca6e6cbc05687932a87bf30a3756c6f3f20b",
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 617,
+      "hasStructuralAnalysis": true
+    },
+    "docs/superpowers/plans/2026-05-23-brand-pivot-quality-engineering.md": {
+      "filePath": "docs/superpowers/plans/2026-05-23-brand-pivot-quality-engineering.md",
+      "contentHash": "2ef3d3b32be38b4d60c3c0a7ead3aa66012c40ed773b1baa4c743f3426394c16",
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 323,
+      "hasStructuralAnalysis": true
+    },
+    "docs/superpowers/plans/2026-05-23-day-agenda-timeline.md": {
+      "filePath": "docs/superpowers/plans/2026-05-23-day-agenda-timeline.md",
+      "contentHash": "823a8ffec326a5519316af215d20812a858627627003c19b4016ed3b20b05e06",
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 740,
+      "hasStructuralAnalysis": true
+    },
+    "docs/superpowers/plans/2026-05-23-proof-strip.md": {
+      "filePath": "docs/superpowers/plans/2026-05-23-proof-strip.md",
+      "contentHash": "6a056e6f589d3ce67d79386e56647536976570c4db5b91a1a26051a051948ede",
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 492,
+      "hasStructuralAnalysis": true
+    },
+    "docs/superpowers/plans/2026-05-23-training-identity-cluster.md": {
+      "filePath": "docs/superpowers/plans/2026-05-23-training-identity-cluster.md",
+      "contentHash": "cae18f5f1d4a9afc6117ee70fde915e0575f1584a07de2b71f3120613a9e6a45",
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 522,
+      "hasStructuralAnalysis": true
+    },
+    "docs/superpowers/specs/2026-05-12-agenticengineering-site-design.md": {
+      "filePath": "docs/superpowers/specs/2026-05-12-agenticengineering-site-design.md",
+      "contentHash": "ce913f924fbdc4bd39bc5bb31a455b14a0359c59f063fa4124f40e3878bfb24c",
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 513,
+      "hasStructuralAnalysis": true
+    },
+    "docs/superpowers/specs/2026-05-20-articles-page-design.md": {
+      "filePath": "docs/superpowers/specs/2026-05-20-articles-page-design.md",
+      "contentHash": "cf99d5e53b09831ef2e4cb61d0b78aa4264853adf8870df0bf0f4853e9f63881",
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 200,
+      "hasStructuralAnalysis": true
+    },
+    "docs/superpowers/specs/2026-05-21-training-redesign-design.md": {
+      "filePath": "docs/superpowers/specs/2026-05-21-training-redesign-design.md",
+      "contentHash": "336c4400c3d62e4ecf925b020e2589d3c528525e2b92ec6f177d27ccf0e39967",
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 248,
+      "hasStructuralAnalysis": true
+    },
+    "docs/superpowers/specs/2026-05-23-basic-day1-quality-pivot-design.md": {
+      "filePath": "docs/superpowers/specs/2026-05-23-basic-day1-quality-pivot-design.md",
+      "contentHash": "162794330c081de6d11cffe7b7c74b87a6a3d71466240e9e49a7d2229522116d",
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 285,
+      "hasStructuralAnalysis": true
+    },
+    "docs/superpowers/specs/2026-05-23-brand-pivot-quality-engineering-design.md": {
+      "filePath": "docs/superpowers/specs/2026-05-23-brand-pivot-quality-engineering-design.md",
+      "contentHash": "ee6e8448395c98abc47166cd84ba67d591316c386c64b492f6a7d09c326a8e09",
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 94,
+      "hasStructuralAnalysis": true
+    },
+    "docs/superpowers/specs/2026-05-23-day-agenda-timeline-design.md": {
+      "filePath": "docs/superpowers/specs/2026-05-23-day-agenda-timeline-design.md",
+      "contentHash": "892b329e301992a57dd8ea978172fabb25bd669a8e11503810bc18c1bb6769a8",
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 246,
+      "hasStructuralAnalysis": true
+    },
+    "docs/superpowers/specs/2026-05-23-proof-strip-design.md": {
+      "filePath": "docs/superpowers/specs/2026-05-23-proof-strip-design.md",
+      "contentHash": "f323016790dff3686bc34d0908b9ac14aa3cb602f0a12739c08992ab00b3463e",
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 190,
+      "hasStructuralAnalysis": true
+    },
+    "docs/superpowers/specs/2026-05-23-training-identity-cluster-design.md": {
+      "filePath": "docs/superpowers/specs/2026-05-23-training-identity-cluster-design.md",
+      "contentHash": "b9c16bb3aeb487fb082b4788e35e9a0daf96efaa06783d928305055af81e1d93",
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 187,
+      "hasStructuralAnalysis": true
+    },
+    "docs/superpowers/specs/launch-checklist.md": {
+      "filePath": "docs/superpowers/specs/launch-checklist.md",
+      "contentHash": "341005c802cfe87d285e571f9ed9b641a20c5b425e7d17cc30f72d0cee9aa239",
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 52,
+      "hasStructuralAnalysis": true
+    },
+    "e2e/a11y.spec.ts": {
+      "filePath": "e2e/a11y.spec.ts",
+      "contentHash": "170d217e3ccbbd3f3e7c7d66098b972647894e0e417ebd8a4ac83e26170e0f3a",
+      "functions": [],
+      "classes": [],
+      "imports": [
+        {
+          "source": "@playwright/test",
+          "specifiers": [
+            "test",
+            "expect"
+          ]
+        },
+        {
+          "source": "@axe-core/playwright",
+          "specifiers": [
+            "AxeBuilder"
+          ]
+        },
+        {
+          "source": "./constants",
+          "specifiers": [
+            "a11yPages"
+          ]
+        }
+      ],
+      "exports": [],
+      "totalLines": 14,
+      "hasStructuralAnalysis": true
+    },
+    "e2e/articles.spec.ts": {
+      "filePath": "e2e/articles.spec.ts",
+      "contentHash": "1f7a0701e761f2fbc7d93fbd6a5be270aa2d37435b76d0c6ffb8b03a92553bab",
+      "functions": [],
+      "classes": [],
+      "imports": [
+        {
+          "source": "node:fs",
+          "specifiers": [
+            "fs"
+          ]
+        },
+        {
+          "source": "node:path",
+          "specifiers": [
+            "path"
+          ]
+        },
+        {
+          "source": "@playwright/test",
+          "specifiers": [
+            "test",
+            "expect"
+          ]
+        },
+        {
+          "source": "./pages/articles-page",
+          "specifiers": [
+            "ArticlesPage"
+          ]
+        },
+        {
+          "source": "./pages/home-page",
+          "specifiers": [
+            "Locale"
+          ]
+        }
+      ],
+      "exports": [],
+      "totalLines": 64,
+      "hasStructuralAnalysis": true
+    },
+    "e2e/constants.ts": {
+      "filePath": "e2e/constants.ts",
+      "contentHash": "03d6410efda5216a7ffe1ebb4de906d67cd51e484d8bcbfead259f9378acad9d",
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "exports": [
+        "contact",
+        "a11yPages"
+      ],
+      "totalLines": 17,
+      "hasStructuralAnalysis": true
+    },
+    "e2e/contact.spec.ts": {
+      "filePath": "e2e/contact.spec.ts",
+      "contentHash": "0c60ea53f6dfdd15a7fc658eac2e1fb705d8f1e11e7b5166297b544d48199db7",
+      "functions": [],
+      "classes": [],
+      "imports": [
+        {
+          "source": "@playwright/test",
+          "specifiers": [
+            "test",
+            "expect"
+          ]
+        },
+        {
+          "source": "./pages/contact-page",
+          "specifiers": [
+            "ContactPage"
+          ]
+        }
+      ],
+      "exports": [],
+      "totalLines": 31,
+      "hasStructuralAnalysis": true
+    },
+    "e2e/home.spec.ts": {
+      "filePath": "e2e/home.spec.ts",
+      "contentHash": "2070360afbb2482ed3be999ad27ebfe0717b6c7beaf321e45dbfee5ef097e717",
+      "functions": [],
+      "classes": [],
+      "imports": [
+        {
+          "source": "@playwright/test",
+          "specifiers": [
+            "test",
+            "expect"
+          ]
+        },
+        {
+          "source": "./pages/home-page",
+          "specifiers": [
+            "HomePage"
+          ]
+        }
+      ],
+      "exports": [],
+      "totalLines": 17,
+      "hasStructuralAnalysis": true
+    },
+    "e2e/language-switch.spec.ts": {
+      "filePath": "e2e/language-switch.spec.ts",
+      "contentHash": "9876702f4357fc30b4807afc0640362f755e1cbef98b71f0dd3d47ecf41c3433",
+      "functions": [],
+      "classes": [],
+      "imports": [
+        {
+          "source": "@playwright/test",
+          "specifiers": [
+            "test",
+            "expect"
+          ]
+        },
+        {
+          "source": "./pages/nav",
+          "specifiers": [
+            "Nav"
+          ]
+        }
+      ],
+      "exports": [],
+      "totalLines": 9,
+      "hasStructuralAnalysis": true
+    },
+    "e2e/pages/about-page.ts": {
+      "filePath": "e2e/pages/about-page.ts",
+      "contentHash": "cd881ac30482d14c31b117d808c29c2e1d4fac0c7bd934b930b79322182e6cb5",
+      "functions": [],
+      "classes": [
+        {
+          "name": "AboutPage",
+          "methods": [
+            "constructor",
+            "goto",
+            "instructorByName"
+          ],
+          "properties": [],
+          "exported": true,
+          "lineCount": 14
+        }
+      ],
+      "imports": [
+        {
+          "source": "@playwright/test",
+          "specifiers": [
+            "Page",
+            "Locator"
+          ]
+        },
+        {
+          "source": "./home-page",
+          "specifiers": [
+            "Locale"
+          ]
+        }
+      ],
+      "exports": [
+        "AboutPage"
+      ],
+      "totalLines": 18,
+      "hasStructuralAnalysis": true
+    },
+    "e2e/pages/articles-page.ts": {
+      "filePath": "e2e/pages/articles-page.ts",
+      "contentHash": "7c8111d9062b554d79f538f06dc91dde85a2645ec32ef98c156378d438d95c98",
+      "functions": [],
+      "classes": [
+        {
+          "name": "ArticlesPage",
+          "methods": [
+            "constructor",
+            "goto"
+          ],
+          "properties": [
+            "heading",
+            "intro",
+            "emptyState",
+            "articleCards",
+            "cardContainers",
+            "cardImages",
+            "readExternalLinks"
+          ],
+          "exported": true,
+          "lineCount": 26
+        }
+      ],
+      "imports": [
+        {
+          "source": "@playwright/test",
+          "specifiers": [
+            "Page",
+            "Locator"
+          ]
+        },
+        {
+          "source": "./home-page",
+          "specifiers": [
+            "Locale"
+          ]
+        }
+      ],
+      "exports": [
+        "ArticlesPage"
+      ],
+      "totalLines": 40,
+      "hasStructuralAnalysis": true
+    },
+    "e2e/pages/contact-page.ts": {
+      "filePath": "e2e/pages/contact-page.ts",
+      "contentHash": "47fae1f37e0714ff71f13c041305508c668c63485d3e40542ffadfb86c0cf95c",
+      "functions": [],
+      "classes": [
+        {
+          "name": "ContactPage",
+          "methods": [
+            "constructor",
+            "goto",
+            "fill",
+            "submit",
+            "submitAndWaitForApi"
+          ],
+          "properties": [
+            "nameInput",
+            "emailInput",
+            "messageInput",
+            "submitButton",
+            "successBanner",
+            "firstValidationError",
+            "nameField",
+            "emailField"
+          ],
+          "exported": true,
+          "lineCount": 46
+        }
+      ],
+      "imports": [
+        {
+          "source": "@playwright/test",
+          "specifiers": [
+            "Page",
+            "Locator",
+            "Response"
+          ]
+        },
+        {
+          "source": "./home-page",
+          "specifiers": [
+            "Locale"
+          ]
+        }
+      ],
+      "exports": [
+        "ContactPage"
+      ],
+      "totalLines": 71,
+      "hasStructuralAnalysis": true
+    },
+    "e2e/pages/home-page.ts": {
+      "filePath": "e2e/pages/home-page.ts",
+      "contentHash": "218f8b24125a1d20ec6be5d591cd7d7ab4ee6c284b0d05d1bceed8800dd519b3",
+      "functions": [],
+      "classes": [
+        {
+          "name": "HomePage",
+          "methods": [
+            "constructor",
+            "goto",
+            "otherLocaleLabel"
+          ],
+          "properties": [
+            "heroHeading",
+            "trainingBasicSection",
+            "trainingAdvancedSection",
+            "viewFullCurriculumLabel"
+          ],
+          "exported": true,
+          "lineCount": 28
+        }
+      ],
+      "imports": [
+        {
+          "source": "@playwright/test",
+          "specifiers": [
+            "Page",
+            "Locator"
+          ]
+        }
+      ],
+      "exports": [
+        "HomePage"
+      ],
+      "totalLines": 38,
+      "hasStructuralAnalysis": true
+    },
+    "e2e/pages/nav.ts": {
+      "filePath": "e2e/pages/nav.ts",
+      "contentHash": "f2f8da320df570d6e1f3862a45380d8360e7f5d19c7f6a313444a8707c1c3af8",
+      "functions": [],
+      "classes": [
+        {
+          "name": "Nav",
+          "methods": [
+            "constructor",
+            "switchLocale"
+          ],
+          "properties": [],
+          "exported": true,
+          "lineCount": 7
+        }
+      ],
+      "imports": [
+        {
+          "source": "@playwright/test",
+          "specifiers": [
+            "Page"
+          ]
+        },
+        {
+          "source": "./home-page",
+          "specifiers": [
+            "Locale"
+          ]
+        }
+      ],
+      "exports": [
+        "Nav"
+      ],
+      "totalLines": 13,
+      "hasStructuralAnalysis": true
+    },
+    "e2e/smoke.spec.ts": {
+      "filePath": "e2e/smoke.spec.ts",
+      "contentHash": "b790636523d12d73fed5e135557d4fcbdf07241b64038c53abce684f7a8bbe0d",
+      "functions": [],
+      "classes": [],
+      "imports": [
+        {
+          "source": "@playwright/test",
+          "specifiers": [
+            "test",
+            "expect"
+          ]
+        },
+        {
+          "source": "./pages/home-page",
+          "specifiers": [
+            "HomePage"
+          ]
+        },
+        {
+          "source": "./pages/contact-page",
+          "specifiers": [
+            "ContactPage"
+          ]
+        },
+        {
+          "source": "./pages/about-page",
+          "specifiers": [
+            "AboutPage"
+          ]
+        }
+      ],
+      "exports": [],
+      "totalLines": 83,
+      "hasStructuralAnalysis": true
+    },
+    "eslint.config.mjs": {
+      "filePath": "eslint.config.mjs",
+      "contentHash": "fedf819f0964834e5ec884b1a8c4eaf5a1947f3d9360e0c6ac7b62b25eb1db01",
+      "functions": [],
+      "classes": [],
+      "imports": [
+        {
+          "source": "@eslint/js",
+          "specifiers": [
+            "js"
+          ]
+        },
+        {
+          "source": "typescript-eslint",
+          "specifiers": [
+            "ts"
+          ]
+        },
+        {
+          "source": "eslint-plugin-security",
+          "specifiers": [
+            "security"
+          ]
+        },
+        {
+          "source": "eslint-plugin-react-hooks",
+          "specifiers": [
+            "reactHooksPlugin"
+          ]
+        },
+        {
+          "source": "eslint-plugin-react",
+          "specifiers": [
+            "react"
+          ]
+        },
+        {
+          "source": "eslint-config-next",
+          "specifiers": [
+            "next"
+          ]
+        }
+      ],
+      "exports": [],
+      "totalLines": 66,
+      "hasStructuralAnalysis": true
+    },
+    "i18n/request.ts": {
+      "filePath": "i18n/request.ts",
+      "contentHash": "d2ce331701c1b12dbd3495613e442a1ecbb099a9948670eca3b00cd54086bc37",
+      "functions": [],
+      "classes": [],
+      "imports": [
+        {
+          "source": "next-intl/server",
+          "specifiers": [
+            "getRequestConfig"
+          ]
+        },
+        {
+          "source": "next-intl",
+          "specifiers": [
+            "hasLocale"
+          ]
+        },
+        {
+          "source": "./routing",
+          "specifiers": [
+            "routing"
+          ]
+        }
+      ],
+      "exports": [],
+      "totalLines": 13,
+      "hasStructuralAnalysis": true
+    },
+    "i18n/routing.ts": {
+      "filePath": "i18n/routing.ts",
+      "contentHash": "a14926b5f929ebe24793e31931131b16dda96feea4ea0302394ed3143b8228a5",
+      "functions": [],
+      "classes": [],
+      "imports": [
+        {
+          "source": "next-intl/routing",
+          "specifiers": [
+            "defineRouting"
+          ]
+        }
+      ],
+      "exports": [
+        "routing"
+      ],
+      "totalLines": 10,
+      "hasStructuralAnalysis": true
+    },
+    "lefthook.yml": {
+      "filePath": "lefthook.yml",
+      "contentHash": "0047131873fe36d63fb48999f72d58fa3930ae36db0f926ec85782b31ed88eec",
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 10,
+      "hasStructuralAnalysis": true
+    },
+    "lib/articles.ts": {
+      "filePath": "lib/articles.ts",
+      "contentHash": "f61d99cb4927278d0572111f5edb1825a99ee0d3920b9e45046459c66717ca3a",
+      "functions": [
+        {
+          "name": "getArticles",
+          "params": [
+            "newsDir"
+          ],
+          "returnType": "Article[]",
+          "exported": true,
+          "lineCount": 39
+        }
+      ],
+      "classes": [],
+      "imports": [
+        {
+          "source": "node:fs",
+          "specifiers": [
+            "fs"
+          ]
+        },
+        {
+          "source": "node:path",
+          "specifiers": [
+            "path"
+          ]
+        },
+        {
+          "source": "zod",
+          "specifiers": [
+            "z"
+          ]
+        },
+        {
+          "source": "./parseFrontmatter",
+          "specifiers": [
+            "parseFrontmatter"
+          ]
+        }
+      ],
+      "exports": [
+        "getArticles"
+      ],
+      "totalLines": 74,
+      "hasStructuralAnalysis": true
+    },
+    "lib/blogs.ts": {
+      "filePath": "lib/blogs.ts",
+      "contentHash": "09e44cd3da8c233a73ad9361650159ae0e21e5e697c7a87471a876180b857db4",
+      "functions": [
+        {
+          "name": "sharedFieldEqual",
+          "params": [
+            "a",
+            "b"
+          ],
+          "returnType": "boolean",
+          "exported": false,
+          "lineCount": 7
+        },
+        {
+          "name": "parseBlogFile",
+          "params": [
+            "filePath",
+            "filename"
+          ],
+          "returnType": "Frontmatter",
+          "exported": false,
+          "lineCount": 11
+        },
+        {
+          "name": "getBlogs",
+          "params": [
+            "blogsDir"
+          ],
+          "returnType": "Blog[]",
+          "exported": true,
+          "lineCount": 53
+        },
+        {
+          "name": "getBlogBySlug",
+          "params": [
+            "slug",
+            "blogsDir"
+          ],
+          "returnType": "Blog | null",
+          "exported": true,
+          "lineCount": 3
+        }
+      ],
+      "classes": [],
+      "imports": [
+        {
+          "source": "node:fs",
+          "specifiers": [
+            "fs"
+          ]
+        },
+        {
+          "source": "node:path",
+          "specifiers": [
+            "path"
+          ]
+        },
+        {
+          "source": "zod",
+          "specifiers": [
+            "z"
+          ]
+        },
+        {
+          "source": "./parseFrontmatter",
+          "specifiers": [
+            "parseFrontmatter"
+          ]
+        }
+      ],
+      "exports": [
+        "getBlogs",
+        "getBlogBySlug"
+      ],
+      "totalLines": 119,
+      "hasStructuralAnalysis": true
+    },
+    "lib/email.ts": {
+      "filePath": "lib/email.ts",
+      "contentHash": "3d9ac4b1bc37272154717d2a8a1cb488d0f698f6b87109babdfdc0f39befd476",
+      "functions": [
+        {
+          "name": "sendContactEmail",
+          "params": [
+            "input"
+          ],
+          "returnType": "Promise<{ id: string }>",
+          "exported": true,
+          "lineCount": 37
+        }
+      ],
+      "classes": [
+        {
+          "name": "EmailError",
+          "methods": [
+            "constructor"
+          ],
+          "properties": [],
+          "exported": true,
+          "lineCount": 9
+        }
+      ],
+      "imports": [
+        {
+          "source": "resend",
+          "specifiers": [
+            "Resend"
+          ]
+        },
+        {
+          "source": "./sanitize",
+          "specifiers": [
+            "stripCRLF"
+          ]
+        },
+        {
+          "source": "./validation",
+          "specifiers": [
+            "ContactInput"
+          ]
+        }
+      ],
+      "exports": [
+        "EmailError",
+        "sendContactEmail"
+      ],
+      "totalLines": 52,
+      "hasStructuralAnalysis": true
+    },
+    "lib/parseFrontmatter.ts": {
+      "filePath": "lib/parseFrontmatter.ts",
+      "contentHash": "c68681f3e0a8fcc17320ee21115f9f07d517c3e3d78eb25e891e86de1a739e26",
+      "functions": [
+        {
+          "name": "parseFrontmatter",
+          "params": [
+            "raw",
+            "filename"
+          ],
+          "returnType": "unknown",
+          "exported": true,
+          "lineCount": 14
+        }
+      ],
+      "classes": [],
+      "imports": [
+        {
+          "source": "js-yaml",
+          "specifiers": [
+            "yaml"
+          ]
+        }
+      ],
+      "exports": [
+        "parseFrontmatter"
+      ],
+      "totalLines": 19,
+      "hasStructuralAnalysis": true
+    },
+    "lib/rate-limit.ts": {
+      "filePath": "lib/rate-limit.ts",
+      "contentHash": "942b2476c41d66cbc84125b06899fae23c8e951b41138788bfc0d7cd171113e2",
+      "functions": [
+        {
+          "name": "checkRateLimit",
+          "params": [
+            "ip"
+          ],
+          "returnType": "{ ok: true } | { ok: false; retryAfterSec: number }",
+          "exported": true,
+          "lineCount": 20
+        },
+        {
+          "name": "__resetRateLimitForTests",
+          "params": [],
+          "exported": true,
+          "lineCount": 4
+        }
+      ],
+      "classes": [],
+      "imports": [],
+      "exports": [
+        "checkRateLimit",
+        "__resetRateLimitForTests"
+      ],
+      "totalLines": 33,
+      "hasStructuralAnalysis": true
+    },
+    "lib/sanitize.ts": {
+      "filePath": "lib/sanitize.ts",
+      "contentHash": "6f1e0800bf92397b4b6b187d724c744cdf5ea341554409bdda1c6fcc6de0fcd6",
+      "functions": [
+        {
+          "name": "stripCRLF",
+          "params": [
+            "input"
+          ],
+          "returnType": "string",
+          "exported": true,
+          "lineCount": 3
+        }
+      ],
+      "classes": [],
+      "imports": [],
+      "exports": [
+        "stripCRLF"
+      ],
+      "totalLines": 5,
+      "hasStructuralAnalysis": true
+    },
+    "lib/validation.ts": {
+      "filePath": "lib/validation.ts",
+      "contentHash": "5d76ed9e9ec6e70240257aec447d639890f888e25dae08a3fb6c5cfc1af7ea79",
+      "functions": [],
+      "classes": [],
+      "imports": [
+        {
+          "source": "zod",
+          "specifiers": [
+            "z"
+          ]
+        }
+      ],
+      "exports": [
+        "trainingInterestEnum",
+        "deliveryPrefEnum",
+        "contactSchema"
+      ],
+      "totalLines": 17,
+      "hasStructuralAnalysis": true
+    },
+    "messages/en.json": {
+      "filePath": "messages/en.json",
+      "contentHash": "811251d7aa86082503d16f5e387ae30714903caf96dc001c01867bf3f5337aea",
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 336,
+      "hasStructuralAnalysis": true
+    },
+    "messages/nl.json": {
+      "filePath": "messages/nl.json",
+      "contentHash": "b7fdb4e8aa5a8c9931c749c7a28f5a2de2cc30eea836825a78d9b9d2fd75a29e",
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 342,
+      "hasStructuralAnalysis": true
+    },
+    "middleware.ts": {
+      "filePath": "middleware.ts",
+      "contentHash": "0c4e51ee267d8b501000f6f575f36ed92977058a8a67666a5c4e1b23ab98779e",
+      "functions": [],
+      "classes": [],
+      "imports": [
+        {
+          "source": "next-intl/middleware",
+          "specifiers": [
+            "createMiddleware"
+          ]
+        },
+        {
+          "source": "./i18n/routing",
+          "specifiers": [
+            "routing"
+          ]
+        }
+      ],
+      "exports": [
+        "config"
+      ],
+      "totalLines": 9,
+      "hasStructuralAnalysis": true
+    },
+    "news/.gitkeep": {
+      "filePath": "news/.gitkeep",
+      "contentHash": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 1,
+      "hasStructuralAnalysis": false
+    },
+    "news/2026-05-03-graphify-knowledge-graph-token-tax.md": {
+      "filePath": "news/2026-05-03-graphify-knowledge-graph-token-tax.md",
+      "contentHash": "a91fb6dc54ad9b9051b9599557cb860ebec5370e42169991eeaa2d08f665af51",
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 12,
+      "hasStructuralAnalysis": true
+    },
+    "news/2026-05-13-microsoft-mdash-tops-anthropic-mythos-cybersecurity-benchmark.md": {
+      "filePath": "news/2026-05-13-microsoft-mdash-tops-anthropic-mythos-cybersecurity-benchmark.md",
+      "contentHash": "aff617efdb560dc74f6f062ce0115f875f706a3bfbf55cd897d798b9f3d799d2",
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 12,
+      "hasStructuralAnalysis": true
+    },
+    "news/2026-05-13-two-weeks-after-context-is-the-new-code.md": {
+      "filePath": "news/2026-05-13-two-weeks-after-context-is-the-new-code.md",
+      "contentHash": "3f70ff99c7a99efdb336d8da558458fc0be7f7305747d9dc47b289d2ebb3ed56",
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 12,
+      "hasStructuralAnalysis": true
+    },
+    "next-env.d.ts": {
+      "filePath": "next-env.d.ts",
+      "contentHash": "85ae5aee75f011967cf2d25cbc342f62d69314e9d925f7f4aa3456fc2cffcca6",
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 7,
+      "hasStructuralAnalysis": true
+    },
+    "next.config.ts": {
+      "filePath": "next.config.ts",
+      "contentHash": "0b30d6e34ce45c830e684d1a07713d0e672381d6b347f90cbaa4de6fd10b0350",
+      "functions": [],
+      "classes": [],
+      "imports": [
+        {
+          "source": "next",
+          "specifiers": [
+            "NextConfig"
+          ]
+        },
+        {
+          "source": "next-intl/plugin",
+          "specifiers": [
+            "createNextIntlPlugin"
+          ]
+        }
+      ],
+      "exports": [],
+      "totalLines": 44,
+      "hasStructuralAnalysis": true
+    },
+    "package.json": {
+      "filePath": "package.json",
+      "contentHash": "aae26d450d297ad5aacc6be79d9a69674d2060545c5dab2a66381607ced6332f",
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 78,
+      "hasStructuralAnalysis": true
+    },
+    "playwright.config.ts": {
+      "filePath": "playwright.config.ts",
+      "contentHash": "486db80c463cfa62bf77aa94774d6f75aa88a58b7e4381878d1a6ada96172af1",
+      "functions": [],
+      "classes": [],
+      "imports": [
+        {
+          "source": "@playwright/test",
+          "specifiers": [
+            "defineConfig",
+            "devices"
+          ]
+        }
+      ],
+      "exports": [],
+      "totalLines": 19,
+      "hasStructuralAnalysis": true
+    },
+    "playwright.smoke.config.ts": {
+      "filePath": "playwright.smoke.config.ts",
+      "contentHash": "19e886061662565640899e2fc6dd8b5ff0bb4e1e68ac33170e63ea2ac150702b",
+      "functions": [],
+      "classes": [],
+      "imports": [
+        {
+          "source": "@playwright/test",
+          "specifiers": [
+            "defineConfig",
+            "devices"
+          ]
+        }
+      ],
+      "exports": [],
+      "totalLines": 18,
+      "hasStructuralAnalysis": true
+    },
+    "postcss.config.mjs": {
+      "filePath": "postcss.config.mjs",
+      "contentHash": "4cae941be9bc3bee9a6905e47ea7a51aee216d587d34a8cc4ae48f78fd6d8159",
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 6,
+      "hasStructuralAnalysis": true
+    },
+    "prettier.config.mjs": {
+      "filePath": "prettier.config.mjs",
+      "contentHash": "14a80ad4c051dbe4bb16463b576be311266794a2c097ea4ef7dc7354619f71f2",
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 8,
+      "hasStructuralAnalysis": true
+    },
+    "PRODUCT.md": {
+      "filePath": "PRODUCT.md",
+      "contentHash": "885a67cce37b9c145d298605ffda16c514fdc96a3c0709b50fd1f3cbddb34a87",
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 41,
+      "hasStructuralAnalysis": true
+    },
+    "public/news/.gitkeep": {
+      "filePath": "public/news/.gitkeep",
+      "contentHash": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 1,
+      "hasStructuralAnalysis": false
+    },
+    "README.md": {
+      "filePath": "README.md",
+      "contentHash": "75ceb18fb819fdb0f4deb64d294f34c0bad882ab516364832fd482c2840e56dd",
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 280,
+      "hasStructuralAnalysis": true
+    },
+    "scripts/fetch-article-images.ts": {
+      "filePath": "scripts/fetch-article-images.ts",
+      "contentHash": "a9885c23d98a6de88a173e84f4a9ba2bc8ee97ae80395a61523378a6a488f973",
+      "functions": [
+        {
+          "name": "loadTrusted",
+          "params": [
+            "file"
+          ],
+          "returnType": "string[]",
+          "exported": true,
+          "lineCount": 4
+        },
+        {
+          "name": "isTrusted",
+          "params": [
+            "hostname",
+            "trusted"
+          ],
+          "returnType": "boolean",
+          "exported": true,
+          "lineCount": 3
+        },
+        {
+          "name": "fetchArticleImage",
+          "params": [
+            "sourceUrl",
+            "slug",
+            "options"
+          ],
+          "returnType": "Promise<FetchResult>",
+          "exported": true,
+          "lineCount": 109
+        }
+      ],
+      "classes": [],
+      "imports": [
+        {
+          "source": "node:fs",
+          "specifiers": [
+            "fs"
+          ]
+        },
+        {
+          "source": "node:path",
+          "specifiers": [
+            "path"
+          ]
+        },
+        {
+          "source": "node:url",
+          "specifiers": [
+            "fileURLToPath"
+          ]
+        },
+        {
+          "source": "playwright",
+          "specifiers": [
+            "chromium"
+          ]
+        }
+      ],
+      "exports": [
+        "loadTrusted",
+        "isTrusted",
+        "fetchArticleImage"
+      ],
+      "totalLines": 170,
+      "hasStructuralAnalysis": true
+    },
+    "scripts/metrics.ts": {
+      "filePath": "scripts/metrics.ts",
+      "contentHash": "b24b2aafb7e276d69af1a8817ab90ce5c0c555e9bfc05276ac809b12bd17cdce",
+      "functions": [
+        {
+          "name": "gh",
+          "params": [
+            "cmd"
+          ],
+          "returnType": "string",
+          "exported": false,
+          "lineCount": 3
+        },
+        {
+          "name": "fetchRuns",
+          "params": [
+            "limit"
+          ],
+          "returnType": "Run[]",
+          "exported": false,
+          "lineCount": 6
+        },
+        {
+          "name": "durationSec",
+          "params": [
+            "r"
+          ],
+          "returnType": "number",
+          "exported": false,
+          "lineCount": 3
+        },
+        {
+          "name": "median",
+          "params": [
+            "xs"
+          ],
+          "returnType": "number",
+          "exported": false,
+          "lineCount": 6
+        },
+        {
+          "name": "p95",
+          "params": [
+            "xs"
+          ],
+          "returnType": "number",
+          "exported": false,
+          "lineCount": 6
+        },
+        {
+          "name": "fmtSec",
+          "params": [
+            "s"
+          ],
+          "returnType": "string",
+          "exported": false,
+          "lineCount": 7
+        },
+        {
+          "name": "fmtPct",
+          "params": [
+            "num",
+            "den"
+          ],
+          "returnType": "string",
+          "exported": false,
+          "lineCount": 4
+        },
+        {
+          "name": "verdict",
+          "params": [
+            "actual",
+            "targetSec"
+          ],
+          "returnType": "string",
+          "exported": false,
+          "lineCount": 4
+        },
+        {
+          "name": "main",
+          "params": [],
+          "exported": false,
+          "lineCount": 80
+        }
+      ],
+      "classes": [],
+      "imports": [
+        {
+          "source": "node:child_process",
+          "specifiers": [
+            "execSync"
+          ]
+        }
+      ],
+      "exports": [],
+      "totalLines": 156,
+      "hasStructuralAnalysis": true
+    },
+    "scripts/verify-i18n.ts": {
+      "filePath": "scripts/verify-i18n.ts",
+      "contentHash": "836ffd2d944ece1d25fa53d5c5aab1062638672ebf92fd42eaed18c5286a36dc",
+      "functions": [
+        {
+          "name": "flatten",
+          "params": [
+            "obj",
+            "prefix"
+          ],
+          "returnType": "string[]",
+          "exported": false,
+          "lineCount": 6
+        }
+      ],
+      "classes": [],
+      "imports": [
+        {
+          "source": "../messages/nl.json",
+          "specifiers": [
+            "nl"
+          ]
+        },
+        {
+          "source": "../messages/en.json",
+          "specifiers": [
+            "en"
+          ]
+        }
+      ],
+      "exports": [],
+      "totalLines": 21,
+      "hasStructuralAnalysis": true
+    },
+    "stryker.config.mjs": {
+      "filePath": "stryker.config.mjs",
+      "contentHash": "a258af869b953ee819e7f217e0a60d41ed05033c6cfd5be7d576358ecd9df922",
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 16,
+      "hasStructuralAnalysis": true
+    },
+    "tests/api/contact.test.ts": {
+      "filePath": "tests/api/contact.test.ts",
+      "contentHash": "fc3da8aa697a615035da73bb795095e23521909f629428040448d0605a863fb0",
+      "functions": [
+        {
+          "name": "make",
+          "params": [
+            "body",
+            "headers"
+          ],
+          "exported": false,
+          "lineCount": 12
+        }
+      ],
+      "classes": [],
+      "imports": [
+        {
+          "source": "vitest",
+          "specifiers": [
+            "describe",
+            "it",
+            "expect",
+            "vi",
+            "beforeEach"
+          ]
+        },
+        {
+          "source": "@/app/api/contact/route",
+          "specifiers": [
+            "POST"
+          ]
+        },
+        {
+          "source": "@/lib/rate-limit",
+          "specifiers": [
+            "__resetRateLimitForTests"
+          ]
+        },
+        {
+          "source": "@/lib/email",
+          "specifiers": [
+            "sendContactEmail"
+          ]
+        }
+      ],
+      "exports": [],
+      "totalLines": 81,
+      "hasStructuralAnalysis": true
+    },
+    "tests/components/BlogCard.test.tsx": {
+      "filePath": "tests/components/BlogCard.test.tsx",
+      "contentHash": "9aeacb5d03199af365716de755873be6de01c0055331e289dc8c9aeeed15499f",
+      "functions": [
+        {
+          "name": "renderWith",
+          "params": [
+            "locale"
+          ],
+          "exported": false,
+          "lineCount": 8
+        }
+      ],
+      "classes": [],
+      "imports": [
+        {
+          "source": "vitest",
+          "specifiers": [
+            "describe",
+            "it",
+            "expect"
+          ]
+        },
+        {
+          "source": "@testing-library/react",
+          "specifiers": [
+            "render",
+            "screen"
+          ]
+        },
+        {
+          "source": "next-intl",
+          "specifiers": [
+            "NextIntlClientProvider"
+          ]
+        },
+        {
+          "source": "@/components/BlogCard",
+          "specifiers": [
+            "BlogCard"
+          ]
+        },
+        {
+          "source": "@/lib/blogs",
+          "specifiers": [
+            "Blog"
+          ]
+        },
+        {
+          "source": "@/messages/en.json",
+          "specifiers": [
+            "messagesEn"
+          ]
+        },
+        {
+          "source": "@/messages/nl.json",
+          "specifiers": [
+            "messagesNl"
+          ]
+        }
+      ],
+      "exports": [],
+      "totalLines": 50,
+      "hasStructuralAnalysis": true
+    },
+    "tests/components/ContactForm.test.tsx": {
+      "filePath": "tests/components/ContactForm.test.tsx",
+      "contentHash": "58d227df79ec35a3a8a7643d42b13fdf0e6ff414811ed67cd61f382e7ab52397",
+      "functions": [
+        {
+          "name": "renderForm",
+          "params": [],
+          "exported": false,
+          "lineCount": 7
+        }
+      ],
+      "classes": [],
+      "imports": [
+        {
+          "source": "vitest",
+          "specifiers": [
+            "describe",
+            "it",
+            "expect",
+            "vi",
+            "beforeEach"
+          ]
+        },
+        {
+          "source": "@testing-library/react",
+          "specifiers": [
+            "render",
+            "screen",
+            "waitFor"
+          ]
+        },
+        {
+          "source": "@testing-library/user-event",
+          "specifiers": [
+            "userEvent"
+          ]
+        },
+        {
+          "source": "next-intl",
+          "specifiers": [
+            "NextIntlClientProvider"
+          ]
+        },
+        {
+          "source": "@/messages/nl.json",
+          "specifiers": [
+            "nl"
+          ]
+        },
+        {
+          "source": "@/components/ContactForm",
+          "specifiers": [
+            "ContactForm"
+          ]
+        }
+      ],
+      "exports": [],
+      "totalLines": 55,
+      "hasStructuralAnalysis": true
+    },
+    "tests/components/DayAgenda.test.tsx": {
+      "filePath": "tests/components/DayAgenda.test.tsx",
+      "contentHash": "326e33248f952949e9b289361e0394be496e02ca3dc9eecba00256d6343b3cb3",
+      "functions": [
+        {
+          "name": "renderAgenda",
+          "params": [
+            "locale",
+            "modules",
+            "label"
+          ],
+          "exported": false,
+          "lineCount": 8
+        }
+      ],
+      "classes": [],
+      "imports": [
+        {
+          "source": "vitest",
+          "specifiers": [
+            "describe",
+            "it",
+            "expect"
+          ]
+        },
+        {
+          "source": "@testing-library/react",
+          "specifiers": [
+            "render",
+            "screen"
+          ]
+        },
+        {
+          "source": "next-intl",
+          "specifiers": [
+            "NextIntlClientProvider"
+          ]
+        },
+        {
+          "source": "@/messages/en.json",
+          "specifiers": [
+            "en"
+          ]
+        },
+        {
+          "source": "@/messages/nl.json",
+          "specifiers": [
+            "nl"
+          ]
+        },
+        {
+          "source": "@/components/DayAgenda",
+          "specifiers": [
+            "DayAgenda"
+          ]
+        },
+        {
+          "source": "@/data/trainings",
+          "specifiers": [
+            "Module"
+          ]
+        }
+      ],
+      "exports": [],
+      "totalLines": 50,
+      "hasStructuralAnalysis": true
+    },
+    "tests/components/LangSwitcher.test.tsx": {
+      "filePath": "tests/components/LangSwitcher.test.tsx",
+      "contentHash": "8397e69498f1d7168a0c74bb60463fa543357f087e94ab814c8e1b8d51e95b47",
+      "functions": [],
+      "classes": [],
+      "imports": [
+        {
+          "source": "vitest",
+          "specifiers": [
+            "describe",
+            "it",
+            "expect",
+            "vi"
+          ]
+        },
+        {
+          "source": "@testing-library/react",
+          "specifiers": [
+            "render",
+            "screen"
+          ]
+        },
+        {
+          "source": "next-intl",
+          "specifiers": [
+            "NextIntlClientProvider"
+          ]
+        },
+        {
+          "source": "@/components/LangSwitcher",
+          "specifiers": [
+            "LangSwitcher"
+          ]
+        }
+      ],
+      "exports": [],
+      "totalLines": 25,
+      "hasStructuralAnalysis": true
+    },
+    "tests/components/ProofStrip.test.tsx": {
+      "filePath": "tests/components/ProofStrip.test.tsx",
+      "contentHash": "023c121f7dd6dd6ac26b3c3f311ca0f43730a330a85f39b9798cfc0997513a88",
+      "functions": [
+        {
+          "name": "renderStrip",
+          "params": [
+            "locale"
+          ],
+          "exported": false,
+          "lineCount": 8
+        }
+      ],
+      "classes": [],
+      "imports": [
+        {
+          "source": "vitest",
+          "specifiers": [
+            "describe",
+            "it",
+            "expect"
+          ]
+        },
+        {
+          "source": "@testing-library/react",
+          "specifiers": [
+            "render",
+            "screen"
+          ]
+        },
+        {
+          "source": "next-intl",
+          "specifiers": [
+            "NextIntlClientProvider"
+          ]
+        },
+        {
+          "source": "@/messages/en.json",
+          "specifiers": [
+            "en"
+          ]
+        },
+        {
+          "source": "@/messages/nl.json",
+          "specifiers": [
+            "nl"
+          ]
+        },
+        {
+          "source": "@/components/ProofStrip",
+          "specifiers": [
+            "ProofStrip"
+          ]
+        }
+      ],
+      "exports": [],
+      "totalLines": 49,
+      "hasStructuralAnalysis": true
+    },
+    "tests/components/TrainingCard.test.tsx": {
+      "filePath": "tests/components/TrainingCard.test.tsx",
+      "contentHash": "db0761cf3769ee0e125c25b59e8d35bf9b3068dd85e22fa8f51d59361b043b7c",
+      "functions": [
+        {
+          "name": "renderCard",
+          "params": [
+            "trainingId"
+          ],
+          "exported": false,
+          "lineCount": 7
+        }
+      ],
+      "classes": [],
+      "imports": [
+        {
+          "source": "vitest",
+          "specifiers": [
+            "describe",
+            "it",
+            "expect"
+          ]
+        },
+        {
+          "source": "@testing-library/react",
+          "specifiers": [
+            "render",
+            "screen"
+          ]
+        },
+        {
+          "source": "next-intl",
+          "specifiers": [
+            "NextIntlClientProvider"
+          ]
+        },
+        {
+          "source": "@/messages/nl.json",
+          "specifiers": [
+            "nl"
+          ]
+        },
+        {
+          "source": "@/components/TrainingCard",
+          "specifiers": [
+            "TrainingCard"
+          ]
+        },
+        {
+          "source": "@/data/trainings",
+          "specifiers": [
+            "trainings"
+          ]
+        }
+      ],
+      "exports": [],
+      "totalLines": 37,
+      "hasStructuralAnalysis": true
+    },
+    "tests/data/trainings.test.ts": {
+      "filePath": "tests/data/trainings.test.ts",
+      "contentHash": "86cb570653c9a2661512bc19b5702fb9882036a4de9ed32bb2146eb4960d55c1",
+      "functions": [],
+      "classes": [],
+      "imports": [
+        {
+          "source": "vitest",
+          "specifiers": [
+            "describe",
+            "it",
+            "expect"
+          ]
+        },
+        {
+          "source": "@/data/trainings",
+          "specifiers": [
+            "trainings",
+            "ModuleId"
+          ]
+        }
+      ],
+      "exports": [],
+      "totalLines": 49,
+      "hasStructuralAnalysis": true
+    },
+    "tests/i18n-integrity.test.ts": {
+      "filePath": "tests/i18n-integrity.test.ts",
+      "contentHash": "f2ae36237ae596714883617028912862d94809b212ea859673fd323a6b7edd52",
+      "functions": [
+        {
+          "name": "flatten",
+          "params": [
+            "obj",
+            "prefix"
+          ],
+          "returnType": "string[]",
+          "exported": false,
+          "lineCount": 6
+        }
+      ],
+      "classes": [],
+      "imports": [
+        {
+          "source": "vitest",
+          "specifiers": [
+            "describe",
+            "it",
+            "expect"
+          ]
+        },
+        {
+          "source": "@/messages/nl.json",
+          "specifiers": [
+            "nl"
+          ]
+        },
+        {
+          "source": "@/messages/en.json",
+          "specifiers": [
+            "en"
+          ]
+        }
+      ],
+      "exports": [],
+      "totalLines": 21,
+      "hasStructuralAnalysis": true
+    },
+    "tests/lib/articles.test.ts": {
+      "filePath": "tests/lib/articles.test.ts",
+      "contentHash": "adfc03dd6c0d0e2c237ee56336f36e3412e0df7ec7b7d467acee98a3f31a0c24",
+      "functions": [],
+      "classes": [],
+      "imports": [
+        {
+          "source": "vitest",
+          "specifiers": [
+            "describe",
+            "it",
+            "expect"
+          ]
+        },
+        {
+          "source": "node:path",
+          "specifiers": [
+            "path"
+          ]
+        },
+        {
+          "source": "@/lib/articles",
+          "specifiers": [
+            "getArticles"
+          ]
+        }
+      ],
+      "exports": [],
+      "totalLines": 58,
+      "hasStructuralAnalysis": true
+    },
+    "tests/lib/blogs.test.ts": {
+      "filePath": "tests/lib/blogs.test.ts",
+      "contentHash": "ac6db799f14425efb78b88c033df18272f6af2b905feef139dbc0b6312b294ed",
+      "functions": [
+        {
+          "name": "fixture",
+          "params": [
+            "name"
+          ],
+          "exported": false,
+          "lineCount": 1
+        }
+      ],
+      "classes": [],
+      "imports": [
+        {
+          "source": "vitest",
+          "specifiers": [
+            "describe",
+            "it",
+            "expect"
+          ]
+        },
+        {
+          "source": "node:path",
+          "specifiers": [
+            "path"
+          ]
+        },
+        {
+          "source": "@/lib/blogs",
+          "specifiers": [
+            "getBlogs",
+            "getBlogBySlug"
+          ]
+        }
+      ],
+      "exports": [],
+      "totalLines": 87,
+      "hasStructuralAnalysis": true
+    },
+    "tests/lib/email.test.ts": {
+      "filePath": "tests/lib/email.test.ts",
+      "contentHash": "4f692a06daee3cdcf0e47d547e3ebc72293d53fbe97e8938c3b6b28367cfddeb",
+      "functions": [],
+      "classes": [],
+      "imports": [
+        {
+          "source": "vitest",
+          "specifiers": [
+            "describe",
+            "it",
+            "expect",
+            "vi",
+            "beforeEach"
+          ]
+        },
+        {
+          "source": "@/lib/email",
+          "specifiers": [
+            "sendContactEmail",
+            "EmailError"
+          ]
+        }
+      ],
+      "exports": [],
+      "totalLines": 53,
+      "hasStructuralAnalysis": true
+    },
+    "tests/lib/fixtures/blogs-author-mismatch/post.en.md": {
+      "filePath": "tests/lib/fixtures/blogs-author-mismatch/post.en.md",
+      "contentHash": "7bb7ed4820d97efe3d9e6c0bb3ffbdf5063a0a1d7f953ca804e7ee5d1f3c6523",
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 7,
+      "hasStructuralAnalysis": true
+    },
+    "tests/lib/fixtures/blogs-author-mismatch/post.nl.md": {
+      "filePath": "tests/lib/fixtures/blogs-author-mismatch/post.nl.md",
+      "contentHash": "b7f2e89231244c9e44a79ba8912513e88910f69d3cf72bc17fd235a9ef7e412b",
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 7,
+      "hasStructuralAnalysis": true
+    },
+    "tests/lib/fixtures/blogs-date-mismatch/post.en.md": {
+      "filePath": "tests/lib/fixtures/blogs-date-mismatch/post.en.md",
+      "contentHash": "66d94a64820c1c4b4837f83f896670559e886a75c73ae9d80c353ab7395219f1",
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 6,
+      "hasStructuralAnalysis": true
+    },
+    "tests/lib/fixtures/blogs-date-mismatch/post.nl.md": {
+      "filePath": "tests/lib/fixtures/blogs-date-mismatch/post.nl.md",
+      "contentHash": "732d64feb7a0ddc8b1de73380166c450a5cb1fd9025bdb44c6a8829b822b055d",
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 6,
+      "hasStructuralAnalysis": true
+    },
+    "tests/lib/fixtures/blogs-empty/.gitkeep": {
+      "filePath": "tests/lib/fixtures/blogs-empty/.gitkeep",
+      "contentHash": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 1,
+      "hasStructuralAnalysis": false
+    },
+    "tests/lib/fixtures/blogs-image-mismatch/post.en.md": {
+      "filePath": "tests/lib/fixtures/blogs-image-mismatch/post.en.md",
+      "contentHash": "fadc788c49cc0572d7557508bd55bd76832dee0d36dc032001633f89ff446d17",
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 7,
+      "hasStructuralAnalysis": true
+    },
+    "tests/lib/fixtures/blogs-image-mismatch/post.nl.md": {
+      "filePath": "tests/lib/fixtures/blogs-image-mismatch/post.nl.md",
+      "contentHash": "56ecbf06279afb06c532c6ca77e56e78871aa2fba63ec98ee2b07f04b2aa2168",
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 7,
+      "hasStructuralAnalysis": true
+    },
+    "tests/lib/fixtures/blogs-missing-field/post.en.md": {
+      "filePath": "tests/lib/fixtures/blogs-missing-field/post.en.md",
+      "contentHash": "1d7193482b13371067c152f5f6d66f28acacc887d87e47a4215bdee45e3fd8d4",
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 6,
+      "hasStructuralAnalysis": true
+    },
+    "tests/lib/fixtures/blogs-missing-field/post.nl.md": {
+      "filePath": "tests/lib/fixtures/blogs-missing-field/post.nl.md",
+      "contentHash": "00666c0aed42deffe8b52958b8a32d1c6625d5ee5185a295eafd662299239558",
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 5,
+      "hasStructuralAnalysis": true
+    },
+    "tests/lib/fixtures/blogs-missing-locale/lonely.nl.md": {
+      "filePath": "tests/lib/fixtures/blogs-missing-locale/lonely.nl.md",
+      "contentHash": "c4342011cd4385d4c5636a2c739d659da917d47353b46b568f0d583d3c1fa2cc",
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 6,
+      "hasStructuralAnalysis": true
+    },
+    "tests/lib/fixtures/blogs-no-frontmatter/post.en.md": {
+      "filePath": "tests/lib/fixtures/blogs-no-frontmatter/post.en.md",
+      "contentHash": "637916e6db52ff2ff20081c4ed4cf74934cb0f71cf8de762e2c49ae00b063780",
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 2,
+      "hasStructuralAnalysis": true
+    },
+    "tests/lib/fixtures/blogs-no-frontmatter/post.nl.md": {
+      "filePath": "tests/lib/fixtures/blogs-no-frontmatter/post.nl.md",
+      "contentHash": "e61158ce1f18948ef4159552833ccfb0f360700213c3423a8877a53318787c99",
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 2,
+      "hasStructuralAnalysis": true
+    },
+    "tests/lib/fixtures/blogs-tags-mismatch/post.en.md": {
+      "filePath": "tests/lib/fixtures/blogs-tags-mismatch/post.en.md",
+      "contentHash": "04162798cc12e7a120896b652d34a597711655674f1429c8f3b8f05b079d0a55",
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 7,
+      "hasStructuralAnalysis": true
+    },
+    "tests/lib/fixtures/blogs-tags-mismatch/post.nl.md": {
+      "filePath": "tests/lib/fixtures/blogs-tags-mismatch/post.nl.md",
+      "contentHash": "c325bb337e7a0b9d87afd49c7b767e58dfbfe3bf35e653feea8564bdc6a16399",
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 7,
+      "hasStructuralAnalysis": true
+    },
+    "tests/lib/fixtures/blogs-valid/2026-04-28-bar.en.md": {
+      "filePath": "tests/lib/fixtures/blogs-valid/2026-04-28-bar.en.md",
+      "contentHash": "07d9a697bc8c22e61c8bdaf45920a142a0d0291d3956a947d91291a64dbe136c",
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 6,
+      "hasStructuralAnalysis": true
+    },
+    "tests/lib/fixtures/blogs-valid/2026-04-28-bar.nl.md": {
+      "filePath": "tests/lib/fixtures/blogs-valid/2026-04-28-bar.nl.md",
+      "contentHash": "c74c9fde7a8fb2057025c43becce5eb18a2ca16b252a62eb54a3815a5d6afd69",
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 6,
+      "hasStructuralAnalysis": true
+    },
+    "tests/lib/fixtures/blogs-valid/2026-05-12-foo.en.md": {
+      "filePath": "tests/lib/fixtures/blogs-valid/2026-05-12-foo.en.md",
+      "contentHash": "032077c96931e007ce14b09b8bbdc617dc672c58c872242915a4599e7c8f092d",
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 8,
+      "hasStructuralAnalysis": true
+    },
+    "tests/lib/fixtures/blogs-valid/2026-05-12-foo.nl.md": {
+      "filePath": "tests/lib/fixtures/blogs-valid/2026-05-12-foo.nl.md",
+      "contentHash": "ab5a8881517f51ee5c081a6c250873fb12dc4ab344a6885d3472ab405d7d45dc",
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 8,
+      "hasStructuralAnalysis": true
+    },
+    "tests/lib/fixtures/news-bad-url/2026-05-12-baduri.md": {
+      "filePath": "tests/lib/fixtures/news-bad-url/2026-05-12-baduri.md",
+      "contentHash": "0431698d615d7743cc0f2f0deee32636ba37b7c704a96ca25dd43eb486e1143e",
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 10,
+      "hasStructuralAnalysis": true
+    },
+    "tests/lib/fixtures/news-empty/.gitkeep": {
+      "filePath": "tests/lib/fixtures/news-empty/.gitkeep",
+      "contentHash": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 1,
+      "hasStructuralAnalysis": false
+    },
+    "tests/lib/fixtures/news-image-override/2026-05-12-override.md": {
+      "filePath": "tests/lib/fixtures/news-image-override/2026-05-12-override.md",
+      "contentHash": "1500e9be8504999ca6170049e332d9e5d5723c333dbbdeb155a6656f9407d64b",
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 11,
+      "hasStructuralAnalysis": true
+    },
+    "tests/lib/fixtures/news-missing-field/2026-05-12-missing.md": {
+      "filePath": "tests/lib/fixtures/news-missing-field/2026-05-12-missing.md",
+      "contentHash": "685ca152e658accf5fa6a8d7512cbbc38a5055b2a53288548d45cd0cacf721e9",
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 9,
+      "hasStructuralAnalysis": true
+    },
+    "tests/lib/fixtures/news-missing-source-url/2026-05-12-no-source.md": {
+      "filePath": "tests/lib/fixtures/news-missing-source-url/2026-05-12-no-source.md",
+      "contentHash": "04bb05911bb06a76fd5c7d24bdfbdc201b98b347a980f6ff87c13ba80b219430",
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 9,
+      "hasStructuralAnalysis": true
+    },
+    "tests/lib/fixtures/news-valid/2026-04-28-bar.md": {
+      "filePath": "tests/lib/fixtures/news-valid/2026-04-28-bar.md",
+      "contentHash": "c9645784d167e192e6e63663aedf197532f78b5f1d3339901810c8f727d2daa1",
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 10,
+      "hasStructuralAnalysis": true
+    },
+    "tests/lib/fixtures/news-valid/2026-05-12-foo.md": {
+      "filePath": "tests/lib/fixtures/news-valid/2026-05-12-foo.md",
+      "contentHash": "ca8b52eca28e1a3c3450f8133c835a2304899af25efc652c1a5c8512c1866806",
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 10,
+      "hasStructuralAnalysis": true
+    },
+    "tests/lib/parseFrontmatter.test.ts": {
+      "filePath": "tests/lib/parseFrontmatter.test.ts",
+      "contentHash": "329be8d90c41b358283b8b6018c4a9b37d8ee038eb54c70400c23410ed80a25b",
+      "functions": [],
+      "classes": [],
+      "imports": [
+        {
+          "source": "vitest",
+          "specifiers": [
+            "describe",
+            "it",
+            "expect"
+          ]
+        },
+        {
+          "source": "@/lib/parseFrontmatter",
+          "specifiers": [
+            "parseFrontmatter"
+          ]
+        }
+      ],
+      "exports": [],
+      "totalLines": 47,
+      "hasStructuralAnalysis": true
+    },
+    "tests/lib/rate-limit.test.ts": {
+      "filePath": "tests/lib/rate-limit.test.ts",
+      "contentHash": "21b96cdfcf9c3056e030a38ba7e5f431e043d5029005b0c07178339c3c21d43d",
+      "functions": [],
+      "classes": [],
+      "imports": [
+        {
+          "source": "vitest",
+          "specifiers": [
+            "describe",
+            "it",
+            "expect",
+            "beforeEach",
+            "vi"
+          ]
+        },
+        {
+          "source": "@/lib/rate-limit",
+          "specifiers": [
+            "checkRateLimit",
+            "__resetRateLimitForTests"
+          ]
+        }
+      ],
+      "exports": [],
+      "totalLines": 32,
+      "hasStructuralAnalysis": true
+    },
+    "tests/lib/sanitize.test.ts": {
+      "filePath": "tests/lib/sanitize.test.ts",
+      "contentHash": "67f14ef104ed1f1b751fd924647307bec4b6ed1968323c37f0a55cbe13aac54f",
+      "functions": [],
+      "classes": [],
+      "imports": [
+        {
+          "source": "vitest",
+          "specifiers": [
+            "describe",
+            "it",
+            "expect"
+          ]
+        },
+        {
+          "source": "@/lib/sanitize",
+          "specifiers": [
+            "stripCRLF"
+          ]
+        }
+      ],
+      "exports": [],
+      "totalLines": 18,
+      "hasStructuralAnalysis": true
+    },
+    "tests/lib/validation.test.ts": {
+      "filePath": "tests/lib/validation.test.ts",
+      "contentHash": "2c33540445360c81a1df43ffb4d7d838fc831437a91a95e0762c70dacc805120",
+      "functions": [],
+      "classes": [],
+      "imports": [
+        {
+          "source": "vitest",
+          "specifiers": [
+            "describe",
+            "it",
+            "expect"
+          ]
+        },
+        {
+          "source": "@/lib/validation",
+          "specifiers": [
+            "contactSchema"
+          ]
+        }
+      ],
+      "exports": [],
+      "totalLines": 39,
+      "hasStructuralAnalysis": true
+    },
+    "tests/scripts/fetch-article-images.test.ts": {
+      "filePath": "tests/scripts/fetch-article-images.test.ts",
+      "contentHash": "30286f35efe18c33ee0de7bed227fd3b3dc229c0926c74e30ff4efae35b429dc",
+      "functions": [
+        {
+          "name": "makeWorkspace",
+          "params": [
+            "trusted"
+          ],
+          "exported": false,
+          "lineCount": 8
+        },
+        {
+          "name": "mockImageFetch",
+          "params": [
+            "responses"
+          ],
+          "exported": false,
+          "lineCount": 32
+        }
+      ],
+      "classes": [],
+      "imports": [
+        {
+          "source": "vitest",
+          "specifiers": [
+            "describe",
+            "it",
+            "expect",
+            "vi",
+            "beforeEach",
+            "afterEach"
+          ]
+        },
+        {
+          "source": "node:fs",
+          "specifiers": [
+            "fs"
+          ]
+        },
+        {
+          "source": "node:path",
+          "specifiers": [
+            "path"
+          ]
+        },
+        {
+          "source": "node:os",
+          "specifiers": [
+            "os"
+          ]
+        },
+        {
+          "source": "@/scripts/fetch-article-images",
+          "specifiers": [
+            "fetchArticleImage",
+            "isTrusted",
+            "loadTrusted"
+          ]
+        }
+      ],
+      "exports": [],
+      "totalLines": 286,
+      "hasStructuralAnalysis": true
+    },
+    "tsconfig.json": {
+      "filePath": "tsconfig.json",
+      "contentHash": "815ebf9c7a37f68fcf17816595bd0fdd3050964ef5dd71a97fe2209bf39a9e8b",
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 24,
+      "hasStructuralAnalysis": true
+    },
+    "vitest.config.ts": {
+      "filePath": "vitest.config.ts",
+      "contentHash": "34c9d9a26f2e594888b3587edf07c2141d606cd45955a7918cc9f51e6e428aac",
+      "functions": [],
+      "classes": [],
+      "imports": [
+        {
+          "source": "vitest/config",
+          "specifiers": [
+            "defineConfig"
+          ]
+        },
+        {
+          "source": "@vitejs/plugin-react",
+          "specifiers": [
+            "react"
+          ]
+        },
+        {
+          "source": "node:path",
+          "specifiers": [
+            "path"
+          ]
+        }
+      ],
+      "exports": [],
+      "totalLines": 22,
+      "hasStructuralAnalysis": true
+    },
+    "vitest.setup.ts": {
+      "filePath": "vitest.setup.ts",
+      "contentHash": "91a3c8962a0edcb956206a501d943fe99e1c78c6d4d8b5c9a948a3362c75978c",
+      "functions": [],
+      "classes": [],
+      "imports": [
+        {
+          "source": "@testing-library/jest-dom/vitest",
+          "specifiers": []
+        }
+      ],
+      "exports": [],
+      "totalLines": 2,
+      "hasStructuralAnalysis": true
+    }
+  }
+}
