@@ -1,24 +1,30 @@
 ---
 name: new-article
-description: Create a news item (interesting article link with a short summary) for the agenticengineering-nl website. Use whenever the user says "new article", "add news item", "post a link", "share an article", "voeg nieuwsitem toe", or otherwise wants to publish an external link with a summary to the /news area of the site. Do NOT use for full blog posts (separate skill). This skill collects metadata, writes a markdown file under /news, creates a feature branch, and opens a pull request.
+description: Create a timeline entry (external link with a short summary) for the agenticengineering-nl website. Covers both news articles (third-party source, og:image thumbnail) and blog posts (own blog at another site, no thumbnail). Use whenever the user says "new article", "add news item", "new blog", "add blog post", "post a link", "share an article", "voeg nieuwsitem toe", or otherwise wants to publish an external link with a summary to the /articles page. This skill collects metadata, writes a markdown file under /news, creates a feature branch, and opens a pull request.
 ---
 
 # new-article
 
-Guide the user through publishing a news item (external link + short summary, shown later on the `/news` page). Output is a single markdown file under `/news/` plus a feature branch and a pull request.
+Guide the user through publishing a timeline entry (external link + short summary, shown on the `/articles` page). Output is a single markdown file under `/news/` plus a feature branch and a pull request.
 
-The site is internationalised (Dutch default, English secondary) via `next-intl`. News pages render a single feed but summaries must exist in both `nl` and `en` so the page can pick the active locale.
+Two entry types share the same flow:
+
+- `article` — external news/article on a third-party site. og:image fetched as thumbnail.
+- `blog` — blog post (typically on the user's own blog elsewhere). No thumbnail, no image fetch.
+
+The site is internationalised (Dutch default, English secondary) via `next-intl`. The `/articles` page renders a single feed but summaries must exist in both `nl` and `en` so the page can pick the active locale.
 
 ## Inputs to collect
 
 Ask the user for each, one short question at a time. Do not invent values.
 
-1. **Title in original language** (`title_en` or `title_nl`) — verbatim from the source article.
-2. **Title in the other language** — translate yourself and show back for approval. Both `title_nl` and `title_en` are required in the frontmatter so the `/news` page can render the active locale.
-3. **URL** of the source article (must start with `http://` or `https://`).
-4. **Publish date** (`YYYY-MM-DD`) auto-fill from today. Ask to confirm
-5. **Summary in Dutch** (`summary_nl`) — 1–3 sentences, plain language.
-6. **Summary in English** (`summary_en`) — 1–3 sentences. If the user only provides one language, translate to the other yourself and show the translation back for approval before writing.
+1. **Type** — `blog` or `article`. Ask first. Default to `article` if unclear, but confirm. This drives the image-fetch and frontmatter shape below.
+2. **Title in original language** (`title_en` or `title_nl`) — verbatim from the source.
+3. **Title in the other language** — translate yourself and show back for approval. Both `title_nl` and `title_en` are required in the frontmatter so the page can render the active locale.
+4. **URL** of the source (must start with `http://` or `https://`).
+5. **Publish date** (`YYYY-MM-DD`) auto-fill from today. Ask to confirm.
+6. **Summary in Dutch** (`summary_nl`) — 1–3 sentences, plain language.
+7. **Summary in English** (`summary_en`) — 1–3 sentences. If the user only provides one language, translate to the other yourself and show the translation back for approval before writing.
 
 Optional fields (only include in frontmatter if the user supplies them): `image`, `tags`, `author`.
 
@@ -30,7 +36,7 @@ Optional fields (only include in frontmatter if the user supplies them): `image`
 
 ## File format
 
-Write exactly this structure:
+Write exactly this structure (both types — `type` field is the only difference):
 
 ```markdown
 ---
@@ -38,6 +44,7 @@ title_nl: '<dutch title>'
 title_en: '<english title>'
 url: '<url>'
 source_url: '<url>'
+type: 'article' # or 'blog'
 date: '<YYYY-MM-DD>'
 summary_nl: '<dutch summary>'
 summary_en: '<english summary>'
@@ -48,20 +55,24 @@ Notes:
 
 - Use single quotes around every value to keep YAML predictable with apostrophes.
 - Escape any embedded `'` by doubling it (`it''s`).
-- `url` and `source_url` are both required and usually identical. `source_url` is used by the image fetch step below to download the og:image.
-- No body content — frontmatter only. The `/news` page renders from frontmatter.
+- `url` is required (where the entry redirects on click).
+- `source_url` is optional. If omitted, `url` is used as the scrape source. Only set `source_url` when the click target differs from the canonical page that hosts the og:image (e.g. tracked / rewritten links). For both types, omit the line whenever `source_url` would equal `url`.
+- `type` is `'article'` or `'blog'` — drives the inline label (`// article` vs `// blog`) on the `/articles` page. Always write it explicitly even though the schema defaults to `'article'`.
+- No body content — frontmatter only. The `/articles` page renders from frontmatter.
 - End the file with a trailing newline.
 
 ## Image fetch
 
-The og:image for the article gets downloaded to `public/news/` and the resulting path is written back into the markdown frontmatter as an `image:` field. Two security gates apply:
+Identical flow for `type: article` and `type: blog`. The og:image gets downloaded to `public/news/` and the resulting path is written back into the markdown frontmatter as an `image:` field. If no og:image is found, the entry renders the qas-icon fallback. Two security gates apply:
 
-1. **Trusted-domain check.** The hostname of `source_url` must appear in `data/trusted-domains.json`. The list is suffix-matched: an entry `medium.com` matches `medium.com` and any `*.medium.com` subdomain.
+1. **Trusted-domain check.** The hostname of the effective scrape source (`source_url` if set, otherwise `url`) must appear in `data/trusted-domains.json`. The list is suffix-matched: an entry `medium.com` matches `medium.com` and any `*.medium.com` subdomain.
 2. **og:image host check.** The hostname of the og:image URL parsed from the page HTML must also match the trusted list.
+
+Throughout the steps below, "effective source" means `source_url` when present in the frontmatter, otherwise `url`.
 
 ### Step 1 — Check the source hostname
 
-Parse the hostname from the URL the user provided. Read `data/trusted-domains.json` (a JSON array of strings).
+Parse the hostname from the effective source. Read `data/trusted-domains.json` (a JSON array of strings).
 
 - If the hostname matches (exact or `*.<entry>` suffix), proceed to Step 2.
 - If it does not match, ask the user:
@@ -74,10 +85,10 @@ Parse the hostname from the URL the user provided. Read `data/trusted-domains.js
 
 After the markdown file is written, warn the user that a Chromium browser window will pop up for a few seconds (it is required to bypass anti-bot challenges on sources like Medium and GeekWire; the window closes itself when the fetch finishes — do not interact with it).
 
-Then run this command yourself with the Bash tool (the user has pre-authorised the image fetch step inside this skill — do not stop to ask):
+Then run this command yourself with the Bash tool (the user has pre-authorised the image fetch step inside this skill — do not stop to ask). Pass the effective source (`source_url` if you wrote it, otherwise `url`):
 
 ```
-pnpm article:image '<source_url>' <YYYY-MM-DD>-<slug>
+pnpm article:image '<effective-source>' <YYYY-MM-DD>-<slug>
 ```
 
 What it does:
@@ -133,12 +144,12 @@ Show each command in its own fenced block with a one-sentence reason. Wait for t
 
 ## Output sequence (what you do, in order)
 
-1. Acknowledge the request and confirm scope (news link, not a blog post).
+1. Acknowledge the request and ask `type`: blog or article? Confirm scope.
 2. Collect inputs in the order above. One question at a time — keep it tight.
 3. Derive slug and filename. Show them back for confirmation.
 4. Show the final markdown file content for approval before writing.
 5. After approval, write the file with the Write tool to `<repo>/news/<YYYY-MM-DD>-<slug>.md`. Create the `/news/` directory if it doesn't exist yet.
-6. Run the trusted-domain check (Image fetch — Step 1). Then show the `pnpm article:image '<source_url>' <YYYY-MM-DD>-<slug>` command for the user to run, capture the JSON line, and write the `image:` field back into the frontmatter (Image fetch — Steps 2 and 3).
+6. Run the trusted-domain check (Image fetch — Step 1) on the effective source. Then show the `pnpm article:image '<effective-source>' <YYYY-MM-DD>-<slug>` command for the user to run, capture the JSON line, and write the `image:` field back into the frontmatter (Image fetch — Steps 2 and 3).
 7. If a warning blocks the fetch, walk the user through the manual image fallback.
 8. Show the git/gh command sequence. User runs each.
 9. Stop after PR creation. Do not suggest further changes.
@@ -154,6 +165,5 @@ Show each command in its own fenced block with a one-sentence reason. Wait for t
 
 ## What this skill is NOT for
 
-- Full blog posts (own page, body content, hero image) → a separate skill.
-- Editing existing news items → do that directly, no skill needed.
+- Editing existing entries → do that directly, no skill needed.
 - Bulk import of multiple links → ask the user to invoke the skill once per item.

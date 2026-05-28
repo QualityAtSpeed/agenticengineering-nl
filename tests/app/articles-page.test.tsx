@@ -37,7 +37,7 @@ const sample: Article[] = [
     titleNl: 'blog NL',
     titleEn: 'blog EN',
     url: 'https://example.com/blog',
-    sourceUrl: undefined,
+    sourceUrl: 'https://example.com/blog',
     type: 'blog',
     date: '2026-05-12',
     summaryNl: 'NL b',

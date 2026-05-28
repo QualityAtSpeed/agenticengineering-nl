@@ -25,7 +25,7 @@ export interface Article {
   titleNl: string;
   titleEn: string;
   url: string;
-  sourceUrl: string | undefined;
+  sourceUrl: string;
   type: 'blog' | 'article';
   date: string;
   summaryNl: string;
@@ -62,7 +62,7 @@ export function getArticles(newsDir: string = DEFAULT_NEWS_DIR): Article[] {
       titleNl: d.title_nl,
       titleEn: d.title_en,
       url: d.url,
-      sourceUrl: d.source_url,
+      sourceUrl: d.source_url ?? d.url,
       type: d.type,
       date: d.date,
       summaryNl: d.summary_nl,

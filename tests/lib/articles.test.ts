@@ -53,9 +53,9 @@ describe('getArticles', () => {
     expect(() => getArticles(path.join(fixturesRoot, 'news-bad-type'))).toThrow(/type/i);
   });
 
-  it('accepts a missing source_url (sourceUrl is undefined)', () => {
+  it('falls back sourceUrl to url when frontmatter omits source_url', () => {
     const [first] = getArticles(path.join(fixturesRoot, 'news-blog'));
-    expect(first.sourceUrl).toBeUndefined();
+    expect(first.sourceUrl).toBe(first.url);
   });
 
   it('falls back to /qas-icon.svg when frontmatter has no image field', () => {

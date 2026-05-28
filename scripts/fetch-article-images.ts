@@ -30,16 +30,12 @@ const GOTO_TIMEOUT_MS = 20_000;
 const ALLOWED_EXTS = new Set(['jpg', 'jpeg', 'png', 'webp', 'gif']);
 
 export async function fetchArticleImage(
-  sourceUrl: string | undefined,
+  sourceUrl: string,
   slug: string,
   options: FetchOptions = {},
 ): Promise<FetchResult> {
   const outputDir = options.outputDir ?? path.join(process.cwd(), 'public', 'news');
   const trusted = loadTrusted(options.trustedFile);
-
-  if (!sourceUrl) {
-    return { imagePath: FALLBACK, ok: false, reason: 'no source_url (blog)' };
-  }
 
   let srcUrl: URL;
   try {

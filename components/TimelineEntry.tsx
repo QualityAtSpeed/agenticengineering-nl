@@ -10,7 +10,6 @@ export function TimelineEntryRow({ article, locale }: { article: Article; locale
   const title = locale === 'nl' ? article.titleNl : article.titleEn;
   const summary = locale === 'nl' ? article.summaryNl : article.summaryEn;
   const image = article.image ?? FALLBACK_IMAGE;
-  const isFallback = image === FALLBACK_IMAGE;
 
   return (
     <li className="relative pb-12 pl-6 last:pb-0" data-testid={`article-card-${article.slug}`}>
@@ -31,7 +30,7 @@ export function TimelineEntryRow({ article, locale }: { article: Article; locale
               alt={title}
               fill
               sizes="(min-width: 640px) 18rem, 100vw"
-              className={isFallback ? 'object-contain p-6' : 'object-cover'}
+              className="object-cover"
             />
           </div>
           <div className="flex-1">
