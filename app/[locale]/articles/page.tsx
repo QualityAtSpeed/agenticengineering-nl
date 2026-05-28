@@ -2,6 +2,7 @@ import { setRequestLocale, getTranslations } from 'next-intl/server';
 import { TimelineEntryRow } from '@/components/TimelineEntry';
 import { ArticleFilterBar, type FilterType } from '@/components/ArticleFilterBar';
 import { getArticles } from '@/lib/articles';
+import { blogsEnabled } from '@/lib/flags';
 import type { Locale } from '@/i18n/routing';
 
 function normaliseType(raw: string | undefined): FilterType {
@@ -20,8 +21,10 @@ export default async function ArticlesPage({
   const { type } = await searchParams;
   setRequestLocale(locale);
   const t = await getTranslations('articles');
+  const showBlogs = blogsEnabled();
   const currentType = normaliseType(type);
-  const articles = getArticles();
+  const allArticles = getArticles();
+  const articles = showBlogs ? allArticles : allArticles.filter((a) => a.type === 'article');
 
   const visible = currentType === 'all' ? articles : articles.filter((a) => a.type === currentType);
 
@@ -32,7 +35,7 @@ export default async function ArticlesPage({
           <span className="text-accent-green">&gt;</span> {t('title')}
         </h1>
         <p className="text-text-muted mt-6 max-w-2xl">{t('intro')}</p>
-        <ArticleFilterBar currentType={currentType} locale={locale} />
+        <ArticleFilterBar currentType={currentType} locale={locale} showBlogs={showBlogs} />
         {visible.length === 0 ? (
           <p className="text-text-muted mt-12 font-mono text-sm">{t('emptyState')}</p>
         ) : (

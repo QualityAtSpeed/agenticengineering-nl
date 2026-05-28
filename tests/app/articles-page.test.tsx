@@ -1,4 +1,4 @@
-import { describe, it, expect, vi } from 'vitest';
+import { describe, it, expect, vi, beforeEach, afterEach } from 'vitest';
 import { render, screen } from '@testing-library/react';
 import { NextIntlClientProvider } from 'next-intl';
 import messagesEn from '@/messages/en.json';
@@ -72,6 +72,14 @@ async function renderPage(searchParams: Record<string, string> = {}) {
 }
 
 describe('ArticlesPage', () => {
+  beforeEach(() => {
+    vi.stubEnv('BLOGS_ENABLED', 'true');
+  });
+
+  afterEach(() => {
+    vi.unstubAllEnvs();
+  });
+
   it('renders both cards when no type param is set', async () => {
     await renderPage();
     expect(screen.getByTestId('article-card-2026-05-12-blog-one')).toBeInTheDocument();
@@ -108,5 +116,19 @@ describe('ArticlesPage', () => {
       </NextIntlClientProvider>,
     );
     expect(screen.getByText('no articles yet')).toBeInTheDocument();
+  });
+
+  describe('with BLOGS_ENABLED unset', () => {
+    beforeEach(() => {
+      vi.stubEnv('BLOGS_ENABLED', '');
+    });
+
+    it('hides blog entries and the filter bar', async () => {
+      await renderPage();
+      expect(screen.queryByTestId('article-card-2026-05-12-blog-one')).toBeNull();
+      expect(screen.getByTestId('article-card-2026-05-10-article-one')).toBeInTheDocument();
+      expect(screen.queryByTestId('filter-blogs')).toBeNull();
+      expect(screen.queryByTestId('filter-all')).toBeNull();
+    });
   });
 });

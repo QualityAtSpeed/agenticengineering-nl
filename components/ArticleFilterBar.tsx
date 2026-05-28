@@ -29,11 +29,16 @@ const ITEMS: Item[] = [
 export function ArticleFilterBar({
   currentType,
   locale,
+  showBlogs = true,
 }: {
   currentType: FilterType;
   locale: string;
+  showBlogs?: boolean;
 }) {
   const t = useTranslations('articles.filter');
+
+  if (!showBlogs) return null;
+  const items = ITEMS;
 
   return (
     <nav
@@ -41,7 +46,7 @@ export function ArticleFilterBar({
       className="text-text-muted mt-12 mb-12 font-mono text-sm tracking-[0.1em]"
     >
       <span aria-hidden="true">[ </span>
-      {ITEMS.map((item, idx) => {
+      {items.map((item, idx) => {
         const active = item.id === currentType;
         const className = active ? 'text-accent-green' : 'text-text-muted hover:text-text-primary';
         return (
@@ -54,7 +59,7 @@ export function ArticleFilterBar({
             >
               {t(item.labelKey)}
             </Link>
-            {idx < ITEMS.length - 1 && <span aria-hidden="true"> | </span>}
+            {idx < items.length - 1 && <span aria-hidden="true"> | </span>}
           </span>
         );
       })}

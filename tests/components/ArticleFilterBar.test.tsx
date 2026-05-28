@@ -64,4 +64,13 @@ describe('ArticleFilterBar', () => {
     expect(articles).toHaveAttribute('aria-current', 'page');
     expect(articles.className).toContain('text-accent-green');
   });
+
+  it('renders nothing when showBlogs=false', () => {
+    const { container } = render(
+      <NextIntlClientProvider locale="en" messages={messagesEn}>
+        <ArticleFilterBar currentType="all" locale="en" showBlogs={false} />
+      </NextIntlClientProvider>,
+    );
+    expect(container).toBeEmptyDOMElement();
+  });
 });
