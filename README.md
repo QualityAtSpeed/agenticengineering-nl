@@ -121,7 +121,7 @@ cp .env.example .env.local
 | `CONTACT_EMAIL`      | server | TO address (inbox that receives form submissions). Differs by env (see Preview section below).                                                               |
 | `BLOGS_ENABLED`      | server | Feature flag for blog entries on `/articles`. Set to `'true'` to show blog entries and the all/blogs/articles filter bar. Unset/empty hides both. See below. |
 
-All three are set in **Production** and **Preview** scopes (Development scope is intentionally empty — local dev uses `.env.local`). Set via Vercel CLI or UI:
+The three contact-form keys are set in **Production** and **Preview** scopes (Development scope is intentionally empty — local dev uses `.env.local`). `BLOGS_ENABLED` is set per-scope as needed (see Feature flags below). Set via Vercel CLI or UI:
 
 ```bash
 vercel env add RESEND_API_KEY production

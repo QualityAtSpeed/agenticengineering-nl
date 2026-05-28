@@ -130,5 +130,12 @@ describe('ArticlesPage', () => {
       expect(screen.queryByTestId('filter-blogs')).toBeNull();
       expect(screen.queryByTestId('filter-all')).toBeNull();
     });
+
+    it('renders empty state when ?type=blog is requested while flag is off', async () => {
+      await renderPage({ type: 'blog' });
+      expect(screen.queryByTestId('article-card-2026-05-12-blog-one')).toBeNull();
+      expect(screen.queryByTestId('article-card-2026-05-10-article-one')).toBeNull();
+      expect(screen.getByText('no articles yet')).toBeInTheDocument();
+    });
   });
 });
