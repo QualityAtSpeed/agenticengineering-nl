@@ -7,7 +7,11 @@ const frontmatterSchema = z.object({
   title_nl: z.string().min(1),
   title_en: z.string().min(1),
   url: z.string().regex(/^https?:\/\//, 'url must start with http(s)://'),
-  source_url: z.string().regex(/^https?:\/\//, 'source_url must start with http(s)://'),
+  source_url: z
+    .string()
+    .regex(/^https?:\/\//, 'source_url must start with http(s)://')
+    .optional(),
+  type: z.enum(['blog', 'article']).default('article'),
   date: z.string().regex(/^\d{4}-\d{2}-\d{2}$/, 'date must be YYYY-MM-DD'),
   summary_nl: z.string().min(1),
   summary_en: z.string().min(1),
@@ -21,7 +25,8 @@ export interface Article {
   titleNl: string;
   titleEn: string;
   url: string;
-  sourceUrl: string;
+  sourceUrl: string | undefined;
+  type: 'blog' | 'article';
   date: string;
   summaryNl: string;
   summaryEn: string;
@@ -58,6 +63,7 @@ export function getArticles(newsDir: string = DEFAULT_NEWS_DIR): Article[] {
       titleEn: d.title_en,
       url: d.url,
       sourceUrl: d.source_url,
+      type: d.type,
       date: d.date,
       summaryNl: d.summary_nl,
       summaryEn: d.summary_en,

@@ -39,10 +39,23 @@ describe('getArticles', () => {
     expect(() => getArticles(path.join(fixturesRoot, 'news-missing-field'))).toThrow(/summary_en/i);
   });
 
-  it('throws when source_url is missing', () => {
-    expect(() => getArticles(path.join(fixturesRoot, 'news-missing-source-url'))).toThrow(
-      /source_url/i,
-    );
+  it('defaults type to "article" when frontmatter omits it', () => {
+    const [first] = getArticles(path.join(fixturesRoot, 'news-valid'));
+    expect(first.type).toBe('article');
+  });
+
+  it('maps explicit type: "blog" into Article.type', () => {
+    const [first] = getArticles(path.join(fixturesRoot, 'news-blog'));
+    expect(first.type).toBe('blog');
+  });
+
+  it('rejects a type value that is not "blog" or "article"', () => {
+    expect(() => getArticles(path.join(fixturesRoot, 'news-bad-type'))).toThrow(/type/i);
+  });
+
+  it('accepts a missing source_url (sourceUrl is undefined)', () => {
+    const [first] = getArticles(path.join(fixturesRoot, 'news-blog'));
+    expect(first.sourceUrl).toBeUndefined();
   });
 
   it('falls back to /qas-icon.svg when frontmatter has no image field', () => {
