@@ -12,7 +12,6 @@ export default async function Impressum({ params }: { params: Promise<{ locale: 
         <h1 className="text-brand-deep text-3xl font-bold sm:text-4xl">{t('title')}</h1>
         <dl className="mt-10 space-y-3">
           <Row label="Business" value={t('businessName')} />
-          <Row label="Operator" value={t('operator')} />
           <Row label="Address" value={t('address')} />
           <Row label="KVK" value={t('kvk')} />
           <Row label="VAT" value={t('vat')} />

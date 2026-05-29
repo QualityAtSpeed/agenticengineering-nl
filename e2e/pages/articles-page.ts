@@ -19,6 +19,9 @@ export class ArticlesPage {
   readonly cardContainers: Locator;
   readonly cardImages: Locator;
   readonly readExternalLinks: Locator;
+  readonly filterAll: Locator;
+  readonly filterBlogs: Locator;
+  readonly filterArticles: Locator;
 
   constructor(
     readonly page: Page,
@@ -31,6 +34,9 @@ export class ArticlesPage {
     this.cardContainers = page.locator('[data-testid^="article-card-"]');
     this.cardImages = page.locator('[data-testid^="article-card-"] img');
     this.readExternalLinks = page.getByText(READ_EXTERNAL[locale]);
+    this.filterAll = page.getByTestId('filter-all');
+    this.filterBlogs = page.getByTestId('filter-blogs');
+    this.filterArticles = page.getByTestId('filter-articles');
   }
 
   async goto() {
