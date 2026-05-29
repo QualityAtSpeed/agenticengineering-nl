@@ -30,7 +30,7 @@ describe('<TrainingCard />', () => {
     renderCard('advanced');
     expect(screen.getByRole('link', { name: /Bekijk programma/ })).toHaveAttribute(
       'href',
-      '#training-advanced',
+      '/nl/trainings/advanced',
     );
   });
 });

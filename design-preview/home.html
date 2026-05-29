@@ -1,0 +1,463 @@
+<!doctype html>
+<html lang="nl">
+  <head>
+    <meta charset="utf-8" />
+    <title>agenticengineering.nl — design preview</title>
+    <style>
+      /* brutalist white formal — design preview */
+      :root {
+        --ink: #000000;
+        --paper: #ffffff;
+        --link: #0000ee;
+        --visited: #551a8b;
+        --error: #cc0000;
+        --rule: #000000;
+      }
+      * {
+        box-sizing: border-box;
+      }
+      html {
+        background: var(--paper);
+        color: var(--ink);
+      }
+      body {
+        margin: 0;
+        padding: 0;
+        font-family: Georgia, 'Times New Roman', Times, serif;
+        font-size: 18px;
+        line-height: 1.6;
+        color: var(--ink);
+        background: var(--paper);
+      }
+      .page {
+        max-width: 680px;
+        margin: 0 auto;
+        padding: 32px 24px 96px 24px;
+      }
+      a {
+        color: var(--link);
+        text-decoration: underline;
+      }
+      a:visited {
+        color: var(--visited);
+      }
+      a:hover {
+        color: var(--ink);
+      }
+      h1 {
+        font-family: Georgia, 'Times New Roman', Times, serif;
+        font-weight: 700;
+        font-size: 2.5rem;
+        line-height: 1.15;
+        margin: 0 0 16px 0;
+        letter-spacing: -0.01em;
+      }
+      h2 {
+        font-weight: 700;
+        font-size: 1.75rem;
+        line-height: 1.2;
+        margin: 0 0 12px 0;
+      }
+      h3 {
+        font-weight: 700;
+        font-size: 1.25rem;
+        margin: 24px 0 8px 0;
+      }
+      p {
+        margin: 0 0 16px 0;
+      }
+      hr {
+        border: none;
+        border-top: 1px solid var(--rule);
+        margin: 48px 0;
+      }
+      nav.top {
+        border-bottom: 1px solid var(--rule);
+        padding: 12px 0 12px 0;
+        margin-bottom: 48px;
+        font-size: 1rem;
+      }
+      nav.top .row {
+        max-width: 680px;
+        margin: 0 auto;
+        padding: 0 24px;
+        display: flex;
+        justify-content: space-between;
+        align-items: baseline;
+        gap: 16px;
+        flex-wrap: wrap;
+      }
+      nav.top .brand {
+        font-weight: 700;
+      }
+      nav.top .brand a {
+        color: var(--ink);
+        text-decoration: none;
+      }
+      nav.top .links {
+        display: flex;
+        gap: 20px;
+      }
+      .meta {
+        font-size: 0.875rem;
+        margin-bottom: 24px;
+      }
+      .section-number {
+        font-weight: 400;
+        margin-right: 0.4em;
+      }
+      ol.curriculum {
+        padding-left: 1.8em;
+        margin: 8px 0 0 0;
+      }
+      ol.curriculum > li {
+        margin-bottom: 16px;
+      }
+      ol.curriculum li > strong {
+        display: block;
+        font-weight: 700;
+        margin-bottom: 4px;
+      }
+      ol.curriculum li ul {
+        padding-left: 1.4em;
+        margin: 4px 0 0 0;
+      }
+      ol.curriculum li ul li {
+        margin-bottom: 2px;
+        font-size: 0.95rem;
+      }
+      dl.facts {
+        margin: 16px 0;
+      }
+      dl.facts dt {
+        font-weight: 700;
+        margin-top: 12px;
+      }
+      dl.facts dd {
+        margin: 4px 0 0 0;
+        padding-left: 0;
+      }
+      dl.facts dd ul {
+        margin: 4px 0 0 0;
+        padding-left: 1.4em;
+      }
+      table.spec {
+        border-collapse: collapse;
+        width: 100%;
+        margin: 16px 0;
+        font-size: 0.95rem;
+      }
+      table.spec th,
+      table.spec td {
+        border: 1px solid var(--rule);
+        padding: 8px 12px;
+        text-align: left;
+        vertical-align: top;
+      }
+      table.spec th {
+        font-weight: 700;
+        background: var(--paper);
+      }
+      .cta-row {
+        margin: 24px 0 0 0;
+      }
+      .cta-row a {
+        margin-right: 16px;
+      }
+      button.submit {
+        font-family: Georgia, 'Times New Roman', Times, serif;
+        font-size: 1rem;
+        background: var(--paper);
+        color: var(--ink);
+        border: 1px solid var(--ink);
+        padding: 8px 16px;
+        cursor: pointer;
+      }
+      button.submit:hover {
+        background: var(--ink);
+        color: var(--paper);
+      }
+      input[type='text'],
+      input[type='email'],
+      textarea,
+      select {
+        font-family: Georgia, 'Times New Roman', Times, serif;
+        font-size: 1rem;
+        background: var(--paper);
+        color: var(--ink);
+        border: 1px solid var(--ink);
+        padding: 6px 8px;
+        width: 100%;
+        max-width: 420px;
+      }
+      textarea {
+        min-height: 120px;
+      }
+      footer.bottom {
+        border-top: 1px solid var(--rule);
+        margin-top: 64px;
+        padding-top: 24px;
+        font-size: 0.875rem;
+      }
+      footer.bottom p {
+        margin: 4px 0;
+      }
+      .colophon {
+        font-size: 0.875rem;
+        margin-top: 8px;
+      }
+      .tagline {
+        font-style: italic;
+        margin: 0 0 16px 0;
+      }
+      .lede {
+        font-size: 1.125rem;
+        margin: 0 0 24px 0;
+      }
+    </style>
+  </head>
+  <body>
+    <nav class="top">
+      <div class="row">
+        <div class="brand"><a href="/">agenticengineering.nl</a></div>
+        <div class="links">
+          <a href="#trainings">Trainingen</a>
+          <a href="#about">Over ons</a>
+          <a href="#articles">Artikelen</a>
+          <a href="#contact">Contact</a>
+          <a href="/en/">EN</a>
+        </div>
+      </div>
+    </nav>
+
+    <main class="page">
+      <p class="meta">Agentic AI quality engineering, NL.</p>
+
+      <h1>Train je team in agentic AI quality engineering.</h1>
+
+      <p class="lede">
+        Twee praktijkgerichte trainingen in Claude Code of Codex. Twee dagen basis en
+        kwaliteitsloop, één dag rollout en governance.
+      </p>
+
+      <p class="cta-row">
+        <a href="#contact">Boek training</a>
+        <a href="#trainings">Bekijk curriculum</a>
+      </p>
+
+      <hr />
+
+      <h2><span class="section-number">1.</span>Trainingen</h2>
+
+      <p>
+        Wij geven twee trainingen, los of opeenvolgend te volgen. Beide zijn in-company of als open
+        inschrijving beschikbaar.
+      </p>
+
+      <table class="spec">
+        <thead>
+          <tr>
+            <th>Training</th>
+            <th>Duur</th>
+            <th>Prijs (excl. BTW)</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><a href="#basic">Basic</a></td>
+            <td>2 dagen</td>
+            <td>&euro; 2.495 p.p.</td>
+          </tr>
+          <tr>
+            <td><a href="#advanced">Advanced</a></td>
+            <td>1 dag</td>
+            <td>&euro; 1.495 p.p.</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <hr />
+
+      <h2 id="basic"><span class="section-number">1.1</span>Basic, twee dagen</h2>
+
+      <p class="tagline">Twee dagen hands-on adoptie. Iedereen levert een feature op.</p>
+
+      <dl class="facts">
+        <dt>Voor wie</dt>
+        <dd>
+          <ul>
+            <li>Hele DevOps-teams: developers, QA / testers, ops / platform.</li>
+            <li>Gemengde teams die agentic workflows samen adopteren.</li>
+            <li>Engineering managers die met hun team meetrainen.</li>
+          </ul>
+        </dd>
+        <dt>Vereisten</dt>
+        <dd>
+          <ul>
+            <li>Vertrouwd met git en de command line.</li>
+            <li>Schrijft features in minimaal één taal (TS, Python, Go, etc.).</li>
+          </ul>
+        </dd>
+        <dt>Wat je leert</dt>
+        <dd>
+          <ul>
+            <li>
+              Lever een werkende feature op een starter repo, met tests, hooks en CI groen vanaf
+              minuut één.
+            </li>
+            <li>Herken failure modes van AI-gegenereerde code in je eigen werk.</li>
+            <li>Oefen test-first met een agent zonder schijnpassende tests te schrijven.</li>
+            <li>Zet hooks en quality gates op die de volgende sprint overleven.</li>
+            <li>Gebruik bestaande MCP servers in echte workflows.</li>
+            <li>Stap naar buiten met een governance-starter die je team echt kan gebruiken.</li>
+          </ul>
+        </dd>
+      </dl>
+
+      <h3>Curriculum, dag 1: Quality engineering met agents</h3>
+      <ol class="curriculum">
+        <li>
+          <strong>Agents in je SDLC: waar ze passen, waar ze breken.</strong>
+          <ul>
+            <li>Waar een agent zijn plek verdient in de SDLC, en waar niet.</li>
+            <li>Wat een agent is vs. chat vs. automatisering.</li>
+            <li>Quality stakes: elke agent-wijziging is code die in productie komt.</li>
+          </ul>
+        </li>
+        <li>
+          <strong>Failure modes van AI-gegenereerde code.</strong>
+          <ul>
+            <li>Hallucinaties, stille regressies, false-green builds.</li>
+            <li>Scope drift en onaangekondigde rewrites.</li>
+            <li>Hoe je ze herkent voordat ze in productie staan.</li>
+          </ul>
+        </li>
+        <li>
+          <strong>Test-first met agents.</strong>
+          <ul>
+            <li>De TDD-loop met een agent als driver.</li>
+            <li>Wanneer tests vóór code komen, wanneer niet, waarom het uitmaakt.</li>
+            <li>Tests die gedrag bewijzen vs. tests die het model tevreden stellen.</li>
+          </ul>
+        </li>
+        <li>
+          <strong>Hooks en quality gates.</strong>
+          <ul>
+            <li>Pre-commit checks: lint, format, type-check.</li>
+            <li>Quality gates die de sprint overleven.</li>
+            <li>Wat de agent NIET mag merge'en.</li>
+          </ul>
+        </li>
+      </ol>
+
+      <h3>Curriculum, dag 2: Agent mechanics + capstone</h3>
+      <ol class="curriculum" start="5">
+        <li><strong>MCP servers in productie-workflows.</strong></li>
+        <li><strong>Capstone, ochtend: lever een feature op een starter repo.</strong></li>
+        <li><strong>Capstone, middag: review en governance-starter.</strong></li>
+      </ol>
+
+      <p class="cta-row"><a href="#contact">Plan deze training</a></p>
+
+      <hr />
+
+      <h2 id="advanced"><span class="section-number">1.2</span>Advanced, één dag</h2>
+
+      <p class="tagline">Eén dag om agentic AI quality engineering team-breed uit te rollen.</p>
+
+      <dl class="facts">
+        <dt>Voor wie</dt>
+        <dd>
+          <ul>
+            <li>Tech leads en staff+ engineers die agentic workflows uitrollen.</li>
+            <li>Engineering managers en platform / QA leads.</li>
+            <li>Teams verantwoordelijk voor governance, kosten en adoptie organisatie-breed.</li>
+          </ul>
+        </dd>
+        <dt>Vereisten</dt>
+        <dd>Basic training of vergelijkbare hands-on ervaring met Claude Code of Codex.</dd>
+        <dt>Wat je leert</dt>
+        <dd>
+          <ul>
+            <li>Stap met een rollout-plan voor je eigen organisatie naar buiten.</li>
+            <li>Orchestreer subagents en parallelle agents op team-schaal.</li>
+            <li>Handhaaf teampolicy via CI hooks.</li>
+            <li>Zet observability en cost guardrails op voor agent-gebruik.</li>
+            <li>Vertrek met een 90-dagen rolloutplan dat door peers is getoetst.</li>
+          </ul>
+        </dd>
+      </dl>
+
+      <p class="cta-row"><a href="#contact">Plan deze training</a></p>
+
+      <hr />
+
+      <h2 id="about"><span class="section-number">2.</span>Over de instructeurs</h2>
+
+      <p>
+        De trainingen worden gegeven door twee senior engineers met praktijkervaring in agentic
+        workflows en quality engineering bij Nederlandse engineering-teams. Zie
+        <a href="/about">de over-pagina</a> voor profielen en achtergrond.
+      </p>
+
+      <hr />
+
+      <h2 id="contact"><span class="section-number">3.</span>Contact</h2>
+
+      <p>Stuur een bericht voor een offerte of plandetails. Wij reageren binnen één werkdag.</p>
+
+      <form>
+        <p>
+          <label for="name"
+            >Naam<br />
+            <input type="text" id="name" name="name" required
+          /></label>
+        </p>
+        <p>
+          <label for="email"
+            >Email<br />
+            <input type="email" id="email" name="email" required
+          /></label>
+        </p>
+        <p>
+          <label for="company"
+            >Bedrijf<br />
+            <input type="text" id="company" name="company"
+          /></label>
+        </p>
+        <p>
+          <label for="training"
+            >Training<br />
+            <select id="training" name="training">
+              <option>Basic, 2 dagen</option>
+              <option>Advanced, 1 dag</option>
+              <option>Beide</option>
+              <option>Anders</option>
+            </select></label
+          >
+        </p>
+        <p>
+          <label for="msg"
+            >Bericht<br />
+            <textarea id="msg" name="msg" required></textarea>
+          </label>
+        </p>
+        <p>
+          <button type="submit" class="submit">Verzenden</button>
+        </p>
+      </form>
+
+      <footer class="bottom">
+        <p>
+          <a href="/impressum">Impressum</a> &middot;
+          <a href="https://github.com/QualityAtSpeed">GitHub</a> &middot;
+          <a href="https://linkedin.com/company/quality-speed-nl">LinkedIn</a>
+        </p>
+        <p class="colophon">
+          &copy; 2026 Quality at Speed. Deze site is gebouwd met agentic engineering.
+          <a href="https://github.com/QualityAtSpeed">Bron op GitHub</a>.
+        </p>
+      </footer>
+    </main>
+  </body>
+</html>

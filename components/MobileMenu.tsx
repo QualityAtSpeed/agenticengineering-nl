@@ -33,7 +33,7 @@ export function MobileMenu({ locale }: { locale: Locale }) {
         aria-label={open ? t('closeMenu') : t('openMenu')}
         onClick={() => setOpen((v) => !v)}
         data-testid="mobile-menu-toggle"
-        className="text-text-muted hover:text-accent-blue inline-flex h-8 w-8 items-center justify-center sm:hidden"
+        className="text-text-soft hover:text-brand inline-flex h-8 w-8 items-center justify-center sm:hidden"
       >
         {open ? (
           <svg
@@ -68,12 +68,12 @@ export function MobileMenu({ locale }: { locale: Locale }) {
           id={panelId}
           className="border-border-subtle bg-bg-base/95 absolute inset-x-0 top-full border-b backdrop-blur sm:hidden"
         >
-          <div className="mx-auto flex max-w-6xl flex-col gap-4 px-4 py-4 font-mono text-sm">
+          <div className="mx-auto flex max-w-6xl flex-col gap-4 px-4 py-4 text-sm font-medium">
             <Link
               href={`/${locale}/about`}
               onClick={() => setOpen(false)}
               data-testid="mobile-menu-about"
-              className="text-text-muted hover:text-accent-blue"
+              className="text-text-soft hover:text-brand"
             >
               {t('about')}
             </Link>
@@ -81,7 +81,7 @@ export function MobileMenu({ locale }: { locale: Locale }) {
               href={`/${locale}/articles`}
               onClick={() => setOpen(false)}
               data-testid="mobile-menu-articles"
-              className="text-text-muted hover:text-accent-blue"
+              className="text-text-soft hover:text-brand"
             >
               {t('articles')}
             </Link>
@@ -89,7 +89,7 @@ export function MobileMenu({ locale }: { locale: Locale }) {
               href={`/${locale}/contact`}
               onClick={() => setOpen(false)}
               data-testid="mobile-menu-contact"
-              className="text-text-muted hover:text-accent-blue"
+              className="text-text-soft hover:text-brand"
             >
               {t('contact')}
             </Link>

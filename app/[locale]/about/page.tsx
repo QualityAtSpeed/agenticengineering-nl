@@ -9,12 +9,10 @@ export default async function About({ params }: { params: Promise<{ locale: Loca
   const t = await getTranslations('about');
 
   return (
-    <main className="px-6 py-20">
-      <div className="mx-auto max-w-5xl">
-        <h1 className="text-text-primary font-mono text-4xl">
-          <span className="text-accent-green">&gt;</span> {t('title')}
-        </h1>
-        <p className="text-text-muted mt-6 max-w-2xl">{t('intro')}</p>
+    <main className="px-6 py-16 sm:py-20">
+      <div className="mx-auto max-w-3xl">
+        <h1 className="text-brand-deep text-3xl font-bold sm:text-4xl">{t('title')}</h1>
+        <p className="text-text-soft mt-3 text-lg">{t('intro')}</p>
         <div className="mt-12 grid gap-6 md:grid-cols-2">
           {instructors.map((i) => (
             <InstructorCard key={i.id} id={i.id} />

@@ -1,0 +1,685 @@
+<!doctype html>
+<html lang="nl">
+  <head>
+    <meta charset="utf-8" />
+    <title>agentic·engineering — formal white preview</title>
+    <style>
+      /* formal white, blue headers — design preview v3 */
+      :root {
+        --paper: #ffffff;
+        --paper-tint: #f7f9fb;
+        --border: #e2e6ea;
+        --border-strong: #c9d0d7;
+        --ink: #14181c;
+        --ink-soft: #2a323a;
+        --muted: #5b6772;
+        --brand: #0b6fb0;
+        --brand-hover: #08527f;
+        --brand-soft: #e8f1f8;
+        --link: #0b6fb0;
+        --link-visited: #5a3ca8;
+        --positive: #1f8f50;
+        --positive-hover: #167040;
+        --rule: #d6dbe0;
+      }
+      * {
+        box-sizing: border-box;
+      }
+      html,
+      body {
+        margin: 0;
+        padding: 0;
+        background: var(--paper);
+        color: var(--ink);
+        font-family:
+          -apple-system, BlinkMacSystemFont, 'Inter', 'Segoe UI', Roboto, 'Helvetica Neue', Arial,
+          sans-serif;
+        font-feature-settings: 'ss01', 'cv01';
+        font-size: 16px;
+        line-height: 1.6;
+      }
+      a {
+        color: var(--link);
+        text-decoration: none;
+      }
+      a:hover {
+        color: var(--brand-hover);
+        text-decoration: underline;
+        text-underline-offset: 3px;
+      }
+      h1,
+      h2,
+      h3,
+      h4 {
+        margin: 0;
+        color: var(--brand);
+        font-weight: 700;
+        letter-spacing: -0.005em;
+      }
+      h1 {
+        font-size: 2.25rem;
+        line-height: 1.15;
+      }
+      h2 {
+        font-size: 1.5rem;
+        line-height: 1.25;
+      }
+      h3 {
+        font-size: 1.125rem;
+        line-height: 1.3;
+      }
+      h4 {
+        font-size: 1rem;
+        line-height: 1.35;
+        color: var(--ink);
+      }
+      p {
+        margin: 0 0 14px 0;
+      }
+      ul,
+      ol {
+        margin: 0 0 16px 0;
+        padding-left: 1.25rem;
+      }
+      li {
+        margin-bottom: 4px;
+      }
+
+      /* header */
+      header.main {
+        background: var(--paper);
+        border-bottom: 1px solid var(--border);
+      }
+      header.main .row {
+        max-width: 1040px;
+        margin: 0 auto;
+        padding: 20px 24px;
+        display: flex;
+        align-items: center;
+        gap: 32px;
+      }
+      header.main .brand {
+        font-size: 1.0625rem;
+        font-weight: 700;
+        color: var(--ink);
+      }
+      header.main .brand a {
+        color: var(--ink);
+      }
+      header.main .brand a:hover {
+        text-decoration: none;
+        color: var(--brand);
+      }
+      header.main .brand .dot {
+        color: var(--brand);
+        padding: 0 0.05em;
+      }
+      header.main nav {
+        margin-left: auto;
+        display: flex;
+        gap: 28px;
+        align-items: center;
+      }
+      header.main nav a {
+        color: var(--ink-soft);
+        font-weight: 500;
+        font-size: 0.95rem;
+      }
+      header.main nav a:hover {
+        color: var(--brand);
+        text-decoration: none;
+      }
+      header.main nav .lang {
+        color: var(--muted);
+        font-size: 0.875rem;
+        padding-left: 16px;
+        border-left: 1px solid var(--border);
+      }
+
+      /* generic page container */
+      .container {
+        max-width: 1040px;
+        margin: 0 auto;
+        padding: 0 24px;
+      }
+      .prose {
+        max-width: 680px;
+      }
+
+      /* hero */
+      section.hero {
+        padding: 64px 0 48px 0;
+        border-bottom: 1px solid var(--border);
+      }
+      section.hero .kicker {
+        color: var(--muted);
+        font-size: 0.875rem;
+        margin-bottom: 14px;
+      }
+      section.hero h1 {
+        margin-bottom: 16px;
+        max-width: 24ch;
+      }
+      section.hero p.lede {
+        color: var(--ink-soft);
+        font-size: 1.0625rem;
+        max-width: 56ch;
+        margin-bottom: 28px;
+      }
+      .cta-row {
+        display: flex;
+        gap: 14px;
+        flex-wrap: wrap;
+        align-items: center;
+      }
+
+      /* buttons */
+      .btn {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        padding: 10px 18px;
+        border-radius: 4px;
+        font-weight: 600;
+        font-size: 0.9375rem;
+        border: 1px solid transparent;
+        cursor: pointer;
+        text-decoration: none;
+        line-height: 1.3;
+        transition:
+          background-color 120ms ease-out,
+          color 120ms ease-out,
+          border-color 120ms ease-out;
+        font-family: inherit;
+      }
+      .btn-primary {
+        background: var(--positive);
+        color: #ffffff;
+        border-color: var(--positive);
+      }
+      .btn-primary:hover {
+        background: var(--positive-hover);
+        border-color: var(--positive-hover);
+        color: #ffffff;
+        text-decoration: none;
+      }
+      .btn-secondary {
+        background: var(--paper);
+        color: var(--brand);
+        border-color: var(--border-strong);
+      }
+      .btn-secondary:hover {
+        color: var(--brand-hover);
+        border-color: var(--brand);
+        text-decoration: none;
+      }
+      .btn-link {
+        color: var(--brand);
+        padding: 0;
+        background: transparent;
+        border: none;
+        font-weight: 500;
+      }
+      .btn-link:hover {
+        text-decoration: underline;
+        text-underline-offset: 3px;
+      }
+
+      /* section */
+      section.block {
+        padding: 56px 0;
+        border-bottom: 1px solid var(--border);
+      }
+      section.block:last-of-type {
+        border-bottom: none;
+      }
+      section.block .head {
+        margin-bottom: 28px;
+        max-width: 760px;
+      }
+      section.block .head h2 {
+        margin-bottom: 8px;
+      }
+      section.block .head p {
+        color: var(--ink-soft);
+        margin: 0;
+      }
+
+      /* trainings overview list (NOT cards) */
+      .training-row {
+        display: grid;
+        grid-template-columns: 200px 1fr 220px;
+        gap: 32px;
+        padding: 28px 0;
+        border-top: 1px solid var(--border);
+        align-items: start;
+      }
+      .training-row:last-child {
+        border-bottom: 1px solid var(--border);
+      }
+      .training-row .meta {
+        font-size: 0.875rem;
+        color: var(--muted);
+      }
+      .training-row .meta .duration {
+        color: var(--ink);
+        font-weight: 600;
+        font-size: 1rem;
+        margin-bottom: 4px;
+      }
+      .training-row h3 {
+        margin-bottom: 8px;
+      }
+      .training-row p {
+        color: var(--ink-soft);
+        margin-bottom: 12px;
+      }
+      .training-row .price-line {
+        color: var(--ink);
+        font-weight: 600;
+        font-size: 1.0625rem;
+        margin-bottom: 4px;
+      }
+      .training-row .price-meta {
+        color: var(--muted);
+        font-size: 0.8125rem;
+        margin-bottom: 14px;
+      }
+      @media (max-width: 760px) {
+        .training-row {
+          grid-template-columns: 1fr;
+          gap: 12px;
+        }
+      }
+
+      /* facts list */
+      dl.facts {
+        margin: 0 0 24px 0;
+        border-top: 1px solid var(--border);
+      }
+      dl.facts .frow {
+        display: grid;
+        grid-template-columns: 180px 1fr;
+        padding: 12px 0;
+        border-bottom: 1px solid var(--border);
+        align-items: baseline;
+      }
+      dl.facts dt {
+        color: var(--muted);
+        font-weight: 500;
+        font-size: 0.9375rem;
+      }
+      dl.facts dd {
+        margin: 0;
+        color: var(--ink);
+      }
+      dl.facts dd ul {
+        margin: 0;
+        padding-left: 18px;
+      }
+      dl.facts dd ul li {
+        margin-bottom: 2px;
+      }
+
+      /* curriculum */
+      .day-marker {
+        color: var(--brand);
+        font-size: 0.8125rem;
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: 0.08em;
+        margin: 24px 0 10px 0;
+        padding-bottom: 8px;
+        border-bottom: 1px solid var(--border);
+      }
+      ol.modules {
+        list-style: none;
+        padding-left: 0;
+        margin: 0 0 24px 0;
+      }
+      ol.modules > li {
+        padding: 18px 0;
+        border-bottom: 1px solid var(--border);
+        display: grid;
+        grid-template-columns: 48px 1fr;
+        gap: 12px;
+        align-items: start;
+      }
+      ol.modules > li:last-child {
+        border-bottom: none;
+      }
+      ol.modules > li .num {
+        color: var(--muted);
+        font-variant-numeric: tabular-nums;
+        font-weight: 700;
+        font-size: 0.9375rem;
+        padding-top: 1px;
+        letter-spacing: 0.02em;
+      }
+      ol.modules > li h4 {
+        margin-bottom: 6px;
+        color: var(--ink);
+      }
+      ol.modules > li ul {
+        margin: 4px 0 0 0;
+        padding-left: 18px;
+        color: var(--muted);
+        font-size: 0.9375rem;
+      }
+      ol.modules > li ul li {
+        margin-bottom: 2px;
+      }
+
+      /* footer */
+      footer.bottom {
+        border-top: 1px solid var(--border);
+        background: var(--paper-tint);
+        margin-top: 0;
+      }
+      footer.bottom .row {
+        max-width: 1040px;
+        margin: 0 auto;
+        padding: 40px 24px 24px 24px;
+        display: grid;
+        grid-template-columns: 1.4fr 1fr 1fr 1fr;
+        gap: 32px;
+      }
+      @media (max-width: 760px) {
+        footer.bottom .row {
+          grid-template-columns: 1fr 1fr;
+        }
+      }
+      footer.bottom h4 {
+        font-size: 0.8125rem;
+        text-transform: uppercase;
+        letter-spacing: 0.06em;
+        color: var(--muted);
+        margin-bottom: 12px;
+        font-weight: 600;
+      }
+      footer.bottom ul {
+        list-style: none;
+        padding: 0;
+        margin: 0;
+      }
+      footer.bottom ul li {
+        padding: 3px 0;
+        font-size: 0.9375rem;
+      }
+      footer.bottom .bottom-line {
+        border-top: 1px solid var(--border);
+        padding: 16px 24px;
+        max-width: 1040px;
+        margin: 0 auto;
+        font-size: 0.8125rem;
+        color: var(--muted);
+        display: flex;
+        justify-content: space-between;
+        flex-wrap: wrap;
+        gap: 12px;
+      }
+    </style>
+  </head>
+  <body>
+    <header class="main">
+      <div class="row">
+        <div class="brand">
+          <a href="/">agentic<span class="dot">·</span>engineering</a>
+        </div>
+        <nav>
+          <a href="#trainings">Trainingen</a>
+          <a href="#about">Over ons</a>
+          <a href="#articles">Artikelen</a>
+          <a href="#contact">Contact</a>
+          <span class="lang"><a href="/en/">EN</a></span>
+        </nav>
+      </div>
+    </header>
+
+    <section class="hero">
+      <div class="container">
+        <p class="kicker">Agentic AI quality engineering, NL.</p>
+        <h1>Train je team in agentic AI quality engineering.</h1>
+        <p class="lede">
+          Twee praktijkgerichte trainingen in Claude Code of Codex. Twee dagen basis en
+          kwaliteitsloop, één dag rollout en governance.
+        </p>
+        <div class="cta-row">
+          <a href="#contact" class="btn btn-primary">Boek training</a>
+          <a href="#trainings" class="btn btn-secondary">Bekijk curriculum</a>
+        </div>
+      </div>
+    </section>
+
+    <section class="block" id="trainings">
+      <div class="container">
+        <div class="head">
+          <h2>Trainingen</h2>
+          <p>
+            Twee trainingen, los of opeenvolgend te volgen. In-company of open inschrijving.
+            Nederlands of Engels.
+          </p>
+        </div>
+
+        <div class="training-row">
+          <div class="meta">
+            <div class="duration">2 dagen</div>
+            <div>Basis + kwaliteitsloop</div>
+            <div>In-company / open</div>
+          </div>
+          <div>
+            <h3>Basic, twee dagen</h3>
+            <p>
+              Hands-on adoptie. Iedereen levert een feature op een starter repo, met tests, hooks en
+              CI groen vanaf minuut één.
+            </p>
+            <a href="#basic" class="btn-link">Bekijk programma →</a>
+          </div>
+          <div>
+            <div class="price-line">€ 2.495 p.p.</div>
+            <div class="price-meta">Excl. BTW</div>
+            <a href="#contact" class="btn btn-primary">Plan deze training</a>
+          </div>
+        </div>
+
+        <div class="training-row">
+          <div class="meta">
+            <div class="duration">1 dag</div>
+            <div>Rollout + governance</div>
+            <div>Voor tech leads en staff+</div>
+          </div>
+          <div>
+            <h3>Advanced, één dag</h3>
+            <p>
+              Eén dag om agentic AI quality engineering team-breed uit te rollen. Subagents, CI
+              hooks, observability en een 90-dagen rolloutplan.
+            </p>
+            <a href="#advanced" class="btn-link">Bekijk programma →</a>
+          </div>
+          <div>
+            <div class="price-line">€ 1.495 p.p.</div>
+            <div class="price-meta">Excl. BTW</div>
+            <a href="#contact" class="btn btn-primary">Plan deze training</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="block" id="basic">
+      <div class="container">
+        <div class="head">
+          <h2>Basic, twee dagen</h2>
+          <p>Twee dagen hands-on adoptie. Iedereen levert een feature op.</p>
+        </div>
+
+        <dl class="facts">
+          <div class="frow">
+            <dt>Tijdsduur</dt>
+            <dd>2 dagen, 16 uur</dd>
+          </div>
+          <div class="frow">
+            <dt>Voor wie</dt>
+            <dd>
+              <ul>
+                <li>Hele DevOps-teams: developers, QA / testers, ops / platform.</li>
+                <li>Gemengde teams die agentic workflows samen adopteren.</li>
+                <li>Engineering managers die met hun team meetrainen.</li>
+              </ul>
+            </dd>
+          </div>
+          <div class="frow">
+            <dt>Vereisten</dt>
+            <dd>
+              <ul>
+                <li>Vertrouwd met git en de command line.</li>
+                <li>Schrijft features in minimaal één taal (TS, Python, Go, etc.).</li>
+              </ul>
+            </dd>
+          </div>
+          <div class="frow">
+            <dt>Wat je leert</dt>
+            <dd>
+              <ul>
+                <li>
+                  Lever een werkende feature op een starter repo, met tests, hooks en CI groen vanaf
+                  minuut één.
+                </li>
+                <li>Herken failure modes van AI-gegenereerde code in je eigen werk.</li>
+                <li>Oefen test-first met een agent zonder schijnpassende tests te schrijven.</li>
+                <li>Zet hooks en quality gates op die de volgende sprint overleven.</li>
+                <li>Gebruik bestaande MCP servers in echte workflows.</li>
+              </ul>
+            </dd>
+          </div>
+          <div class="frow">
+            <dt>Prijs</dt>
+            <dd>€ 2.495 p.p., excl. BTW</dd>
+          </div>
+        </dl>
+
+        <h3 style="color: var(--ink); margin-bottom: 8px">Programma</h3>
+
+        <p class="day-marker">Dag 1, Quality engineering met agents</p>
+        <ol class="modules">
+          <li>
+            <span class="num">01</span>
+            <div>
+              <h4>Agents in je SDLC: waar ze passen, waar ze breken.</h4>
+              <ul>
+                <li>Waar een agent zijn plek verdient in de SDLC, en waar niet.</li>
+                <li>Wat een agent is vs. chat vs. automatisering.</li>
+                <li>Quality stakes: elke agent-wijziging is code die in productie komt.</li>
+              </ul>
+            </div>
+          </li>
+          <li>
+            <span class="num">02</span>
+            <div>
+              <h4>Failure modes van AI-gegenereerde code.</h4>
+              <ul>
+                <li>Hallucinaties, stille regressies, false-green builds.</li>
+                <li>Scope drift en onaangekondigde rewrites.</li>
+                <li>Hoe je ze herkent voordat ze in productie staan.</li>
+              </ul>
+            </div>
+          </li>
+          <li>
+            <span class="num">03</span>
+            <div>
+              <h4>Test-first met agents.</h4>
+              <ul>
+                <li>De TDD-loop met een agent als driver.</li>
+                <li>Wanneer tests vóór code komen, wanneer niet, waarom het uitmaakt.</li>
+                <li>Tests die gedrag bewijzen vs. tests die het model tevreden stellen.</li>
+              </ul>
+            </div>
+          </li>
+          <li>
+            <span class="num">04</span>
+            <div>
+              <h4>Hooks en quality gates.</h4>
+              <ul>
+                <li>Pre-commit checks: lint, format, type-check.</li>
+                <li>Quality gates die de sprint overleven.</li>
+                <li>Wat de agent NIET mag merge'en.</li>
+              </ul>
+            </div>
+          </li>
+        </ol>
+
+        <p class="day-marker">Dag 2, Agent mechanics en capstone</p>
+        <ol class="modules" start="5">
+          <li>
+            <span class="num">05</span>
+            <div><h4>MCP servers in productie-workflows.</h4></div>
+          </li>
+          <li>
+            <span class="num">06</span>
+            <div><h4>Capstone, ochtend: lever een feature op een starter repo.</h4></div>
+          </li>
+          <li>
+            <span class="num">07</span>
+            <div><h4>Capstone, middag: review en governance-starter.</h4></div>
+          </li>
+        </ol>
+
+        <div class="cta-row" style="margin-top: 12px">
+          <a href="#contact" class="btn btn-primary">Plan deze training</a>
+        </div>
+      </div>
+    </section>
+
+    <section class="block" id="contact">
+      <div class="prose container">
+        <div class="head">
+          <h2>Contact</h2>
+          <p>Vraag een offerte aan of bespreek de details. Wij reageren binnen één werkdag.</p>
+        </div>
+        <p style="color: var(--muted); font-size: 0.9375rem">
+          Formulier weggelaten in deze preview, vorm volgt dezelfde stijl: 1px lichte border, geen
+          rounded buttons buiten 4px, primaire knop groen.
+        </p>
+      </div>
+    </section>
+
+    <footer class="bottom">
+      <div class="row">
+        <div>
+          <div style="font-weight: 700; color: var(--ink); margin-bottom: 8px">
+            agentic·engineering
+          </div>
+          <p style="color: var(--muted); font-size: 0.9375rem; margin: 0">
+            Agentic AI quality engineering trainingen voor engineering teams in NL en EU.
+          </p>
+        </div>
+        <div>
+          <h4>Trainingen</h4>
+          <ul>
+            <li><a href="#basic">Basic, 2 dagen</a></li>
+            <li><a href="#advanced">Advanced, 1 dag</a></li>
+          </ul>
+        </div>
+        <div>
+          <h4>Bedrijf</h4>
+          <ul>
+            <li><a href="#">Over ons</a></li>
+            <li><a href="#">Artikelen</a></li>
+            <li><a href="#">Contact</a></li>
+          </ul>
+        </div>
+        <div>
+          <h4>Resources</h4>
+          <ul>
+            <li><a href="#">GitHub</a></li>
+            <li><a href="#">LinkedIn</a></li>
+            <li><a href="#">Impressum</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="bottom-line">
+        <span>© 2026 Quality at Speed. Deze site is gebouwd met agentic engineering.</span>
+        <span><a href="#">Bron op GitHub</a></span>
+      </div>
+    </footer>
+  </body>
+</html>

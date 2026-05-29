@@ -11,7 +11,8 @@
     "switchToNl": "NL",
     "brand": "Agentic·engineering",
     "openMenu": "Open menu",
-    "closeMenu": "Close menu"
+    "closeMenu": "Close menu",
+    "trainings": "Trainings"
   },
   "hero": {
     "kicker": "AGENTIC AI QUALITY ENGINEERING · EN",
@@ -35,15 +36,28 @@
       "audience": "Who it's for",
       "prerequisites": "Prerequisites",
       "outcomes": "What you'll learn",
-      "modules": "Modules",
-      "day1": "Day 1 — Quality engineering with agents",
-      "day2": "Day 2 — Agent mechanics + capstone",
+      "modules": "Programme",
+      "durationLabel": "Duration",
+      "day1": "Day 1 Quality engineering with agents",
+      "day2": "Day 2 Agent mechanics + capstone",
       "price": "Price",
       "priceSuffix": "ex. VAT",
       "viewDetails": "View programme",
       "viewFullCurriculum": "view full curriculum",
-      "bookCta": "Book this training",
+      "bookCta": "Book training",
       "taughtBy": "Taught by"
+    },
+    "cardMeta": {
+      "basic": {
+        "metaDuration": "2 days, 16 hours",
+        "metaAudience": "DevOps teams and managers",
+        "metaOutcome": "Feature on your own repo"
+      },
+      "advanced": {
+        "metaDuration": "1 day, 8 hours",
+        "metaAudience": "Tech leads, staff+, managers",
+        "metaOutcome": "90-day rollout plan"
+      }
     },
     "basic": {
       "name": "Basic",
@@ -326,8 +340,10 @@
     "email": "hello@agenticengineering.nl"
   },
   "home": {
+    "trainingsLede": "Two trainings, separately or consecutively. In-company or public cohort. Everyone ships something concrete.",
     "instructorsTitle": "Who runs the training",
-    "instructorsLink": "Meet the team →",
+    "instructorsLede": "Senior engineers with practitioner experience in agentic workflows and quality engineering.",
+    "instructorsLink": "Meet the team",
     "finalCta": {
       "title": "Ready to train your team?",
       "body": "Book an intro. We respond within 1 business day.",

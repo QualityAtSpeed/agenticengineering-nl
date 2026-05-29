@@ -29,15 +29,13 @@ export default async function ArticlesPage({
   const visible = currentType === 'all' ? articles : articles.filter((a) => a.type === currentType);
 
   return (
-    <main className="px-6 py-20">
+    <main className="px-6 py-16 sm:py-20">
       <div className="mx-auto max-w-4xl">
-        <h1 className="text-text-primary font-mono text-4xl">
-          <span className="text-accent-green">&gt;</span> {t('title')}
-        </h1>
-        <p className="text-text-muted mt-6 max-w-2xl">{t('intro')}</p>
+        <h1 className="text-brand-deep text-3xl font-bold sm:text-4xl">{t('title')}</h1>
+        <p className="text-text-soft mt-3 max-w-2xl text-lg">{t('intro')}</p>
         <ArticleFilterBar currentType={currentType} locale={locale} showBlogs={showBlogs} />
         {visible.length === 0 ? (
-          <p className="text-text-muted mt-12 font-mono text-sm">{t('emptyState')}</p>
+          <p className="text-text-muted mt-12 text-sm">{t('emptyState')}</p>
         ) : (
           <ol className="border-border-subtle mt-12 ml-3 border-l pl-6">
             {visible.map((article) => (

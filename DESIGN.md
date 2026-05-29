@@ -1,245 +1,263 @@
 ---
 name: agenticengineering.nl
-description: Terminal-aesthetic marketing site for two Claude Code trainings, NL/EN.
+description: Friendly-formal white/blue/green marketing site for two Claude Code trainings, NL/EN.
 colors:
-  bg-base: '#0d1117'
-  bg-elevated: '#161b22'
-  border-subtle: '#30363d'
-  text-primary: '#c9d1d9'
-  text-muted: '#8b949e'
-  accent-green: '#7ee787'
-  accent-blue: '#58a6ff'
-  accent-orange: '#f0883e'
-  accent-red: '#ff7b72'
+  bg-base: '#ffffff'
+  bg-elevated: '#f5f8fb'
+  bg-tint: '#eef3f8'
+  border-subtle: '#dde4ea'
+  border-strong: '#c6d0d8'
+  text-primary: '#0f141a'
+  text-soft: '#2a323a'
+  text-muted: '#5b6772'
+  brand: '#0b6fb0'
+  brand-deep: '#0a4d7a'
+  brand-soft: '#e8f1f8'
+  accent-green: '#1c8449'
+  accent-green-hover: '#167040'
+  accent-orange: '#c87a1a'
+  accent-red: '#c8431b'
 typography:
   display:
-    fontFamily: 'JetBrains Mono, ui-monospace, SFMono-Regular, Menlo, monospace'
-    fontSize: 'clamp(2rem, 6vw, 4.5rem)'
+    fontFamily: 'Inter, system-ui, -apple-system, sans-serif'
+    fontSize: 'clamp(2.25rem, 5vw, 3.75rem)'
     fontWeight: 700
-    lineHeight: '1.05'
-    letterSpacing: 'normal'
+    lineHeight: '1.1'
+    letterSpacing: '-0.01em'
   headline:
-    fontFamily: 'JetBrains Mono, ui-monospace, SFMono-Regular, Menlo, monospace'
-    fontSize: '2.25rem'
-    fontWeight: 600
-    lineHeight: '1.15'
-    letterSpacing: 'normal'
+    fontFamily: 'Inter, system-ui, -apple-system, sans-serif'
+    fontSize: '1.875rem'
+    fontWeight: 700
+    lineHeight: '1.2'
   title:
-    fontFamily: 'JetBrains Mono, ui-monospace, SFMono-Regular, Menlo, monospace'
+    fontFamily: 'Inter, system-ui, -apple-system, sans-serif'
     fontSize: '1.125rem'
-    fontWeight: 500
-    lineHeight: '1.3'
+    fontWeight: 600
+    lineHeight: '1.35'
   body:
     fontFamily: 'Inter, system-ui, -apple-system, sans-serif'
     fontSize: '1rem'
     fontWeight: 400
     lineHeight: '1.6'
+  body-lede:
+    fontFamily: 'Inter, system-ui, -apple-system, sans-serif'
+    fontSize: '1.125rem'
+    fontWeight: 400
+    lineHeight: '1.55'
   body-muted:
     fontFamily: 'Inter, system-ui, -apple-system, sans-serif'
-    fontSize: '0.875rem'
+    fontSize: '0.9375rem'
     fontWeight: 400
-    lineHeight: '1.6'
+    lineHeight: '1.55'
   label:
-    fontFamily: 'JetBrains Mono, ui-monospace, SFMono-Regular, Menlo, monospace'
+    fontFamily: 'Inter, system-ui, -apple-system, sans-serif'
     fontSize: '0.75rem'
-    fontWeight: 400
-    lineHeight: '1.4'
-    letterSpacing: '0.2em'
+    fontWeight: 700
+    lineHeight: '1.3'
+    letterSpacing: '0.08em'
 rounded:
-  none: '0px'
-  sm: '2px'
+  sm: '6px'
+  md: '8px'
+  lg: '12px'
+  full: '9999px'
 spacing:
   xs: '8px'
   sm: '16px'
   md: '24px'
   lg: '40px'
   xl: '64px'
-  xxl: '120px'
+  xxl: '96px'
 components:
   button-primary:
     backgroundColor: '{colors.accent-green}'
-    textColor: '{colors.bg-base}'
-    typography: '{typography.label}'
+    textColor: '#ffffff'
+    typography: '{typography.title}'
     rounded: '{rounded.sm}'
-    padding: '12px 20px'
+    padding: '10px 20px'
   button-primary-hover:
-    backgroundColor: '{colors.accent-green}'
-    textColor: '{colors.bg-base}'
+    backgroundColor: '{colors.accent-green-hover}'
+    textColor: '#ffffff'
   button-secondary:
     backgroundColor: '{colors.bg-base}'
-    textColor: '{colors.text-primary}'
+    textColor: '{colors.brand}'
+    borderColor: '{colors.brand}'
     rounded: '{rounded.sm}'
-    padding: '12px 20px'
+    padding: '10px 20px'
   button-secondary-hover:
-    backgroundColor: '{colors.bg-base}'
-    textColor: '{colors.accent-blue}'
+    backgroundColor: '{colors.brand-soft}'
+    textColor: '{colors.brand-deep}'
   card:
-    backgroundColor: '{colors.bg-elevated}'
-    textColor: '{colors.text-primary}'
-    rounded: '{rounded.sm}'
+    backgroundColor: '{colors.bg-base}'
+    borderColor: '{colors.border-subtle}'
+    rounded: '{rounded.md}'
     padding: '24px'
   card-hover:
-    backgroundColor: '{colors.bg-elevated}'
-    textColor: '{colors.text-primary}'
+    borderColor: '{colors.brand}'
   input:
-    backgroundColor: '{colors.bg-elevated}'
+    backgroundColor: '{colors.bg-base}'
+    borderColor: '{colors.border-subtle}'
     textColor: '{colors.text-primary}'
     rounded: '{rounded.sm}'
-    padding: '8px 12px'
+    padding: '10px 12px'
   nav:
     backgroundColor: '{colors.bg-base}'
-    textColor: '{colors.text-primary}'
-    padding: '16px 24px'
+    borderColor: '{colors.border-subtle}'
+    textColor: '{colors.text-soft}'
+    padding: '14px 24px'
   link-default:
-    textColor: '{colors.text-muted}'
+    textColor: '{colors.brand}'
   link-hover:
-    textColor: '{colors.accent-blue}'
-  prompt-marker:
-    textColor: '{colors.accent-green}'
-    typography: '{typography.display}'
+    textColor: '{colors.brand-deep}'
 ---
 
 ## 1. Overview
 
-A dark terminal-aesthetic site for selling agentic-engineering trainings to developers. The visual system mirrors the audience: monospace headings, generous whitespace, semantic glyphs (`>`, `$`, `→`, `//`) carry meaning, and a single accent green earns attention rather than decorating every surface.
+A bright, white-surface marketing site for selling agentic-engineering trainings to developers. Friendly enough to read like a Dutch training portal, restrained enough to keep the formal credibility engineers expect when evaluating a paid course.
 
-**Color strategy: Restrained.** Tinted near-black neutrals (GitHub-dark-derived hues) plus one carrier color (terminal green `#7ee787`) used in <10% of pixels for primary CTAs and focal glyphs. Secondary accents (blue for hover/links, orange for warnings/day-markers, red for errors) appear only at semantic moments.
+**Color strategy: Restrained.** White surface, tinted neutrals, and two carrier colors used semantically: brand blue (`#0b6fb0` / `#0a4d7a`) for identity, headlines, and links; action green (`#1f8f50`) for primary CTAs and success states. Together they sit under 15% of pixels. Secondary accents (orange, red) appear only at semantic moments (warnings, validation errors).
 
-**Theme: Dark, always.** Audience is engineers reading dense technical specifications during the workday on developer monitors. Dark theme is not a style choice; it matches the IDEs they live in and the registry of the brand register.
+**Theme: Light, always.** Audience is engineers and tech leads evaluating a credible training during the workday on bright monitors. The site has to read as a trustworthy training catalog, not as a developer tool. White surface signals "this is the catalog you read"; brand blue carries the institutional confidence; green CTA earns the eye when an action is available.
 
-**Density.** Headings are bold and prominent (`clamp(2rem, 6vw, 4.5rem)` for hero, monospace) but body text breathes — `max-w-2xl` constraint keeps reading width near 65ch. Section padding stacks at `py-20` to `py-40`, large enough that sections feel like discrete chapters.
+**Density.** Headlines are bold and prominent (`clamp(2.25rem, 5vw, 3.75rem)` for hero), body text breathes at `max-w-2xl` (≈ 65ch). Section padding stacks at `py-16` to `py-24`. Sections feel like discrete chapters but the surface is continuous and welcoming, not slabbed.
 
-**Locale-aware.** NL is primary (`html lang="nl"`). EN is parity-complete. Curriculum module IDs stay English even on the NL page; titles localize. This is deliberate — engineers speak English about MCP/SDLC even in Dutch sentences.
+**Locale-aware.** NL is primary (`html lang="nl"`). EN is parity-complete. Curriculum module IDs stay English even on the NL page; titles localize. This is deliberate: engineers speak English about MCP/SDLC even in Dutch sentences.
 
 ## 2. Colors
 
-The palette is anchored in GitHub's dark mode hue family. All neutrals share a faint cool-blue undertone so the surface reads as "developer terminal" rather than "OLED black-and-white".
+The palette is anchored in a near-white surface with a faint cool tint, brand blue carrying identity, and a single green for action.
 
-| Token                     | Hex                                                                                           | Use                                                                                                                     |
-| ------------------------- | --------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------- |
-| `bg-base`                 | `#0d1117`                                                                                     | Page background, body, nav background (with 90% alpha + backdrop-blur for stickiness).                                  |
-| `bg-elevated`             | `#161b22`                                                                                     | Cards, form inputs, footer, final-CTA band. The only elevation step.                                                    |
-| `border-subtle`           | `#30363d`                                                                                     | All borders. Used as a single-pixel boundary; never as a fill.                                                          |
-| `text-primary`            | `#c9d1d9`                                                                                     | All body text, headings, primary content. Never used on `accent-green` (use `bg-base` instead for contrast).            |
-| `text-muted`              | `#8b949e`                                                                                     | Labels, kickers, meta text, secondary copy. Contrast ratio 4.5:1 against `bg-base` (AA body), passes for ≥18px or bold. |
-| `accent-green` `#7ee787`  | Primary CTA fill, `>` prompt markers, success state, focus-adjacent emphasis. ≤10% of pixels. |
-| `accent-blue` `#58a6ff`   | Hover state for links and secondary buttons. Focus-ring color. Never used as fill.            |
-| `accent-orange` `#f0883e` | Day-1/Day-2 markers in the Basic curriculum split. Rate-limit warning state. Price display.   |
-| `accent-red` `#ff7b72`    | Form validation errors. The 404 page glyph. Never used decoratively.                          |
+| Token                | Hex       | Use                                                                           |
+| -------------------- | --------- | ----------------------------------------------------------------------------- |
+| `bg-base`            | `#ffffff` | Page background, cards, nav, form inputs.                                     |
+| `bg-elevated`        | `#f5f8fb` | Banded sections (proof strip, training detail bands, footer).                 |
+| `bg-tint`            | `#eef3f8` | Image placeholders, soft fills inside cards.                                  |
+| `border-subtle`      | `#dde4ea` | Default 1px borders on cards, dividers, inputs.                               |
+| `border-strong`      | `#c6d0d8` | Hover borders, emphasis dividers.                                             |
+| `text-primary`       | `#0f141a` | Body text default, card titles, dense reading.                                |
+| `text-soft`          | `#2a323a` | Lede paragraphs, secondary body.                                              |
+| `text-muted`         | `#5b6772` | Meta lines, helper text, captions. Passes AA at body sizes against `bg-base`. |
+| `brand`              | `#0b6fb0` | H2 headlines, links, kicker eyebrows, primary identity color.                 |
+| `brand-deep`         | `#0a4d7a` | H1 headlines, link hover, gradient anchor for final-CTA band.                 |
+| `brand-soft`         | `#e8f1f8` | DayMarker pill background, secondary button hover fill, image ring.           |
+| `accent-green`       | `#1f8f50` | Primary CTA fill, success state, logo glyph. Reserved; not decorative.        |
+| `accent-green-hover` | `#167040` | Primary CTA hover only.                                                       |
+| `accent-orange`      | `#c87a1a` | Warning state, future use for limited-seat alerts. No decorative use.         |
+| `accent-red`         | `#c8431b` | Form validation errors, 404 page emphasis. No decorative use.                 |
 
-**Do not** introduce a new color without first asking whether one of the four accents already carries that meaning. The palette is closed; that is the point.
+**Do not** introduce a new color without first asking whether one of the existing roles already carries that meaning. The palette is closed; that is the point.
 
 ## 3. Typography
 
-Two families. JetBrains Mono for everything structural — headings, labels, CTAs, prompt-prefixes — because monospace IS the brand. Inter for body prose where ligature-correct, proportional letterforms aid reading at small sizes.
+One family. Inter for everything, since the design no longer leans on monospace as a brand signal. Hierarchy is built with weight contrast (400 vs 700) and a ≥1.25× size ratio.
 
-| Token        | Family         | Size                       | Weight                                    | Use                                           |
-| ------------ | -------------- | -------------------------- | ----------------------------------------- | --------------------------------------------- |
-| `display`    | JetBrains Mono | `clamp(2rem, 6vw, 4.5rem)` | 700                                       | Hero H1 only. One per page.                   |
-| `headline`   | JetBrains Mono | `2.25rem` (lg)             | 600                                       | Section H2 — "Trainings", "About", "Contact". |
-| `title`      | JetBrains Mono | `1.125rem`                 | 500                                       | Module title (H4) in curriculum list.         |
-| `body`       | Inter          | `1rem`                     | 400                                       | Default paragraph text.                       |
-| `body-muted` | Inter          | `0.875rem`                 | 400                                       | Card descriptions, form helper text.          |
-| `label`      | JetBrains Mono | `0.75rem`                  | 400, `letter-spacing: 0.2em`, `uppercase` | Kickers, section eyebrows, button text.       |
+| Token        | Family | Size                             | Weight                        | Use                                                      |
+| ------------ | ------ | -------------------------------- | ----------------------------- | -------------------------------------------------------- |
+| `display`    | Inter  | `clamp(2.25rem, 5vw, 3.75rem)`   | 700, `letter-spacing -0.01em` | Hero H1 only. One per page.                              |
+| `headline`   | Inter  | `1.875rem` (sm:`2.25rem`)        | 700                           | Section H2 (`Trainingen`, `Over`, `Contact`).            |
+| `title`      | Inter  | `1.125rem`                       | 600                           | Card titles, module titles, form section heads.          |
+| `body`       | Inter  | `1rem`                           | 400                           | Default paragraph text.                                  |
+| `body-lede`  | Inter  | `1.125rem`                       | 400                           | Hero subtitle, page intros below H1.                     |
+| `body-muted` | Inter  | `0.9375rem`                      | 400                           | Card descriptions, secondary copy.                       |
+| `label`      | Inter  | `0.75rem`, `0.08em`, `uppercase` | 700                           | Kickers, eyebrows, meta lines, button text on icon-meta. |
 
-**Scale ratio.** Steps move by ≥1.25× — `0.75rem → 1rem → 1.125rem → 2.25rem → clamp display`. Avoid intermediate sizes; the scale should feel quantized like a terminal grid.
+**Scale ratio.** Steps move by ≥1.25×: `0.75rem → 0.9375rem → 1rem → 1.125rem → 1.875rem → clamp display`. Avoid intermediate sizes.
 
 **Line-length cap.** Body prose is constrained to `max-w-2xl` (~ 42rem ≈ 65ch) regardless of viewport width.
 
 ## 4. Elevation
 
-Effectively flat. Two surface layers:
+Effectively flat. Three surface layers, all light:
 
-1. `bg-base` (the page).
-2. `bg-elevated` (cards, footer, final-CTA, form inputs).
+1. `bg-base` (the page, cards, nav, inputs).
+2. `bg-elevated` (banded sections, footer).
+3. `bg-tint` (image placeholders, soft fills inside cards).
 
-No drop shadows. Separation is done with **borders** (`border-subtle` 1px) and **surface tonality** (`bg-elevated` is ~3.5% lighter than `bg-base`).
+No drop shadows except `shadow-sm` on primary CTA buttons (subtle, functional). Separation is done with **borders** (`border-subtle` 1px) and **surface tonality** (the three light tiers).
 
-The nav uses `bg-bg-base/90 backdrop-blur` to float over content while scrolling — the only effect beyond the two-tier surface scheme. This is rare and purposeful, not a glassmorphism habit.
+The nav uses a solid `bg-base` background with a 1px `border-subtle` bottom border. A 3px gradient strip (`brand-deep → brand → accent-green`) sits above it as the only decorative flourish on the page chrome.
 
 ## 5. Components
 
 ### Hero
 
-A single full-width `<section>` with `px-6 py-24 sm:py-32 lg:py-40`. Anatomy:
+A single full-width `<section>` with `px-6 py-20 sm:py-28`. Anatomy:
 
-1. **Kicker** (label typography, `text-muted`) — eyebrow text like `AGENTIC ENGINEERING · NL`.
-2. **H1** (display typography) — starts with green `>` glyph + space, then the headline. The `>` is functional: it signals the prompt-like brand metaphor.
-3. **Subtitle** (`text-lg`, `text-muted`, `max-w-2xl`).
-4. **Two CTAs** — primary green ($ prefix), secondary outlined (→ prefix).
+1. **Background.** Subtle dot-grid via a radial gradient at low opacity, white base.
+2. **Kicker** (label typography, `text-brand`) — eyebrow text like `AGENTIC ENGINEERING · NL`.
+3. **H1** (display typography, `text-brand-deep`) — bold, no leading glyph.
+4. **Subtitle** (`body-lede`, `text-text-soft`, `max-w-2xl`).
+5. **Two CTAs** — primary green filled with white text + ArrowIcon, secondary outlined in brand blue.
 
-### Trainings Overview Card
+### Training Row (TrainingCard)
 
-Card surface with internal vertical stack:
+A full-width row (no side-by-side card grid). Anatomy: 4-column grid on desktop:
 
-- Label (duration, `1 dag` / `2 dagen`).
-- Title (`>` green prefix + name).
-- Body description (tagline, flex-1).
-- Price (`accent-orange`, mono, with small `excl. BTW` suffix in muted).
-- Link `→ {viewDetails}` (`accent-blue`).
+1. **Numeral column** — `01` / `02` in label typography, `text-brand`, tabular-nums.
+2. **Title + tagline column** — `title` typography for the name, `body-muted` for the tagline.
+3. **Icon meta-list column** — three rows (duration, audience, outcome), each with a small SVG icon + label.
+4. **Price + CTA column** — price in `text-brand-deep`, label-style VAT suffix in `text-muted`, "Plan training" primary green button.
 
-Cards never stack inside cards (absolute ban). Identical-grid card layouts are limited to exactly two side-by-side instances (Basic + Advanced). The instructors snippet on the home uses the same shape but for two instructor cards.
+Rows separate with a 1px `border-subtle` divider. No card carrier; rows are the structural unit.
 
 ### TrainingDetail
 
 A full-width banded section in `bg-elevated` separated from neighbors by `border-subtle` top-border. Anatomy:
 
-1. **Eyebrow line** combines duration + price + VAT note (mono, label-style, `text-muted`).
-2. **H2** with `>` prefix.
-3. **Tagline** below.
-4. **3-column detail grid** (`audience` / `prerequisites` / `outcomes`) — each item bullets with green `›` glyph instead of generic `·`.
-5. **Curriculum** — for Advanced, a single numbered list (`01`, `02`, …); for Basic, a 2-column split with `Dag 1 — Quality engineering met agents` and `Dag 2 — Agent mechanics + capstone` markers in orange.
-6. Each module line has a numbered prefix, `>` green H4 title, and 3 bullet rows in muted small text.
-7. **Book CTA** — primary green button with `$ {bookCta}`.
+1. **H2** in `headline` typography, `text-brand-deep`.
+2. **Tagline** in `body-lede`, `text-text-soft`.
+3. **Facts `<dl>`** — three rows (audience, prerequisites, outcomes), each with an icon `<dt>` + bullet list `<dd>`.
+4. **Curriculum.** Advanced is a single numbered list (`01`, `02`, …). Basic splits into two days; each day starts with a `DayMarker` pill (`bg-brand-soft text-brand-deep`).
+5. **Each module line** has a circular num-badge (40px disc, `border-border-subtle`, tabular-nums), a `title` H4, and a `body-muted` description.
+6. **Book CTA** — primary green button, label-style text.
 
 ### Nav
 
-Sticky top, full-width, `bg-bg-base/90 backdrop-blur`, `border-subtle` bottom border. Inside: max-w-6xl row with brand on left (`$ agentic·engineering`, mono), links on right (`Over ons` / `Contact` / `LangSwitcher`). All links are `text-muted` default, `accent-blue` on hover. Active locale in switcher is `accent-green`.
+Sticky top, full-width, solid `bg-base`, `border-subtle` bottom border. Above the nav, a 3px gradient strip (`brand-deep → brand → accent-green`). Inside: max-w-6xl row with brand on left (`28×28` brand-icon SVG + bold wordmark `agentic·engineering`), links on right (`Over ons` / `Contact` / `LangSwitcher`). Links are `text-text-soft` default, `text-brand-deep` on hover with underline. Active locale in switcher is `text-brand`.
 
 ### Form fields
 
 Each field is a `<label>` block with three children:
 
-1. Label (`label` typography, `text-muted`).
-2. Input/textarea/select (`bg-elevated`, `border-subtle`, `rounded-sm`, body typography, `px-3 py-2`).
-3. Validation error (red, mono-small, prefixed `// `).
+1. Label (`title` typography, `text-text-soft`).
+2. Input/textarea/select (`bg-base`, `border-subtle` 1px, `rounded-sm`, body typography, `px-3 py-2.5`, focus ring `brand` 2px).
+3. Validation error (`text-accent-red`, `body-muted`, no leading glyph).
 
 Submit button is identical to hero primary CTA. Disabled state is `opacity-60`.
 
 ### Banners / status messages
 
-Inline only — never modals. Pattern: `// {label}` in the right semantic color (red for error, orange for rate-limit, green inside an `bg-elevated` rounded panel for success). The `//` prefix is a code-comment metaphor; it earns the design language consistency.
+Inline only, never modals. Pattern: full border + tinted background panel.
 
-### Glyph vocabulary
+- **Success.** `border-accent-green` + `bg-brand-soft`-equivalent tint, `text-text-primary`.
+- **Error.** `border-accent-red` + soft red tint, `text-text-primary`.
 
-These four glyphs carry meaning and recur across the site. They are not decorative:
+No side-stripe borders (absolute ban). No leading `//` glyph.
 
-| Glyph | Color                                         | Meaning                                                                 |
-| ----- | --------------------------------------------- | ----------------------------------------------------------------------- |
-| `>`   | `accent-green`                                | Prompt prefix on H1/H2/H3 headings — the "page is talking".             |
-| `$`   | `accent-green`                                | Shell prefix on primary CTA buttons — the "user is about to act".       |
-| `→`   | `text-primary` (or `accent-blue` on hover)    | Secondary link / "more here".                                           |
-| `//`  | `text-muted` (or red/orange/green for status) | Comment-style annotation: form helper, status banner, validation error. |
-| `›`   | `accent-green`                                | Bullet marker inside detail lists (audience/prereq/outcomes).           |
+### Footer
+
+`bg-bg-elevated`, `border-subtle` top border, sans-serif throughout. Brand-icon + wordmark on left, link columns on right, copyright row below.
 
 ## 6. Do's and Don'ts
 
 ### Do
 
-- **Use `>` on every section H2.** It is the consistent prompt-metaphor anchor.
+- **Use `text-brand-deep` on H1, `text-brand` on H2.** Identity color carries hierarchy.
 - **Constrain body width to `max-w-2xl`** even when the section is full-bleed. Reading width over fashion.
-- **Pair every accent color with a glyph or icon-position role.** `accent-orange` always means "day marker" or "price"; never "decorative warm tone".
-- **Keep CTAs short and lowercase.** `book training`, `view curriculum`, `verzenden`. No title-case marketing verbs.
-- **Bake locale awareness into every component.** Don't hard-code "Days". Use `t('duration.basic')` or pass `locale` in props.
-- **Use `border-subtle` 1px borders as the dominant separator.** They read as terminal-grid divisions.
+- **Pair every accent color with a semantic role.** `accent-green` is always action; `accent-red` is always error; `brand` is always identity. No decorative use.
+- **Keep CTAs short and direct.** `Plan training`, `Book training`, `Bekijk programma`, `Verzenden`. Sentence-case, no marketing exclamations.
+- **Bake locale awareness into every component.** Don't hard-code `Days`. Use `t('duration.basic')` or pass `locale` in props.
+- **Use `border-subtle` 1px borders as the dominant separator.** They read as quiet structural division.
+- **Use icons (inline SVG) for meta lines instead of glyphs.** Duration icon next to duration label, audience icon next to audience label.
 
 ### Don't
 
-- **Don't introduce a 5th accent.** If a new state needs color, repurpose blue/orange/red semantically — don't add purple/teal/pink.
-- **Don't add box-shadows.** The flat two-layer surface scheme IS the brand. Shadows look like SaaS.
-- **Don't use sentence-case marketing exclamations.** `Build the future!` is a banned register.
-- **Don't put text on `accent-green` except `bg-base`.** White-on-green fails AA; `text-primary` on green fails AA.
-- **Don't nest cards.** The card-grid is exactly one level deep. Detail rows inside a card use indented text + glyphs, not sub-cards.
-- **Don't gradient anything.** No gradient backgrounds, no gradient text, no gradient borders. Solids only.
-- **Don't animate layout.** Transitions are on `color`, `border-color`, `background-color`, `opacity`, `filter` only — never `width`, `height`, `top`, `padding`. Respect `prefers-reduced-motion` (already clamped to `0.01ms` in `app/globals.css`).
-- **Don't replace `>` glyphs with chevrons or arrows.** The glyph is a brand signal; swapping it breaks the metaphor.
+- **Don't reintroduce monospace anywhere.** Inter sans-serif is the only family. JetBrains Mono has been retired from the stack.
+- **Don't add the `>`, `$`, `//`, `›` carrier glyphs.** They belonged to the terminal aesthetic; they are not part of this design language.
+- **Don't introduce a 5th accent.** If a new state needs color, repurpose orange or red semantically.
+- **Don't add box-shadows beyond `shadow-sm` on primary CTAs.** Flat surfaces with borders IS the brand.
+- **Don't put text on `accent-green` except white.** Other combinations fail AA.
+- **Don't use side-stripe borders.** `border-left` or `border-right` > 1px as a colored accent is banned. Use full borders + tinted backgrounds instead.
+- **Don't nest cards.** Card grids are exactly one level deep.
+- **Don't gradient anything visible except the 3px nav top-strip and the final-CTA band.** No gradient text, no gradient buttons.
+- **Don't animate layout.** Transitions are on `color`, `border-color`, `background-color`, `opacity` only, never `width`, `height`, `top`, `padding`. Respect `prefers-reduced-motion` (already clamped to `0.01ms` in `app/globals.css`).
+- **Don't use em dashes.** Use commas, colons, semicolons, periods, or parentheses.

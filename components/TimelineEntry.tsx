@@ -12,7 +12,7 @@ export function TimelineEntryRow({ article, locale }: { article: Article; locale
   const image = article.image ?? FALLBACK_IMAGE;
 
   return (
-    <li className="relative pb-12 pl-6 last:pb-0" data-testid={`article-card-${article.slug}`}>
+    <li className="relative pb-10 last:pb-0" data-testid={`article-card-${article.slug}`}>
       <a
         href={article.url}
         target="_blank"
@@ -20,11 +20,11 @@ export function TimelineEntryRow({ article, locale }: { article: Article; locale
         data-testid={`article-link-${article.slug}`}
         className="group block"
       >
-        <p className="text-text-muted font-mono text-xs tracking-[0.2em] uppercase">
+        <p className="text-brand text-xs font-bold tracking-wider uppercase">
           {article.date} <span className="text-text-muted">// {t(`type.${article.type}`)}</span>
         </p>
         <div className="mt-3 flex flex-col gap-4 sm:flex-row sm:items-start">
-          <div className="relative aspect-[1.91/1] w-full overflow-hidden rounded-sm sm:w-72 sm:flex-shrink-0">
+          <div className="border-border-subtle bg-bg-tint relative aspect-[1.91/1] w-full overflow-hidden rounded-md border sm:w-72 sm:flex-shrink-0">
             <Image
               src={image}
               alt={title}
@@ -34,12 +34,12 @@ export function TimelineEntryRow({ article, locale }: { article: Article; locale
             />
           </div>
           <div className="flex-1">
-            <h3 className="text-text-primary group-hover:text-accent-blue font-mono text-xl transition-colors">
-              <span className="text-accent-green">&gt;</span> {title}
+            <h3 className="text-text-primary group-hover:text-brand text-xl font-bold transition-colors">
+              {title}
             </h3>
-            <p className="text-text-muted mt-3 max-w-2xl text-sm">{summary}</p>
-            <span className="text-accent-blue mt-4 inline-block font-mono text-sm group-hover:underline">
-              → {t('readExternal')}
+            <p className="text-text-soft mt-2 max-w-2xl text-[0.9375rem]">{summary}</p>
+            <span className="text-brand group-hover:text-brand-deep mt-3 inline-block text-sm font-semibold">
+              {t('readExternal')} →
             </span>
           </div>
         </div>

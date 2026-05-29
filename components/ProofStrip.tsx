@@ -1,5 +1,5 @@
-import Link from 'next/link';
 import { useTranslations } from 'next-intl';
+import { Button } from '@/components/Button';
 import type { Locale } from '@/i18n/routing';
 
 const REPO_URL = 'https://github.com/QualityAtSpeed/agenticengineering-nl';
@@ -9,31 +9,25 @@ export function ProofStrip({ locale: _locale }: { locale: Locale }) {
   const pills = t.raw('pills') as string[];
 
   return (
-    <section className="border-border-subtle border-t px-6 py-20">
+    <section className="border-border-subtle bg-bg-elevated border-b px-6 py-20">
       <div className="mx-auto max-w-5xl">
-        <h2 className="text-text-primary font-mono text-3xl">
-          <span className="text-accent-green">&gt;</span> {t('heading')}
-        </h2>
-        <p className="text-text-muted mt-3 max-w-2xl">{t('subhead')}</p>
+        <h2 className="text-brand text-2xl font-bold sm:text-3xl">{t('heading')}</h2>
+        <p className="text-text-soft mt-3 max-w-2xl">{t('subhead')}</p>
 
-        <ul className="mt-8 flex flex-wrap items-center gap-x-3 gap-y-2 font-mono text-sm">
-          {pills.map((p, i) => (
-            <li key={p} className="text-text-primary">
-              {i > 0 && <span className="text-accent-green mr-3">·</span>}
+        <ul className="mt-7 flex flex-wrap gap-2">
+          {pills.map((p) => (
+            <li
+              key={p}
+              className="border-border-subtle bg-bg-base text-text-primary inline-flex items-center rounded-full border px-3 py-1 text-sm font-medium"
+            >
               {p}
             </li>
           ))}
         </ul>
 
-        <Link
-          href={REPO_URL}
-          target="_blank"
-          rel="noopener noreferrer"
-          data-testid="proof-github-link"
-          className="bg-accent-green text-bg-base mt-10 inline-flex items-center gap-2 rounded-sm px-5 py-3 font-mono text-sm font-semibold hover:brightness-110"
-        >
+        <Button href={REPO_URL} external data-testid="proof-github-link" className="mt-9">
           {t('ctaLabel')} →
-        </Link>
+        </Button>
       </div>
     </section>
   );

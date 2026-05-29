@@ -5,8 +5,12 @@ import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useTranslations } from 'next-intl';
 import { contactSchema, type ContactInput } from '@/lib/validation';
+import { Button } from '@/components/Button';
 
 type Status = 'idle' | 'submitting' | 'success' | 'error' | 'rateLimited';
+
+const INPUT_CLASS =
+  'border-border-strong bg-bg-base text-text-primary focus:border-brand focus:ring-brand/20 w-full rounded-md border px-3 py-2 text-[0.9375rem] focus:ring-2 focus:outline-none';
 
 export function ContactForm({ defaultTraining }: { defaultTraining?: 'basic' | 'advanced' }) {
   const t = useTranslations('contact');
@@ -56,24 +60,24 @@ export function ContactForm({ defaultTraining }: { defaultTraining?: 'basic' | '
   if (status === 'success') {
     return (
       <div
-        className="border-accent-green bg-bg-elevated rounded-sm border p-6"
+        className="border-accent-green/30 bg-accent-green/10 rounded-md border p-5"
         data-testid="contact-success"
       >
-        <p className="text-accent-green font-mono">// {t('success.title')}</p>
-        <p className="text-text-muted mt-2">{t('success.body')}</p>
+        <p className="text-accent-green-hover font-semibold">{t('success.title')}</p>
+        <p className="text-text-soft mt-1.5 text-[0.9375rem]">{t('success.body')}</p>
       </div>
     );
   }
 
   return (
-    <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
+    <form onSubmit={handleSubmit(onSubmit)} className="space-y-5">
       <Field label={t('form.name')} error={fieldError(errors.name, 'other')}>
         <input
           type="text"
           autoComplete="name"
           data-testid="contact-name"
           {...register('name')}
-          className="border-border-subtle bg-bg-elevated text-text-primary w-full rounded-sm border px-3 py-2 font-sans"
+          className={INPUT_CLASS}
         />
       </Field>
 
@@ -83,7 +87,7 @@ export function ContactForm({ defaultTraining }: { defaultTraining?: 'basic' | '
           autoComplete="email"
           data-testid="contact-email"
           {...register('email')}
-          className="border-border-subtle bg-bg-elevated text-text-primary w-full rounded-sm border px-3 py-2 font-sans"
+          className={INPUT_CLASS}
         />
       </Field>
 
@@ -93,7 +97,7 @@ export function ContactForm({ defaultTraining }: { defaultTraining?: 'basic' | '
           autoComplete="organization"
           data-testid="contact-company"
           {...register('company')}
-          className="border-border-subtle bg-bg-elevated text-text-primary w-full rounded-sm border px-3 py-2 font-sans"
+          className={INPUT_CLASS}
         />
       </Field>
 
@@ -104,7 +108,7 @@ export function ContactForm({ defaultTraining }: { defaultTraining?: 'basic' | '
         <select
           data-testid="contact-training-interest"
           {...register('trainingInterest')}
-          className="border-border-subtle bg-bg-elevated text-text-primary w-full rounded-sm border px-3 py-2 font-sans"
+          className={INPUT_CLASS}
         >
           <option value="basic">{t('form.trainingOptions.basic')}</option>
           <option value="advanced">{t('form.trainingOptions.advanced')}</option>
@@ -117,7 +121,7 @@ export function ContactForm({ defaultTraining }: { defaultTraining?: 'basic' | '
         <select
           data-testid="contact-delivery-pref"
           {...register('deliveryPref')}
-          className="border-border-subtle bg-bg-elevated text-text-primary w-full rounded-sm border px-3 py-2 font-sans"
+          className={INPUT_CLASS}
         >
           <option value="noPreference">{t('form.deliveryOptions.noPreference')}</option>
           <option value="inCompany">{t('form.deliveryOptions.inCompany')}</option>
@@ -131,7 +135,7 @@ export function ContactForm({ defaultTraining }: { defaultTraining?: 'basic' | '
           rows={6}
           data-testid="contact-message"
           {...register('message')}
-          className="border-border-subtle bg-bg-elevated text-text-primary w-full rounded-sm border px-3 py-2 font-sans"
+          className={INPUT_CLASS}
         />
       </Field>
 
@@ -143,20 +147,19 @@ export function ContactForm({ defaultTraining }: { defaultTraining?: 'basic' | '
       </div>
 
       {status === 'error' && (
-        <p className="text-accent-red font-mono text-sm">// {t('errors.generic')}</p>
+        <p className="border-accent-red/30 bg-accent-red/10 text-accent-red rounded-md border px-3 py-2 text-sm">
+          {t('errors.generic')}
+        </p>
       )}
       {status === 'rateLimited' && (
-        <p className="text-accent-orange font-mono text-sm">// {t('errors.rateLimited')}</p>
+        <p className="border-accent-orange/30 bg-accent-orange/10 text-accent-orange rounded-md border px-3 py-2 text-sm">
+          {t('errors.rateLimited')}
+        </p>
       )}
 
-      <button
-        type="submit"
-        disabled={status === 'submitting'}
-        data-testid="contact-submit"
-        className="bg-accent-green text-bg-base inline-flex items-center gap-2 rounded-sm px-5 py-3 font-mono text-sm font-semibold hover:brightness-110 disabled:opacity-60"
-      >
+      <Button type="submit" disabled={status === 'submitting'} data-testid="contact-submit">
         {status === 'submitting' ? t('form.submitting') : t('form.submit')}
-      </button>
+      </Button>
     </form>
   );
 }
@@ -172,9 +175,9 @@ function Field({
 }) {
   return (
     <label className="block">
-      <span className="text-text-muted font-mono text-xs tracking-[0.2em] uppercase">{label}</span>
-      <div className="mt-2">{children}</div>
-      {error && <p className="text-accent-red mt-1 font-mono text-xs">// {error}</p>}
+      <span className="text-text-primary text-sm font-semibold">{label}</span>
+      <div className="mt-1.5">{children}</div>
+      {error && <p className="text-accent-red mt-1.5 text-xs">{error}</p>}
     </label>
   );
 }

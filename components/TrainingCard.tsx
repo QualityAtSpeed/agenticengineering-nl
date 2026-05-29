@@ -1,60 +1,149 @@
-import Link from 'next/link';
 import { useTranslations } from 'next-intl';
+import { Button } from '@/components/Button';
 import { trainings, type TrainingId } from '@/data/trainings';
 
-export function TrainingCard({
-  trainingId,
-  locale: _locale,
-}: {
-  trainingId: TrainingId;
-  locale: string;
-}) {
+const numerals: Record<TrainingId, string> = { basic: '01', advanced: '02' };
+
+const ClockIcon = () => (
+  <svg
+    width="14"
+    height="14"
+    viewBox="0 0 16 16"
+    aria-hidden="true"
+    className="text-brand mt-0.5 shrink-0"
+  >
+    <circle cx="8" cy="8" r="7" fill="none" stroke="currentColor" strokeWidth="1.6" />
+    <path
+      d="M8 4v4l3 2"
+      stroke="currentColor"
+      strokeWidth="1.6"
+      fill="none"
+      strokeLinecap="round"
+    />
+  </svg>
+);
+
+const PeopleIcon = () => (
+  <svg
+    width="14"
+    height="14"
+    viewBox="0 0 16 16"
+    aria-hidden="true"
+    className="text-brand mt-0.5 shrink-0"
+  >
+    <circle cx="6" cy="6" r="2.5" fill="none" stroke="currentColor" strokeWidth="1.6" />
+    <path
+      d="M2 14c.6-2.4 2-3.5 4-3.5s3.4 1.1 4 3.5"
+      stroke="currentColor"
+      strokeWidth="1.6"
+      fill="none"
+      strokeLinecap="round"
+    />
+    <path d="M11 8h4M13 6v4" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" />
+  </svg>
+);
+
+const StarIcon = () => (
+  <svg
+    width="14"
+    height="14"
+    viewBox="0 0 16 16"
+    aria-hidden="true"
+    className="text-brand mt-0.5 shrink-0"
+  >
+    <path
+      d="M8 1l2.5 4.5L15 6.5l-3.5 3.5L12.5 15 8 12.5 3.5 15l1-5L1 6.5l4.5-1z"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="1.6"
+      strokeLinejoin="round"
+    />
+  </svg>
+);
+
+const ArrowIcon = () => (
+  <svg width="12" height="12" viewBox="0 0 14 14" aria-hidden="true" className="shrink-0">
+    <path
+      d="M1 7h12M8 2l5 5-5 5"
+      stroke="currentColor"
+      strokeWidth="1.8"
+      fill="none"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+    />
+  </svg>
+);
+
+const metaItems: Record<TrainingId, { icon: 'clock' | 'people' | 'star'; key: string }[]> = {
+  basic: [
+    { icon: 'clock', key: 'metaDuration' },
+    { icon: 'people', key: 'metaAudience' },
+    { icon: 'star', key: 'metaOutcome' },
+  ],
+  advanced: [
+    { icon: 'clock', key: 'metaDuration' },
+    { icon: 'people', key: 'metaAudience' },
+    { icon: 'star', key: 'metaOutcome' },
+  ],
+};
+
+function MetaIcon({ which }: { which: 'clock' | 'people' | 'star' }) {
+  if (which === 'clock') return <ClockIcon />;
+  if (which === 'people') return <PeopleIcon />;
+  return <StarIcon />;
+}
+
+export function TrainingCard({ trainingId, locale }: { trainingId: TrainingId; locale: string }) {
   const training = trainings[trainingId];
   const t = useTranslations('trainings');
   const tLabels = useTranslations('trainings.labels');
-  const tModules = useTranslations('modules');
-  const firstTwo = training.modules.slice(0, 2);
+  const tCard = useTranslations('trainings.cardMeta');
 
   return (
-    <article className="border-border-subtle bg-bg-elevated flex h-full flex-col rounded-sm border p-6">
-      <p className="text-text-muted font-mono text-xs tracking-[0.2em] uppercase">
-        {t(`duration.${trainingId}`)}
-      </p>
-      <h3 className="text-text-primary mt-3 font-mono text-2xl">
-        <span className="text-accent-green">&gt;</span> {t(`${trainingId}.name`)}
-      </h3>
-      <p className="text-text-muted mt-3 text-sm">{t(`${trainingId}.tagline`)}</p>
-      <ol className="mt-4 flex-1 space-y-2 font-mono">
-        {firstTwo.map((m, i) => (
-          <li key={m.id} className="flex items-baseline gap-3">
-            <span className="text-text-muted text-xs tracking-[0.2em]">
-              {String(i + 1).padStart(2, '0')}
-            </span>
-            <span className="text-text-primary text-sm">{tModules(`${m.id}.title`)}</span>
+    <article className="border-border-subtle grid items-start gap-7 border-t py-8 last:border-b lg:grid-cols-[80px_1.5fr_1fr_200px]">
+      <div className="text-brand text-4xl leading-none font-extrabold tracking-tight tabular-nums">
+        {numerals[trainingId]}
+      </div>
+
+      <div>
+        <h3 className="text-text-primary text-xl font-bold">{t(`${trainingId}.name`)}</h3>
+        <p className="text-text-soft mt-2 text-[0.9375rem]">{t(`${trainingId}.tagline`)}</p>
+        <Button
+          variant="secondary"
+          size="sm"
+          href={`/${locale}/trainings/${trainingId}`}
+          data-testid={`view-curriculum-${trainingId}`}
+          className="mt-3"
+        >
+          {tLabels('viewDetails')}
+          <ArrowIcon />
+        </Button>
+      </div>
+
+      <ul className="text-text-muted m-0 list-none space-y-1.5 p-0 text-sm">
+        {metaItems[trainingId].map((m) => (
+          <li key={m.key} className="flex items-start gap-2">
+            <MetaIcon which={m.icon} />
+            <span>{tCard(`${trainingId}.${m.key}`)}</span>
           </li>
         ))}
-        <li className="flex items-baseline gap-3">
-          <span className="text-text-muted text-xs tracking-[0.2em]">03</span>
-          <Link
-            href={`#training-${trainingId}`}
-            data-testid={`view-curriculum-${trainingId}`}
-            className="text-text-muted hover:text-accent-blue text-sm italic hover:underline"
-          >
-            {tLabels('viewFullCurriculum')} →
-          </Link>
-        </li>
-      </ol>
-      <p className="text-accent-orange mt-6 font-mono">
-        €{training.priceEUR.toLocaleString('nl-NL')}{' '}
-        <span className="text-text-muted text-xs">{tLabels('priceSuffix')}</span>
-      </p>
-      <Link
-        href={`#training-${trainingId}`}
-        data-testid={`view-details-${trainingId}`}
-        className="text-accent-blue mt-6 inline-flex items-center gap-1 font-mono text-sm hover:underline"
-      >
-        → {tLabels('viewDetails')}
-      </Link>
+      </ul>
+
+      <div>
+        <p className="text-text-primary text-xl font-bold tabular-nums">
+          €{training.priceEUR.toLocaleString('nl-NL')}
+        </p>
+        <p className="text-text-muted text-xs">{tLabels('priceSuffix')}</p>
+        <Button
+          size="sm"
+          fullWidth
+          href={`/${locale}/contact`}
+          data-testid={`book-${trainingId}`}
+          className="mt-3"
+        >
+          {tLabels('bookCta')}
+        </Button>
+      </div>
     </article>
   );
 }

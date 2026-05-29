@@ -20,7 +20,7 @@ export function LangSwitcher({ currentLocale }: Props) {
   const pathname = usePathname() ?? `/${currentLocale}`;
   const t = useTranslations('nav');
   return (
-    <div className="flex items-center gap-2 font-mono text-xs">
+    <div className="flex items-center gap-2 text-xs font-semibold">
       {routing.locales.map((locale) => (
         <Link
           key={locale}
@@ -28,9 +28,7 @@ export function LangSwitcher({ currentLocale }: Props) {
           aria-current={locale === currentLocale ? 'page' : undefined}
           data-testid={`lang-switch-${locale}`}
           className={
-            locale === currentLocale
-              ? 'text-accent-green'
-              : 'text-text-muted hover:text-accent-blue'
+            locale === currentLocale ? 'text-brand-deep' : 'text-text-muted hover:text-brand'
           }
         >
           {locale === 'en' ? t('switchToEn') : t('switchToNl')}
