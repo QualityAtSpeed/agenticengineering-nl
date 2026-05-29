@@ -18,8 +18,8 @@ const VALIDATION_ERROR_TEXT: Record<Locale, string> = {
   en: 'Required field',
 };
 const SUCCESS_TEXT: Record<Locale, string> = {
-  nl: '// Verzonden',
-  en: '// Sent',
+  nl: 'Verzonden',
+  en: 'Sent',
 };
 
 export class ContactPage {
