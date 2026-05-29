@@ -13,9 +13,9 @@ export function ArticleCard({ article, locale }: { article: Article; locale: str
   return (
     <article
       data-testid={`article-card-${article.slug}`}
-      className="border-border-subtle bg-bg-elevated hover:border-accent-blue flex h-full flex-col overflow-hidden rounded-sm border transition-colors duration-150"
+      className="border-border-subtle hover:border-brand flex h-full flex-col overflow-hidden rounded-md border bg-white transition-colors"
     >
-      <div className="bg-bg-base border-border-subtle relative aspect-[2/1] w-full border-b">
+      <div className="bg-bg-tint border-border-subtle relative aspect-[2/1] w-full border-b">
         <Image
           src={article.image}
           alt={imageAlt}
@@ -25,22 +25,27 @@ export function ArticleCard({ article, locale }: { article: Article; locale: str
           loading="lazy"
         />
       </div>
-      <div className="flex flex-1 flex-col p-6">
-        <p className="text-text-muted font-mono text-xs tracking-[0.2em] uppercase">
-          {article.date}
-        </p>
-        <h3 className="text-text-primary mt-3 font-mono text-2xl">
-          <span className="text-accent-green">&gt;</span> {title}
+      <div className="flex flex-1 flex-col p-5">
+        <p className="text-brand text-xs font-bold tracking-wider uppercase">{article.date}</p>
+        <h3 className="text-text-primary mt-2 text-lg font-bold">
+          <a
+            href={article.url}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="hover:text-brand"
+          >
+            {title}
+          </a>
         </h3>
-        <p className="text-text-muted mt-3 flex-1 text-sm">{summary}</p>
+        <p className="text-text-soft mt-2 flex-1 text-sm">{summary}</p>
         <a
           href={article.url}
           target="_blank"
           rel="noopener noreferrer"
           data-testid={`article-link-${article.slug}`}
-          className="text-accent-blue mt-6 inline-flex items-center gap-1 font-mono text-sm hover:underline"
+          className="text-brand hover:text-brand-deep mt-4 inline-flex items-center gap-1 text-sm font-semibold"
         >
-          → {t('readExternal')}
+          {t('readExternal')} →
         </a>
       </div>
     </article>

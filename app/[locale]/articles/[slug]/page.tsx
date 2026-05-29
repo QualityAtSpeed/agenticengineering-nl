@@ -24,22 +24,20 @@ export default async function BlogPostPage({
   const content = blog[locale];
 
   return (
-    <main className="px-6 py-20">
+    <main className="px-6 py-16 sm:py-20">
       <article className="mx-auto max-w-3xl">
         <Link
           href={`/${locale}/articles`}
-          className="text-accent-blue font-mono text-sm hover:underline"
+          className="text-brand hover:text-brand-deep text-sm font-semibold"
         >
           {t('backLink')}
         </Link>
-        <p className="text-text-muted mt-12 font-mono text-xs tracking-[0.2em] uppercase">
+        <p className="text-brand mt-12 text-xs font-bold tracking-wider uppercase">
           {blog.date}
           {blog.author ? ` · ${blog.author}` : ''}
         </p>
-        <h1 className="text-text-primary mt-3 font-mono text-4xl">
-          <span className="text-accent-green">&gt;</span> {content.title}
-        </h1>
-        <p className="text-text-muted mt-6 text-lg">{content.summary}</p>
+        <h1 className="text-brand-deep mt-3 text-3xl font-bold sm:text-4xl">{content.title}</h1>
+        <p className="text-text-soft mt-3 text-lg">{content.summary}</p>
       </article>
     </main>
   );

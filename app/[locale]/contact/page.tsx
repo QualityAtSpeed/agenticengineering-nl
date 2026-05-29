@@ -14,12 +14,10 @@ export default async function ContactPage({ params, searchParams }: Props) {
   const t = await getTranslations('contact');
 
   return (
-    <main className="px-6 py-20">
+    <main className="px-6 py-16 sm:py-20">
       <div className="mx-auto max-w-2xl">
-        <h1 className="text-text-primary font-mono text-4xl">
-          <span className="text-accent-green">&gt;</span> {t('title')}
-        </h1>
-        <p className="text-text-muted mt-4">{t('intro')}</p>
+        <h1 className="text-brand-deep text-3xl font-bold sm:text-4xl">{t('title')}</h1>
+        <p className="text-text-soft mt-3 text-lg">{t('intro')}</p>
         <div className="mt-10">
           <ContactForm defaultTraining={training === 'advanced' ? 'advanced' : 'basic'} />
         </div>

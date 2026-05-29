@@ -1,0 +1,826 @@
+<!doctype html>
+<html lang="nl">
+  <head>
+    <meta charset="utf-8" />
+    <title>agentic·engineering — training detail preview</title>
+    <style>
+      /* friendly training portal — design preview v2 */
+      :root {
+        --paper: #ffffff;
+        --panel: #f4f6f8;
+        --panel-tint: #eaf4fb;
+        --border: #dde2e7;
+        --border-strong: #c5cdd4;
+        --ink: #1d2226;
+        --muted: #5b6772;
+        --link: #0b7cc0;
+        --link-hover: #075a8c;
+        --brand: #0b7cc0;
+        --positive: #1f9d57;
+        --positive-hover: #1a8a4c;
+        --price: #c8431b;
+        --warn-bg: #fff6e6;
+        --warn-border: #f0c068;
+      }
+      * {
+        box-sizing: border-box;
+      }
+      html,
+      body {
+        margin: 0;
+        padding: 0;
+        background: var(--paper);
+        color: var(--ink);
+        font-family:
+          -apple-system, BlinkMacSystemFont, 'Inter', 'Segoe UI', Roboto, 'Helvetica Neue', Arial,
+          sans-serif;
+        font-size: 16px;
+        line-height: 1.55;
+      }
+      a {
+        color: var(--link);
+        text-decoration: none;
+      }
+      a:hover {
+        color: var(--link-hover);
+        text-decoration: underline;
+      }
+      h1,
+      h2,
+      h3,
+      h4 {
+        margin: 0;
+        font-weight: 700;
+        color: var(--ink);
+      }
+      h1 {
+        font-size: 1.875rem;
+        line-height: 1.2;
+      }
+      h2 {
+        font-size: 1.375rem;
+        line-height: 1.3;
+      }
+      h3 {
+        font-size: 1.125rem;
+        line-height: 1.35;
+      }
+      p {
+        margin: 0 0 12px 0;
+      }
+      ul,
+      ol {
+        margin: 0;
+        padding-left: 1.25rem;
+      }
+      li {
+        margin-bottom: 4px;
+      }
+
+      /* top utility bar */
+      .util {
+        background: var(--panel);
+        border-bottom: 1px solid var(--border);
+        font-size: 0.875rem;
+        color: var(--muted);
+      }
+      .util .row {
+        max-width: 1160px;
+        margin: 0 auto;
+        padding: 10px 24px;
+        display: flex;
+        justify-content: flex-end;
+        gap: 24px;
+      }
+      .util a {
+        color: var(--muted);
+      }
+      .util a:hover {
+        color: var(--ink);
+        text-decoration: none;
+      }
+
+      /* header */
+      header.main {
+        background: var(--paper);
+        border-bottom: 1px solid var(--border);
+      }
+      header.main .row {
+        max-width: 1160px;
+        margin: 0 auto;
+        padding: 18px 24px;
+        display: flex;
+        align-items: center;
+        gap: 24px;
+      }
+      header.main .brand {
+        font-size: 1.125rem;
+        font-weight: 700;
+        color: var(--ink);
+        flex-shrink: 0;
+      }
+      header.main .brand a {
+        color: var(--ink);
+      }
+      header.main .brand a:hover {
+        text-decoration: none;
+      }
+      header.main .brand .dot {
+        color: var(--positive);
+      }
+      header.main nav {
+        margin-left: auto;
+        display: flex;
+        gap: 24px;
+      }
+      header.main nav a {
+        color: var(--brand);
+        font-weight: 600;
+        font-size: 0.95rem;
+      }
+      header.main nav a:hover {
+        text-decoration: underline;
+      }
+      header.main .lang {
+        color: var(--muted);
+        font-size: 0.875rem;
+        font-weight: 500;
+      }
+
+      /* breadcrumb bar */
+      .crumb-bar {
+        background: var(--brand);
+        color: #fff;
+      }
+      .crumb-bar .row {
+        max-width: 1160px;
+        margin: 0 auto;
+        padding: 14px 24px;
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        font-size: 0.9rem;
+      }
+      .crumb-bar a {
+        color: #fff;
+        opacity: 0.9;
+      }
+      .crumb-bar a:hover {
+        color: #fff;
+        opacity: 1;
+        text-decoration: underline;
+      }
+      .crumb-bar .sep {
+        opacity: 0.6;
+      }
+      .crumb-bar .pill {
+        margin-left: auto;
+        background: #fff;
+        color: var(--brand);
+        padding: 6px 14px;
+        border-radius: 4px;
+        font-weight: 600;
+        font-size: 0.875rem;
+      }
+      .crumb-bar .pill:hover {
+        text-decoration: none;
+        color: var(--link-hover);
+      }
+
+      /* main layout */
+      .container {
+        max-width: 1160px;
+        margin: 0 auto;
+        padding: 28px 24px 64px 24px;
+        display: grid;
+        grid-template-columns: 240px 1fr 280px;
+        gap: 28px;
+        align-items: start;
+      }
+      @media (max-width: 960px) {
+        .container {
+          grid-template-columns: 1fr;
+        }
+      }
+
+      /* sidebar */
+      aside.related {
+        background: var(--panel);
+        border: 1px solid var(--border);
+        border-radius: 6px;
+        padding: 18px;
+      }
+      aside.related h3 {
+        font-size: 1rem;
+        margin-bottom: 8px;
+      }
+      aside.related p.lead {
+        font-size: 0.875rem;
+        color: var(--muted);
+        margin-bottom: 16px;
+      }
+      aside.related .item {
+        padding: 12px 0;
+        border-bottom: 1px solid var(--border);
+      }
+      aside.related .item:last-child {
+        border-bottom: none;
+      }
+      aside.related .item .title {
+        display: flex;
+        align-items: flex-start;
+        gap: 8px;
+        font-weight: 600;
+        color: var(--ink);
+        font-size: 0.95rem;
+        margin-bottom: 4px;
+      }
+      aside.related .item .title a {
+        color: var(--ink);
+      }
+      aside.related .item .title a:hover {
+        color: var(--link);
+      }
+      aside.related .item .check {
+        flex-shrink: 0;
+        width: 16px;
+        height: 16px;
+        background: var(--positive);
+        border-radius: 3px;
+        color: #fff;
+        font-size: 11px;
+        line-height: 16px;
+        text-align: center;
+        font-weight: 700;
+      }
+      aside.related .item .price {
+        color: var(--price);
+        font-weight: 600;
+        font-size: 0.9rem;
+        display: inline-block;
+        margin-right: 8px;
+      }
+      aside.related .item .duration {
+        color: var(--muted);
+        font-size: 0.875rem;
+      }
+
+      /* main column */
+      main.content {
+        min-width: 0;
+      }
+      main.content > h1 {
+        margin-bottom: 18px;
+      }
+
+      /* facts */
+      dl.facts {
+        margin: 0 0 22px 0;
+      }
+      dl.facts .row {
+        display: grid;
+        grid-template-columns: 160px 1fr;
+        padding: 10px 0;
+        border-bottom: 1px solid var(--border);
+        align-items: baseline;
+      }
+      dl.facts .row:last-child {
+        border-bottom: none;
+      }
+      dl.facts dt {
+        color: var(--ink);
+        font-weight: 400;
+      }
+      dl.facts dd {
+        margin: 0;
+        color: var(--ink);
+      }
+      dl.facts dd a {
+        font-weight: 500;
+      }
+
+      /* tip banner */
+      .tip {
+        background: var(--warn-bg);
+        border: 1px solid var(--warn-border);
+        border-radius: 6px;
+        padding: 16px 18px;
+        margin: 8px 0 24px 0;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 16px;
+        flex-wrap: wrap;
+      }
+      .tip p {
+        margin: 0;
+        font-size: 0.95rem;
+      }
+      .tip .actions {
+        display: flex;
+        gap: 8px;
+        flex-wrap: wrap;
+      }
+
+      /* buttons */
+      .btn {
+        display: inline-block;
+        padding: 9px 16px;
+        border-radius: 5px;
+        font-weight: 600;
+        font-size: 0.9rem;
+        border: 1px solid transparent;
+        cursor: pointer;
+        text-decoration: none;
+        line-height: 1.3;
+        transition:
+          background-color 120ms ease-out,
+          color 120ms ease-out,
+          border-color 120ms ease-out;
+        font-family: inherit;
+      }
+      .btn-primary {
+        background: var(--positive);
+        color: #fff;
+        border-color: var(--positive);
+      }
+      .btn-primary:hover {
+        background: var(--positive-hover);
+        border-color: var(--positive-hover);
+        color: #fff;
+        text-decoration: none;
+      }
+      .btn-secondary {
+        background: var(--paper);
+        color: var(--brand);
+        border-color: var(--brand);
+      }
+      .btn-secondary:hover {
+        background: var(--paper);
+        color: var(--link-hover);
+        border-color: var(--link-hover);
+        text-decoration: none;
+      }
+      .btn-block {
+        width: 100%;
+        text-align: center;
+      }
+
+      /* tabs */
+      .tabs {
+        border-bottom: 1px solid var(--border);
+        display: flex;
+        gap: 4px;
+        margin-bottom: 20px;
+      }
+      .tabs a {
+        padding: 10px 16px;
+        color: var(--muted);
+        font-weight: 500;
+        border-bottom: 2px solid transparent;
+        margin-bottom: -1px;
+      }
+      .tabs a:hover {
+        color: var(--ink);
+        text-decoration: none;
+      }
+      .tabs a.active {
+        color: var(--ink);
+        border-bottom-color: var(--brand);
+      }
+
+      /* curriculum */
+      .day-marker {
+        color: var(--muted);
+        font-size: 0.8rem;
+        font-weight: 600;
+        text-transform: uppercase;
+        letter-spacing: 0.06em;
+        margin: 16px 0 6px 0;
+      }
+      ol.modules {
+        list-style: none;
+        padding-left: 0;
+        margin: 0 0 20px 0;
+      }
+      ol.modules > li {
+        padding: 14px 0;
+        border-bottom: 1px solid var(--border);
+        display: grid;
+        grid-template-columns: 36px 1fr;
+        gap: 12px;
+        align-items: start;
+      }
+      ol.modules > li:last-child {
+        border-bottom: none;
+      }
+      ol.modules > li .num {
+        color: var(--muted);
+        font-variant-numeric: tabular-nums;
+        font-weight: 600;
+        font-size: 0.875rem;
+        padding-top: 2px;
+      }
+      ol.modules > li h4 {
+        font-size: 1rem;
+        margin-bottom: 4px;
+      }
+      ol.modules > li ul {
+        margin-top: 6px;
+        padding-left: 0;
+        list-style: none;
+      }
+      ol.modules > li ul li {
+        color: var(--muted);
+        font-size: 0.9rem;
+        padding-left: 22px;
+        position: relative;
+        margin-bottom: 4px;
+      }
+      ol.modules > li ul li::before {
+        content: '';
+        position: absolute;
+        left: 0;
+        top: 7px;
+        width: 14px;
+        height: 14px;
+        background: var(--positive);
+        border-radius: 3px;
+        background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'><path d='M3.5 8.5l3 3 6-6' stroke='white' stroke-width='2' fill='none' stroke-linecap='round' stroke-linejoin='round'/></svg>");
+        background-repeat: no-repeat;
+        background-position: center;
+      }
+
+      /* right rail price card */
+      aside.price-rail {
+        display: flex;
+        flex-direction: column;
+        gap: 16px;
+      }
+      .price-card {
+        background: var(--paper);
+        border: 1px solid var(--border);
+        border-radius: 6px;
+        padding: 18px;
+      }
+      .price-card .amount {
+        color: var(--price);
+        font-size: 1.625rem;
+        font-weight: 700;
+        line-height: 1;
+      }
+      .price-card .amount-meta {
+        margin-top: 6px;
+        color: var(--muted);
+        font-size: 0.875rem;
+      }
+      .price-card .amount-meta .check {
+        color: var(--positive);
+        font-weight: 700;
+      }
+      .price-card hr {
+        border: none;
+        border-top: 1px solid var(--border);
+        margin: 14px 0;
+      }
+      .price-card ul.actions {
+        list-style: none;
+        padding-left: 0;
+        margin: 0;
+      }
+      .price-card ul.actions li {
+        padding: 6px 0;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        font-size: 0.95rem;
+      }
+      .price-card ul.actions li .ico {
+        width: 18px;
+        height: 18px;
+        border-radius: 3px;
+        background: var(--panel-tint);
+        color: var(--brand);
+        font-size: 12px;
+        line-height: 18px;
+        text-align: center;
+        flex-shrink: 0;
+        font-weight: 700;
+      }
+      .price-card ul.actions li a {
+        color: var(--brand);
+      }
+      .price-card .lang-row {
+        margin-top: 14px;
+        padding-top: 14px;
+        border-top: 1px solid var(--border);
+        font-size: 0.875rem;
+        color: var(--muted);
+      }
+      .price-card .lang-row strong {
+        display: block;
+        color: var(--ink);
+        font-weight: 600;
+        margin-top: 2px;
+        font-size: 0.95rem;
+      }
+
+      /* footer */
+      footer.bottom {
+        border-top: 1px solid var(--border);
+        background: var(--panel);
+        margin-top: 48px;
+      }
+      footer.bottom .row {
+        max-width: 1160px;
+        margin: 0 auto;
+        padding: 32px 24px;
+        display: grid;
+        grid-template-columns: 1.4fr 1fr 1fr 1fr;
+        gap: 24px;
+      }
+      @media (max-width: 760px) {
+        footer.bottom .row {
+          grid-template-columns: 1fr 1fr;
+        }
+      }
+      footer.bottom h4 {
+        font-size: 0.875rem;
+        text-transform: uppercase;
+        letter-spacing: 0.06em;
+        color: var(--muted);
+        margin-bottom: 10px;
+        font-weight: 600;
+      }
+      footer.bottom p,
+      footer.bottom li {
+        font-size: 0.9rem;
+        color: var(--muted);
+      }
+      footer.bottom ul {
+        list-style: none;
+        padding: 0;
+      }
+      footer.bottom ul li {
+        padding: 2px 0;
+      }
+      footer.bottom .colophon {
+        border-top: 1px solid var(--border);
+        text-align: center;
+        padding: 16px 24px;
+        font-size: 0.8rem;
+        color: var(--muted);
+      }
+    </style>
+  </head>
+  <body>
+    <div class="util">
+      <div class="row">
+        <a href="#">Voor bedrijven</a>
+        <a href="#">Klantenservice</a>
+        <a href="#">Inloggen</a>
+      </div>
+    </div>
+
+    <header class="main">
+      <div class="row">
+        <div class="brand">
+          <a href="/">agentic<span class="dot">·</span>engineering</a>
+        </div>
+        <nav>
+          <a href="/trainingen">Trainingen</a>
+          <a href="/over-ons">Over ons</a>
+          <a href="/artikelen">Artikelen</a>
+          <a href="/contact">Contact</a>
+        </nav>
+        <span class="lang"><a href="/en/">EN</a></span>
+      </div>
+    </header>
+
+    <div class="crumb-bar">
+      <div class="row">
+        <a href="/">Home</a>
+        <span class="sep">›</span>
+        <a href="/trainingen">Trainingen</a>
+        <span class="sep">›</span>
+        <span>Basic, twee dagen</span>
+        <a href="/contact" class="pill">In-company aanvragen</a>
+      </div>
+    </div>
+
+    <div class="container">
+      <aside class="related">
+        <h3>Andere training</h3>
+        <p class="lead">Wij geven twee trainingen, los of opeenvolgend te volgen.</p>
+
+        <div class="item">
+          <div class="title"><span class="check">✓</span> <a href="#">Advanced, één dag</a></div>
+          <span class="price">€ 1.495</span><span class="duration">1 dag</span>
+        </div>
+
+        <div class="item">
+          <div class="title"><span class="check">✓</span> <a href="#">Basic, twee dagen</a></div>
+          <span class="price">€ 2.495</span><span class="duration">2 dagen</span>
+        </div>
+      </aside>
+
+      <main class="content">
+        <h1>Basic, twee dagen</h1>
+        <p style="color: var(--muted); margin-bottom: 22px">
+          Twee dagen hands-on adoptie. Iedereen levert een feature op.
+        </p>
+
+        <dl class="facts">
+          <div class="row">
+            <dt>Tijdsduur</dt>
+            <dd>2 dagen (16 uur)</dd>
+          </div>
+          <div class="row">
+            <dt>Locatie</dt>
+            <dd>In-company, of online</dd>
+          </div>
+          <div class="row">
+            <dt>Niveau</dt>
+            <dd>Junior tot senior. Vertrouwd met git en command line.</dd>
+          </div>
+          <div class="row">
+            <dt>Startdata</dt>
+            <dd><a href="#">In overleg, plan met je team</a></dd>
+          </div>
+          <div class="row">
+            <dt>Talen</dt>
+            <dd>Nederlands of Engels</dd>
+          </div>
+        </dl>
+
+        <div class="tip">
+          <p>
+            <strong>Tip.</strong> Meer info over programma, prijs of een offerte voor je team? Stuur
+            een bericht, wij reageren binnen één werkdag.
+          </p>
+          <div class="actions">
+            <a href="/contact" class="btn btn-secondary">Offerte aanvragen</a>
+            <a href="/contact" class="btn btn-primary">Boek training</a>
+          </div>
+        </div>
+
+        <div class="tabs">
+          <a href="#" class="active">Overzicht</a>
+          <a href="#">Programma</a>
+          <a href="#">Voor wie</a>
+          <a href="#">Praktisch</a>
+        </div>
+
+        <h2 style="margin-bottom: 8px">Voor wie</h2>
+        <ul style="margin-bottom: 22px">
+          <li>Hele DevOps-teams: developers, QA / testers, ops / platform.</li>
+          <li>Gemengde teams die agentic workflows samen adopteren.</li>
+          <li>Engineering managers die met hun team meetrainen.</li>
+        </ul>
+
+        <h2 style="margin-bottom: 8px">Wat je leert</h2>
+        <ul style="margin-bottom: 28px">
+          <li>
+            Lever een werkende feature op een starter repo, met tests, hooks en CI groen vanaf
+            minuut één.
+          </li>
+          <li>Herken failure modes van AI-gegenereerde code in je eigen werk.</li>
+          <li>Oefen test-first met een agent zonder schijnpassende tests te schrijven.</li>
+          <li>Zet hooks en quality gates op die de volgende sprint overleven.</li>
+          <li>Gebruik bestaande MCP servers in echte workflows.</li>
+        </ul>
+
+        <h2 style="margin-bottom: 4px">Programma</h2>
+
+        <p class="day-marker">Dag 1, Quality engineering met agents</p>
+        <ol class="modules">
+          <li>
+            <span class="num">01</span>
+            <div>
+              <h4>Agents in je SDLC: waar ze passen, waar ze breken.</h4>
+              <ul>
+                <li>Waar een agent zijn plek verdient in de SDLC, en waar niet.</li>
+                <li>Wat een agent is vs. chat vs. automatisering.</li>
+                <li>Quality stakes: elke agent-wijziging is code die in productie komt.</li>
+              </ul>
+            </div>
+          </li>
+          <li>
+            <span class="num">02</span>
+            <div>
+              <h4>Failure modes van AI-gegenereerde code.</h4>
+              <ul>
+                <li>Hallucinaties, stille regressies, false-green builds.</li>
+                <li>Scope drift en onaangekondigde rewrites.</li>
+                <li>Hoe je ze herkent voordat ze in productie staan.</li>
+              </ul>
+            </div>
+          </li>
+          <li>
+            <span class="num">03</span>
+            <div>
+              <h4>Test-first met agents.</h4>
+              <ul>
+                <li>De TDD-loop met een agent als driver.</li>
+                <li>Wanneer tests vóór code komen, wanneer niet, waarom het uitmaakt.</li>
+                <li>Tests die gedrag bewijzen vs. tests die het model tevreden stellen.</li>
+              </ul>
+            </div>
+          </li>
+          <li>
+            <span class="num">04</span>
+            <div>
+              <h4>Hooks en quality gates.</h4>
+              <ul>
+                <li>Pre-commit checks: lint, format, type-check.</li>
+                <li>Quality gates die de sprint overleven.</li>
+                <li>Wat de agent NIET mag merge'en.</li>
+              </ul>
+            </div>
+          </li>
+        </ol>
+
+        <p class="day-marker">Dag 2, Agent mechanics en capstone</p>
+        <ol class="modules" start="5">
+          <li>
+            <span class="num">05</span>
+            <div>
+              <h4>MCP servers in productie-workflows.</h4>
+            </div>
+          </li>
+          <li>
+            <span class="num">06</span>
+            <div>
+              <h4>Capstone, ochtend: lever een feature op een starter repo.</h4>
+            </div>
+          </li>
+          <li>
+            <span class="num">07</span>
+            <div>
+              <h4>Capstone, middag: review en governance-starter.</h4>
+            </div>
+          </li>
+        </ol>
+      </main>
+
+      <aside class="price-rail">
+        <div class="price-card">
+          <div class="amount">€ 2.495</div>
+          <div class="amount-meta">
+            p.p., <span class="check">✓</span> excl. BTW &nbsp;·&nbsp;
+            <a href="#">volledige prijs</a>
+          </div>
+          <hr />
+          <a href="/contact" class="btn btn-primary btn-block">Boek training</a>
+          <ul class="actions" style="margin-top: 10px">
+            <li><span class="ico">⏷</span><a href="#">In-company offerte aanvragen</a></li>
+            <li><span class="ico">★</span><a href="#">Bewaar training</a></li>
+            <li><span class="ico">↗</span><a href="#">Deel deze pagina</a></li>
+          </ul>
+          <div class="lang-row">
+            Taal
+            <strong>Nederlands of Engels</strong>
+          </div>
+        </div>
+      </aside>
+    </div>
+
+    <footer class="bottom">
+      <div class="row">
+        <div>
+          <div style="font-weight: 700; color: var(--ink); margin-bottom: 6px">
+            agentic·engineering
+          </div>
+          <p>Agentic AI quality engineering trainingen voor engineering teams in NL en EU.</p>
+        </div>
+        <div>
+          <h4>Trainingen</h4>
+          <ul>
+            <li><a href="#">Basic, 2 dagen</a></li>
+            <li><a href="#">Advanced, 1 dag</a></li>
+          </ul>
+        </div>
+        <div>
+          <h4>Bedrijf</h4>
+          <ul>
+            <li><a href="#">Over ons</a></li>
+            <li><a href="#">Artikelen</a></li>
+            <li><a href="#">Contact</a></li>
+          </ul>
+        </div>
+        <div>
+          <h4>Resources</h4>
+          <ul>
+            <li><a href="#">GitHub</a></li>
+            <li><a href="#">LinkedIn</a></li>
+            <li><a href="#">Impressum</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="colophon">
+        © 2026 Quality at Speed. Deze site is gebouwd met agentic engineering.
+        <a href="#">Bron op GitHub</a>.
+      </div>
+    </footer>
+  </body>
+</html>

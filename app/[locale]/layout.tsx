@@ -3,17 +3,12 @@ import type { ReactNode } from 'react';
 import { notFound } from 'next/navigation';
 import { NextIntlClientProvider, hasLocale } from 'next-intl';
 import { getTranslations, setRequestLocale } from 'next-intl/server';
-import { Inter, JetBrains_Mono } from 'next/font/google';
+import { Inter } from 'next/font/google';
 import { routing, type Locale } from '@/i18n/routing';
 import { Nav } from '@/components/Nav';
 import { Footer } from '@/components/Footer';
 
 const inter = Inter({ subsets: ['latin'], variable: '--font-sans-loaded', display: 'swap' });
-const mono = JetBrains_Mono({
-  subsets: ['latin'],
-  variable: '--font-mono-loaded',
-  display: 'swap',
-});
 
 export async function generateStaticParams() {
   return routing.locales.map((locale) => ({ locale }));
@@ -55,11 +50,11 @@ export default async function LocaleLayout({
   const typedLocale = locale as Locale;
 
   return (
-    <html lang={locale} className={`${inter.variable} ${mono.variable}`}>
+    <html lang={locale} className={inter.variable}>
       <body>
         <a
           href="#main"
-          className="focus:bg-accent-green focus:text-bg-base sr-only focus:not-sr-only focus:fixed focus:top-2 focus:left-2 focus:rounded-sm focus:px-3 focus:py-1"
+          className="focus:bg-accent-green sr-only focus:not-sr-only focus:fixed focus:top-2 focus:left-2 focus:rounded-sm focus:px-3 focus:py-1 focus:text-white"
         >
           Skip to content
         </a>

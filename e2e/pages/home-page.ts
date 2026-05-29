@@ -3,8 +3,8 @@ import { type Page, type Locator } from '@playwright/test';
 export type Locale = 'nl' | 'en';
 
 const VIEW_FULL_CURRICULUM: Record<Locale, string> = {
-  nl: 'volledige training',
-  en: 'view full curriculum',
+  nl: 'Bekijk Programma',
+  en: 'View Programme',
 };
 
 export class HomePage {

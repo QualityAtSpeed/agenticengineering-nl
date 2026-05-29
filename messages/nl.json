@@ -35,15 +35,28 @@
       "audience": "Voor wie",
       "prerequisites": "Vereisten",
       "outcomes": "Wat je leert",
-      "modules": "Modules",
-      "day1": "Dag 1 — Quality engineering met agents",
-      "day2": "Dag 2 — Agent mechanics + capstone",
+      "modules": "Programma",
+      "durationLabel": "Tijdsduur",
+      "day1": "Dag 1 · Quality engineering met agents",
+      "day2": "Dag 2 · Agent mechanics + capstone",
       "price": "Prijs",
-      "priceSuffix": "Excl. BTW",
+      "priceSuffix": "Excl. BTW p.p.",
       "viewDetails": "Bekijk programma",
       "viewFullCurriculum": "volledige training",
-      "bookCta": "Plan deze training",
+      "bookCta": "Plan training",
       "taughtBy": "Gegeven door"
+    },
+    "cardMeta": {
+      "basic": {
+        "metaDuration": "2 dagen, 16 uur",
+        "metaAudience": "DevOps-teams en managers",
+        "metaOutcome": "Feature op je eigen repo"
+      },
+      "advanced": {
+        "metaDuration": "1 dag, 8 uur",
+        "metaAudience": "Tech leads, staff+, managers",
+        "metaOutcome": "90-dagen rolloutplan"
+      }
     },
     "basic": {
       "name": "Basic",
@@ -330,8 +343,10 @@
     "email": "hello@agenticengineering.nl"
   },
   "home": {
+    "trainingsLede": "Twee trainingen, los of opeenvolgend. In-company of open inschrijving. Iedereen levert iets concreets op.",
     "instructorsTitle": "Wie geeft de training",
-    "instructorsLink": "Meet the team →",
+    "instructorsLede": "Senior engineers met praktijkervaring in agentic workflows en quality engineering.",
+    "instructorsLink": "Meet the team",
     "finalCta": {
       "title": "Klaar om je team op te leiden?",
       "body": "Plan een kennismaking. We reageren binnen 1 werkdag.",

@@ -1,6 +1,104 @@
-import Link from 'next/link';
 import { useTranslations } from 'next-intl';
+import { Button } from '@/components/Button';
 import { trainings, type TrainingId, type Module } from '@/data/trainings';
+
+const ClockIcon = () => (
+  <svg
+    width="14"
+    height="14"
+    viewBox="0 0 16 16"
+    aria-hidden="true"
+    className="text-brand shrink-0"
+  >
+    <circle cx="8" cy="8" r="7" fill="none" stroke="currentColor" strokeWidth="1.6" />
+    <path
+      d="M8 4v4l3 2"
+      stroke="currentColor"
+      strokeWidth="1.6"
+      fill="none"
+      strokeLinecap="round"
+    />
+  </svg>
+);
+
+const PeopleIcon = () => (
+  <svg
+    width="14"
+    height="14"
+    viewBox="0 0 16 16"
+    aria-hidden="true"
+    className="text-brand shrink-0"
+  >
+    <circle cx="6" cy="6" r="2.5" fill="none" stroke="currentColor" strokeWidth="1.6" />
+    <path
+      d="M2 14c.6-2.4 2-3.5 4-3.5s3.4 1.1 4 3.5"
+      stroke="currentColor"
+      strokeWidth="1.6"
+      fill="none"
+      strokeLinecap="round"
+    />
+    <path d="M11 8h4M13 6v4" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" />
+  </svg>
+);
+
+const CheckIcon = () => (
+  <svg
+    width="14"
+    height="14"
+    viewBox="0 0 16 16"
+    aria-hidden="true"
+    className="text-brand shrink-0"
+  >
+    <path
+      d="M2 8l3 3 9-9"
+      stroke="currentColor"
+      strokeWidth="1.6"
+      fill="none"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+    />
+  </svg>
+);
+
+const StarIcon = () => (
+  <svg
+    width="14"
+    height="14"
+    viewBox="0 0 16 16"
+    aria-hidden="true"
+    className="text-brand shrink-0"
+  >
+    <path
+      d="M8 1l2.5 4.5L15 6.5l-3.5 3.5L12.5 15 8 12.5 3.5 15l1-5L1 6.5l4.5-1z"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="1.6"
+      strokeLinejoin="round"
+    />
+  </svg>
+);
+
+const PriceIcon = () => (
+  <svg
+    width="14"
+    height="14"
+    viewBox="0 0 16 16"
+    aria-hidden="true"
+    className="text-brand shrink-0"
+  >
+    <rect
+      x="2"
+      y="4"
+      width="12"
+      height="9"
+      rx="1.5"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="1.6"
+    />
+    <path d="M5 7h6M5 10h3" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" />
+  </svg>
+);
 
 export function TrainingDetail({ trainingId, locale }: { trainingId: TrainingId; locale: string }) {
   const training = trainings[trainingId];
@@ -16,160 +114,136 @@ export function TrainingDetail({ trainingId, locale }: { trainingId: TrainingId;
   const modulesDay2 = training.modules.filter((m) => m.day === 2);
 
   return (
-    <section
-      id={`training-${trainingId}`}
-      className="border-border-subtle bg-bg-elevated border-t px-6 py-20"
-    >
+    <section id={`training-${trainingId}`} className="border-border-subtle border-b px-6 py-20">
       <div className="mx-auto max-w-5xl">
-        <div className="grid gap-10 lg:grid-cols-2 lg:items-center">
-          <div>
-            <p className="text-text-muted font-mono text-xs tracking-[0.2em] uppercase">
-              {t(`duration.${trainingId}`)} · {tCommon('price')} €
-              {training.priceEUR.toLocaleString('nl-NL')} {tCommon('priceSuffix')}
-            </p>
-            <h2 className="text-text-primary mt-3 font-mono text-3xl sm:text-4xl">
-              <span className="text-accent-green">&gt;</span> {t(`${trainingId}.name`)}
-            </h2>
-            <p className="text-text-muted mt-3 max-w-md">{t(`${trainingId}.tagline`)}</p>
-          </div>
-          <div className="border-border-subtle bg-bg-base overflow-hidden rounded-sm border font-mono text-sm">
-            <div className="border-border-subtle bg-bg-elevated flex items-center gap-2 border-b px-3 py-2">
-              <span className="bg-accent-red inline-block h-3 w-3 rounded-full" />
-              <span className="bg-accent-orange inline-block h-3 w-3 rounded-full" />
-              <span className="bg-accent-green inline-block h-3 w-3 rounded-full" />
-              <span className="text-text-muted ml-2 text-xs">~/agentic-training</span>
-            </div>
-            <div className="space-y-1 p-4">
-              <p className="text-text-muted">
-                <span className="text-accent-green">$</span> claude --train {trainingId}
-              </p>
-              <p className="text-text-primary">
-                ▸ Setting up agentic workflow for{' '}
-                <span className="text-accent-blue">{t(`${trainingId}.name`)}</span>
-              </p>
-              <p className="text-text-muted">▸ {training.modules.length} modules loaded</p>
-              <p className="text-text-muted">
-                ▸ {training.durationDays} {training.durationDays === 1 ? 'day' : 'days'}, hands-on
-              </p>
-              <p className="text-accent-green">
-                ✓ ready <span className="text-text-primary animate-pulse">_</span>
-              </p>
-            </div>
-          </div>
+        <div className="mb-8 max-w-2xl">
+          <h2 className="text-brand text-2xl font-bold sm:text-3xl">{t(`${trainingId}.name`)}</h2>
+          <p className="text-text-soft mt-2">{t(`${trainingId}.tagline`)}</p>
         </div>
 
-        <div className="mt-10 grid gap-10 lg:grid-cols-3">
-          <DetailList title={tCommon('audience')} items={audience} />
-          <DetailList title={tCommon('prerequisites')} items={prerequisites} />
-          <DetailList title={tCommon('outcomes')} items={outcomes} />
-        </div>
+        <dl className="border-border-subtle mb-10 border-t">
+          <FactRow icon={<ClockIcon />} label={tCommon('durationLabel')}>
+            <span>{t(`duration.${trainingId}`)}</span>
+          </FactRow>
+          <FactRow icon={<PeopleIcon />} label={tCommon('audience')}>
+            <ul className="list-disc space-y-0.5 pl-5">
+              {audience.map((a) => (
+                <li key={a}>{a}</li>
+              ))}
+            </ul>
+          </FactRow>
+          <FactRow icon={<CheckIcon />} label={tCommon('prerequisites')}>
+            <ul className="list-disc space-y-0.5 pl-5">
+              {prerequisites.map((p) => (
+                <li key={p}>{p}</li>
+              ))}
+            </ul>
+          </FactRow>
+          <FactRow icon={<StarIcon />} label={tCommon('outcomes')}>
+            <ul className="list-disc space-y-0.5 pl-5">
+              {outcomes.map((o) => (
+                <li key={o}>{o}</li>
+              ))}
+            </ul>
+          </FactRow>
+          <FactRow icon={<PriceIcon />} label={tCommon('price')}>
+            <span className="font-semibold">
+              €{training.priceEUR.toLocaleString('nl-NL')}{' '}
+              <span className="text-text-muted text-sm font-normal">{tCommon('priceSuffix')}</span>
+            </span>
+          </FactRow>
+        </dl>
 
-        <div className="mt-14">
-          <h3 className="text-text-muted font-mono text-sm tracking-[0.2em] uppercase">
-            {tCommon('modules')}
-          </h3>
-          {training.durationDays === 2 ? (
-            <div className="mt-6 grid gap-12 lg:grid-cols-2">
-              <div>
-                <p className="text-accent-orange font-mono text-xs">{tCommon('day1')}</p>
-                <div className="mt-4">
-                  <CurriculumList modules={modulesDay1} tModules={tModules} />
-                </div>
-              </div>
-              <div>
-                <p className="text-accent-orange font-mono text-xs">{tCommon('day2')}</p>
-                <div className="mt-4">
-                  <CurriculumList modules={modulesDay2} tModules={tModules} />
-                </div>
-              </div>
-            </div>
-          ) : (
-            <div className="mt-6">
-              <CurriculumList modules={training.modules} tModules={tModules} />
-            </div>
-          )}
-        </div>
+        <h3 className="text-text-primary mb-3 text-lg font-bold">{tCommon('modules')}</h3>
 
-        <div className="mt-12">
-          <Link
+        {training.durationDays === 2 ? (
+          <>
+            <DayMarker label={tCommon('day1')} />
+            <CurriculumList modules={modulesDay1} tModules={tModules} startIndex={1} />
+            <DayMarker label={tCommon('day2')} />
+            <CurriculumList
+              modules={modulesDay2}
+              tModules={tModules}
+              startIndex={modulesDay1.length + 1}
+            />
+          </>
+        ) : (
+          <CurriculumList modules={training.modules} tModules={tModules} startIndex={1} />
+        )}
+
+        <div className="mt-10">
+          <Button
             href={`/${locale}/contact?training=${trainingId}`}
             data-testid={`book-training-${trainingId}`}
-            className="bg-accent-green text-bg-base inline-flex items-center gap-2 rounded-sm px-5 py-3 font-mono text-sm font-semibold hover:brightness-110"
           >
             {tCommon('bookCta')}
-          </Link>
+          </Button>
         </div>
       </div>
     </section>
   );
 }
 
-const SKETCH_PATHS = [
-  // folder
-  'M3 7 L9 7 L11 9 L21 9 L21 19 L3 19 Z',
-  // circle with arrow
-  'M12 4 a8 8 0 1 0 0.01 0 M12 8 L16 12 L12 16',
-  // brackets
-  'M7 5 L4 5 L4 19 L7 19 M17 5 L20 5 L20 19 L17 19',
-  // plug
-  'M9 3 L9 8 M15 3 L15 8 M5 8 L19 8 L19 13 a7 7 0 0 1 -14 0 Z M12 20 L12 22',
-];
+function FactRow({
+  icon,
+  label,
+  children,
+}: {
+  icon: React.ReactNode;
+  label: string;
+  children: React.ReactNode;
+}) {
+  return (
+    <div className="border-border-subtle grid grid-cols-1 gap-1 border-b py-3.5 sm:grid-cols-[200px_1fr] sm:gap-4 sm:py-4">
+      <dt className="text-brand flex items-center gap-2 text-sm font-semibold">
+        {icon}
+        {label}
+      </dt>
+      <dd className="text-text-primary m-0 text-[0.9375rem]">{children}</dd>
+    </div>
+  );
+}
+
+function DayMarker({ label }: { label: string }) {
+  return (
+    <p className="bg-brand-soft text-brand-deep mt-6 mb-3 inline-flex items-center gap-2 rounded px-3 py-1.5 text-xs font-bold tracking-wider uppercase">
+      {label}
+    </p>
+  );
+}
 
 function CurriculumList({
   modules,
   tModules,
+  startIndex,
 }: {
   modules: Module[];
   tModules: (key: string) => string;
+  startIndex: number;
 }) {
   return (
-    <ol className="space-y-6">
+    <ol className="border-border-subtle mb-2 list-none border-t pl-0">
       {modules.map((m, i) => (
-        <li key={m.id} className="border-border-subtle flex gap-4 border-l-2 pl-5">
-          <svg
-            aria-hidden="true"
-            viewBox="0 0 24 24"
-            className="text-accent-green mt-3 h-7 w-7 shrink-0"
-            fill="none"
-            stroke="currentColor"
-            strokeWidth="1.5"
-            strokeLinecap="round"
-            strokeLinejoin="round"
-          >
-            <path d={SKETCH_PATHS[i % SKETCH_PATHS.length]} />
-          </svg>
-          <div className="flex-1">
-            <p className="text-text-muted font-mono text-xs">{String(i + 1).padStart(2, '0')}</p>
-            <h4 className="text-text-primary mt-1 font-mono text-lg">
-              <span className="text-accent-green">&gt;</span> {tModules(`${m.id}.title`)}
-            </h4>
-            <ul className="text-text-muted mt-3 space-y-1 text-sm">
+        <li
+          key={m.id}
+          className="border-border-subtle grid grid-cols-[44px_1fr] items-start gap-3 border-b py-5"
+        >
+          <span className="border-border-subtle text-brand bg-bg-base flex h-10 w-10 items-center justify-center rounded-full border text-sm font-bold tabular-nums">
+            {String(startIndex + i).padStart(2, '0')}
+          </span>
+          <div>
+            <h4 className="text-text-primary font-bold">{tModules(`${m.id}.title`)}</h4>
+            <ul className="text-text-muted mt-1.5 list-disc space-y-0.5 pl-5 text-sm">
               {(
                 (tModules as unknown as { raw: (k: string) => string[] }).raw(`${m.id}.bullets`) ??
                 []
               ).map((b) => (
-                <li key={b}>· {b}</li>
+                <li key={b}>{b}</li>
               ))}
             </ul>
           </div>
         </li>
       ))}
     </ol>
-  );
-}
-
-function DetailList({ title, items }: { title: string; items: string[] }) {
-  return (
-    <div>
-      <h4 className="text-text-muted font-mono text-xs tracking-[0.2em] uppercase">{title}</h4>
-      <ul className="text-text-primary mt-3 space-y-2 text-sm">
-        {items.map((item) => (
-          <li key={item} className="flex gap-2">
-            <span className="text-accent-green">›</span>
-            <span>{item}</span>
-          </li>
-        ))}
-      </ul>
-    </div>
   );
 }

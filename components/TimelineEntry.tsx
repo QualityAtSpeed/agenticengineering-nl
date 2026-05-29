@@ -21,17 +21,15 @@ export function TimelineEntryRow({ entry, locale }: { entry: TimelineEntry; loca
     const image = blog.image ?? FALLBACK_IMAGE;
     const isFallback = image === FALLBACK_IMAGE;
     return (
-      <li className="relative pb-12 pl-6 last:pb-0" data-testid={`blog-card-${blog.slug}`}>
+      <li className="relative pb-10 last:pb-0" data-testid={`blog-card-${blog.slug}`}>
         <Link
           href={`/${locale}/articles/${blog.slug}`}
           data-testid={`blog-link-${blog.slug}`}
           className="group block"
         >
-          <p className="text-text-muted font-mono text-xs tracking-[0.2em] uppercase">
-            {blog.date} <span className="text-text-muted">// blog</span>
-          </p>
+          <p className="text-brand text-xs font-bold tracking-wider uppercase">{blog.date}</p>
           <div className="mt-3 flex flex-col gap-4 sm:flex-row sm:items-start">
-            <div className="relative aspect-[1.91/1] w-full overflow-hidden rounded-sm sm:w-72 sm:flex-shrink-0">
+            <div className="border-border-subtle bg-bg-tint relative aspect-[1.91/1] w-full overflow-hidden rounded-md border sm:w-72 sm:flex-shrink-0">
               <Image
                 src={image}
                 alt={content.title}
@@ -41,12 +39,12 @@ export function TimelineEntryRow({ entry, locale }: { entry: TimelineEntry; loca
               />
             </div>
             <div className="flex-1">
-              <h3 className="text-text-primary group-hover:text-accent-blue font-mono text-xl transition-colors">
-                <span className="text-accent-green">&gt;</span> {content.title}
+              <h3 className="text-text-primary group-hover:text-brand text-xl font-bold transition-colors">
+                {content.title}
               </h3>
-              <p className="text-text-muted mt-3 max-w-2xl text-sm">{content.summary}</p>
-              <span className="text-accent-blue mt-4 inline-block font-mono text-sm group-hover:underline">
-                → {tBlogs('readMore')}
+              <p className="text-text-soft mt-2 max-w-2xl text-[0.9375rem]">{content.summary}</p>
+              <span className="text-brand group-hover:text-brand-deep mt-3 inline-block text-sm font-semibold">
+                {tBlogs('readMore')} →
               </span>
             </div>
           </div>
@@ -61,7 +59,7 @@ export function TimelineEntryRow({ entry, locale }: { entry: TimelineEntry; loca
   const image = article.image ?? FALLBACK_IMAGE;
   const isFallback = image === FALLBACK_IMAGE;
   return (
-    <li className="relative pb-12 pl-6 last:pb-0" data-testid={`article-card-${article.slug}`}>
+    <li className="relative pb-10 last:pb-0" data-testid={`article-card-${article.slug}`}>
       <a
         href={article.url}
         target="_blank"
@@ -69,11 +67,9 @@ export function TimelineEntryRow({ entry, locale }: { entry: TimelineEntry; loca
         data-testid={`article-link-${article.slug}`}
         className="group block"
       >
-        <p className="text-text-muted font-mono text-xs tracking-[0.2em] uppercase">
-          {article.date} <span className="text-text-muted">// article</span>
-        </p>
+        <p className="text-brand text-xs font-bold tracking-wider uppercase">{article.date}</p>
         <div className="mt-3 flex flex-col gap-4 sm:flex-row sm:items-start">
-          <div className="relative aspect-[1.91/1] w-full overflow-hidden rounded-sm sm:w-72 sm:flex-shrink-0">
+          <div className="border-border-subtle bg-bg-tint relative aspect-[1.91/1] w-full overflow-hidden rounded-md border sm:w-72 sm:flex-shrink-0">
             <Image
               src={image}
               alt={title}
@@ -83,12 +79,12 @@ export function TimelineEntryRow({ entry, locale }: { entry: TimelineEntry; loca
             />
           </div>
           <div className="flex-1">
-            <h3 className="text-text-primary group-hover:text-accent-blue font-mono text-xl transition-colors">
-              <span className="text-accent-green">&gt;</span> {title}
+            <h3 className="text-text-primary group-hover:text-brand text-xl font-bold transition-colors">
+              {title}
             </h3>
-            <p className="text-text-muted mt-3 max-w-2xl text-sm">{summary}</p>
-            <span className="text-accent-blue mt-4 inline-block font-mono text-sm group-hover:underline">
-              → {tArticles('readExternal')}
+            <p className="text-text-soft mt-2 max-w-2xl text-[0.9375rem]">{summary}</p>
+            <span className="text-brand group-hover:text-brand-deep mt-3 inline-block text-sm font-semibold">
+              {tArticles('readExternal')} →
             </span>
           </div>
         </div>

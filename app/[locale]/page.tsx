@@ -53,12 +53,15 @@ export default async function Home({ params }: { params: Promise<{ locale: Local
         secondaryCta={{ label: tHero('ctaSecondary'), href: '#trainings' }}
       />
 
-      <section id="trainings" className="border-border-subtle border-t px-6 py-20">
+      <section id="trainings" className="border-border-subtle border-b px-6 py-20">
         <div className="mx-auto max-w-5xl">
-          <h2 className="text-text-primary font-mono text-3xl">
-            <span className="text-accent-green">&gt;</span> {tTrainings('sectionTitle')}
-          </h2>
-          <div className="mt-10 grid gap-6 md:grid-cols-2">
+          <div className="mb-8 max-w-2xl">
+            <h2 className="text-brand text-2xl font-bold sm:text-3xl">
+              {tTrainings('sectionTitle')}
+            </h2>
+            <p className="text-text-soft mt-2 text-base">{tHome('trainingsLede')}</p>
+          </div>
+          <div>
             <TrainingCard trainingId="basic" locale={locale} />
             <TrainingCard trainingId="advanced" locale={locale} />
           </div>
@@ -70,37 +73,49 @@ export default async function Home({ params }: { params: Promise<{ locale: Local
 
       <ProofStrip locale={locale} />
 
-      <section className="border-border-subtle border-t px-6 py-20">
+      <section className="border-border-subtle border-b px-6 py-20">
         <div className="mx-auto max-w-5xl">
-          <h2 className="text-text-primary font-mono text-2xl">
-            <span className="text-accent-green">&gt;</span> {tHome('instructorsTitle')}
-          </h2>
-          <div className="mt-8 grid gap-6 md:grid-cols-2">
+          <div className="mb-8 max-w-2xl">
+            <h2 className="text-brand text-2xl font-bold sm:text-3xl">
+              {tHome('instructorsTitle')}
+            </h2>
+            <p className="text-text-soft mt-2 text-base">{tHome('instructorsLede')}</p>
+          </div>
+          <div className="grid gap-5 md:grid-cols-2">
             {instructors.map((i) => (
               <InstructorCard key={i.id} id={i.id} />
             ))}
           </div>
           <Link
             href={`/${locale}/about`}
-            className="text-accent-blue mt-6 inline-flex font-mono text-sm hover:underline"
+            className="text-brand hover:text-brand-deep mt-6 inline-flex items-center gap-1 text-sm font-semibold hover:underline"
           >
-            {tHome('instructorsLink')}
+            {tHome('instructorsLink')} →
           </Link>
         </div>
       </section>
 
-      <section className="border-border-subtle bg-bg-elevated border-t px-6 py-24">
-        <div className="mx-auto max-w-3xl text-center">
-          <h2 className="text-text-primary font-mono text-3xl">
-            <span className="text-accent-green">&gt;</span> {tHome('finalCta.title')}
-          </h2>
-          <p className="text-text-muted mt-4">{tHome('finalCta.body')}</p>
-          <Link
-            href={`/${locale}/contact`}
-            className="bg-accent-green text-bg-base mt-8 inline-flex items-center gap-2 rounded-sm px-5 py-3 font-mono text-sm font-semibold hover:brightness-110"
-          >
-            {tHome('finalCta.cta')}
-          </Link>
+      <section className="from-brand-deep to-brand relative overflow-hidden bg-gradient-to-br px-6 py-20">
+        <div
+          aria-hidden
+          className="pointer-events-none absolute inset-0 opacity-50"
+          style={{
+            backgroundImage:
+              'radial-gradient(circle, rgba(255,255,255,0.08) 1px, transparent 1.4px)',
+            backgroundSize: '24px 24px',
+          }}
+        />
+        <div className="relative mx-auto max-w-5xl text-white">
+          <h2 className="max-w-[24ch] text-2xl font-bold sm:text-3xl">{tHome('finalCta.title')}</h2>
+          <p className="mt-3 max-w-[56ch] text-white/85">{tHome('finalCta.body')}</p>
+          <div className="mt-7 flex flex-wrap gap-3">
+            <Link
+              href={`/${locale}/contact`}
+              className="text-brand-deep hover:bg-bg-elevated inline-flex items-center gap-2 rounded-md bg-white px-5 py-2.5 text-sm font-semibold transition-colors"
+            >
+              {tHome('finalCta.cta')}
+            </Link>
+          </div>
         </div>
       </section>
     </main>

@@ -14,8 +14,8 @@ const EMAIL_LABEL: Record<Locale, RegExp> = {
   en: /Email/,
 };
 const VALIDATION_ERROR_TEXT: Record<Locale, string> = {
-  nl: '// Verplicht veld',
-  en: '// Required field',
+  nl: 'Verplicht veld',
+  en: 'Required field',
 };
 const SUCCESS_TEXT: Record<Locale, string> = {
   nl: '// Verzonden',

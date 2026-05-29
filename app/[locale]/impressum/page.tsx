@@ -7,12 +7,10 @@ export default async function Impressum({ params }: { params: Promise<{ locale: 
   const t = await getTranslations('impressum');
 
   return (
-    <main className="px-6 py-20">
+    <main className="px-6 py-16 sm:py-20">
       <div className="mx-auto max-w-2xl">
-        <h1 className="text-text-primary font-mono text-4xl">
-          <span className="text-accent-green">&gt;</span> {t('title')}
-        </h1>
-        <dl className="text-text-muted mt-10 space-y-3 font-mono text-sm">
+        <h1 className="text-brand-deep text-3xl font-bold sm:text-4xl">{t('title')}</h1>
+        <dl className="mt-10 space-y-3">
           <Row label="Business" value={t('businessName')} />
           <Row label="Operator" value={t('operator')} />
           <Row label="Address" value={t('address')} />
