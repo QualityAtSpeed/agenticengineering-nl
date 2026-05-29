@@ -2,7 +2,6 @@ import Link from 'next/link';
 import { setRequestLocale, getTranslations } from 'next-intl/server';
 import { Hero } from '@/components/Hero';
 import { TrainingCard } from '@/components/TrainingCard';
-import { TrainingDetail } from '@/components/TrainingDetail';
 import { ProofStrip } from '@/components/ProofStrip';
 import { InstructorCard } from '@/components/InstructorCard';
 import { JsonLd } from '@/components/JsonLd';
@@ -50,7 +49,7 @@ export default async function Home({ params }: { params: Promise<{ locale: Local
         title={tHero('title')}
         subtitle={tHero('subtitle')}
         primaryCta={{ label: tHero('ctaPrimary'), href: `/${locale}/contact` }}
-        secondaryCta={{ label: tHero('ctaSecondary'), href: '#trainings' }}
+        secondaryCta={{ label: tHero('ctaSecondary'), href: `/${locale}/training` }}
       />
 
       <section id="trainings" className="border-border-subtle border-b px-6 py-20">
@@ -67,9 +66,6 @@ export default async function Home({ params }: { params: Promise<{ locale: Local
           </div>
         </div>
       </section>
-
-      <TrainingDetail trainingId="basic" locale={locale} />
-      <TrainingDetail trainingId="advanced" locale={locale} />
 
       <ProofStrip locale={locale} />
 

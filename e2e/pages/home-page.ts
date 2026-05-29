@@ -9,8 +9,6 @@ const VIEW_FULL_CURRICULUM: Record<Locale, string> = {
 
 export class HomePage {
   readonly heroHeading: Locator;
-  readonly trainingBasicSection: Locator;
-  readonly trainingAdvancedSection: Locator;
   readonly viewFullCurriculumLabel: Locator;
 
   constructor(
@@ -18,8 +16,6 @@ export class HomePage {
     readonly locale: Locale,
   ) {
     this.heroHeading = page.getByRole('heading', { level: 1 });
-    this.trainingBasicSection = page.locator('#training-basic');
-    this.trainingAdvancedSection = page.locator('#training-advanced');
     this.viewFullCurriculumLabel = page.getByText(VIEW_FULL_CURRICULUM[locale]);
   }
 

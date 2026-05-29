@@ -111,7 +111,7 @@ export function TrainingCard({ trainingId, locale }: { trainingId: TrainingId; l
         <Button
           variant="secondary"
           size="sm"
-          href={`#training-${trainingId}`}
+          href={`/${locale}/trainings/${trainingId}`}
           data-testid={`view-curriculum-${trainingId}`}
           className="mt-3"
         >
