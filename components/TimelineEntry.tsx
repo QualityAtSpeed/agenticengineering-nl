@@ -18,7 +18,7 @@ export function TimelineEntryRow({ article, locale }: { article: Article; locale
         target="_blank"
         rel="noopener noreferrer"
         data-testid={`article-link-${article.slug}`}
-        className="group block"
+        className="group block hover:no-underline"
       >
         <p className="text-brand text-xs font-bold tracking-wider uppercase">
           {article.date} <span className="text-text-muted">// {t(`type.${article.type}`)}</span>
@@ -34,7 +34,7 @@ export function TimelineEntryRow({ article, locale }: { article: Article; locale
             />
           </div>
           <div className="flex-1">
-            <h3 className="text-text-primary group-hover:text-brand text-xl font-bold transition-colors">
+            <h3 className="text-text-primary group-hover:text-brand text-xl font-bold transition-colors group-hover:underline">
               {title}
             </h3>
             <p className="text-text-soft mt-2 max-w-2xl text-[0.9375rem]">{summary}</p>
