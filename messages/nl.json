@@ -251,7 +251,7 @@
     "subhead": "Deze site draait op de stack die je leert. Source open, CI live, pariteit afgedwongen.",
     "pills": [
       "CI groen",
-      "48 unit + 64 e2e tests",
+      "93 unit + 82 e2e tests",
       "WCAG 2.1 AA",
       "TypeScript strict",
       "NL/EN locale-pariteit afgedwongen"
