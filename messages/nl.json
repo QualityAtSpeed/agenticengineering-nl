@@ -284,8 +284,8 @@
     }
   },
   "articles": {
-    "title": "artikelen",
-    "intro": "Externe artikelen die wij schreven of aanraden. Elke link wijst naar het origineel.",
+    "title": "Artikelen",
+    "intro": "Externe artikelen die wij schreven of aanraden.",
     "readExternal": "lees op externe site ",
     "emptyState": "nog geen artikelen",
     "filter": {
