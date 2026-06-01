@@ -70,20 +70,28 @@ export function MobileMenu({ locale }: { locale: Locale }) {
         >
           <div className="mx-auto flex max-w-6xl flex-col gap-4 px-4 py-4 text-sm font-medium">
             <Link
-              href={`/${locale}/about`}
-              onClick={() => setOpen(false)}
-              data-testid="mobile-menu-about"
-              className="text-text-soft hover:text-brand"
-            >
-              {t('about')}
-            </Link>
-            <Link
               href={`/${locale}/articles`}
               onClick={() => setOpen(false)}
               data-testid="mobile-menu-articles"
               className="text-text-soft hover:text-brand"
             >
               {t('articles')}
+            </Link>
+            <Link
+              href={`/${locale}/trainings`}
+              onClick={() => setOpen(false)}
+              data-testid="mobile-menu-trainings"
+              className="text-text-soft hover:text-brand"
+            >
+              {t('trainings')}
+            </Link>
+            <Link
+              href={`/${locale}/about`}
+              onClick={() => setOpen(false)}
+              data-testid="mobile-menu-about"
+              className="text-text-soft hover:text-brand"
+            >
+              {t('about')}
             </Link>
             <Link
               href={`/${locale}/contact`}
