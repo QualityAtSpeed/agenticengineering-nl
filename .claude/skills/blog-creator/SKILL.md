@@ -92,7 +92,11 @@ Filename: `news/YYYY-MM-DD-slug.md` where date matches the `date` frontmatter fi
 
 ### 6. Verify
 
-Run `pnpm exec tsc --noEmit`. Clean = done.
+Run `pnpm exec tsc --noEmit`. Clean = proceed.
+
+### 7. Create PR
+
+Create a branch and PR via `gh pr create`. Branch name: `add-blog/<slug>`. PR title: `Add blog: <EN title>`. Body: include the slug, author, date, and a link to the external URL.
 
 ## House rules
 
