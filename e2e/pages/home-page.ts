@@ -10,6 +10,8 @@ const VIEW_FULL_CURRICULUM: Record<Locale, string> = {
 export class HomePage {
   readonly heroHeading: Locator;
   readonly viewFullCurriculumLabel: Locator;
+  readonly heroPrimaryCta: Locator;
+  readonly heroSecondaryCta: Locator;
 
   constructor(
     readonly page: Page,
@@ -17,6 +19,8 @@ export class HomePage {
   ) {
     this.heroHeading = page.getByRole('heading', { level: 1 });
     this.viewFullCurriculumLabel = page.getByText(VIEW_FULL_CURRICULUM[locale]);
+    this.heroPrimaryCta = page.getByTestId('hero-cta-primary');
+    this.heroSecondaryCta = page.getByTestId('hero-cta-secondary');
   }
 
   async goto() {
