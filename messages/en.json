@@ -278,8 +278,8 @@
     }
   },
   "articles": {
-    "title": "articles",
-    "intro": "External articles we wrote or recommend. Each one links out to its original home.",
+    "title": "Articles",
+    "intro": "External articles we wrote or recommend.",
     "readExternal": "read on external site ",
     "emptyState": "no articles yet",
     "filter": {
