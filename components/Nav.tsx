@@ -22,13 +22,6 @@ export async function Nav({ locale }: { locale: Locale }) {
           </Link>
           <div className="flex shrink-0 items-center gap-5 text-sm sm:gap-7">
             <Link
-              href={`/${locale}/about`}
-              data-testid="nav-about"
-              className="text-text-soft hover:text-brand hidden font-medium sm:inline"
-            >
-              {t('about')}
-            </Link>
-            <Link
               href={`/${locale}/articles`}
               data-testid="nav-articles"
               className="text-text-soft hover:text-brand hidden font-medium sm:inline"
@@ -41,6 +34,13 @@ export async function Nav({ locale }: { locale: Locale }) {
               className="text-text-soft hover:text-brand hidden font-medium sm:inline"
             >
               {t('trainings')}
+            </Link>
+            <Link
+              href={`/${locale}/about`}
+              data-testid="nav-about"
+              className="text-text-soft hover:text-brand hidden font-medium sm:inline"
+            >
+              {t('about')}
             </Link>
             <Link
               href={`/${locale}/contact`}
