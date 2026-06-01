@@ -1,38 +1,41 @@
 ---
 name: blog-creator
-description: Generate bilingual NL+EN blog posts for the agenticengineering.nl site from a single source-language text. Use whenever the user asks to publish, create, draft, or add a blog / blog post / blogpost for this site (NOT external article links — those live in data/articles.json). Auto-translates source → other locale, derives slug from title, writes blogs/<slug>.nl.md + blogs/<slug>.en.md with shared frontmatter matching lib/blogs.ts schema.
+description: Add an external blog post as an article card for the agenticengineering.nl site. Use whenever the user asks to publish, create, draft, or add a blog / blog post / blogpost for this site from an external URL.
 ---
 
 # blog-creator
 
-Generate paired NL+EN blog markdown files from a single source-language text.
+Add an external blog post as an article card in `news/`.
 
 ## When to use
 
-- User provides blog text and asks to publish, create, draft, or add a blog post for this site.
-- Output target: `blogs/<slug>.nl.md` + `blogs/<slug>.en.md` at repo root.
-- NOT for: external article links (those live in `data/articles.json`).
+- User provides a URL to an external blog post and asks to publish, add, or create a blog/article card for this site.
+- Output target: `news/YYYY-MM-DD-slug.md` (frontmatter only, no body).
 
 ## Inputs to gather
 
-Confirm before writing files:
+Confirm before writing:
 
-1. **Source body** — markdown text in NL or EN.
-2. **Title** — user provides explicitly. Do not invent.
-3. **Summary** — 1-2 sentences. If absent, draft from body and ask user to approve.
-4. **Author** — name of writer. Ask if not established in session.
-5. **Tags** (optional) — array of short strings.
-6. **Image** (optional) — path or URL.
+1. **URL** — external blog post URL. Required.
+2. **Author** — full name. Ask if not known.
+3. **Date** — from the blog post itself. Ask if not fetchable.
+4. **Tags** (optional) — array of short strings.
+5. **Image** (optional) — path or URL.
 
 ## Workflow
 
-### 1. Detect source language
+### 1. Fetch summary
 
-Read the body. NL markers: `ik`, `een`, `het`, `en`, `niet`, `is`, `met`. EN markers: `the`, `and`, `is`, `to`, `of`, `with`. If ambiguous, ask user.
+Use WebFetch on the provided URL. Extract:
+
+- Title (NL and EN if available, otherwise translate)
+- Summary (1-2 sentences)
+- Author name
+- Publication date
 
 ### 2. Derive slug
 
-From the title (prefer EN for ASCII):
+From the URL path or EN title:
 
 - Lowercase
 - Strip diacritics (é→e, ï→i)
@@ -40,68 +43,69 @@ From the title (prefer EN for ASCII):
 - Trim leading/trailing hyphens
 - Max 60 chars, cut on word boundary
 
-Confirm slug with user. Slug = filename stem (no date prefix; date lives in frontmatter).
+### 3. Translate title + summary
 
-### 3. Date
+Translate title and summary to both NL and EN if only one locale was found.
+Natural phrasing — not word-for-word. Preserve brand names verbatim.
 
-Use today's date in YYYY-MM-DD: `date +%Y-%m-%d`. Quote as string in frontmatter.
+### 4. Preview + approval
 
-### 4. Translate
+Show user the full file contents before writing:
 
-Translate body, title, summary to the other locale. Preserve verbatim:
-
-- Markdown structure (headings, lists, code blocks, links)
-- Code blocks and inline code
-- URLs
-- Brand names (agenticengineering.nl, Claude Code, Codex, etc.)
-
-Aim for natural target-language phrasing, not word-for-word.
-
-### 5. Preview + approval
-
-Show user:
-
-- Slug
-- Date
-- Shared frontmatter (author, tags, image)
-- NL title + summary
-- EN title + summary
-- First ~10 lines of each translated body
+```
+File: news/YYYY-MM-DD-slug.md
+---
+title_nl: '...'
+title_en: '...'
+url: '...'
+type: 'blog'
+date: 'YYYY-MM-DD'
+author: '...'
+summary_nl: '...'
+summary_en: '...'
+---
+```
 
 Wait for explicit approval before writing.
 
-### 6. Write files
+### 5. Write file
 
 Shape:
 
 ```md
 ---
-title: '<locale-specific title>'
-summary: '<locale-specific summary>'
+title_nl: '<NL title>'
+title_en: '<EN title>'
+url: '<external URL>'
+type: 'blog'
 date: '<YYYY-MM-DD>'
-author: '<name>'
-tags: ['<tag1>', '<tag2>']
-image: '<path>'
+author: '<full name>'
+summary_nl: '<NL summary>'
+summary_en: '<EN summary>'
 ---
-
-<locale-specific body>
 ```
 
-Required: title, summary, date. Optional: author, tags, image — omit line entirely if absent. Dates quoted strings (single quotes). Both files share identical date/author/tags/image — `lib/blogs.ts` enforces date match across locales.
+Required: title_nl, title_en, url, date, summary_nl, summary_en.
+Optional: author, tags, image — omit line entirely if absent.
+All values in single quotes. Apostrophes inside single-quoted YAML strings must be escaped by doubling: `testscenario''s`.
+Filename: `news/YYYY-MM-DD-slug.md` where date matches the `date` frontmatter field.
 
-### 7. Verify
+### 6. Verify
 
-Run `pnpm exec tsc --noEmit`. Suggest user preview at `/articles/<slug>` via `pnpm dev`.
+Run `pnpm exec tsc --noEmit`. Clean = proceed.
+
+### 7. Create PR
+
+Create a branch and PR via `gh pr create`. Branch name: `add-blog/<slug>`. PR title: `Add blog: <EN title>`. Body: include the slug, author, date, and a link to the external URL.
 
 ## House rules
 
 - No git commits without explicit ask.
-- No destructive commands.
 - Show file contents before writing; wait for explicit approval.
 - Use pnpm, not npm.
 
 ## Failure modes
 
-- **Slug collision** — both filenames exist. Ask user: overwrite or new slug.
-- **Untranslatable proper nouns** — keep verbatim, note in preview.
-- **Ambiguous source language** — ask user before translating.
+- **Slug collision** — file already exists. Ask: overwrite or new slug.
+- **Date not found** — ask user to provide it.
+- **Ambiguous locale** — ask user before translating.
