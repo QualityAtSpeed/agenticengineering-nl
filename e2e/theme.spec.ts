@@ -45,7 +45,10 @@ test('theme: toggle is reachable and works from the mobile menu', async ({ page 
   const theme = new ThemeTogglePage(page, 'nl');
   await theme.goto();
   await page.getByTestId('mobile-menu-toggle').click();
-  await theme.open();
-  await theme.optionDark.click();
+  // The desktop toggle is hidden but still in the DOM, so scope to the mobile
+  // menu panel to avoid clicking the (invisible) desktop instance.
+  const panel = page.getByTestId('mobile-menu-panel');
+  await panel.getByTestId('theme-toggle').click();
+  await panel.getByTestId('theme-option-dark').click();
   await expect(theme.html).toHaveClass(/dark/);
 });
