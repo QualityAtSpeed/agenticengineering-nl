@@ -288,6 +288,7 @@
     "intro": "die wij schreven of aanraden.",
     "readExternal": "lees op externe site ",
     "emptyState": "nog geen artikelen",
+    "placedBy": "Geplaatst door",
     "filter": {
       "ariaLabel": "artikel filter",
       "all": "alle",
