@@ -171,7 +171,11 @@ export function TrainingDetail({ trainingId, locale }: { trainingId: TrainingId;
           <CurriculumList modules={training.modules} tModules={tModules} startIndex={1} />
         )}
 
-        <div className="mt-10">
+        <div className="border-border-subtle bg-bg-tint mt-10 flex flex-col gap-4 rounded-lg border px-6 py-6 sm:flex-row sm:items-center sm:justify-between">
+          <p className="text-text-primary font-semibold">
+            €{training.priceEUR.toLocaleString('nl-NL')}{' '}
+            <span className="text-text-muted text-sm font-normal">{tCommon('priceSuffix')}</span>
+          </p>
           <Button
             href={`/${locale}/contact?training=${trainingId}`}
             data-testid={`book-training-${trainingId}`}
