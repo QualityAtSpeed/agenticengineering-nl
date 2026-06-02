@@ -62,16 +62,28 @@ app/
   robots.ts            # /robots.txt
   sitemap.ts           # /sitemap.xml
   globals.css          # Tailwind v4 @theme block (single source of design tokens)
-components/            # Hero, Nav, Footer, TrainingCard, TrainingDetail, ContactForm, …
+components/            # Hero, Nav, Footer, TrainingCard, TrainingDetail, ContactForm,
+                       # ArticleFilterBar, InstructorCard, Button, DayAgenda, ProofStrip,
+                       # TimelineEntry, JsonLd, LangSwitcher, MobileMenu, …
 lib/
   validation.ts        # Zod schemas (contactSchema, trainingInterestEnum, …)
   email.ts             # Resend wrapper, sendContactEmail()
   rate-limit.ts        # Per-IP token bucket (in-memory; per-instance)
   sanitize.ts          # CRLF strip for email headers
-data/trainings.ts      # Training catalogue + modules (typed)
+  articles.ts          # Article/news loader (reads news/ markdown files)
+  parseFrontmatter.ts  # Frontmatter parser for markdown articles
+  flags.ts             # Feature flag helpers (BLOGS_ENABLED, …)
+data/
+  trainings.ts         # Training catalogue + modules (typed)
+  instructors.ts       # Instructor profiles (typed)
+  trusted-domains.json # Allowlist for origin/CSRF checks
+news/                  # Markdown news + blog posts (frontmatter + body)
 i18n/                  # next-intl config (routing.ts, request.ts)
 messages/              # nl.json, en.json (translation keys)
-scripts/verify-i18n.ts # CI gate: NL/EN key parity
+scripts/
+  verify-i18n.ts       # CI gate: NL/EN key parity
+  fetch-article-images.ts # Downloads OG images for news articles
+  metrics.ts           # Site metrics helper
 tests/                 # Vitest unit + Playwright e2e
 PRODUCT.md             # Brand register (users, tone, anti-references, principles)
 DESIGN.md              # Design system (colors, typography, components, do's/don'ts)
