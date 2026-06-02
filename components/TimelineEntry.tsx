@@ -23,6 +23,11 @@ export function TimelineEntryRow({ article, locale }: { article: Article; locale
         <p className="text-brand text-xs font-bold tracking-wider uppercase">
           {article.date} <span className="text-text-muted">// {t(`type.${article.type}`)}</span>
         </p>
+        {article.placedBy && (
+          <p className="text-text-muted text-xs">
+            {t('placedBy')} {article.placedBy}
+          </p>
+        )}
         <div className="mt-3 flex flex-col gap-4 sm:flex-row sm:items-start">
           <div className="border-border-subtle bg-bg-tint relative aspect-[1.91/1] w-full overflow-hidden rounded-md border sm:w-72 sm:flex-shrink-0">
             <Image
