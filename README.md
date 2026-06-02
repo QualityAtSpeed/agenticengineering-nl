@@ -22,7 +22,7 @@ Live: <https://agenticengineering.nl>
 
 ## Getting started
 
-Prerequisites: Node.js 20 (`.nvmrc`), pnpm 9, git.
+Prerequisites: Node.js 20 (`.nvmrc`), pnpm 9, git, Claude CLI (`claude`).
 
 ```bash
 git clone https://github.com/<owner>/agenticengineering.nl.git
@@ -33,6 +33,13 @@ pnpm install
 pnpm exec playwright install   # one-time, only if you'll run e2e
 cp .env.example .env.local     # required: copy and fill in for local dev (contact form + feature flags)
 pnpm dev                  # http://localhost:3000 → redirects to /nl
+```
+
+The pre-commit `readme-check` hook requires the Claude CLI and an Anthropic API key:
+
+```bash
+curl -fsSL https://claude.ai/install.sh | bash   # or: brew install --cask claude-code
+export ANTHROPIC_API_KEY=<your-api-key>           # add to ~/.zshrc / ~/.bashrc to persist
 ```
 
 First-run sanity check:
@@ -49,7 +56,7 @@ Editing checklist:
 - New translation key → add to **both** `messages/nl.json` and `messages/en.json`; `pnpm verify:i18n` gates CI.
 - New route → add it under `app/[locale]/`; sitemap auto-picks it up.
 - API/server logic → keep validation in `lib/validation.ts`, side effects in `lib/*`.
-- Pre-commit `lefthook` runs `format` + `lint`. Don't `--no-verify`.
+- Pre-commit `lefthook` hook runs `format`, `lint`, and `readme-check` (validates README stays in sync; requires `claude` CLI + `ANTHROPIC_API_KEY`). Don't bypass with `--no-verify` unless you're fixing the hook itself.
 
 Deploy: push to `main` → auto-prod via Vercel GitHub App. Push any other branch → preview URL (see [Preview environment](#preview-environment)).
 
@@ -116,7 +123,7 @@ pnpm build                # production build
 pnpm format               # prettier --write .
 ```
 
-A pre-commit `lefthook` hook runs `format` + `lint`. Don't bypass with `--no-verify` unless you're fixing the hook itself.
+A pre-commit `lefthook` hook runs `format`, `lint`, and `readme-check`. The `readme-check` command calls the Claude CLI — requires `ANTHROPIC_API_KEY` set in your shell. Don't bypass with `--no-verify` unless you're fixing the hook itself.
 
 ## Environment variables
 
