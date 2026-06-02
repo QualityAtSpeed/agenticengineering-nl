@@ -25,7 +25,41 @@
   --color-accent-orange: #c87a1a;
   --color-accent-red: #c8431b;
 
+  /* foreground for solid accent-green fills (e.g. primary button) */
+  --color-on-accent: #ffffff;
+
   --font-sans: var(--font-sans-loaded), system-ui, -apple-system, sans-serif;
+}
+
+:root.dark {
+  color-scheme: dark;
+
+  /* surface */
+  --color-bg-base: #0d1117;
+  --color-bg-elevated: #161b22;
+  --color-bg-tint: #1c2430;
+
+  /* borders */
+  --color-border-subtle: #30363d;
+  --color-border-strong: #444c56;
+
+  /* text */
+  --color-text-primary: #e6edf3;
+  --color-text-soft: #c9d1d9;
+  --color-text-muted: #8b949e;
+
+  /* brand + accents */
+  --color-brand: #58a6ff;
+  --color-brand-deep: #79c0ff;
+  --color-brand-soft: #15324a;
+  --color-accent-blue: #58a6ff;
+  --color-accent-green: #3fb950;
+  --color-accent-green-hover: #2ea043;
+  --color-accent-orange: #e0934b;
+  --color-accent-red: #ff7b72;
+
+  /* dark green fills are bright, so use a dark foreground for AA contrast */
+  --color-on-accent: #0d1117;
 }
 
 :root {

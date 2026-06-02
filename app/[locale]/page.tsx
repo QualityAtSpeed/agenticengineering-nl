@@ -91,7 +91,7 @@ export default async function Home({ params }: { params: Promise<{ locale: Local
         </div>
       </section>
 
-      <section className="from-brand-deep to-brand relative overflow-hidden bg-gradient-to-br px-6 py-20">
+      <section className="relative overflow-hidden bg-gradient-to-br from-[#0a4d7a] to-[#0b6fb0] px-6 py-20">
         <div
           aria-hidden
           className="pointer-events-none absolute inset-0 opacity-50"
@@ -103,11 +103,11 @@ export default async function Home({ params }: { params: Promise<{ locale: Local
         />
         <div className="relative mx-auto max-w-5xl text-white">
           <h2 className="max-w-[24ch] text-2xl font-bold sm:text-3xl">{tHome('finalCta.title')}</h2>
-          <p className="mt-3 max-w-[56ch] text-white/85">{tHome('finalCta.body')}</p>
+          <p className="mt-3 max-w-[56ch] text-white/90">{tHome('finalCta.body')}</p>
           <div className="mt-7 flex flex-wrap gap-3">
             <Link
               href={`/${locale}/contact`}
-              className="text-brand-deep hover:bg-bg-elevated inline-flex items-center gap-2 rounded-md bg-white px-5 py-2.5 text-sm font-semibold transition-colors"
+              className="inline-flex items-center gap-2 rounded-md bg-white px-5 py-2.5 text-sm font-semibold text-[#0a4d7a] transition-colors hover:bg-[#eef3f8]"
             >
               {tHome('finalCta.cta')}
             </Link>

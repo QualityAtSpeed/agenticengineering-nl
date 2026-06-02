@@ -4,9 +4,11 @@ import Link from 'next/link';
 import { useTranslations } from 'next-intl';
 import { useEffect, useId, useRef, useState } from 'react';
 import type { Locale } from '@/i18n/routing';
+import { ThemeToggle } from './ThemeToggle';
 
 export function MobileMenu({ locale }: { locale: Locale }) {
   const t = useTranslations('nav');
+  const tTheme = useTranslations('theme');
   const [open, setOpen] = useState(false);
   const panelId = useId();
   const buttonRef = useRef<HTMLButtonElement>(null);
@@ -66,6 +68,7 @@ export function MobileMenu({ locale }: { locale: Locale }) {
       {open && (
         <div
           id={panelId}
+          data-testid="mobile-menu-panel"
           className="border-border-subtle bg-bg-base/95 absolute inset-x-0 top-full border-b backdrop-blur sm:hidden"
         >
           <div className="mx-auto flex max-w-6xl flex-col gap-4 px-4 py-4 text-sm font-medium">
@@ -101,6 +104,10 @@ export function MobileMenu({ locale }: { locale: Locale }) {
             >
               {t('contact')}
             </Link>
+            <div className="border-border-subtle flex items-center gap-2 border-t pt-3">
+              <span className="text-text-muted">{tTheme('label')}</span>
+              <ThemeToggle />
+            </div>
           </div>
         </div>
       )}
