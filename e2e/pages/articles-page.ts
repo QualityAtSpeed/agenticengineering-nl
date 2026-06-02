@@ -11,6 +11,11 @@ const READ_EXTERNAL: Record<Locale, string> = {
   en: 'read on external site',
 };
 
+const INTRO: Record<Locale, string> = {
+  nl: 'die wij schreven of aanraden.',
+  en: 'we wrote or recommend.',
+};
+
 export class ArticlesPage {
   readonly heading: Locator;
   readonly intro: Locator;
@@ -28,7 +33,7 @@ export class ArticlesPage {
     readonly locale: Locale,
   ) {
     this.heading = page.getByRole('heading', { level: 1 });
-    this.intro = page.getByRole('main').locator('p').first();
+    this.intro = page.getByRole('heading', { level: 1 }).getByText(INTRO[locale]);
     this.emptyState = page.getByText(EMPTY_STATE[locale]);
     this.articleCards = page.locator('[data-testid^="article-link-"]');
     this.cardContainers = page.locator('[data-testid^="article-card-"]');
