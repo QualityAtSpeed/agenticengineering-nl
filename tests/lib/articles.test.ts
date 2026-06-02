@@ -67,4 +67,14 @@ describe('getArticles', () => {
     const [first] = getArticles(path.join(fixturesRoot, 'news-image-override'));
     expect(first.image).toBe('/custom/override.jpg');
   });
+
+  it('maps placed_by frontmatter to article.placedBy', () => {
+    const [first] = getArticles(path.join(fixturesRoot, 'news-placed-by'));
+    expect(first.placedBy).toBe('Jorick');
+  });
+
+  it('leaves article.placedBy undefined when frontmatter omits placed_by', () => {
+    const [first] = getArticles(path.join(fixturesRoot, 'news-valid'));
+    expect(first.placedBy).toBeUndefined();
+  });
 });
