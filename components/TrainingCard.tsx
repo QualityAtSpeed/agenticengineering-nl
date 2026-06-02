@@ -100,7 +100,7 @@ export function TrainingCard({ trainingId, locale }: { trainingId: TrainingId; l
   const tCard = useTranslations('trainings.cardMeta');
 
   return (
-    <article className="border-border-subtle grid items-start gap-7 border-t py-8 last:border-b lg:grid-cols-[80px_1.5fr_1fr_200px]">
+    <article className="border-border-subtle bg-bg-elevated grid items-start gap-7 rounded-lg border px-5 py-7 sm:px-7 lg:grid-cols-[80px_1.5fr_1fr_200px]">
       <div className="text-brand text-4xl leading-none font-extrabold tracking-tight tabular-nums">
         {numerals[trainingId]}
       </div>
