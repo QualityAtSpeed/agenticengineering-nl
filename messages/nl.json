@@ -345,6 +345,12 @@
     "vat": "BTW: NL001663539B75",
     "email": "hello@agenticengineering.nl"
   },
+  "theme": {
+    "label": "Thema",
+    "light": "Licht",
+    "dark": "Donker",
+    "system": "Systeem"
+  },
   "home": {
     "trainingsLede": "Twee trainingen, los of opeenvolgend. In-company of open inschrijving. Iedereen levert iets concreets op.",
     "instructorsTitle": "Wie geeft de training",

@@ -339,6 +339,12 @@
     "vat": "VAT: NL001663539B75",
     "email": "hello@agenticengineering.nl"
   },
+  "theme": {
+    "label": "Theme",
+    "light": "Light",
+    "dark": "Dark",
+    "system": "System"
+  },
   "home": {
     "trainingsLede": "Two trainings, separately or consecutively. In-company or public cohort. Everyone ships something concrete.",
     "instructorsTitle": "Who runs the training",
