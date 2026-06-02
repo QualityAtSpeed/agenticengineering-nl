@@ -11,7 +11,7 @@ const hasArticles =
 const locales: Locale[] = ['nl', 'en'];
 
 for (const locale of locales) {
-  test(`articles: ${locale} page renders heading + intro`, async ({ page }) => {
+  test(`articles: ${locale} page renders heading + inline intro`, async ({ page }) => {
     const articles = new ArticlesPage(page, locale);
     await articles.goto();
     await expect(articles.heading).toBeVisible();

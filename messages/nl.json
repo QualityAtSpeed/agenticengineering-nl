@@ -285,7 +285,7 @@
   },
   "articles": {
     "title": "Artikelen",
-    "intro": "Externe artikelen die wij schreven of aanraden.",
+    "intro": "die wij schreven of aanraden.",
     "readExternal": "lees op externe site ",
     "emptyState": "nog geen artikelen",
     "filter": {

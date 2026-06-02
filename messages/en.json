@@ -279,7 +279,7 @@
   },
   "articles": {
     "title": "Articles",
-    "intro": "External articles we wrote or recommend.",
+    "intro": "we wrote or recommend.",
     "readExternal": "read on external site ",
     "emptyState": "no articles yet",
     "filter": {
