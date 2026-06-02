@@ -7,3 +7,11 @@ pre-commit:
     format:
       glob: '*.{ts,tsx,js,jsx,mjs,json,css,md}'
       run: pnpm exec prettier --check {staged_files}
+    readme-check:
+      run: |
+        STAGED=$(git diff --cached --name-only | grep -v '^README\.md$')
+        if [ -z "$STAGED" ]; then exit 0; fi
+        DIFF=$(git diff --cached -- $STAGED)
+        RESULT=$(claude --model claude-haiku-4-5-20251001 --print "You are a README freshness checker. Given this git diff of staged changes, check if README.md needs updating — both structurally (new files/dirs not mentioned) and functionally (new features/behavior not documented). README.md content follows.\n\n$(cat README.md)\n\nDiff:\n$DIFF\n\nRespond with either:\n- OK: <one line why README is still accurate>\n- UPDATE NEEDED: <specific gaps>")
+        echo "$RESULT"
+        echo "$RESULT" | sed 's/\*\*//g' | grep -q "^OK:" && exit 0 || exit 1
