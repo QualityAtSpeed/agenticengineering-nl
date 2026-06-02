@@ -8,7 +8,7 @@ const VARIANT: Record<Variant, string> = {
   primary:
     'bg-accent-green hover:bg-accent-green-hover text-white shadow-sm border border-transparent',
   secondary:
-    'border-border-strong text-brand hover:border-brand hover:text-brand-deep border bg-white',
+    'border-border-strong text-brand hover:border-brand hover:text-brand-deep bg-bg-base border',
 };
 
 const SIZE: Record<Size, string> = {

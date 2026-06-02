@@ -13,7 +13,7 @@ export function ArticleCard({ article, locale }: { article: Article; locale: str
   return (
     <article
       data-testid={`article-card-${article.slug}`}
-      className="border-border-subtle hover:border-brand flex h-full flex-col overflow-hidden rounded-md border bg-white transition-colors"
+      className="border-border-subtle hover:border-brand bg-bg-base flex h-full flex-col overflow-hidden rounded-md border transition-colors"
     >
       <div className="bg-bg-tint border-border-subtle relative aspect-[2/1] w-full border-b">
         <Image

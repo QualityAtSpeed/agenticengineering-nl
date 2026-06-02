@@ -7,7 +7,7 @@ export function InstructorCard({ id }: { id: InstructorId }) {
   const name = t('name');
   const photo = instructors.find((i) => i.id === id)?.photo;
   return (
-    <article className="border-border-subtle hover:border-brand flex items-start gap-4 rounded-md border bg-white p-5 transition-colors">
+    <article className="border-border-subtle hover:border-brand bg-bg-base flex items-start gap-4 rounded-md border p-5 transition-colors">
       {photo && (
         <Image
           src={photo}
