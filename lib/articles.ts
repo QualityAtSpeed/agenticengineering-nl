@@ -18,6 +18,7 @@ const frontmatterSchema = z.object({
   image: z.string().optional(),
   tags: z.array(z.string()).optional(),
   author: z.string().optional(),
+  placed_by: z.string().optional(),
 });
 
 export interface Article {
@@ -33,6 +34,7 @@ export interface Article {
   image: string;
   tags?: string[];
   author?: string;
+  placedBy?: string;
 }
 
 const DEFAULT_NEWS_DIR = path.join(process.cwd(), 'news');
@@ -71,6 +73,7 @@ export function getArticles(newsDir: string = DEFAULT_NEWS_DIR): Article[] {
     };
     if (d.tags !== undefined) article.tags = d.tags;
     if (d.author !== undefined) article.author = d.author;
+    if (d.placed_by !== undefined) article.placedBy = d.placed_by;
     return article;
   });
 
