@@ -25,6 +25,9 @@
   --color-accent-orange: #c87a1a;
   --color-accent-red: #c8431b;
 
+  /* foreground for solid accent-green fills (e.g. primary button) */
+  --color-on-accent: #ffffff;
+
   --font-sans: var(--font-sans-loaded), system-ui, -apple-system, sans-serif;
 }
 
@@ -54,6 +57,9 @@
   --color-accent-green-hover: #2ea043;
   --color-accent-orange: #e0934b;
   --color-accent-red: #ff7b72;
+
+  /* dark green fills are bright, so use a dark foreground for AA contrast */
+  --color-on-accent: #0d1117;
 }
 
 :root {

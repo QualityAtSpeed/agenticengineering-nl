@@ -56,7 +56,7 @@ export default async function LocaleLayout({
         <ThemeProvider>
           <a
             href="#main"
-            className="focus:bg-accent-green sr-only focus:not-sr-only focus:fixed focus:top-2 focus:left-2 focus:rounded-sm focus:px-3 focus:py-1 focus:text-white"
+            className="focus:bg-accent-green focus:text-on-accent sr-only focus:not-sr-only focus:fixed focus:top-2 focus:left-2 focus:rounded-sm focus:px-3 focus:py-1"
           >
             Skip to content
           </a>
