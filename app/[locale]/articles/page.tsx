@@ -31,8 +31,10 @@ export default async function ArticlesPage({
   return (
     <main className="px-6 py-16 sm:py-20">
       <div className="mx-auto max-w-4xl">
-        <h1 className="text-brand-deep text-3xl font-bold sm:text-4xl">{t('title')}</h1>
-        <p className="text-text-soft mt-3 max-w-2xl text-lg">{t('intro')}</p>
+        <h1 className="text-brand-deep text-3xl font-bold sm:text-4xl">
+          {t('title')}{' '}
+          <span className="text-text-soft text-xl font-normal sm:text-2xl">{t('intro')}</span>
+        </h1>
         <ArticleFilterBar currentType={currentType} locale={locale} showBlogs={showBlogs} />
         {visible.length === 0 ? (
           <p className="text-text-muted mt-12 text-sm">{t('emptyState')}</p>
