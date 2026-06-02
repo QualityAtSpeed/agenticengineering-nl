@@ -25,6 +25,7 @@ Ask the user for each, one short question at a time. Do not invent values.
 5. **Publish date** (`YYYY-MM-DD`) auto-fill from today. Ask to confirm.
 6. **Summary in Dutch** (`summary_nl`) — 1–3 sentences, plain language.
 7. **Summary in English** (`summary_en`) — 1–3 sentences. If the user only provides one language, translate to the other yourself and show the translation back for approval before writing.
+8. **Placed by** (`placed_by`) — name of the person adding this entry. Ask: "Who is placing this article? (your name)". No default; do not invent a value.
 
 Optional fields (only include in frontmatter if the user supplies them): `image`, `tags`, `author`.
 
@@ -48,6 +49,7 @@ type: 'article' # or 'blog'
 date: '<YYYY-MM-DD>'
 summary_nl: '<dutch summary>'
 summary_en: '<english summary>'
+placed_by: '<name>'
 ---
 ```
 
