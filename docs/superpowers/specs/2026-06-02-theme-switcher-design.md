@@ -88,6 +88,7 @@ adjust values if any pairing fails.
 | `--color-accent-green-hover` | #167040         | #2ea043    |
 | `--color-accent-orange`      | #c87a1a         | #e0934b    |
 | `--color-accent-red`         | #c8431b         | #ff7b72    |
+| `--color-on-accent`          | #ffffff         | #0d1117    |
 
 Notes:
 
@@ -95,6 +96,26 @@ Notes:
   is _darker_ than `--color-brand`; on dark it is _lighter_ (brighter blue) so
   hover/headings still read as emphasis.
 - `--color-brand-soft` is a tinted surface; the dark value is a muted dark blue.
+- `--color-on-accent` was added during implementation to satisfy WCAG AA. The
+  dark-mode `accent-green` is bright, so white text on the solid green primary
+  button only reached 2.54:1. `on-accent` is the button/skip-link foreground:
+  white in light (4.72:1 on the darker light-green), dark in dark (7.45:1 on the
+  bright dark-green). `accent-green` used as _text_ on dark surfaces stays light
+  and already passes (7.45:1), so it was not changed.
+
+### Implementation deltas (beyond the original token-swap assumption)
+
+The original assumption that "no component restyling is required" held for most of
+the UI but not entirely:
+
+- Three surfaces hardcoded `bg-white` (`ArticleCard`, `InstructorCard`, the
+  secondary `Button`) and were switched to the `bg-bg-base` token (identical in
+  light, dark in dark).
+- The home final-CTA band used the themed `brand-deep`/`brand` tokens for its
+  gradient, so it lightened in dark mode and white text fell to ~2.5:1. It is now
+  pinned to fixed deep-blue (`#0a4d7a`/`#0b6fb0` — the same values as the light
+  tokens, so light is unchanged) with the button label pinned to `#0a4d7a` and
+  body text bumped to `text-white/90`. All CTA pairings are ≥ 4.5:1.
 
 ## Toggle UI
 
