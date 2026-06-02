@@ -17,7 +17,7 @@ function SunIcon() {
       stroke="currentColor"
       strokeWidth="2"
       strokeLinecap="round"
-      aria-hidden
+      aria-hidden="true"
     >
       <circle cx="12" cy="12" r="4" />
       <path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4" />
@@ -35,7 +35,7 @@ function MoonIcon() {
       stroke="currentColor"
       strokeWidth="2"
       strokeLinecap="round"
-      aria-hidden
+      aria-hidden="true"
     >
       <path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z" />
     </svg>
@@ -44,6 +44,7 @@ function MoonIcon() {
 
 export function ThemeToggle() {
   const t = useTranslations('theme');
+  // theme = stored preference (light/dark/system); resolvedTheme = the effective one
   const { theme, setTheme, resolvedTheme } = useTheme();
   const [open, setOpen] = useState(false);
   const [mounted, setMounted] = useState(false);
@@ -95,6 +96,7 @@ export function ThemeToggle() {
         <div
           id={panelId}
           role="menu"
+          aria-label={t('label')}
           className="border-border-subtle bg-bg-base absolute top-full right-0 mt-2 min-w-32 rounded-md border py-1 text-sm shadow-lg"
         >
           {MODES.map((mode) => (
