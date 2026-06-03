@@ -55,7 +55,7 @@ export async function fetchArticleImage(
 
   let browser: Awaited<ReturnType<typeof chromium.launch>>;
   try {
-    browser = await chromium.launch({ headless: false });
+    browser = await chromium.launch({ headless: true });
   } catch (err) {
     return {
       imagePath: FALLBACK,
