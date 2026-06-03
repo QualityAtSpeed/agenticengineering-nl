@@ -324,7 +324,7 @@
       "invalidEmail": "Invalid email address",
       "messageTooShort": "At least 10 characters",
       "messageTooLong": "Maximum 5000 characters",
-      "generic": "Something went wrong. Email pascal@validate-it.nl directly.",
+      "generic": "Something went wrong. Email hello@agenticengineering.nl directly.",
       "rateLimited": "Too many requests. Try again in a minute."
     },
     "success": {

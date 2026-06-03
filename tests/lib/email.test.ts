@@ -24,7 +24,7 @@ const payload = {
 beforeEach(() => {
   sendMock.mockReset();
   process.env.RESEND_API_KEY = 'test-key';
-  process.env.CONTACT_EMAIL = 'pascal@validate-it.nl';
+  process.env.CONTACT_EMAIL = 'hello@agenticengineering.nl';
   process.env.CONTACT_FROM_EMAIL = 'noreply@agenticengineering.nl';
 });
 
@@ -35,7 +35,7 @@ describe('sendContactEmail', () => {
     expect(sendMock).toHaveBeenCalledTimes(1);
     const arg = sendMock.mock.calls[0][0];
     expect(arg.from).toBe('noreply@agenticengineering.nl');
-    expect(arg.to).toBe('pascal@validate-it.nl');
+    expect(arg.to).toBe('hello@agenticengineering.nl');
     expect(arg.replyTo).toBe('pascal@example.com');
     expect(arg.subject).not.toMatch(/[\r\n]/);
   });
