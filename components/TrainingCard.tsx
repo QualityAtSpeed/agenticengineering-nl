@@ -2,15 +2,13 @@ import { useTranslations } from 'next-intl';
 import { Button } from '@/components/Button';
 import { trainings, type TrainingId } from '@/data/trainings';
 
-const numerals: Record<TrainingId, string> = { basic: '01', advanced: '02' };
-
 const ClockIcon = () => (
   <svg
     width="14"
     height="14"
     viewBox="0 0 16 16"
     aria-hidden="true"
-    className="text-brand mt-0.5 shrink-0"
+    className="text-brand mt-px shrink-0"
   >
     <circle cx="8" cy="8" r="7" fill="none" stroke="currentColor" strokeWidth="1.6" />
     <path
@@ -29,7 +27,7 @@ const PeopleIcon = () => (
     height="14"
     viewBox="0 0 16 16"
     aria-hidden="true"
-    className="text-brand mt-0.5 shrink-0"
+    className="text-brand mt-px shrink-0"
   >
     <circle cx="6" cy="6" r="2.5" fill="none" stroke="currentColor" strokeWidth="1.6" />
     <path
@@ -49,7 +47,7 @@ const StarIcon = () => (
     height="14"
     viewBox="0 0 16 16"
     aria-hidden="true"
-    className="text-brand mt-0.5 shrink-0"
+    className="text-brand mt-px shrink-0"
   >
     <path
       d="M8 1l2.5 4.5L15 6.5l-3.5 3.5L12.5 15 8 12.5 3.5 15l1-5L1 6.5l4.5-1z"
@@ -100,34 +98,32 @@ export function TrainingCard({ trainingId, locale }: { trainingId: TrainingId; l
   const tCard = useTranslations('trainings.cardMeta');
 
   return (
-    <article className="border-border-subtle grid items-start gap-7 border-t py-8 last:border-b lg:grid-cols-[80px_1.5fr_1fr_200px]">
-      <div className="text-brand text-4xl leading-none font-extrabold tracking-tight tabular-nums">
-        {numerals[trainingId]}
-      </div>
+    <article className="border-border-subtle grid items-start gap-7 border-t py-8 last:border-b lg:grid-cols-[1fr_200px]">
+      <div className="flex flex-col gap-4 lg:flex-row lg:gap-10">
+        <div className="min-w-0 flex-1">
+          <h3 className="text-text-primary text-xl font-bold">{t(`${trainingId}.name`)}</h3>
+          <p className="text-text-soft mt-2 text-[0.9375rem]">{t(`${trainingId}.tagline`)}</p>
+          <Button
+            variant="secondary"
+            size="sm"
+            href={`/${locale}/trainings/${trainingId}`}
+            data-testid={`view-curriculum-${trainingId}`}
+            className="mt-3"
+          >
+            {tLabels('viewDetails')}
+            <ArrowIcon />
+          </Button>
+        </div>
 
-      <div>
-        <h3 className="text-text-primary text-xl font-bold">{t(`${trainingId}.name`)}</h3>
-        <p className="text-text-soft mt-2 text-[0.9375rem]">{t(`${trainingId}.tagline`)}</p>
-        <Button
-          variant="secondary"
-          size="sm"
-          href={`/${locale}/trainings/${trainingId}`}
-          data-testid={`view-curriculum-${trainingId}`}
-          className="mt-3"
-        >
-          {tLabels('viewDetails')}
-          <ArrowIcon />
-        </Button>
+        <ul className="text-text-muted m-0 list-none space-y-1.5 p-0 text-sm lg:pt-[0.3125rem]">
+          {metaItems[trainingId].map((m) => (
+            <li key={m.key} className="flex items-center gap-2">
+              <MetaIcon which={m.icon} />
+              <span>{tCard(`${trainingId}.${m.key}`)}</span>
+            </li>
+          ))}
+        </ul>
       </div>
-
-      <ul className="text-text-muted m-0 list-none space-y-1.5 p-0 text-sm">
-        {metaItems[trainingId].map((m) => (
-          <li key={m.key} className="flex items-start gap-2">
-            <MetaIcon which={m.icon} />
-            <span>{tCard(`${trainingId}.${m.key}`)}</span>
-          </li>
-        ))}
-      </ul>
 
       <div>
         <p className="text-text-primary text-xl font-bold tabular-nums">

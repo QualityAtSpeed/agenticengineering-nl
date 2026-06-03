@@ -38,11 +38,11 @@ describe('<ProofStrip />', () => {
     expect(link).toHaveAttribute('href', 'https://github.com/QualityAtSpeed/agenticengineering-nl');
     expect(link).toHaveAttribute('target', '_blank');
     expect(link).toHaveAttribute('rel', 'noopener noreferrer');
-    expect(link).toHaveTextContent(/view source on GitHub/);
+    expect(link).toHaveTextContent(/View source on GitHub/);
   });
 
   it('renders the NL CTA label', () => {
     renderStrip('nl');
-    expect(screen.getByTestId('proof-github-link')).toHaveTextContent(/bekijk source op GitHub/);
+    expect(screen.getByTestId('proof-github-link')).toHaveTextContent(/Bekijk source op GitHub/);
   });
 });
