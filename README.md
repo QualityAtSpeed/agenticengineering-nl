@@ -56,7 +56,33 @@ Editing checklist:
 - New translation key → add to **both** `messages/nl.json` and `messages/en.json`; `pnpm verify:i18n` gates CI.
 - New route → add it under `app/[locale]/`; sitemap auto-picks it up.
 - API/server logic → keep validation in `lib/validation.ts`, side effects in `lib/*`.
+- New news article → create `news/<slug>.md` with required frontmatter (see below). Run `pnpm article:image <source-url> <slug>` to fetch and save the OG image before committing.
 - Pre-commit `lefthook` hook runs `format`, `lint`, and `readme-check` (validates README stays in sync; requires `claude` CLI + `ANTHROPIC_API_KEY`). Don't bypass with `--no-verify` unless you're fixing the hook itself.
+
+### News article frontmatter
+
+```yaml
+title_nl: 'NL title' # required
+title_en: 'EN title' # required
+url: 'https://...' # required — canonical link shown to readers
+source_url: 'https://...' # optional — URL visited to scrape og:image (defaults to url)
+type: article # optional — 'article' (default) or 'blog'
+date: 'YYYY-MM-DD' # required
+author: 'First Last' # optional
+placed_by: 'Name' # optional — who curated this entry
+summary_nl: '...' # required
+summary_en: '...' # required
+image: '/news/<slug>.jpg' # optional — path relative to /public; falls back to /qas-icon.svg
+```
+
+Fetch the image with:
+
+```bash
+pnpm article:image <source-url> <slug>
+# Example: pnpm article:image https://medium.com/some-post my-article-slug
+```
+
+The script opens a real Chromium window to read the page's `og:image`, downloads it, and saves it to `public/news/<slug>.<ext>`. The source host **and** the image host must both be listed in `data/trusted-domains.json` — add new domains there when needed.
 
 Deploy: push to `main` → auto-prod via Vercel GitHub App. Push any other branch → preview URL (see [Preview environment](#preview-environment)).
 
