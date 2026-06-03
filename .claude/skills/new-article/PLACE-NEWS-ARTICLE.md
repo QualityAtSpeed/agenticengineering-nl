@@ -154,7 +154,8 @@ Show each command in its own fenced block with a one-sentence reason. Wait for t
 6. Run the trusted-domain check (Image fetch — Step 1) on the effective source. Then show the `pnpm article:image '<effective-source>' <YYYY-MM-DD>-<slug>` command for the user to run, capture the JSON line, and write the `image:` field back into the frontmatter (Image fetch — Steps 2 and 3).
 7. If a warning blocks the fetch, walk the user through the manual image fallback.
 8. Show the git/gh command sequence. User runs each.
-9. Stop after PR creation. Do not suggest further changes.
+9. After PR creation, run `gh pr view --json url,headRefName` to get the PR number, then show the Vercel preview URL: `https://<repo-name>-git-<branch-slug>-<team-slug>.vercel.app` — or run `gh pr checks` and surface the Vercel deployment URL directly once checks appear. Tell the user to open it and confirm the article renders in both locales.
+10. Stop after the preview URL is shared. Do not suggest further changes.
 
 ## Edge cases
 
