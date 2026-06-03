@@ -19,7 +19,7 @@
     "title": "Train je team in agentic AI quality engineering.",
     "subtitle": "Twee praktijkgerichte trainingen in Claude Code of Codex. Twee dagen basis + kwaliteitsloop, één dag rollout + governance.",
     "ctaPrimary": "Boek training",
-    "ctaSecondary": "Bekijk curriculum"
+    "ctaSecondary": "Bekijk trainingen"
   },
   "trainings": {
     "sectionTitle": "Trainingen",
@@ -256,7 +256,7 @@
       "TypeScript strict",
       "NL/EN locale-pariteit afgedwongen"
     ],
-    "ctaLabel": "bekijk source op GitHub"
+    "ctaLabel": "Bekijk source op GitHub"
   },
   "footer": {
     "tagline": "Agentic AI quality engineering trainingen.",
