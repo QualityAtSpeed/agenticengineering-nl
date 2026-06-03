@@ -36,7 +36,7 @@ beforeEach(() => {
   vi.clearAllMocks();
   __resetRateLimitForTests();
   process.env.RESEND_API_KEY = 'test';
-  process.env.CONTACT_EMAIL = 'pascal@validate-it.nl';
+  process.env.CONTACT_EMAIL = 'hello@agenticengineering.nl';
   process.env.CONTACT_FROM_EMAIL = 'noreply@agenticengineering.nl';
 });
 

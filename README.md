@@ -94,6 +94,7 @@ scripts/
 tests/                 # Vitest unit + Playwright e2e
 PRODUCT.md             # Brand register (users, tone, anti-references, principles)
 DESIGN.md              # Design system (colors, typography, components, do's/don'ts)
+LICENSE                # MIT license (© QualityAtSpeed)
 next.config.ts         # Security headers + next-intl plugin
 ```
 

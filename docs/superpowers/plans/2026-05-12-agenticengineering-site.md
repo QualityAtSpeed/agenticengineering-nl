@@ -2515,7 +2515,7 @@ File `.env.example`:
 
 ```
 RESEND_API_KEY=
-CONTACT_EMAIL=pascal@validate-it.nl
+CONTACT_EMAIL=hello@agenticengineering.nl
 CONTACT_FROM_EMAIL=noreply@agenticengineering.nl
 ```
 
@@ -2545,7 +2545,7 @@ const payload = {
 beforeEach(() => {
   sendMock.mockReset();
   process.env.RESEND_API_KEY = 'test-key';
-  process.env.CONTACT_EMAIL = 'pascal@validate-it.nl';
+  process.env.CONTACT_EMAIL = 'hello@agenticengineering.nl';
   process.env.CONTACT_FROM_EMAIL = 'noreply@agenticengineering.nl';
 });
 
@@ -2556,7 +2556,7 @@ describe('sendContactEmail', () => {
     expect(sendMock).toHaveBeenCalledTimes(1);
     const arg = sendMock.mock.calls[0][0];
     expect(arg.from).toBe('noreply@agenticengineering.nl');
-    expect(arg.to).toBe('pascal@validate-it.nl');
+    expect(arg.to).toBe('hello@agenticengineering.nl');
     expect(arg.replyTo).toBe('pascal@example.com');
     expect(arg.subject).not.toMatch(/[\r\n]/);
   });
@@ -2790,7 +2790,7 @@ beforeEach(() => {
   vi.clearAllMocks();
   __resetRateLimitForTests();
   process.env.RESEND_API_KEY = 'test';
-  process.env.CONTACT_EMAIL = 'pascal@validate-it.nl';
+  process.env.CONTACT_EMAIL = 'hello@agenticengineering.nl';
   process.env.CONTACT_FROM_EMAIL = 'noreply@agenticengineering.nl';
 });
 
@@ -2974,7 +2974,7 @@ Merge into `messages/nl.json` (mirror EN):
       "invalidEmail": "Ongeldig e-mailadres",
       "messageTooShort": "Minstens 10 tekens",
       "messageTooLong": "Maximaal 5000 tekens",
-      "generic": "Er ging iets mis. Mail direct naar pascal@validate-it.nl.",
+      "generic": "Er ging iets mis. Mail direct naar hello@agenticengineering.nl.",
       "rateLimited": "Te veel verzoeken. Probeer over een minuut opnieuw."
     },
     "success": {
@@ -3612,7 +3612,7 @@ Merge into `messages/nl.json` (mirror EN):
     "address": "<vul adres in>",
     "kvk": "KVK: <vul KVK in>",
     "vat": "BTW: <vul BTW in>",
-    "email": "pascal@validate-it.nl"
+    "email": "hello@agenticengineering.nl"
   }
 }
 ```

@@ -283,7 +283,7 @@ Pipeline:
 | Name                 | Scope  | Required                                                     |
 | -------------------- | ------ | ------------------------------------------------------------ |
 | `RESEND_API_KEY`     | server | yes                                                          |
-| `CONTACT_EMAIL`      | server | default `pascal@validate-it.nl`                              |
+| `CONTACT_EMAIL`      | server | default `hello@agenticengineering.nl`                        |
 | `CONTACT_FROM_EMAIL` | server | verified Resend sender, e.g. `noreply@agenticengineering.nl` |
 | `RATE_LIMIT_KV_URL`  | server | optional (Upstash); falls back to in-memory                  |
 
