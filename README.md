@@ -328,6 +328,10 @@ Vercel Deployment Protection is forced on for previews on the Hobby plan. Public
 
 The preview key has Resend "Sending access" scoped to `agenticengineering.nl` only. To rotate: Resend dashboard → API Keys → revoke old → create new → `vercel env rm RESEND_API_KEY preview && vercel env add RESEND_API_KEY preview` (paste new value at the prompt — never via `--value` on a shared terminal) → trigger a new preview deploy. Production is unaffected.
 
+**Cleanup:**
+
+Preview deployments are automatically deleted when their PR closes (via `.github/workflows/preview-teardown.yml`).
+
 ## i18n
 
 Translation messages live in `messages/{nl,en}.json`. Locale routing in `i18n/routing.ts`. NL is the default locale (no prefix-less root — `/` redirects to `/nl`).

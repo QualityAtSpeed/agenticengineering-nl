@@ -1,0 +1,32 @@
+name: Cleanup Preview Deployment
+
+on:
+  pull_request:
+    types: [closed]
+
+jobs:
+  cleanup:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Delete preview deployments
+        env:
+          BRANCH: ${{ github.event.pull_request.head.ref }}
+        run: |
+          echo "Deleting all deployments for branch: $BRANCH"
+
+          DEPLOYMENTS=$(curl -s \
+            --url "https://api.vercel.com/v7/deployments?projectId=${{ secrets.VERCEL_PROJECT_ID }}&target=preview&limit=100" \
+            --header "Authorization: Bearer ${{ secrets.VERCEL_TOKEN }}" \
+            | jq -r --arg branch "$BRANCH" '.deployments[] | select(.meta.githubCommitRef == $branch) | .uid')
+
+          if [ -z "$DEPLOYMENTS" ]; then
+            echo "No deployments found for branch $BRANCH, skipping"
+            exit 0
+          fi
+
+          for ID in $DEPLOYMENTS; do
+            echo "Deleting deployment $ID"
+            curl --request DELETE \
+              --url "https://api.vercel.com/v13/deployments/$ID" \
+              --header "Authorization: Bearer ${{ secrets.VERCEL_TOKEN }}"
+          done
