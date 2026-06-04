@@ -10,6 +10,17 @@ jobs:
     steps:
       - name: Delete preview deployment
         run: |
+          DEPLOYMENT_ID=$(curl -s \
+            --url "https://api.vercel.com/v7/deployments?sha=${{ github.event.pull_request.head.sha }}&limit=1" \
+            --header "Authorization: Bearer ${{ secrets.VERCEL_TOKEN }}" \
+            | jq -r '.deployments[0].uid')
+
+          if [ "$DEPLOYMENT_ID" = "null" ] || [ -z "$DEPLOYMENT_ID" ]; then
+            echo "No deployment found for SHA ${{ github.event.pull_request.head.sha }}, skipping"
+            exit 0
+          fi
+
+          echo "Deleting deployment $DEPLOYMENT_ID"
           curl --request DELETE \
-            --url https://api.vercel.com/v13/deployments/${{ github.event.pull_request.head.sha }} \
+            --url "https://api.vercel.com/v13/deployments/$DEPLOYMENT_ID" \
             --header "Authorization: Bearer ${{ secrets.VERCEL_TOKEN }}"
