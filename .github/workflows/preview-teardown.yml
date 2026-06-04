@@ -9,8 +9,10 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Delete preview deployments
+        env:
+          BRANCH: ${{ github.event.pull_request.head.ref }}
         run: |
-          BRANCH="${{ github.event.pull_request.head.ref }}"
+          BRANCH="$BRANCH"
           echo "Deleting all deployments for branch: $BRANCH"
 
           DEPLOYMENTS=$(curl -s \
