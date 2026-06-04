@@ -1,0 +1,15 @@
+name: Cleanup Preview Deployment
+
+on:
+  pull_request:
+    types: [closed]
+
+jobs:
+  cleanup:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Delete preview deployment
+        run: |
+          curl --request DELETE \
+            --url https://api.vercel.com/v13/deployments/${{ github.event.pull_request.head.sha }} \
+            --header "Authorization: Bearer ${{ secrets.VERCEL_TOKEN }}"
