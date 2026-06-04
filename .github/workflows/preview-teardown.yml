@@ -8,19 +8,24 @@ jobs:
   cleanup:
     runs-on: ubuntu-latest
     steps:
-      - name: Delete preview deployment
+      - name: Delete preview deployments
         run: |
-          DEPLOYMENT_ID=$(curl -s \
-            --url "https://api.vercel.com/v7/deployments?sha=${{ github.event.pull_request.head.sha }}&limit=1" \
-            --header "Authorization: Bearer ${{ secrets.VERCEL_TOKEN }}" \
-            | jq -r '.deployments[0].uid')
+          BRANCH="${{ github.event.pull_request.head.ref }}"
+          echo "Deleting all deployments for branch: $BRANCH"
 
-          if [ "$DEPLOYMENT_ID" = "null" ] || [ -z "$DEPLOYMENT_ID" ]; then
-            echo "No deployment found for SHA ${{ github.event.pull_request.head.sha }}, skipping"
+          DEPLOYMENTS=$(curl -s \
+            --url "https://api.vercel.com/v7/deployments?projectId=${{ secrets.VERCEL_PROJECT_ID }}&target=preview&limit=100" \
+            --header "Authorization: Bearer ${{ secrets.VERCEL_TOKEN }}" \
+            | jq -r --arg branch "$BRANCH" '.deployments[] | select(.meta.githubCommitRef == $branch) | .uid')
+
+          if [ -z "$DEPLOYMENTS" ]; then
+            echo "No deployments found for branch $BRANCH, skipping"
             exit 0
           fi
 
-          echo "Deleting deployment $DEPLOYMENT_ID"
-          curl --request DELETE \
-            --url "https://api.vercel.com/v13/deployments/$DEPLOYMENT_ID" \
-            --header "Authorization: Bearer ${{ secrets.VERCEL_TOKEN }}"
+          for ID in $DEPLOYMENTS; do
+            echo "Deleting deployment $ID"
+            curl --request DELETE \
+              --url "https://api.vercel.com/v13/deployments/$ID" \
+              --header "Authorization: Bearer ${{ secrets.VERCEL_TOKEN }}"
+          done
