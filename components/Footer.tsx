@@ -82,6 +82,7 @@ export async function Footer({ locale }: { locale: Locale }) {
         </div>
         <div className="text-text-muted text-xs sm:text-right">
           <p>{t('rights')}</p>
+          <p className="mt-1">{t('initiative')}</p>
         </div>
       </div>
     </footer>

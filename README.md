@@ -2,6 +2,8 @@
 
 Training and curated, valuable news for agentic engineering. Bilingual (NL/EN), dark terminal-native aesthetic, deployed on Vercel.
 
+agenticengineering.nl is an initiative by [Quality at Speed](https://github.com/QualityAtSpeed).
+
 Live: <https://agenticengineering.nl>
 
 ![agenticengineering.nl homepage](docs/screenshot.png)
