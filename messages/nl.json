@@ -274,12 +274,12 @@
       "pascal": {
         "name": "Pascal Dufour",
         "role": "Lead instructor",
-        "bio": "Co-founder van agenticengineering.nl. Helpt teams hun SDLC te moderniseren en werkt al 2 jaar met AI en agentic workflows."
+        "bio": "Medeoprichter van Quality at Speed en drijvende kracht achter agenticengineering.nl. Engineer met focus op het moderniseren van de SDLC: agentic workflows, infra en quality gates in de praktijk."
       },
       "inico": {
         "name": "Inico Veringa",
         "role": "Co-instructor",
-        "bio": "Co-founder van agenticengineering.nl. Werkt al 2 jaar met AI en agentic workflows en heeft passie voor technologie en mensen."
+        "bio": "20+ jaar in QA en testautomatisering, van frameworks voor internationale banken tot fintech en retail. Bouwt nu autonome QA met AI-agents in Playwright en TypeScript."
       }
     }
   },
