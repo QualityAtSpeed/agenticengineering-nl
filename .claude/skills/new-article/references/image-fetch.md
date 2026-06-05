@@ -22,9 +22,7 @@ Parse the hostname from the effective source. Read `data/trusted-domains.json` (
 
 ## Step 2 — Fetch the image
 
-After the markdown file is written, warn the user that a Chromium browser window will pop up for a few seconds (it is required to bypass anti-bot challenges on sources like Medium and GeekWire; the window closes itself when the fetch finishes — do not interact with it).
-
-Then run this command yourself with the Bash tool (the user has pre-authorised the image fetch step inside this skill — do not stop to ask). Pass the effective source (`source_url` if you wrote it, otherwise `url`):
+After the markdown file is written, run this command yourself with the Bash tool (the user has pre-authorised the image fetch step inside this skill — do not stop to ask). Pass the effective source (`source_url` if you wrote it, otherwise `url`):
 
 ```
 pnpm article:image '<effective-source>' <YYYY-MM-DD>-<slug>
