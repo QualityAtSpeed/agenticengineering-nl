@@ -4,6 +4,8 @@ Training and curated, valuable news for agentic engineering. Bilingual (NL/EN), 
 
 Live: <https://agenticengineering.nl>
 
+![agenticengineering.nl homepage](docs/screenshot.png)
+
 ---
 
 ## Stack
