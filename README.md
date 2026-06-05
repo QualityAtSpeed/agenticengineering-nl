@@ -27,8 +27,8 @@ Live: <https://agenticengineering.nl>
 Prerequisites: Node.js 20 (`.nvmrc`), pnpm 9, git, Claude CLI (`claude`).
 
 ```bash
-git clone https://github.com/<owner>/agenticengineering.nl.git
-cd agenticengineering.nl
+git clone https://github.com/QualityAtSpeed/agenticengineering-nl.git
+cd agenticengineering-nl
 nvm use                   # picks Node 20 from .nvmrc
 corepack enable           # provides pnpm 9
 pnpm install

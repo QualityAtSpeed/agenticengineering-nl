@@ -58,7 +58,7 @@ export async function Footer({ locale }: { locale: Locale }) {
           <ul className="mt-3 space-y-1.5 text-sm">
             <li>
               <a
-                href="https://github.com/QualityAtSpeed"
+                href="https://github.com/QualityAtSpeed/agenticengineering-nl"
                 rel="noopener noreferrer"
                 target="_blank"
                 data-testid="footer-github"
