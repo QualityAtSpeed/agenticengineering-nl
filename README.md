@@ -1,6 +1,6 @@
 # agenticengineering.nl
 
-Marketing + intake site for the Agentic Engineering training programme. Bilingual (NL/EN), dark terminal-native aesthetic, deployed on Vercel.
+Training and curated, valuable news for agentic engineering. Bilingual (NL/EN), dark terminal-native aesthetic, deployed on Vercel.
 
 Live: <https://agenticengineering.nl>
 
