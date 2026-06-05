@@ -18,7 +18,7 @@ The site is internationalised (Dutch default, English secondary) via `next-intl`
 
 Ask the user for each, one short question at a time. Do not invent values.
 
-1. **Type** — `blog` or `article`. Ask first. Default to `article` if unclear, but confirm. This drives the image-fetch and frontmatter shape below.
+1. **Type** — `blog` or `article`. Ask first. Default to `article` if unclear, but confirm. This drives the image-fetch and frontmatter shape.
 2. **Title in original language** (`title_en` or `title_nl`) — verbatim from the source.
 3. **Title in the other language** — translate yourself and show back for approval. Both `title_nl` and `title_en` are required in the frontmatter so the page can render the active locale.
 4. **URL** of the source (must start with `http://` or `https://`).
@@ -65,54 +65,11 @@ Notes:
 
 ## Image fetch
 
-Identical flow for `type: article` and `type: blog`. The og:image gets downloaded to `public/news/` and the resulting path is written back into the markdown frontmatter as an `image:` field. If no og:image is found, the entry renders the qas-icon fallback. Two security gates apply:
+Same flow for `type: article` and `type: blog`: download the source's og:image to `public/news/` and write the path back into the frontmatter as `image:`. No og:image → entry renders the qas-icon fallback.
 
-1. **Trusted-domain check.** The hostname of the effective scrape source (`source_url` if set, otherwise `url`) must appear in `data/trusted-domains.json`. The list is suffix-matched: an entry `medium.com` matches `medium.com` and any `*.medium.com` subdomain.
-2. **og:image host check.** The hostname of the og:image URL parsed from the page HTML must also match the trusted list.
+**Security gate (control flow — can abort the skill).** Before fetching, the effective scrape source (`source_url` if set, otherwise `url`) must pass a trusted-domain check against `data/trusted-domains.json`. If the hostname is not on the list, ask the user whether to add it; on **no**, abort the skill before writing the markdown file. The og:image host is checked against the same list during the fetch.
 
-Throughout the steps below, "effective source" means `source_url` when present in the frontmatter, otherwise `url`.
-
-### Step 1 — Check the source hostname
-
-Parse the hostname from the effective source. Read `data/trusted-domains.json` (a JSON array of strings).
-
-- If the hostname matches (exact or `*.<entry>` suffix), proceed to Step 2.
-- If it does not match, ask the user:
-
-  > Hostname `<host>` is not in `data/trusted-domains.json`. Add it? (y/n)
-  - On **yes**: insert the hostname into the array, keep alphabetical order, show the diff for confirmation, then write the file with the Edit tool. Then proceed to Step 2.
-  - On **no**: abort the skill before writing the markdown file. Tell the user why.
-
-### Step 2 — Fetch the image
-
-After the markdown file is written, warn the user that a Chromium browser window will pop up for a few seconds (it is required to bypass anti-bot challenges on sources like Medium and GeekWire; the window closes itself when the fetch finishes — do not interact with it).
-
-Then run this command yourself with the Bash tool (the user has pre-authorised the image fetch step inside this skill — do not stop to ask). Pass the effective source (`source_url` if you wrote it, otherwise `url`):
-
-```
-pnpm article:image '<effective-source>' <YYYY-MM-DD>-<slug>
-```
-
-What it does:
-
-- Reads `data/trusted-domains.json` and verifies both the source host and the og:image host are on the list.
-- Fetches the source URL, parses the `<meta property="og:image">` tag, downloads the image to `public/news/<YYYY-MM-DD>-<slug>.<ext>` (atomic write).
-- Prints a single JSON line on stdout: `{ "imagePath": "/news/...", "ok": true }` on success, or `{ "imagePath": "/qas-icon.svg", "ok": false, "reason": "..." }` on failure (the process also exits non-zero on failure — that is expected, not an error condition for the skill).
-
-### Step 3 — Write the image path back into the frontmatter
-
-Parse the JSON line from stdout. If `ok: true`, edit the article's frontmatter to add the `image:` field directly under `date:`:
-
-```yaml
-image: '<imagePath>'
-```
-
-If `ok: false`, surface the `reason` to the user (common ones: `HTTP 403` for anti-bot-protected sources like Medium/GeekWire, `og:image not found`, `og:image host not trusted: <host>`). Do not write an `image:` field — the article will fall back to `/qas-icon.svg`. Offer the **manual image fallback** below; the user decides whether to use it or ship with the fallback icon.
-
-### Manual image fallback
-
-1. Save a custom image to `public/news/<YYYY-MM-DD>-<slug>.<ext>` (`.jpg`, `.png`, `.webp`, or `.gif`).
-2. Set `image: '/news/<YYYY-MM-DD>-<slug>.<ext>'` in the article frontmatter.
+**REQUIRED:** Read `references/image-fetch.md` before running the fetch (output sequence step 6). It has the full three-step flow (trusted-domain check, `pnpm article:image` command, write-back) and the manual image fallback.
 
 ## Branch and pull request flow
 
@@ -151,8 +108,8 @@ Show each command in its own fenced block with a one-sentence reason. Wait for t
 3. Derive slug and filename. Show them back for confirmation.
 4. Show the final markdown file content for approval before writing.
 5. After approval, write the file with the Write tool to `<repo>/news/<YYYY-MM-DD>-<slug>.md`. Create the `/news/` directory if it doesn't exist yet.
-6. Run the trusted-domain check (Image fetch — Step 1) on the effective source. Then show the `pnpm article:image '<effective-source>' <YYYY-MM-DD>-<slug>` command for the user to run, capture the JSON line, and write the `image:` field back into the frontmatter (Image fetch — Steps 2 and 3).
-7. If a warning blocks the fetch, walk the user through the manual image fallback.
+6. Run the image fetch flow per `references/image-fetch.md`: trusted-domain check on the effective source (Step 1), run `pnpm article:image '<effective-source>' <YYYY-MM-DD>-<slug>` yourself, capture the JSON line, and write the `image:` field back into the frontmatter (Steps 2 and 3).
+7. If a warning blocks the fetch, walk the user through the manual image fallback (in `references/image-fetch.md`).
 8. Show the git/gh command sequence. User runs each.
 9. After PR creation, run `gh pr view --json url,headRefName` to get the PR number, then show the Vercel preview URL: `https://<repo-name>-git-<branch-slug>-<team-slug>.vercel.app` — or run `gh pr checks` and surface the Vercel deployment URL directly once checks appear. Tell the user to open it and confirm the article renders in both locales.
 10. Stop after the preview URL is shared. Do not suggest further changes.
