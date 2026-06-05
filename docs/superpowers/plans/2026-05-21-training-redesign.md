@@ -15,7 +15,7 @@
 - Removed Advanced modules are hard-deleted from types + i18n (recoverable from git history).
 - Capstone "starter repo" reuses whatever the current `build-first-feature` lab uses (no new repo built inside this plan).
 
-All work happens in `/Users/pascaldufour/dev/agenticengineering.nl`. All commands assume that working directory (use `git -C <repo>` when invoking from elsewhere).
+All work happens in `<repo>`. All commands assume that working directory (use `git -C <repo>` when invoking from elsewhere).
 
 ---
 
@@ -137,10 +137,10 @@ Expected: all green.
 - [ ] **Step 6: Commit**
 
 ```bash
-git -C /Users/pascaldufour/dev/agenticengineering.nl add \
+git -C <repo> add \
   components/TrainingDetail.tsx \
   tests/components/TrainingDetail.test.tsx
-git -C /Users/pascaldufour/dev/agenticengineering.nl commit -m "refactor(training-detail): gate day split on durationDays, not training id"
+git -C <repo> commit -m "refactor(training-detail): gate day split on durationDays, not training id"
 ```
 
 ---
@@ -303,10 +303,10 @@ Expected: TS errors in `messages/*.json` consumers because the old module IDs no
 - [ ] **Step 5: Commit**
 
 ```bash
-git -C /Users/pascaldufour/dev/agenticengineering.nl add \
+git -C <repo> add \
   data/trainings.ts \
   tests/data/trainings.test.ts
-git -C /Users/pascaldufour/dev/agenticengineering.nl commit -m "feat(trainings): invert catalogue — Basic 2d adopt, Advanced 1d scale"
+git -C <repo> commit -m "feat(trainings): invert catalogue — Basic 2d adopt, Advanced 1d scale"
 ```
 
 Note: lefthook will run prettier on staged files. If it rewrites either file, re-stage and re-run the commit (no `--no-verify`).
@@ -783,8 +783,8 @@ Expected: PASS. (Task 2's `ModuleId` union now lines up with `messages/*.json` k
 - [ ] **Step 14: Commit**
 
 ```bash
-git -C /Users/pascaldufour/dev/agenticengineering.nl add messages/en.json messages/nl.json
-git -C /Users/pascaldufour/dev/agenticengineering.nl commit -m "i18n(trainings): copy + module catalogue for Basic 2d / Advanced 1d"
+git -C <repo> add messages/en.json messages/nl.json
+git -C <repo> commit -m "i18n(trainings): copy + module catalogue for Basic 2d / Advanced 1d"
 ```
 
 ---
@@ -830,8 +830,8 @@ Expected: PASS.
 - [ ] **Step 4: Commit**
 
 ```bash
-git -C /Users/pascaldufour/dev/agenticengineering.nl add tests/components/TrainingCard.test.tsx
-git -C /Users/pascaldufour/dev/agenticengineering.nl commit -m "test(training-card): assert Basic 2-day duration"
+git -C <repo> add tests/components/TrainingCard.test.tsx
+git -C <repo> commit -m "test(training-card): assert Basic 2-day duration"
 ```
 
 ---
@@ -845,7 +845,7 @@ A redesign of this size leaves orphaned references unless we sweep. This task is
 - [ ] **Step 1: Search for old duration strings**
 
 ```bash
-git -C /Users/pascaldufour/dev/agenticengineering.nl grep -nE '1[[:space:]]*day|1[[:space:]]*dag|2[[:space:]]*days|2[[:space:]]*dagen' -- ':!node_modules' ':!docs' ':!*.lock' ':!pnpm-lock.yaml'
+git -C <repo> grep -nE '1[[:space:]]*day|1[[:space:]]*dag|2[[:space:]]*days|2[[:space:]]*dagen' -- ':!node_modules' ':!docs' ':!*.lock' ':!pnpm-lock.yaml'
 ```
 
 Expected matches: only `messages/en.json` and `messages/nl.json` (i18n labels we deliberately set in Tasks 3–4) and possibly the `TrainingDetail.tsx` inline ternary (`training.durationDays === 1 ? 'day' : 'days'`), which is correct. Any other hit (component prose, SEO copy, sitemap, an opengraph-image string, etc.) needs to be fixed in place.
@@ -855,7 +855,7 @@ For each unexpected hit, edit the file inline so the duration reads correctly un
 - [ ] **Step 2: Search for removed module IDs**
 
 ```bash
-git -C /Users/pascaldufour/dev/agenticengineering.nl grep -nE 'building-custom-mcp|skills-rules-deep|agents-sdlc-phases|test-first-advanced|advanced-hooks-quality-gates|team-workflows-governance' -- ':!node_modules' ':!docs' ':!*.lock' ':!pnpm-lock.yaml'
+git -C <repo> grep -nE 'building-custom-mcp|skills-rules-deep|agents-sdlc-phases|test-first-advanced|advanced-hooks-quality-gates|team-workflows-governance' -- ':!node_modules' ':!docs' ':!*.lock' ':!pnpm-lock.yaml'
 ```
 
 Expected matches: none in code (we removed them from types and i18n). If any survive — e.g., a test, a script, the metrics script, a sitemap entry — delete or rename them in place.
@@ -863,7 +863,7 @@ Expected matches: none in code (we removed them from types and i18n). If any sur
 - [ ] **Step 3: Search for `training.id === 'advanced'` style branches**
 
 ```bash
-git -C /Users/pascaldufour/dev/agenticengineering.nl grep -nE "trainingId\s*===\s*'advanced'|training\.id\s*===\s*'advanced'" -- ':!node_modules' ':!docs'
+git -C <repo> grep -nE "trainingId\s*===\s*'advanced'|training\.id\s*===\s*'advanced'" -- ':!node_modules' ':!docs'
 ```
 
 Expected matches: none. Task 1 removed the only known one. If something else turns up, replace the condition with a duration- or capability-based check (e.g., `training.durationDays === 2`) so it survives further catalogue changes.
@@ -899,9 +899,9 @@ Expected: all green. The smoke spec does not assert on durations or module IDs, 
 If Steps 1–3 surfaced fixes:
 
 ```bash
-git -C /Users/pascaldufour/dev/agenticengineering.nl add -A
-git -C /Users/pascaldufour/dev/agenticengineering.nl status --short
-git -C /Users/pascaldufour/dev/agenticengineering.nl commit -m "chore(trainings): sweep stale duration strings and removed module references"
+git -C <repo> add -A
+git -C <repo> status --short
+git -C <repo> commit -m "chore(trainings): sweep stale duration strings and removed module references"
 ```
 
 If the audit found nothing, skip this step.

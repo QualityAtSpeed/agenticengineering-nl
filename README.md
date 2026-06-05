@@ -352,3 +352,15 @@ CI workflow: `.github/workflows/ci.yml` runs typecheck + lint + unit + i18n inte
 - `DESIGN.md` — Stitch-format design system: colors (OKLCH dark palette), typography (JetBrains Mono display, Inter body), components, do's/don'ts.
 
 These two files inform every UI decision. Read them before touching components.
+
+## Contributing
+
+Contributions are welcome. See [`CONTRIBUTING.md`](./CONTRIBUTING.md) for local setup, the test/lint gates your change must pass, and PR conventions. By participating you agree to the [Code of Conduct](./CODE_OF_CONDUCT.md).
+
+## Security
+
+Please do not open public issues for security vulnerabilities. See [`SECURITY.md`](./SECURITY.md) for how to report them privately.
+
+## License
+
+Released under the [MIT License](./LICENSE). © QualityAtSpeed.
