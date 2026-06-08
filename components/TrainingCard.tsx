@@ -72,18 +72,11 @@ const ArrowIcon = () => (
   </svg>
 );
 
-const metaItems: Record<TrainingId, { icon: 'clock' | 'people' | 'star'; key: string }[]> = {
-  basic: [
-    { icon: 'clock', key: 'metaDuration' },
-    { icon: 'people', key: 'metaAudience' },
-    { icon: 'star', key: 'metaOutcome' },
-  ],
-  advanced: [
-    { icon: 'clock', key: 'metaDuration' },
-    { icon: 'people', key: 'metaAudience' },
-    { icon: 'star', key: 'metaOutcome' },
-  ],
-};
+const metaItems: { icon: 'clock' | 'people' | 'star'; key: string }[] = [
+  { icon: 'clock', key: 'metaDuration' },
+  { icon: 'people', key: 'metaAudience' },
+  { icon: 'star', key: 'metaOutcome' },
+];
 
 function MetaIcon({ which }: { which: 'clock' | 'people' | 'star' }) {
   if (which === 'clock') return <ClockIcon />;
@@ -116,7 +109,7 @@ export function TrainingCard({ trainingId, locale }: { trainingId: TrainingId; l
         </div>
 
         <ul className="text-text-muted m-0 list-none space-y-1.5 p-0 text-sm lg:pt-[0.3125rem]">
-          {metaItems[trainingId].map((m) => (
+          {metaItems.map((m) => (
             <li key={m.key} className="flex items-center gap-2">
               <MetaIcon which={m.icon} />
               <span>{tCard(`${trainingId}.${m.key}`)}</span>
