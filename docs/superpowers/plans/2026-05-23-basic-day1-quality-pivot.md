@@ -300,7 +300,7 @@ Inside the `"modules": { ... }` object, insert these entries (location does not 
 "regression-and-governance": {
   "title": "Regression strategy + governance basics",
   "bullets": [
-    "Golden tests, snapshot guards, property-based checks",
+    "Golden tests, snapshot guards, property-based checks, mutation testing, etc.",
     "Stress-testing agent output on real edges",
     "What a sensible team review policy looks like"
   ]
@@ -360,7 +360,7 @@ Replace the entire array with these 6 entries, in order:
 [
   "Lever een werkende feature op een starter repo — tests, hooks, CI groen vanaf minuut één",
   "Herken failure modes van AI-gegenereerde code in je eigen werk",
-  "Oefen test-first met een agent zonder schijnpassende tests te schrijven",
+  "Oefen test-first met een agent zonder niets zeggende tests te schrijven",
   "Zet hooks en quality gates op die de volgende sprint overleven",
   "Gebruik bestaande MCP servers in echte workflows",
   "Stap naar buiten met een governance-starter die je team echt kan gebruiken"
@@ -423,7 +423,7 @@ Delete from `"modules": { ... }`:
 "regression-and-governance": {
   "title": "Regressie-strategie + governance basics",
   "bullets": [
-    "Golden tests, snapshot guards, property-based checks",
+    "Golden tests, snapshot guards, property-based checks, mutation testing, etc.",
     "Stress-test agent-output op echte randen",
     "Hoe een verstandig team-review-beleid eruitziet"
   ]
@@ -434,11 +434,11 @@ Replace the existing NL `capstone-ship-feature` with:
 
 ```json
 "capstone-ship-feature": {
-  "title": "Capstone — lever een feature op",
+  "title": "Lever een feature op",
   "bullets": [
     "Implementeer een feature op een starter repo vanaf een brief",
     "Pas de Dag-1 quality stack + Dag-2 context tooling (MCP, skills, rules) toe",
-    "Demo en review met de cohort"
+    "Demo en review met de groep"
   ]
 }
 ```

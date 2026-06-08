@@ -714,11 +714,11 @@ Replace the NL entry with:
 
 ```json
     "capstone-ship-feature": {
-      "title": "Capstone — lever een feature op",
+      "title": "Lever een feature op",
       "bullets": [
         "Implementeer een kleine feature op een starter repo vanaf een brief",
         "Stuur het werk met tests, hooks en quality gates",
-        "Demo en review met de cohort"
+        "Demo en review met de groep"
       ]
     },
     "team-rollout-playbook": {
@@ -935,7 +935,7 @@ Open `http://localhost:3000/nl` and `http://localhost:3000/en` in a browser.
 
 - [ ] **Step 4: Verify the training detail panels**
 
-- Scroll to the Basic detail panel. It now shows two columns labelled `Dag 1 — Fundamenten` / `Dag 2 — Kwaliteitsloop + capstone` (NL) or `Day 1 — Foundations` / `Day 2 — Quality loop + capstone` (EN), with the 4-then-5 module split from §3.1 / §3.2 of the spec. The capstone tile reads `Capstone — lever een feature op` / `Capstone — ship a feature end-to-end`.
+- Scroll to the Basic detail panel. It now shows two columns labelled `Dag 1 — Fundamenten` / `Dag 2 — Kwaliteitsloop + capstone` (NL) or `Day 1 — Foundations` / `Day 2 — Quality loop + capstone` (EN), with the 4-then-5 module split from §3.1 / §3.2 of the spec. The capstone tile reads `Lever een feature op` / `Ship a feature end-to-end`.
 - Scroll to the Advanced detail panel. It is now a single, undivided list of 5 modules in the order from §3.3 (`team-rollout-playbook` first, `capstone-rollout-tabletop` last). No day headings are shown.
 
 - [ ] **Step 5: Verify the contact form**

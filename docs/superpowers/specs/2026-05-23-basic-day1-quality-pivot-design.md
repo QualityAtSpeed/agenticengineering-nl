@@ -77,7 +77,7 @@ New list (6 items):
 
 1. `Lever een werkende feature op een starter repo — tests, hooks, CI groen vanaf minuut één`
 2. `Herken failure modes van AI-gegenereerde code in je eigen werk`
-3. `Oefen test-first met een agent zonder schijnpassende tests te schrijven`
+3. `Oefen test-first met een agent zonder niets zeggende tests te schrijven`
 4. `Zet hooks en quality gates op die de volgende sprint overleven`
 5. `Gebruik bestaande MCP servers in echte workflows`
 6. `Stap naar buiten met een governance-starter die je team echt kan gebruiken`
@@ -130,7 +130,7 @@ New list (6 items):
 "regression-and-governance": {
   "title": "Regression strategy + governance basics",
   "bullets": [
-    "Golden tests, snapshot guards, property-based checks",
+    "Golden tests, snapshot guards, property-based checks, mutation testing, etc.",
     "Stress-testing agent output on real edges",
     "What a sensible team review policy looks like"
   ]
@@ -200,7 +200,7 @@ New list (6 items):
 "regression-and-governance": {
   "title": "Regressie-strategie + governance basics",
   "bullets": [
-    "Golden tests, snapshot guards, property-based checks",
+    "Golden tests, snapshot guards, property-based checks, mutation testing, etc.",
     "Stress-test agent-output op echte randen",
     "Hoe een verstandig team-review-beleid eruitziet"
   ]
@@ -213,11 +213,11 @@ New list (6 items):
 
 ```jsonc
 "capstone-ship-feature": {
-  "title": "Capstone — lever een feature op",
+  "title": "Lever een feature op",
   "bullets": [
     "Implementeer een feature op een starter repo vanaf een brief",
     "Pas de Dag-1 quality stack + Dag-2 context tooling (MCP, skills, rules) toe",
-    "Demo en review met de cohort"
+    "Demo en review met de groep"
   ]
 }
 ```
