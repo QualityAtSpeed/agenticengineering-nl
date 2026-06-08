@@ -25,7 +25,8 @@
     "sectionTitle": "Trainingen",
     "duration": {
       "basic": "2 dagen",
-      "advanced": "1 dag"
+      "advanced": "1 dag",
+      "introduction": "1 dag"
     },
     "deliveryFormats": {
       "inCompany": "In-company",
@@ -57,6 +58,11 @@
         "metaDuration": "1 dag, 8 uur",
         "metaAudience": "Tech leads, staff+, managers",
         "metaOutcome": "90-dagen rolloutplan"
+      },
+      "introduction": {
+        "metaDuration": "1 dag, 8 uur",
+        "metaAudience": "Individuele engineers, managers, leads",
+        "metaOutcome": "Inzicht in agentic workflows"
       }
     },
     "basic": {
@@ -98,6 +104,23 @@
         "Zet observability en cost guardrails op voor agent-gebruik",
         "Vertrek met een 90-dagen rolloutplan dat door peers is getoetst"
       ]
+    },
+    "introduction": {
+      "name": "Introduction",
+      "tagline": "Een kennismaking met agentic AI quality engineering voor individuen.",
+      "audience": [
+        "Individuele engineers die nieuwsgierig zijn naar agentic workflows",
+        "Managers en leads die een laagdrempelige intro zoeken",
+        "Iedereen die Claude Code of Codex met begeleiding wil uitproberen"
+      ],
+      "prerequisites": [
+        "Enige kennis van softwareontwikkeling, vertrouwd met werken in de terminal"
+      ],
+      "outcomes": [
+        "Begrijp de basis van agentic workflows en quality engineering",
+        "Probeer prompt engineering, skills en rules uit in een begeleide setting",
+        "Krijg een gevoel voor hoe agents in je SDLC passen"
+      ]
     }
   },
   "modules": {
@@ -109,6 +132,24 @@
         "Quality stakes: elke agent-wijziging is code die in productie komt"
       ],
       "short": "Agents in SDLC"
+    },
+    "prompt-engineering-basics": {
+      "title": "Prompt engineering basics",
+      "bullets": [
+        "Geef een agent een heldere, afgebakende instructie",
+        "Voeg context toe die stuurt zonder te veel te beperken",
+        "Itereer op een prompt als het eerste antwoord misgaat"
+      ],
+      "short": "Prompt basics"
+    },
+    "plugins-and-skills": {
+      "title": "Plugins & skills: breid uit wat een agent kan",
+      "bullets": [
+        "Wat plugins en skills toevoegen bovenop een basis-agent",
+        "Kies de juiste voor een taak in plaats van vanaf nul te prompten",
+        "Probeer een skill hands-on uit in een begeleide setting"
+      ],
+      "short": "Plugins + skills"
     },
     "failure-modes-ai-code": {
       "title": "Failure modes van AI-gegenereerde code",

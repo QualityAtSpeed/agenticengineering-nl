@@ -17,13 +17,15 @@ export type ModuleId =
   | 'agent-harnessing'
   | 'governance-and-policy-gates'
   | 'observability-and-cost'
-  | 'capstone-rollout-tabletop';
-
+  | 'capstone-rollout-tabletop'
+  // Introduction (2 new modules; 'agents-in-sdlc' reused from Basic Day 1)
+  | 'prompt-engineering-basics'
+  | 'plugins-and-skills';
 export type DeliveryFormat = 'inCompany' | 'publicCohort' | 'remote';
 
 export type Module = { id: ModuleId; day?: 1 | 2 };
 
-export type TrainingId = 'basic' | 'advanced';
+export type TrainingId = 'basic' | 'advanced' | 'introduction';
 
 export type Training = {
   id: TrainingId;
@@ -63,6 +65,17 @@ export const trainings: Record<TrainingId, Training> = {
       { id: 'governance-and-policy-gates' },
       { id: 'observability-and-cost' },
       { id: 'capstone-rollout-tabletop' },
+    ],
+    deliveryFormats: ['inCompany', 'publicCohort', 'remote'],
+  },
+  introduction: {
+    id: 'introduction',
+    durationDays: 1,
+    priceEUR: 300,
+    modules: [
+      { id: 'agents-in-sdlc' },
+      { id: 'prompt-engineering-basics' },
+      { id: 'plugins-and-skills' },
     ],
     deliveryFormats: ['inCompany', 'publicCohort', 'remote'],
   },
