@@ -1,0 +1,83 @@
+name: Discord PR Notify
+
+on:
+  pull_request:
+    types: [opened, reopened, ready_for_review, closed]
+  workflow_dispatch:
+    inputs:
+      pr_number:
+        description: 'PR number to publish to Discord'
+        required: true
+        type: string
+
+permissions:
+  contents: read
+  pull-requests: read
+
+jobs:
+  notify:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    # Skip drafts on automatic PR events; manual dispatch always runs.
+    if: github.event_name == 'workflow_dispatch' || github.event.pull_request.draft == false
+    steps:
+      - name: Publish PR to Discord
+        # All untrusted values (PR title, author) flow through env, never inline
+        # ${{ }} interpolation, to avoid shell script injection.
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          WEBHOOK: ${{ secrets.DISCORD_WEBHOOK }}
+          REPO: ${{ github.repository }}
+          EVENT_NAME: ${{ github.event_name }}
+          EVENT_ACTION: ${{ github.event.action }}
+          INPUT_PR: ${{ github.event.inputs.pr_number }}
+          EVENT_PR: ${{ github.event.pull_request.number }}
+        run: |
+          set -euo pipefail
+
+          if [ -z "${WEBHOOK:-}" ]; then
+            echo "::warning::DISCORD_WEBHOOK secret not set; skipping Discord post"
+            exit 0
+          fi
+
+          if [ "$EVENT_NAME" = "workflow_dispatch" ]; then
+            NUM="$INPUT_PR"
+          else
+            NUM="$EVENT_PR"
+          fi
+
+          DATA=$(gh pr view "$NUM" --repo "$REPO" \
+            --json number,title,url,author,additions,deletions,changedFiles,merged)
+
+          MERGED=$(echo "$DATA" | jq -r .merged)
+
+          # On automatic "closed" events, only announce actual merges.
+          if [ "$EVENT_NAME" = "pull_request" ] && [ "$EVENT_ACTION" = "closed" ] && [ "$MERGED" != "true" ]; then
+            echo "PR #$NUM closed without merge — skipping Discord post."
+            exit 0
+          fi
+
+          if [ "$MERGED" = "true" ]; then
+            VERB="merged"; COLOR=6710886   # purple
+          else
+            VERB="opened"; COLOR=3066993    # green
+          fi
+
+          # Build the payload entirely with jq --arg (untrusted strings stay quoted).
+          PAYLOAD=$(echo "$DATA" | jq \
+            --arg verb "$VERB" \
+            --arg repo "$REPO" \
+            --argjson color "$COLOR" \
+            '{embeds: [{
+              title: ("PR #" + (.number|tostring) + " " + $verb + ": " + .title),
+              url: .url,
+              color: $color,
+              footer: {text: ($repo + " • by " + .author.login)},
+              fields: [{
+                name: "Changes",
+                value: ("+" + (.additions|tostring) + " / -" + (.deletions|tostring) + " across " + (.changedFiles|tostring) + " files"),
+                inline: true
+              }]
+            }]}')
+
+          echo "$PAYLOAD" | curl -sf -H "Content-Type: application/json" -X POST -d @- "$WEBHOOK"
