@@ -188,14 +188,14 @@
     "regression-and-governance": {
       "title": "Regression strategy + governance basics",
       "bullets": [
-        "Golden tests, snapshot guards, property-based checks",
+        "Golden tests, snapshot guards, property-based checks, mutation testing, etc.",
         "Stress-testing agent output on real edges",
         "What a sensible team review policy looks like"
       ],
       "short": "Regression + gov"
     },
     "capstone-ship-feature": {
-      "title": "Capstone — ship a feature end-to-end",
+      "title": "Ship a feature end-to-end",
       "bullets": [
         "Implement a feature on a starter repo from a brief",
         "Apply Day-1 quality stack + Day-2 context tooling (MCP, skills, rules)",
