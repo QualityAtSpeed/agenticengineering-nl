@@ -47,9 +47,14 @@ jobs:
           fi
 
           DATA=$(gh pr view "$NUM" --repo "$REPO" \
-            --json number,title,url,author,additions,deletions,changedFiles,merged)
+            --json number,title,url,author,additions,deletions,changedFiles,state)
 
-          MERGED=$(echo "$DATA" | jq -r .merged)
+          # gh pr view has no boolean "merged" field; derive it from state.
+          if [ "$(echo "$DATA" | jq -r .state)" = "MERGED" ]; then
+            MERGED=true
+          else
+            MERGED=false
+          fi
 
           # On automatic "closed" events, only announce actual merges.
           if [ "$EVENT_NAME" = "pull_request" ] && [ "$EVENT_ACTION" = "closed" ] && [ "$MERGED" != "true" ]; then
