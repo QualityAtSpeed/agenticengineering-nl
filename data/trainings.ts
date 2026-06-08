@@ -71,7 +71,7 @@ export const trainings: Record<TrainingId, Training> = {
   introduction: {
     id: 'introduction',
     durationDays: 1,
-    priceEUR: 300,
+    priceEUR: 299,
     modules: [
       { id: 'agents-in-sdlc' },
       { id: 'prompt-engineering-basics' },
