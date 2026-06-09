@@ -108,6 +108,7 @@ lib/
   validation.ts        # Zod schemas (contactSchema, trainingInterestEnum, …)
   email.ts             # Resend wrapper, sendContactEmail()
   rate-limit.ts        # Per-IP token bucket (in-memory; per-instance)
+  http.ts              # HTTP utilities (isAllowedOrigin, clientIp for origin/IP validation)
   sanitize.ts          # CRLF strip for email headers
   articles.ts          # Article/news loader (reads news/ markdown files)
   parseFrontmatter.ts  # Frontmatter parser for markdown articles
