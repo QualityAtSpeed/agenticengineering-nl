@@ -33,7 +33,7 @@ export default async function Home({ params }: { params: Promise<{ locale: Local
             },
             ...Object.values(trainings).map((tr) => ({
               '@type': 'Course',
-              name: `${tr.id === 'basic' ? 'Basic' : 'Advanced'} — agentic engineering`,
+              name: `${tTrainings(`${tr.id}.name`)} - agentic engineering`,
               provider: { '@type': 'Organization', name: 'agenticengineering.nl' },
               offers: {
                 '@type': 'Offer',
@@ -61,6 +61,7 @@ export default async function Home({ params }: { params: Promise<{ locale: Local
             <p className="text-text-soft mt-2 text-base">{tHome('trainingsLede')}</p>
           </div>
           <div>
+            <TrainingCard trainingId="pilot" locale={locale} />
             <TrainingCard trainingId="basic" locale={locale} />
             <TrainingCard trainingId="advanced" locale={locale} />
           </div>

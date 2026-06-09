@@ -56,6 +56,8 @@ Editing checklist:
 
 - UI/copy → read `PRODUCT.md` + `DESIGN.md` first.
 - New translation key → add to **both** `messages/nl.json` and `messages/en.json`; `pnpm verify:i18n` gates CI.
+- New training → add a `Training` entry in `data/trainings.ts` (typed: `id`, `durationDays`, `priceEUR`, `modules[]`, `deliveryFormats[]`) and add its copy keys to **both** `messages/{nl,en}.json` under `trainings.<id>` (`name`, `tagline`, `audience[]`, `prerequisites[]`, `outcomes[]`), plus `trainings.duration.<id>` and `trainings.cardMeta.<id>`. New module IDs need a matching block under `modules.<module-id>` (`title`, `bullets[]`, `short`) in both files. Use kebab-case IDs; reuse existing module IDs where the content overlaps.
+- Significant feature change (new/reworked training, etc.) → capture the design in a dated spec under `docs/superpowers/specs/<YYYY-MM-DD>-<slug>.md`.
 - New route → add it under `app/[locale]/`; sitemap auto-picks it up.
 - API/server logic → keep validation in `lib/validation.ts`, side effects in `lib/*`.
 - New news article → create `news/<slug>.md` with required frontmatter (see below). Run `pnpm article:image <source-url> <slug>` to fetch and save the OG image before committing.
@@ -120,6 +122,8 @@ scripts/
   fetch-article-images.ts # Downloads OG images for news articles
   metrics.ts           # Site metrics helper
 tests/                 # Vitest unit + Playwright e2e
+docs/
+  superpowers/specs/   # Design specs for significant feature changes (dated markdown)
 PRODUCT.md             # Brand register (users, tone, anti-references, principles)
 DESIGN.md              # Design system (colors, typography, components, do's/don'ts)
 LICENSE                # MIT license (© QualityAtSpeed)

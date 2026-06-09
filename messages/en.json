@@ -25,7 +25,8 @@
     "sectionTitle": "Trainings",
     "duration": {
       "basic": "2 days",
-      "advanced": "1 day"
+      "advanced": "1 day",
+      "pilot": "2 days"
     },
     "deliveryFormats": {
       "inCompany": "In-company",
@@ -45,7 +46,8 @@
       "viewDetails": "View programme",
       "viewFullCurriculum": "view full curriculum",
       "bookCta": "Book training",
-      "taughtBy": "Taught by"
+      "taughtBy": "Taught by",
+      "pilotBadge": "Pilot · reduced price"
     },
     "cardMeta": {
       "basic": {
@@ -57,6 +59,11 @@
         "metaDuration": "1 day, 8 hours",
         "metaAudience": "Tech leads, staff+, managers",
         "metaOutcome": "90-day rollout plan"
+      },
+      "pilot": {
+        "metaDuration": "2 days, 16 hours",
+        "metaAudience": "DevOps teams and managers",
+        "metaOutcome": "Feature on your own repo"
       }
     },
     "basic": {
@@ -69,7 +76,8 @@
       ],
       "prerequisites": [
         "Comfortable with git and the command line",
-        "Writes features in at least one language (TS/Python/Go/etc.)"
+        "Writes features in at least one language (TS/Python/Go/etc.)",
+        "Own laptop or desktop with Claude Code or OpenCode installed, plus at least an active Pro subscription"
       ],
       "outcomes": [
         "Ship a working feature on a starter repo — tests, hooks, CI green from minute one",
@@ -95,6 +103,28 @@
         "Enforce team policy via CI hooks",
         "Set up observability and cost guardrails for agent usage",
         "Walk away with a 90-day rollout plan reviewed by peers"
+      ]
+    },
+    "pilot": {
+      "name": "Pilot - Basic Training",
+      "tagline": "Dry-run of the Basic training at a reduced price. Same two days, every attendee ships a feature.",
+      "audience": [
+        "Whole DevOps teams: developers, QA / test engineers, ops / platform",
+        "Mixed-role cohorts adopting agentic workflows together",
+        "Engineering managers training their teams alongside them"
+      ],
+      "prerequisites": [
+        "Comfortable with git and the command line",
+        "Writes features in at least one language (TS/Python/Go/etc.)",
+        "Own laptop or desktop with Claude Code or OpenCode installed, plus at least an active Pro subscription"
+      ],
+      "outcomes": [
+        "Ship a working feature on a starter repo — tests, hooks, CI green from minute one",
+        "Recognise the failure modes of AI-generated code in your own work",
+        "Practise test-first with an agent without writing fake-passing tests",
+        "Set up hooks and quality gates that survive the next sprint",
+        "Use existing MCP servers in real workflows",
+        "Leave with a governance starter your team can actually use"
       ]
     }
   },
@@ -148,6 +178,24 @@
         "Quality stakes: every agent change is a code change that ships"
       ],
       "short": "Agents in SDLC"
+    },
+    "prompt-engineering-basics": {
+      "title": "Prompt engineering basics",
+      "bullets": [
+        "Give an agent a clear, scoped instruction",
+        "Add context that steers without over-constraining",
+        "Iterate on a prompt when the first answer misses"
+      ],
+      "short": "Prompt basics"
+    },
+    "plugins-and-skills": {
+      "title": "Plugins & skills: extend what an agent can do",
+      "bullets": [
+        "What plugins and skills add on top of a base agent",
+        "Pick the right one for a task instead of prompting from scratch",
+        "Try a skill hands-on in a guided setting"
+      ],
+      "short": "Plugins + skills"
     },
     "failure-modes-ai-code": {
       "title": "Failure modes of AI-generated code",
@@ -303,9 +351,9 @@
       "company": "Company (optional)",
       "trainingInterest": "Interested in which training",
       "trainingOptions": {
+        "pilot": "Pilot - Basic Training (2 days, reduced price)",
         "basic": "Basic (2 days)",
         "advanced": "Advanced (1 day)",
-        "both": "Both",
         "other": "Other"
       },
       "deliveryPref": "Delivery preference",
