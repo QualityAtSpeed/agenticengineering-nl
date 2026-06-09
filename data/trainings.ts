@@ -23,7 +23,7 @@ export type DeliveryFormat = 'inCompany' | 'publicCohort' | 'remote';
 
 export type Module = { id: ModuleId; day?: 1 | 2 };
 
-export type TrainingId = 'basic' | 'advanced';
+export type TrainingId = 'basic' | 'advanced' | 'pilot';
 
 export type Training = {
   id: TrainingId;
@@ -34,6 +34,25 @@ export type Training = {
 };
 
 export const trainings: Record<TrainingId, Training> = {
+  pilot: {
+    id: 'pilot',
+    durationDays: 2,
+    priceEUR: 349,
+    modules: [
+      { id: 'agents-in-sdlc', day: 1 },
+      { id: 'failure-modes-ai-code', day: 1 },
+      { id: 'test-first-with-agents', day: 1 },
+      { id: 'hooks-and-quality-gates', day: 1 },
+      { id: 'build-first-feature', day: 1 },
+      { id: 'regression-and-governance', day: 1 },
+      { id: 'context-architecture', day: 2 },
+      { id: 'context-window-mechanics', day: 2 },
+      { id: 'using-mcp-servers', day: 2 },
+      { id: 'intro-skills-rules', day: 2 },
+      { id: 'capstone-ship-feature', day: 2 },
+    ],
+    deliveryFormats: ['inCompany', 'publicCohort', 'remote'],
+  },
   basic: {
     id: 'basic',
     durationDays: 2,

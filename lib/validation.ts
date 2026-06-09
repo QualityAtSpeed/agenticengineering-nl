@@ -1,7 +1,7 @@
 import { z } from 'zod';
 
-export const trainingInterestEnum = z.enum(['basic', 'advanced', 'both', 'other']);
-export const deliveryPrefEnum = z.enum(['inCompany', 'publicCohort', 'remote', 'noPreference']);
+export const trainingInterestEnum = z.enum(['pilot', 'basic', 'advanced', 'other']);
+export const deliveryPrefEnum = z.enum(['inCompany', 'remote', 'noPreference']);
 
 export const contactSchema = z.object({
   name: z.string().trim().min(1).max(100),

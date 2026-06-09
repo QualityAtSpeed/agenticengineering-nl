@@ -34,11 +34,14 @@ async function renderPage() {
 describe('<TrainingsPage />', () => {
   it('renders the training overview page', async () => {
     await renderPage();
-    expect(screen.getByRole('heading', { name: /Basic/ })).toBeInTheDocument();
-    expect(screen.getByRole('heading', { name: /Advanced/ })).toBeInTheDocument();
+    expect(
+      screen.getByRole('heading', { name: 'Pilot - Basic Training (June 29th & 30th 2026)' }),
+    ).toBeInTheDocument();
+    expect(screen.getByRole('heading', { name: 'Basic' })).toBeInTheDocument();
+    expect(screen.getByRole('heading', { name: 'Advanced' })).toBeInTheDocument();
     expect(screen.getByRole('heading', { name: /Trainings/ })).toBeInTheDocument();
 
-    expect(screen.getByText(/2 days/)).toBeInTheDocument();
+    expect(screen.getAllByText(/2 days/).length).toBeGreaterThan(0);
     expect(screen.getByText(/1 day/)).toBeInTheDocument();
     const expectedPriceBasic = trainings.basic.priceEUR.toLocaleString('nl-NL').replace('.,', '.'); //1.399
     const expectedPriceAdvanced = trainings.advanced.priceEUR

@@ -12,7 +12,11 @@ type Status = 'idle' | 'submitting' | 'success' | 'error' | 'rateLimited';
 const INPUT_CLASS =
   'border-border-strong bg-bg-base text-text-primary focus:border-brand focus:ring-brand/20 w-full rounded-md border px-3 py-2 text-[0.9375rem] focus:ring-2 focus:outline-none';
 
-export function ContactForm({ defaultTraining }: { defaultTraining?: 'basic' | 'advanced' }) {
+export function ContactForm({
+  defaultTraining,
+}: {
+  defaultTraining?: 'pilot' | 'basic' | 'advanced';
+}) {
   const t = useTranslations('contact');
   const [status, setStatus] = useState<Status>('idle');
 
@@ -110,9 +114,9 @@ export function ContactForm({ defaultTraining }: { defaultTraining?: 'basic' | '
           {...register('trainingInterest')}
           className={INPUT_CLASS}
         >
+          <option value="pilot">{t('form.trainingOptions.pilot')}</option>
           <option value="basic">{t('form.trainingOptions.basic')}</option>
           <option value="advanced">{t('form.trainingOptions.advanced')}</option>
-          <option value="both">{t('form.trainingOptions.both')}</option>
           <option value="other">{t('form.trainingOptions.other')}</option>
         </select>
       </Field>
@@ -125,7 +129,6 @@ export function ContactForm({ defaultTraining }: { defaultTraining?: 'basic' | '
         >
           <option value="noPreference">{t('form.deliveryOptions.noPreference')}</option>
           <option value="inCompany">{t('form.deliveryOptions.inCompany')}</option>
-          <option value="publicCohort">{t('form.deliveryOptions.publicCohort')}</option>
           <option value="remote">{t('form.deliveryOptions.remote')}</option>
         </select>
       </Field>

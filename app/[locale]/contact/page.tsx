@@ -4,7 +4,7 @@ import type { Locale } from '@/i18n/routing';
 
 type Props = {
   params: Promise<{ locale: Locale }>;
-  searchParams: Promise<{ training?: 'basic' | 'advanced' }>;
+  searchParams: Promise<{ training?: 'pilot' | 'basic' | 'advanced' }>;
 };
 
 export default async function ContactPage({ params, searchParams }: Props) {
@@ -19,7 +19,11 @@ export default async function ContactPage({ params, searchParams }: Props) {
         <h1 className="text-brand-deep text-3xl font-bold sm:text-4xl">{t('title')}</h1>
         <p className="text-text-soft mt-3 text-lg">{t('intro')}</p>
         <div className="mt-10">
-          <ContactForm defaultTraining={training === 'advanced' ? 'advanced' : 'basic'} />
+          <ContactForm
+            defaultTraining={
+              training === 'advanced' ? 'advanced' : training === 'pilot' ? 'pilot' : 'basic'
+            }
+          />
         </div>
       </div>
     </main>
