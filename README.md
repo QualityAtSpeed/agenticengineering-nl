@@ -97,6 +97,7 @@ Deploy: push to `main` → auto-prod via Vercel GitHub App. Push any other branc
 ```
 app/
   [locale]/            # NL/EN routed pages (home, about, contact, impressum)
+  api/checkout/        # POST handler — creates Stripe Checkout Session
   api/contact/         # POST handler — Zod + rate-limit + Resend
   robots.ts            # /robots.txt
   sitemap.ts           # /sitemap.xml
