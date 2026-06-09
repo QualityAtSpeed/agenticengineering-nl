@@ -121,7 +121,9 @@ export function TrainingCard({ trainingId, locale }: { trainingId: TrainingId; l
           </Button>
         </div>
 
-        <ul className="text-text-muted m-0 list-none space-y-1.5 p-0 text-sm lg:pt-[0.3125rem]">
+        <ul
+          className={`text-text-muted m-0 list-none space-y-1.5 p-0 text-sm ${isPilot ? 'lg:pt-[1.875rem]' : 'lg:pt-[0.3125rem]'}`}
+        >
           {metaItems.map((m) => (
             <li key={m.key} className="flex items-center gap-2">
               <MetaIcon which={m.icon} />
@@ -131,7 +133,7 @@ export function TrainingCard({ trainingId, locale }: { trainingId: TrainingId; l
         </ul>
       </div>
 
-      <div>
+      <div className={isPilot ? 'lg:pt-[1.875rem]' : undefined}>
         <p className="text-text-primary text-xl font-bold tabular-nums">
           €{training.priceEUR.toLocaleString('nl-NL')}
         </p>
