@@ -141,12 +141,25 @@ export function TrainingCard({ trainingId, locale }: { trainingId: TrainingId; l
         <Button
           size="sm"
           fullWidth
-          href={`/${locale}/contact?training=${trainingId}`}
+          href={
+            isPilot
+              ? `/${locale}/trainings/pilot/book`
+              : `/${locale}/contact?training=${trainingId}`
+          }
           data-testid={`book-${trainingId}`}
           className="mt-3"
         >
           {tLabels('bookCta')}
         </Button>
+        {isPilot && (
+          <a
+            href={`/${locale}/contact?training=pilot`}
+            data-testid="book-pilot-contact"
+            className="text-text-muted mt-2 block text-center text-xs underline"
+          >
+            {tLabels('contactLink')}
+          </a>
+        )}
       </div>
     </article>
   );

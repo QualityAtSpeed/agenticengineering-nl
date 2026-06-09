@@ -47,7 +47,8 @@
       "viewFullCurriculum": "volledige training",
       "bookCta": "Boek training",
       "taughtBy": "Gegeven door",
-      "pilotBadge": "Pilot · gereduceerde prijs"
+      "pilotBadge": "Pilot · gereduceerde prijs",
+      "contactLink": "Vragen? Contact"
     },
     "cardMeta": {
       "basic": {
@@ -383,6 +384,26 @@
     "success": {
       "title": "Verzonden",
       "body": "Binnen een werkdag ontvang je een bevestiging van je inschrijving met bijbehorende factuur. Na betaling ontvang je een uitnodiging tot het trainingsmateriaal en verdere details."
+    }
+  },
+  "booking": {
+    "title": "Boek de pilot",
+    "intro": "Reserveer je plek voor de pilot op 29 en 30 juni 2026. Prijs per deelnemer, incl. 21% btw.",
+    "seatsLabel": "Aantal deelnemers",
+    "attendeeName": "Naam deelnemer",
+    "attendeeEmail": "E-mail deelnemer",
+    "submit": "Naar betaling",
+    "submitting": "Bezig…",
+    "contactLink": "Liever eerst vragen stellen? Neem contact op",
+    "errors": {
+      "required": "Dit veld is verplicht.",
+      "invalidEmail": "Vul een geldig e-mailadres in.",
+      "generic": "Er ging iets mis. Probeer het opnieuw.",
+      "rateLimited": "Te veel pogingen. Wacht even en probeer opnieuw."
+    },
+    "success": {
+      "title": "Betaling gelukt — je plek is geboekt!",
+      "body": "Je ontvangt een bevestiging per e-mail. Tot 29 juni!"
     }
   },
   "impressum": {

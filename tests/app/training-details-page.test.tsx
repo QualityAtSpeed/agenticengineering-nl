@@ -39,4 +39,10 @@ describe('<TrainingDetailPage />', () => {
     expect(screen.getByRole('heading', { name: /Programme/ })).toBeInTheDocument();
     expect(screen.getByTestId('book-training-basic')).toBeInTheDocument();
   });
+
+  it('pilot detail CTA links to the booking page', async () => {
+    await renderPage('pilot');
+    const cta = screen.getByTestId('book-training-pilot');
+    expect(cta).toHaveAttribute('href', expect.stringContaining('/trainings/pilot/book'));
+  });
 });

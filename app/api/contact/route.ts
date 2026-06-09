@@ -2,31 +2,7 @@ import { NextResponse } from 'next/server';
 import { contactSchema } from '@/lib/validation';
 import { sendContactEmail } from '@/lib/email';
 import { checkRateLimit } from '@/lib/rate-limit';
-
-const ALLOWED_ORIGIN_PATTERNS = [
-  /^https:\/\/(www\.)?agenticengineering\.nl$/,
-  /^https:\/\/agenticengineering(-[a-z0-9-]+)?\.vercel\.app$/,
-  /^http:\/\/localhost(:\d+)?$/,
-];
-
-function isAllowedOrigin(origin: string | null): boolean {
-  if (!origin) return false;
-  return ALLOWED_ORIGIN_PATTERNS.some((re) => re.test(origin));
-}
-
-function clientIp(req: Request): string {
-  const realIp = req.headers.get('x-real-ip');
-  if (realIp) return realIp.trim();
-  const fwd = req.headers.get('x-forwarded-for');
-  if (fwd) {
-    const parts = fwd
-      .split(',')
-      .map((p) => p.trim())
-      .filter(Boolean);
-    if (parts.length > 0) return parts[parts.length - 1];
-  }
-  return '0.0.0.0';
-}
+import { isAllowedOrigin, clientIp } from '@/lib/http';
 
 export async function POST(req: Request) {
   if (!isAllowedOrigin(req.headers.get('origin'))) {

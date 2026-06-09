@@ -106,6 +106,8 @@ export function TrainingDetail({ trainingId, locale }: { trainingId: TrainingId;
   const tCommon = useTranslations('trainings.labels');
   const tModules = useTranslations('modules');
 
+  const isPilot = trainingId === 'pilot';
+
   const audience = t.raw(`${trainingId}.audience`) as string[];
   const prerequisites = t.raw(`${trainingId}.prerequisites`) as string[];
   const outcomes = t.raw(`${trainingId}.outcomes`) as string[];
@@ -176,12 +178,27 @@ export function TrainingDetail({ trainingId, locale }: { trainingId: TrainingId;
             €{training.priceEUR.toLocaleString('nl-NL')}{' '}
             <span className="text-text-muted text-sm font-normal">{tCommon('priceSuffix')}</span>
           </p>
-          <Button
-            href={`/${locale}/contact?training=${trainingId}`}
-            data-testid={`book-training-${trainingId}`}
-          >
-            {tCommon('bookCta')}
-          </Button>
+          <div className="flex flex-col items-stretch gap-2 sm:items-end">
+            <Button
+              href={
+                isPilot
+                  ? `/${locale}/trainings/pilot/book`
+                  : `/${locale}/contact?training=${trainingId}`
+              }
+              data-testid={`book-training-${trainingId}`}
+            >
+              {tCommon('bookCta')}
+            </Button>
+            {isPilot && (
+              <a
+                href={`/${locale}/contact?training=pilot`}
+                data-testid="book-training-pilot-contact"
+                className="text-text-muted text-xs underline"
+              >
+                {tCommon('contactLink')}
+              </a>
+            )}
+          </div>
         </div>
       </div>
     </section>

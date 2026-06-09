@@ -10,17 +10,18 @@ Live: <https://agenticengineering.nl>
 
 ## Stack
 
-| Layer           | Choice                                                 |
-| --------------- | ------------------------------------------------------ |
-| Framework       | Next.js 15 (App Router, RSC)                           |
-| Runtime         | Node.js 20                                             |
-| Package manager | pnpm 9                                                 |
-| Styling         | Tailwind CSS v4 (`@theme` tokens in `app/globals.css`) |
-| i18n            | next-intl (NL default, EN alt)                         |
-| Forms           | react-hook-form + Zod                                  |
-| Mail            | Resend                                                 |
-| Tests           | Vitest (unit) + Playwright (e2e + axe a11y)            |
-| Hosting         | Vercel (Fluid Compute)                                 |
+| Layer           | Choice                                                                        |
+| --------------- | ----------------------------------------------------------------------------- |
+| Framework       | Next.js 15 (App Router, RSC)                                                  |
+| Runtime         | Node.js 20                                                                    |
+| Package manager | pnpm 9                                                                        |
+| Styling         | Tailwind CSS v4 (`@theme` tokens in `app/globals.css`)                        |
+| i18n            | next-intl (NL default, EN alt)                                                |
+| Forms           | react-hook-form + Zod                                                         |
+| Mail            | Resend                                                                        |
+| Payments        | Stripe (Checkout Sessions + webhook signature verification for pilot booking) |
+| Tests           | Vitest (unit) + Playwright (e2e + axe a11y)                                   |
+| Hosting         | Vercel (Fluid Compute)                                                        |
 
 ## Getting started
 
@@ -62,6 +63,7 @@ Editing checklist:
 - API/server logic → keep validation in `lib/validation.ts`, side effects in `lib/*`.
 - New news article → create `news/<slug>.md` with required frontmatter (see below). Run `pnpm article:image <source-url> <slug>` to fetch and save the OG image before committing.
 - Pre-commit `lefthook` hook runs `format`, `lint`, and `readme-check` (validates README stays in sync; requires `claude` CLI + `ANTHROPIC_API_KEY`). Don't bypass with `--no-verify` unless you're fixing the hook itself.
+- Editing the pilot training requires keeping the booking-page CTA (`/trainings/pilot/book`) and the secondary contact link in sync in both `TrainingCard.tsx` and `TrainingDetail.tsx`.
 
 ### News article frontmatter
 
@@ -95,21 +97,27 @@ Deploy: push to `main` → auto-prod via Vercel GitHub App. Push any other branc
 ```
 app/
   [locale]/            # NL/EN routed pages (home, about, contact, impressum)
+  api/checkout/        # POST handler — creates Stripe Checkout Session
   api/contact/         # POST handler — Zod + rate-limit + Resend
+  api/stripe/webhook/  # POST handler — Stripe webhook signature verification + fulfillment
   robots.ts            # /robots.txt
   sitemap.ts           # /sitemap.xml
   globals.css          # Tailwind v4 @theme block (single source of design tokens)
 components/            # Hero, Nav, Footer, TrainingCard, TrainingDetail, ContactForm,
-                       # ArticleFilterBar, InstructorCard, Button, DayAgenda, ProofStrip,
-                       # TimelineEntry, JsonLd, LangSwitcher, MobileMenu, …
+                       # BookingForm, ArticleFilterBar, InstructorCard, Button, DayAgenda,
+                       # ProofStrip, TimelineEntry, JsonLd, LangSwitcher, MobileMenu, …
 lib/
-  validation.ts        # Zod schemas (contactSchema, trainingInterestEnum, …)
-  email.ts             # Resend wrapper, sendContactEmail()
+  validation.ts        # Zod schemas (contactSchema, bookingSchema, trainingInterestEnum, …)
+  email.ts             # Resend wrapper, sendContactEmail(), sendBookingConfirmation(), sendBookingNotification()
   rate-limit.ts        # Per-IP token bucket (in-memory; per-instance)
+  http.ts              # HTTP utilities (isAllowedOrigin, clientIp for origin/IP validation)
   sanitize.ts          # CRLF strip for email headers
   articles.ts          # Article/news loader (reads news/ markdown files)
   parseFrontmatter.ts  # Frontmatter parser for markdown articles
   flags.ts             # Feature flag helpers (BLOGS_ENABLED, …)
+  pricing.ts           # VAT calculation + `priceWithVat` function
+  stripe.ts            # Stripe client factory with memoization (getStripe, __resetStripeForTests)
+  webhook-dedupe.ts    # Webhook event deduplication (markHandled, unmarkHandled, __resetWebhookDedupeForTests)
 data/
   trainings.ts         # Training catalogue + modules (typed)
   instructors.ts       # Instructor profiles (typed)
@@ -141,7 +149,11 @@ Routes:
 
 - `/nl`, `/en` — locale-scoped pages
 - `/nl/about`, `/nl/contact`, `/nl/impressum` (and `/en/*`)
-- `/api/contact` — POST endpoint
+- `/[locale]/trainings/pilot/book` — pilot booking form
+- `/[locale]/trainings/pilot/book/success` — post-payment UX
+- `POST /api/contact` — POST endpoint
+- `POST /api/checkout` — creates Stripe Checkout Session
+- `POST /api/stripe/webhook` — Stripe fulfillment webhook
 - `/sitemap.xml`, `/robots.txt`
 
 ### Useful scripts
@@ -160,18 +172,21 @@ A pre-commit `lefthook` hook runs `format`, `lint`, and `readme-check`. The `rea
 
 ## Environment variables
 
-Copy `.env.example` to `.env.local` and fill in the keys you need. Everything except the contact-form keys has a safe default when unset.
+Copy `.env.example` to `.env.local` and fill in the keys you need. Everything except the contact-form and Stripe keys has a safe default when unset.
 
 ```bash
 cp .env.example .env.local
 ```
 
-| Key                  | Scope  | Purpose                                                                                                                                                      |
-| -------------------- | ------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| `RESEND_API_KEY`     | server | Auth for Resend API (40+ char `re_...` token). Never a placeholder. Separate key per env.                                                                    |
-| `CONTACT_FROM_EMAIL` | server | FROM address on outbound mail. Must be on a Resend-verified domain. Currently `hello@agenticengineering.nl`.                                                 |
-| `CONTACT_EMAIL`      | server | TO address (inbox that receives form submissions). Differs by env (see Preview section below).                                                               |
-| `BLOGS_ENABLED`      | server | Feature flag for blog entries on `/articles`. Set to `'true'` to show blog entries and the all/blogs/articles filter bar. Unset/empty hides both. See below. |
+| Key                      | Scope       | Purpose                                                                                                                                                      |
+| ------------------------ | ----------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| `RESEND_API_KEY`         | server      | Auth for Resend API (40+ char `re_...` token). Never a placeholder. Separate key per env.                                                                    |
+| `CONTACT_FROM_EMAIL`     | server      | FROM address on outbound mail. Must be on a Resend-verified domain. Currently `hello@agenticengineering.nl`.                                                 |
+| `CONTACT_EMAIL`          | server      | TO address (inbox that receives form submissions). Differs by env (see Preview section below).                                                               |
+| `BLOGS_ENABLED`          | server      | Feature flag for blog entries on `/articles`. Set to `'true'` to show blog entries and the all/blogs/articles filter bar. Unset/empty hides both. See below. |
+| `STRIPE_SECRET_KEY`      | server      | Stripe secret API key for creating Checkout Sessions and verifying webhooks.                                                                                 |
+| `STRIPE_PUBLISHABLE_KEY` | client-safe | Stripe publishable key (reserved for future Elements; redirect uses the Session URL).                                                                        |
+| `STRIPE_WEBHOOK_SECRET`  | server      | Signing secret for `/api/stripe/webhook` signature verification.                                                                                             |
 
 The three contact-form keys are set in **Production** and **Preview** scopes (Development scope is intentionally empty — local dev uses `.env.local`). `BLOGS_ENABLED` is set per-scope as needed (see Feature flags below). Set via Vercel CLI or UI:
 
@@ -179,10 +194,16 @@ The three contact-form keys are set in **Production** and **Preview** scopes (De
 vercel env add RESEND_API_KEY production
 vercel env add CONTACT_FROM_EMAIL production
 vercel env add CONTACT_EMAIL production
+vercel env add STRIPE_SECRET_KEY production
+vercel env add STRIPE_PUBLISHABLE_KEY production
+vercel env add STRIPE_WEBHOOK_SECRET production
 
 vercel env add RESEND_API_KEY preview
 vercel env add CONTACT_FROM_EMAIL preview
 vercel env add CONTACT_EMAIL preview
+vercel env add STRIPE_SECRET_KEY preview
+vercel env add STRIPE_PUBLISHABLE_KEY preview
+vercel env add STRIPE_WEBHOOK_SECRET preview
 ```
 
 Or paste real values in Vercel UI → Project → Settings → Environment Variables. After editing, redeploy (`vercel --prod` for production, or push a branch for preview) for new values to land in the function.
@@ -227,6 +248,28 @@ Allowed origins (regex in `app/api/contact/route.ts`):
 - `http://localhost(:port)`
 
 To-field is never user-controlled. CRLF-stripped via `lib/sanitize.ts` to prevent header injection.
+
+## Pilot booking pipeline
+
+```
+Browser → POST /api/checkout → app/api/checkout/route.ts
+                ├─ Server-side pricing from data/trainings.ts (+21% VAT)
+                └─ lib/stripe.ts → Stripe Checkout Session
+                                   └─ redirect to Stripe-hosted checkout
+
+Stripe → POST /api/stripe/webhook → app/api/stripe/webhook/route.ts
+                ├─ Signature verification (STRIPE_WEBHOOK_SECRET)
+                └─ checkout.session.completed
+                                   ├─ Resend confirmation email to customer  ← critical
+                                   └─ Resend notification to operator        ← best-effort
+```
+
+Fulfillment happens on the webhook (`checkout.session.completed`), never on the success redirect. The success page (`/[locale]/trainings/pilot/book/success`) is purely cosmetic — it cannot be trusted as proof of payment.
+
+The two email sends use distinct error handling to prevent duplicate customer confirmations:
+
+- **Customer confirmation** is critical: if it throws, the event id is un-marked and the webhook returns 500, allowing Stripe to retry. Because the confirmation never sent, the retry is safe (no duplicate).
+- **Internal notification** is best-effort: if it throws, the error is logged and the webhook still returns 200. The event id stays marked, so no Stripe retry occurs and the customer never receives a duplicate confirmation. A missed notification is acceptable because the booking is visible in the Stripe Dashboard.
 
 ## Security headers
 
@@ -345,6 +388,8 @@ Preview deployments are automatically deleted when their PR closes (via `.github
 Translation messages live in `messages/{nl,en}.json`. Locale routing in `i18n/routing.ts`. NL is the default locale (no prefix-less root — `/` redirects to `/nl`).
 
 CI runs `pnpm verify:i18n` to enforce key parity between NL and EN. Add a new key → add it to both files.
+
+Namespaces in use: `meta`, `nav`, `hero`, `trainings`, `modules`, `proof`, `footer`, `about`, `articles`, `contact`, `booking`, `impressum`, `theme`, `home`. The `booking` namespace covers the pilot seat-selector form (`seatsLabel`, `attendeeName`, `attendeeEmail`, `submit`, `submitting`, `contactLink`, `errors.*`, `success.*`).
 
 ## Testing
 
