@@ -112,6 +112,7 @@ lib/
   articles.ts          # Article/news loader (reads news/ markdown files)
   parseFrontmatter.ts  # Frontmatter parser for markdown articles
   flags.ts             # Feature flag helpers (BLOGS_ENABLED, …)
+  pricing.ts           # VAT calculation + `priceWithVat` function
 data/
   trainings.ts         # Training catalogue + modules (typed)
   instructors.ts       # Instructor profiles (typed)
@@ -145,7 +146,7 @@ Routes:
 - `/nl/about`, `/nl/contact`, `/nl/impressum` (and `/en/*`)
 - `/[locale]/trainings/pilot/book` — pilot booking form
 - `/[locale]/trainings/pilot/book/success` — post-payment UX
-- `/api/contact` — POST endpoint
+- `POST /api/contact` — POST endpoint
 - `POST /api/checkout` — creates Stripe Checkout Session
 - `POST /api/stripe/webhook` — Stripe fulfillment webhook
 - `/sitemap.xml`, `/robots.txt`
@@ -166,7 +167,7 @@ A pre-commit `lefthook` hook runs `format`, `lint`, and `readme-check`. The `rea
 
 ## Environment variables
 
-Copy `.env.example` to `.env.local` and fill in the keys you need. Everything except the contact-form keys has a safe default when unset.
+Copy `.env.example` to `.env.local` and fill in the keys you need. Everything except the contact-form and Stripe keys has a safe default when unset.
 
 ```bash
 cp .env.example .env.local
@@ -188,10 +189,16 @@ The three contact-form keys are set in **Production** and **Preview** scopes (De
 vercel env add RESEND_API_KEY production
 vercel env add CONTACT_FROM_EMAIL production
 vercel env add CONTACT_EMAIL production
+vercel env add STRIPE_SECRET_KEY production
+vercel env add STRIPE_PUBLISHABLE_KEY production
+vercel env add STRIPE_WEBHOOK_SECRET production
 
 vercel env add RESEND_API_KEY preview
 vercel env add CONTACT_FROM_EMAIL preview
 vercel env add CONTACT_EMAIL preview
+vercel env add STRIPE_SECRET_KEY preview
+vercel env add STRIPE_PUBLISHABLE_KEY preview
+vercel env add STRIPE_WEBHOOK_SECRET preview
 ```
 
 Or paste real values in Vercel UI → Project → Settings → Environment Variables. After editing, redeploy (`vercel --prod` for production, or push a branch for preview) for new values to land in the function.
