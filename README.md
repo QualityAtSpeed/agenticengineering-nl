@@ -114,6 +114,7 @@ lib/
   parseFrontmatter.ts  # Frontmatter parser for markdown articles
   flags.ts             # Feature flag helpers (BLOGS_ENABLED, …)
   pricing.ts           # VAT calculation + `priceWithVat` function
+  stripe.ts            # Stripe client factory with memoization (getStripe, __resetStripeForTests)
 data/
   trainings.ts         # Training catalogue + modules (typed)
   instructors.ts       # Instructor profiles (typed)
