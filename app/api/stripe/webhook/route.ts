@@ -2,22 +2,7 @@ import { NextResponse } from 'next/server';
 import type Stripe from 'stripe';
 import { getStripe } from '@/lib/stripe';
 import { sendBookingConfirmation, sendBookingNotification, type BookingDetails } from '@/lib/email';
-
-// In-memory dedupe. Best-effort across a single serverless instance; Stripe
-// Dashboard remains the source of truth. Bounded to avoid unbounded growth.
-const handled = new Set<string>();
-const MAX_HANDLED = 1000;
-
-function markHandled(id: string): boolean {
-  if (handled.has(id)) return false;
-  if (handled.size >= MAX_HANDLED) handled.clear();
-  handled.add(id);
-  return true;
-}
-
-export function __resetWebhookDedupeForTests() {
-  handled.clear();
-}
+import { markHandled, unmarkHandled } from '@/lib/webhook-dedupe';
 
 function parseAttendees(metadata: Record<string, string>): { name: string; email: string }[] {
   const out: { name: string; email: string }[] = [];
@@ -70,7 +55,7 @@ export async function POST(req: Request) {
     await sendBookingConfirmation(detail);
   } catch {
     // Confirmation failed — un-mark so Stripe retries (no duplicate: it never sent).
-    handled.delete(event.id);
+    unmarkHandled(event.id);
     console.error('webhook_confirmation_failed', event.id);
     return NextResponse.json({ ok: false, error: 'fulfillment_failed' }, { status: 500 });
   }

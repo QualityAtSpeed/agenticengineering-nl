@@ -9,7 +9,8 @@ vi.mock('@/lib/email', () => ({
   EmailError: class extends Error {},
 }));
 
-import { POST, __resetWebhookDedupeForTests } from '@/app/api/stripe/webhook/route';
+import { POST } from '@/app/api/stripe/webhook/route';
+import { __resetWebhookDedupeForTests } from '@/lib/webhook-dedupe';
 
 const SECRET = 'whsec_test_secret';
 const stripe = new Stripe('sk_test_123');

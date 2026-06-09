@@ -117,6 +117,7 @@ lib/
   flags.ts             # Feature flag helpers (BLOGS_ENABLED, …)
   pricing.ts           # VAT calculation + `priceWithVat` function
   stripe.ts            # Stripe client factory with memoization (getStripe, __resetStripeForTests)
+  webhook-dedupe.ts    # Webhook event deduplication (markHandled, unmarkHandled, __resetWebhookDedupeForTests)
 data/
   trainings.ts         # Training catalogue + modules (typed)
   instructors.ts       # Instructor profiles (typed)
