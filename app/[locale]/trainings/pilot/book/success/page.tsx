@@ -1,0 +1,24 @@
+import { setRequestLocale, getTranslations } from 'next-intl/server';
+import type { Locale } from '@/i18n/routing';
+
+type Props = { params: Promise<{ locale: Locale }> };
+
+export default async function BookingSuccessPage({ params }: Props) {
+  const { locale } = await params;
+  setRequestLocale(locale);
+  const t = await getTranslations('booking');
+
+  return (
+    <main className="px-6 py-16 sm:py-20">
+      <div className="mx-auto max-w-2xl">
+        <div
+          className="border-accent-green/30 bg-accent-green/10 rounded-md border p-6"
+          data-testid="booking-success"
+        >
+          <h1 className="text-accent-green-hover text-2xl font-bold">{t('success.title')}</h1>
+          <p className="text-text-soft mt-2 text-lg">{t('success.body')}</p>
+        </div>
+      </div>
+    </main>
+  );
+}
