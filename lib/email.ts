@@ -49,3 +49,74 @@ export async function sendContactEmail(input: ContactInput): Promise<{ id: strin
   }
   return { id: result.data.id };
 }
+
+export type BookingDetails = {
+  attendees: { name: string; email: string }[];
+  seats: number;
+  grossCents: number;
+};
+
+const PILOT_LABEL = 'Pilot - Basic Training (29 en 30 juni 2026)';
+
+function formatEuro(cents: number): string {
+  return (cents / 100).toLocaleString('nl-NL', { minimumFractionDigits: 2 });
+}
+
+function bookingLines(b: BookingDetails): string {
+  const attendees = b.attendees
+    .map((a, i) => `  ${i + 1}. ${stripCRLF(a.name)} <${stripCRLF(a.email)}>`)
+    .join('\n');
+  return [
+    `Training: ${PILOT_LABEL}`,
+    `Seats: ${b.seats}`,
+    `Total (incl. BTW): €${formatEuro(b.grossCents)}`,
+    '',
+    'Attendees:',
+    attendees,
+  ].join('\n');
+}
+
+function resendClient(): { resend: Resend; from: string } {
+  const apiKey = process.env.RESEND_API_KEY;
+  const from = process.env.CONTACT_FROM_EMAIL;
+  if (!apiKey) throw new EmailError('RESEND_API_KEY missing');
+  if (!from) throw new EmailError('CONTACT_FROM_EMAIL missing');
+  return { resend: new Resend(apiKey), from };
+}
+
+export async function sendBookingConfirmation(b: BookingDetails): Promise<{ id: string }> {
+  const { resend, from } = resendClient();
+  const to = stripCRLF(b.attendees[0].email);
+  const subject = stripCRLF(`[agenticengineering.nl] Bevestiging boeking — ${PILOT_LABEL}`);
+  const text = [
+    'Bedankt voor je boeking! Je plek is bevestigd.',
+    '',
+    bookingLines(b),
+    '',
+    'We nemen contact op met praktische details voor de trainingsdagen.',
+  ].join('\n');
+  const result = await resend.emails.send({ from, to, subject, text });
+  if (result.error || !result.data?.id) {
+    throw new EmailError(result.error?.message ?? 'unknown Resend error', result.error);
+  }
+  return { id: result.data.id };
+}
+
+export async function sendBookingNotification(b: BookingDetails): Promise<{ id: string }> {
+  const { resend, from } = resendClient();
+  const to = process.env.CONTACT_EMAIL;
+  if (!to) throw new EmailError('CONTACT_EMAIL missing');
+  const subject = stripCRLF(`[agenticengineering.nl] Nieuwe boeking — ${b.seats} plek(ken)`);
+  const text = ['Nieuwe betaalde boeking:', '', bookingLines(b)].join('\n');
+  const result = await resend.emails.send({
+    from,
+    to,
+    replyTo: stripCRLF(b.attendees[0].email),
+    subject,
+    text,
+  });
+  if (result.error || !result.data?.id) {
+    throw new EmailError(result.error?.message ?? 'unknown Resend error', result.error);
+  }
+  return { id: result.data.id };
+}

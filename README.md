@@ -106,7 +106,7 @@ components/            # Hero, Nav, Footer, TrainingCard, TrainingDetail, Contac
                        # TimelineEntry, JsonLd, LangSwitcher, MobileMenu, …
 lib/
   validation.ts        # Zod schemas (contactSchema, trainingInterestEnum, …)
-  email.ts             # Resend wrapper, sendContactEmail()
+  email.ts             # Resend wrapper, sendContactEmail(), sendBookingConfirmation(), sendBookingNotification()
   rate-limit.ts        # Per-IP token bucket (in-memory; per-instance)
   http.ts              # HTTP utilities (isAllowedOrigin, clientIp for origin/IP validation)
   sanitize.ts          # CRLF strip for email headers

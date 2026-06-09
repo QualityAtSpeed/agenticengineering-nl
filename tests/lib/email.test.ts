@@ -50,3 +50,45 @@ describe('sendContactEmail', () => {
     await expect(sendContactEmail(payload)).rejects.toBeInstanceOf(EmailError);
   });
 });
+
+import { sendBookingConfirmation, sendBookingNotification, type BookingDetails } from '@/lib/email';
+
+const booking: BookingDetails = {
+  attendees: [
+    { name: 'Pascal', email: 'pascal@example.com' },
+    { name: 'Sam', email: 'sam@example.com' },
+  ],
+  seats: 2,
+  grossCents: 84458,
+};
+
+describe('sendBookingConfirmation', () => {
+  it('emails the first attendee and strips header injection', async () => {
+    sendMock.mockResolvedValue({ data: { id: 'c1' }, error: null });
+    await sendBookingConfirmation({
+      ...booking,
+      attendees: [{ name: 'Pascal\r\nBcc: x', email: 'pascal@example.com' }, booking.attendees[1]],
+    });
+    const arg = sendMock.mock.calls[0][0];
+    expect(arg.to).toBe('pascal@example.com');
+    expect(arg.from).toBe('noreply@agenticengineering.nl');
+    expect(arg.subject).not.toMatch(/[\r\n]/);
+    expect(arg.text).toContain('€844,58'); // 84458 cents, nl-NL formatting
+  });
+});
+
+describe('sendBookingNotification', () => {
+  it('emails CONTACT_EMAIL with the attendee list', async () => {
+    sendMock.mockResolvedValue({ data: { id: 'n1' }, error: null });
+    await sendBookingNotification(booking);
+    const arg = sendMock.mock.calls[0][0];
+    expect(arg.to).toBe('hello@agenticengineering.nl');
+    expect(arg.text).toContain('sam@example.com');
+    expect(arg.text).toContain('2');
+  });
+
+  it('throws EmailError on Resend error', async () => {
+    sendMock.mockResolvedValue({ data: null, error: { message: 'fail' } });
+    await expect(sendBookingNotification(booking)).rejects.toBeInstanceOf(EmailError);
+  });
+});
