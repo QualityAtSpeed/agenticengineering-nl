@@ -91,4 +91,21 @@ describe('POST /api/stripe/webhook', () => {
     expect(res.status).toBe(200);
     expect(confirmMock).not.toHaveBeenCalled();
   });
+
+  it('500 + un-marks on confirmation failure, allowing retry', async () => {
+    confirmMock.mockRejectedValueOnce(new Error('resend down'));
+    const res1 = await POST(signed(eventBody('evt_fail')));
+    expect(res1.status).toBe(500);
+    // retry: confirmation now succeeds (default mock), event re-processed
+    const res2 = await POST(signed(eventBody('evt_fail')));
+    expect(res2.status).toBe(200);
+    expect(confirmMock).toHaveBeenCalledTimes(2);
+  });
+
+  it('200 when only the internal notification fails (no customer-facing retry)', async () => {
+    notifyMock.mockRejectedValueOnce(new Error('resend down'));
+    const res = await POST(signed(eventBody('evt_notify_fail')));
+    expect(res.status).toBe(200);
+    expect(confirmMock).toHaveBeenCalledTimes(1);
+  });
 });

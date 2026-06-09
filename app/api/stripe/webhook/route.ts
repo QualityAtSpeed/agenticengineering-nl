@@ -68,12 +68,19 @@ export async function POST(req: Request) {
 
   try {
     await sendBookingConfirmation(detail);
+  } catch {
+    // Confirmation failed — un-mark so Stripe retries (no duplicate: it never sent).
+    handled.delete(event.id);
+    console.error('webhook_confirmation_failed', event.id);
+    return NextResponse.json({ ok: false, error: 'fulfillment_failed' }, { status: 500 });
+  }
+
+  // Internal notification is best-effort: a failure must not trigger a retry,
+  // which would re-send the customer confirmation above.
+  try {
     await sendBookingNotification(detail);
   } catch {
-    // Let Stripe retry: un-mark so a redelivery can re-attempt fulfillment.
-    handled.delete(event.id);
-    console.error('webhook_fulfillment_failed', event.id);
-    return NextResponse.json({ ok: false, error: 'fulfillment_failed' }, { status: 500 });
+    console.error('webhook_notification_failed', event.id);
   }
 
   return NextResponse.json({ received: true }, { status: 200 });
