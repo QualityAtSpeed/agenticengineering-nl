@@ -47,7 +47,8 @@
       "viewFullCurriculum": "view full curriculum",
       "bookCta": "Book training",
       "taughtBy": "Taught by",
-      "pilotBadge": "Pilot · reduced price"
+      "pilotBadge": "Pilot · reduced price",
+      "contactLink": "Questions? Contact"
     },
     "cardMeta": {
       "basic": {
@@ -377,6 +378,26 @@
     "success": {
       "title": "Sent",
       "body": "Within 1 business day, you'll receive a confirmation of your registration with the accompanying invoice. After payment, you'll receive an invitation to the training materials and further details."
+    }
+  },
+  "booking": {
+    "title": "Book the pilot",
+    "intro": "Reserve your seat for the pilot on 29–30 June 2026. Price per attendee, incl. 21% VAT.",
+    "seatsLabel": "Number of attendees",
+    "attendeeName": "Attendee name",
+    "attendeeEmail": "Attendee email",
+    "submit": "Continue to payment",
+    "submitting": "Working…",
+    "contactLink": "Prefer to ask questions first? Get in touch",
+    "errors": {
+      "required": "This field is required.",
+      "invalidEmail": "Enter a valid email address.",
+      "generic": "Something went wrong. Please try again.",
+      "rateLimited": "Too many attempts. Please wait and try again."
+    },
+    "success": {
+      "title": "Payment successful — your seat is booked!",
+      "body": "You'll receive a confirmation by email. See you on 29 June!"
     }
   },
   "impressum": {
