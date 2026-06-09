@@ -26,7 +26,7 @@
     "duration": {
       "basic": "2 days",
       "advanced": "1 day",
-      "introduction": "1 day"
+      "pilot": "2 days"
     },
     "deliveryFormats": {
       "inCompany": "In-company",
@@ -46,7 +46,8 @@
       "viewDetails": "View programme",
       "viewFullCurriculum": "view full curriculum",
       "bookCta": "Book training",
-      "taughtBy": "Taught by"
+      "taughtBy": "Taught by",
+      "pilotBadge": "Pilot · reduced price"
     },
     "cardMeta": {
       "basic": {
@@ -59,10 +60,10 @@
         "metaAudience": "Tech leads, staff+, managers",
         "metaOutcome": "90-day rollout plan"
       },
-      "introduction": {
-        "metaDuration": "1 day, 8 hours",
-        "metaAudience": "Individual engineers, managers, leads",
-        "metaOutcome": "Understanding of agentic workflows"
+      "pilot": {
+        "metaDuration": "2 days, 16 hours",
+        "metaAudience": "DevOps teams and managers",
+        "metaOutcome": "Feature on your own repo"
       }
     },
     "basic": {
@@ -103,21 +104,25 @@
         "Walk away with a 90-day rollout plan reviewed by peers"
       ]
     },
-    "introduction": {
-      "name": "Introduction",
-      "tagline": "A taster of agentic AI quality engineering for individuals.",
+    "pilot": {
+      "name": "Pilot - Basic Training",
+      "tagline": "Dry-run of the Basic training at a reduced price. Same two days, every attendee ships a feature.",
       "audience": [
-        "Individual engineers curious about agentic workflows",
-        "Managers and leads looking for a low-commitment intro",
-        "Anyone who wants to try out Claude Code or Codex with guidance"
+        "Whole DevOps teams: developers, QA / test engineers, ops / platform",
+        "Mixed-role cohorts adopting agentic workflows together",
+        "Engineering managers training their teams alongside them"
       ],
       "prerequisites": [
-        "Some knowledge of software development, familiar with working in the terminal"
+        "Comfortable with git and the command line",
+        "Writes features in at least one language (TS/Python/Go/etc.)"
       ],
       "outcomes": [
-        "Understand the basics of agentic workflows and quality engineering",
-        "Try out prompt engineering, skills, and rules in a guided setting",
-        "Get a feel for how agents can fit into your SDLC"
+        "Ship a working feature on a starter repo — tests, hooks, CI green from minute one",
+        "Recognise the failure modes of AI-generated code in your own work",
+        "Practise test-first with an agent without writing fake-passing tests",
+        "Set up hooks and quality gates that survive the next sprint",
+        "Use existing MCP servers in real workflows",
+        "Leave with a governance starter your team can actually use"
       ]
     }
   },
@@ -344,9 +349,9 @@
       "company": "Company (optional)",
       "trainingInterest": "Interested in which training",
       "trainingOptions": {
+        "pilot": "Pilot - Basic Training (2 days, reduced price)",
         "basic": "Basic (2 days)",
         "advanced": "Advanced (1 day)",
-        "both": "Both",
         "other": "Other"
       },
       "deliveryPref": "Delivery preference",

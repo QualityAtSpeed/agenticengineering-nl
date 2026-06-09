@@ -90,10 +90,23 @@ export function TrainingCard({ trainingId, locale }: { trainingId: TrainingId; l
   const tLabels = useTranslations('trainings.labels');
   const tCard = useTranslations('trainings.cardMeta');
 
+  const isPilot = trainingId === 'pilot';
+
   return (
-    <article className="border-border-subtle grid items-start gap-7 border-t py-8 last:border-b lg:grid-cols-[1fr_200px]">
+    <article
+      className={
+        isPilot
+          ? 'bg-brand-soft ring-brand/30 -mx-6 my-8 grid items-start gap-7 rounded-lg p-6 ring-1 lg:grid-cols-[1fr_200px]'
+          : 'border-border-subtle grid items-start gap-7 border-t py-8 last:border-b lg:grid-cols-[1fr_200px]'
+      }
+    >
       <div className="flex flex-col gap-4 lg:flex-row lg:gap-10">
         <div className="min-w-0 flex-1">
+          {isPilot && (
+            <span className="bg-brand text-on-accent mb-2 inline-block rounded-full px-2.5 py-0.5 text-xs font-bold tracking-wider uppercase">
+              {tLabels('pilotBadge')}
+            </span>
+          )}
           <h3 className="text-text-primary text-xl font-bold">{t(`${trainingId}.name`)}</h3>
           <p className="text-text-soft mt-2 text-[0.9375rem]">{t(`${trainingId}.tagline`)}</p>
           <Button
@@ -126,7 +139,7 @@ export function TrainingCard({ trainingId, locale }: { trainingId: TrainingId; l
         <Button
           size="sm"
           fullWidth
-          href={`/${locale}/contact`}
+          href={`/${locale}/contact?training=${trainingId}`}
           data-testid={`book-${trainingId}`}
           className="mt-3"
         >
