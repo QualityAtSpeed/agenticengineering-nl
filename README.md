@@ -99,6 +99,7 @@ app/
   [locale]/            # NL/EN routed pages (home, about, contact, impressum)
   api/checkout/        # POST handler — creates Stripe Checkout Session
   api/contact/         # POST handler — Zod + rate-limit + Resend
+  api/stripe/webhook/  # POST handler — Stripe webhook signature verification + fulfillment
   robots.ts            # /robots.txt
   sitemap.ts           # /sitemap.xml
   globals.css          # Tailwind v4 @theme block (single source of design tokens)
