@@ -129,7 +129,6 @@ export function ContactForm({
         >
           <option value="noPreference">{t('form.deliveryOptions.noPreference')}</option>
           <option value="inCompany">{t('form.deliveryOptions.inCompany')}</option>
-          <option value="publicCohort">{t('form.deliveryOptions.publicCohort')}</option>
           <option value="remote">{t('form.deliveryOptions.remote')}</option>
         </select>
       </Field>
