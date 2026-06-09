@@ -254,6 +254,8 @@ vercel --prod            # production deploy + alias to apex
 
 Vercel GitHub App is connected, so pushes to `main` auto-deploy to production and pushes to any other branch auto-deploy to a preview URL. Manual `vercel --prod` still works for out-of-band hot deploys.
 
+A GitHub Actions workflow (`.github/workflows/discord-pr.yml`) posts PR notifications to a Discord channel when PRs open or merge, plus a manual `workflow_dispatch` (with a `pr_number` input) to publish any PR on demand. Set the `DISCORD_WEBHOOK` secret in GitHub repo settings to enable it; the workflow skips silently when the secret is unset.
+
 ### DNS (TransIP)
 
 Mail and web records coexist on the same zone.
