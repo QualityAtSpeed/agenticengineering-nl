@@ -4,6 +4,7 @@ import Link from 'next/link';
 import { useTranslations } from 'next-intl';
 import { useEffect, useId, useRef, useState } from 'react';
 import type { Locale } from '@/i18n/routing';
+import { LangSwitcher } from './LangSwitcher';
 import { ThemeToggle } from './ThemeToggle';
 
 export function MobileMenu({ locale }: { locale: Locale }) {
@@ -104,9 +105,12 @@ export function MobileMenu({ locale }: { locale: Locale }) {
             >
               {t('contact')}
             </Link>
-            <div className="border-border-subtle flex items-center gap-2 border-t pt-3">
-              <span className="text-text-muted">{tTheme('label')}</span>
-              <ThemeToggle />
+            <div className="border-border-subtle flex items-center justify-between gap-2 border-t pt-3">
+              <LangSwitcher currentLocale={locale} />
+              <div className="flex items-center gap-2">
+                <span className="text-text-muted">{tTheme('label')}</span>
+                <ThemeToggle />
+              </div>
             </div>
           </div>
         </div>
