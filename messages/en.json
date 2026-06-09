@@ -77,7 +77,7 @@
       "prerequisites": [
         "Comfortable with git and the command line",
         "Writes features in at least one language (TS/Python/Go/etc.)",
-        "Own laptop or desktop with Claude Code or OpenCode installed, plus at least an active Pro subscription (Anthropic / OpenAI)"
+        "Own laptop or desktop with Claude Code or OpenCode installed, plus at least an active Pro subscription"
       ],
       "outcomes": [
         "Ship a working feature on a starter repo — tests, hooks, CI green from minute one",
@@ -116,7 +116,7 @@
       "prerequisites": [
         "Comfortable with git and the command line",
         "Writes features in at least one language (TS/Python/Go/etc.)",
-        "Own laptop or desktop with Claude Code or OpenCode installed, plus at least an active Pro subscription (Anthropic / OpenAI)"
+        "Own laptop or desktop with Claude Code or OpenCode installed, plus at least an active Pro subscription"
       ],
       "outcomes": [
         "Ship a working feature on a starter repo — tests, hooks, CI green from minute one",

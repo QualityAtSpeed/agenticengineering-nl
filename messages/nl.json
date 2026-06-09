@@ -77,7 +77,7 @@
       "prerequisites": [
         "Vertrouwd met git en de command line",
         "Schrijft features in minimaal één taal (TS/Python/Go/etc.)",
-        "Eigen laptop of desktop met Claude Code of OpenCode geïnstalleerd, met minimaal een Pro AI-abonnement (Anthropic / OpenAI)"
+        "Eigen laptop of desktop met Claude Code of OpenCode geïnstalleerd, met minimaal een Pro AI-abonnement"
       ],
       "outcomes": [
         "Lever een werkende feature op een starter repo — tests, hooks, CI groen vanaf minuut één",
@@ -118,7 +118,7 @@
       "prerequisites": [
         "Vertrouwd met git en de command line",
         "Schrijft features in minimaal één taal (TS/Python/Go/etc.)",
-        "Eigen laptop of desktop met Claude Code of OpenCode geïnstalleerd, met minimaal een Pro AI-abonnement (Anthropic / OpenAI)"
+        "Eigen laptop of desktop met Claude Code of OpenCode geïnstalleerd, met minimaal een Pro AI-abonnement"
       ],
       "outcomes": [
         "Lever een werkende feature op een starter repo — tests, hooks, CI groen vanaf minuut één",
