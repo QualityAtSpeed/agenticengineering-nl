@@ -70,8 +70,12 @@ export async function POST(req: Request) {
       return NextResponse.json({ ok: false, error: 'session_failed' }, { status: 502 });
     }
     return NextResponse.json({ url: session.url }, { status: 200 });
-  } catch {
-    console.error('checkout_session_failed');
+  } catch (err) {
+    console.error('checkout_session_failed', {
+      type: (err as { type?: string }).type,
+      code: (err as { code?: string }).code,
+      msg: (err as Error).message,
+    });
     return NextResponse.json({ ok: false, error: 'session_failed' }, { status: 502 });
   }
 }
