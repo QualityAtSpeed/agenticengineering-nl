@@ -104,10 +104,10 @@ app/
   sitemap.ts           # /sitemap.xml
   globals.css          # Tailwind v4 @theme block (single source of design tokens)
 components/            # Hero, Nav, Footer, TrainingCard, TrainingDetail, ContactForm,
-                       # ArticleFilterBar, InstructorCard, Button, DayAgenda, ProofStrip,
-                       # TimelineEntry, JsonLd, LangSwitcher, MobileMenu, …
+                       # BookingForm, ArticleFilterBar, InstructorCard, Button, DayAgenda,
+                       # ProofStrip, TimelineEntry, JsonLd, LangSwitcher, MobileMenu, …
 lib/
-  validation.ts        # Zod schemas (contactSchema, trainingInterestEnum, …)
+  validation.ts        # Zod schemas (contactSchema, bookingSchema, trainingInterestEnum, …)
   email.ts             # Resend wrapper, sendContactEmail(), sendBookingConfirmation(), sendBookingNotification()
   rate-limit.ts        # Per-IP token bucket (in-memory; per-instance)
   http.ts              # HTTP utilities (isAllowedOrigin, clientIp for origin/IP validation)
@@ -387,6 +387,8 @@ Preview deployments are automatically deleted when their PR closes (via `.github
 Translation messages live in `messages/{nl,en}.json`. Locale routing in `i18n/routing.ts`. NL is the default locale (no prefix-less root — `/` redirects to `/nl`).
 
 CI runs `pnpm verify:i18n` to enforce key parity between NL and EN. Add a new key → add it to both files.
+
+Namespaces in use: `meta`, `nav`, `hero`, `trainings`, `modules`, `proof`, `footer`, `about`, `articles`, `contact`, `booking`, `impressum`, `theme`, `home`. The `booking` namespace covers the pilot seat-selector form (`seatsLabel`, `attendeeName`, `attendeeEmail`, `submit`, `submitting`, `contactLink`, `errors.*`, `success.*`).
 
 ## Testing
 
