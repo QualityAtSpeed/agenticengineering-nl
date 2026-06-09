@@ -34,7 +34,9 @@ async function renderPage() {
 describe('<TrainingsPage />', () => {
   it('renders the training overview page', async () => {
     await renderPage();
-    expect(screen.getByRole('heading', { name: 'Pilot - Basic Training' })).toBeInTheDocument();
+    expect(
+      screen.getByRole('heading', { name: 'Pilot - Basic Training (June 29th & 30th 2026)' }),
+    ).toBeInTheDocument();
     expect(screen.getByRole('heading', { name: 'Basic' })).toBeInTheDocument();
     expect(screen.getByRole('heading', { name: 'Advanced' })).toBeInTheDocument();
     expect(screen.getByRole('heading', { name: /Trainings/ })).toBeInTheDocument();

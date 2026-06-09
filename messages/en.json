@@ -106,8 +106,8 @@
       ]
     },
     "pilot": {
-      "name": "Pilot - Basic Training",
-      "tagline": "Dry-run of the Basic training at a reduced price. Same two days, every attendee ships a feature.",
+      "name": "Pilot - Basic Training (June 29th & 30th 2026)",
+      "tagline": "Dry-run of the Basic training at a reduced price. Same two days, every attendee ships a feature. This training is only available as online training on June 29th and 30th, 2026.",
       "audience": [
         "Whole DevOps teams: developers, QA / test engineers, ops / platform",
         "Mixed-role cohorts adopting agentic workflows together",
@@ -376,7 +376,7 @@
     },
     "success": {
       "title": "Sent",
-      "body": "We'll be in touch within 1 business day."
+      "body": "Within 1 business day, you'll receive a confirmation of your registration with the accompanying invoice. After payment, you'll receive an invitation to the training materials and further details."
     }
   },
   "impressum": {

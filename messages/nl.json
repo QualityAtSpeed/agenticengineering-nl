@@ -108,8 +108,8 @@
       ]
     },
     "pilot": {
-      "name": "Pilot - Basic Training",
-      "tagline": "Dry-run van de Basic training tegen een gereduceerde prijs. Dezelfde twee dagen, iedereen levert een feature op.",
+      "name": "Pilot - Basic Training (29 en 30 juni 2026)",
+      "tagline": "Dry-run van de Basic training tegen een gereduceerde prijs. Dezelfde twee dagen, iedereen levert een feature op. Deze training is alleen beschikbaar als online training op 29 en 30 juni 2026.",
       "audience": [
         "Hele DevOps-teams: developers, QA / testers, ops / platform",
         "Gemengde teams die agentic workflows samen adopteren",
@@ -382,7 +382,7 @@
     },
     "success": {
       "title": "Verzonden",
-      "body": "We nemen binnen 1 werkdag contact op."
+      "body": "Binnen een werkdag ontvang je een bevestiging van je inschrijving met bijbehorende factuur. Na betaling ontvang je een uitnodiging tot het trainingsmateriaal en verdere details."
     }
   },
   "impressum": {
