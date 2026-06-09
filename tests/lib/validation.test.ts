@@ -1,5 +1,5 @@
 import { describe, it, expect } from 'vitest';
-import { contactSchema } from '@/lib/validation';
+import { contactSchema, bookingSchema } from '@/lib/validation';
 
 const valid = {
   name: 'Pascal',
@@ -34,5 +34,39 @@ describe('contactSchema', () => {
   });
   it('rejects honeypot filled', () => {
     expect(contactSchema.safeParse({ ...valid, website: 'http://spam' }).success).toBe(false);
+  });
+});
+
+describe('bookingSchema', () => {
+  const attendee = { name: 'Pascal', email: 'pascal@example.com' };
+
+  it('accepts a pilot booking with one attendee', () => {
+    expect(bookingSchema.safeParse({ trainingId: 'pilot', attendees: [attendee] }).success).toBe(
+      true,
+    );
+  });
+
+  it('rejects an empty attendee list', () => {
+    expect(bookingSchema.safeParse({ trainingId: 'pilot', attendees: [] }).success).toBe(false);
+  });
+
+  it('rejects more than 10 attendees', () => {
+    const many = Array.from({ length: 11 }, () => attendee);
+    expect(bookingSchema.safeParse({ trainingId: 'pilot', attendees: many }).success).toBe(false);
+  });
+
+  it('rejects a bad email', () => {
+    expect(
+      bookingSchema.safeParse({
+        trainingId: 'pilot',
+        attendees: [{ name: 'X', email: 'not-email' }],
+      }).success,
+    ).toBe(false);
+  });
+
+  it('rejects a non-pilot trainingId (pilot-only scope)', () => {
+    expect(bookingSchema.safeParse({ trainingId: 'basic', attendees: [attendee] }).success).toBe(
+      false,
+    );
   });
 });

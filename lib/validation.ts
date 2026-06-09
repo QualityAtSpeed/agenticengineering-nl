@@ -14,3 +14,17 @@ export const contactSchema = z.object({
 });
 
 export type ContactInput = z.infer<typeof contactSchema>;
+
+export const attendeeSchema = z.object({
+  name: z.string().trim().min(1).max(100),
+  email: z.string().trim().email().max(254),
+});
+
+// Pilot-only by design (see spec). Widen the literal when more trainings go self-serve.
+export const bookingSchema = z.object({
+  trainingId: z.literal('pilot'),
+  attendees: z.array(attendeeSchema).min(1).max(10),
+});
+
+export type BookingInput = z.infer<typeof bookingSchema>;
+export type Attendee = z.infer<typeof attendeeSchema>;
