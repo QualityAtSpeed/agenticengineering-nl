@@ -359,7 +359,6 @@
       "deliveryPref": "Delivery preference",
       "deliveryOptions": {
         "inCompany": "In-company",
-        "publicCohort": "Public cohort",
         "remote": "Remote",
         "noPreference": "No preference"
       },
