@@ -365,7 +365,6 @@
       "deliveryPref": "Voorkeur levering",
       "deliveryOptions": {
         "inCompany": "In-company",
-        "publicCohort": "Open inschrijving",
         "remote": "Remote",
         "noPreference": "Geen voorkeur"
       },
