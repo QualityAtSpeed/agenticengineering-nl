@@ -12,6 +12,7 @@ export class Nav {
   readonly about: Locator;
   readonly contact: Locator;
   readonly mobileToggle: Locator;
+  readonly mobilePanel: Locator;
 
   constructor(readonly page: Page) {
     this.articles = page.getByTestId('nav-articles');
@@ -19,11 +20,17 @@ export class Nav {
     this.about = page.getByTestId('nav-about');
     this.contact = page.getByTestId('nav-contact');
     this.mobileToggle = page.getByTestId('mobile-menu-toggle');
+    this.mobilePanel = page.getByTestId('mobile-menu-panel');
   }
 
   /** Mobile menu link locators (inside the toggle panel). */
   mobileLink(item: (typeof NAV_ORDER)[number]): Locator {
     return this.page.getByTestId(`mobile-menu-${item}`);
+  }
+
+  /** Language-switch link scoped to the mobile menu panel. */
+  mobileLangLink(target: Locale): Locator {
+    return this.mobilePanel.getByTestId(`lang-switch-${target}`);
   }
 
   async switchLocale(target: Locale) {

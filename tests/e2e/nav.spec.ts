@@ -33,3 +33,20 @@ test('mobile menu toggles open and shows all links including trainings', async (
     await expect(nav.mobileLink(item)).toBeVisible();
   }
 });
+
+test('mobile menu contains a working language switcher', async ({ page }) => {
+  await page.setViewportSize({ width: 390, height: 844 });
+  await page.goto('/nl/about');
+  const nav = new Nav(page);
+
+  await expect(nav.mobileToggle).toBeVisible();
+  await nav.mobileToggle.click();
+
+  // On small screens the language switcher lives inside the hamburger panel.
+  await expect(nav.mobileLangLink('en')).toBeVisible();
+  await expect(nav.mobileLangLink('nl')).toBeVisible();
+
+  // And switching works, preserving the current path.
+  await nav.mobileLangLink('en').click();
+  await expect(page).toHaveURL(/\/en\/about$/);
+});
