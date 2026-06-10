@@ -1,7 +1,7 @@
 {
   "meta": {
     "title": "agenticengineering.nl",
-    "description": "Agentic AI quality engineering trainings with Claude Code or Codex."
+    "description": "Agentic AI quality engineering trainings with Claude Code."
   },
   "nav": {
     "about": "About",
@@ -17,7 +17,7 @@
   "hero": {
     "kicker": "AGENTIC AI QUALITY ENGINEERING · EN",
     "title": "Train your team in agentic AI quality engineering.",
-    "subtitle": "Two hands-on trainings in Claude Code or Codex. Two days foundations + quality loop, one day rollout + governance.",
+    "subtitle": "Two hands-on trainings in Claude Code. Two days foundations + quality loop, one day rollout + governance.",
     "ctaPrimary": "Book training",
     "ctaSecondary": "View trainings"
   },
@@ -79,7 +79,7 @@
       "prerequisites": [
         "Comfortable with git and the command line",
         "Writes features in at least one language (TS/Python/Go/etc.)",
-        "Own laptop or desktop with Claude Code, Codex or OpenCode installed, plus at least an active Pro subscription"
+        "Own laptop or desktop with Claude Code installed, plus at least an active Claude Pro subscription"
       ],
       "outcomes": [
         "Ship a working feature on a starter repo — tests, hooks, CI green from minute one",
@@ -98,7 +98,7 @@
         "Engineering managers and platform / QA leads",
         "Teams responsible for governance, cost, and adoption across orgs"
       ],
-      "prerequisites": ["Basic training or equivalent hands-on Claude Code/Codex experience"],
+      "prerequisites": ["Basic training or equivalent hands-on Claude Code experience"],
       "outcomes": [
         "Leave with a rollout playbook for your own org",
         "Orchestrate subagents and parallel agents at team scale",
@@ -118,7 +118,7 @@
       "prerequisites": [
         "Comfortable with git and the command line",
         "Writes features in at least one language (TS/Python/Go/etc.)",
-        "Own laptop or desktop with Claude Code, Codex or OpenCode installed, plus at least an active Pro subscription"
+        "Own laptop or desktop with Claude Code installed, plus at least an active Claude Pro subscription"
       ],
       "outcomes": [
         "Ship a working feature on a starter repo — tests, hooks, CI green from minute one",
@@ -313,7 +313,7 @@
   },
   "about": {
     "title": "About",
-    "intro": "We train engineering teams in agentic AI quality engineering with Claude Code or Codex. Hands-on, production-focused, in NL or EN.",
+    "intro": "We train engineering teams in agentic AI quality engineering with Claude Code. Hands-on, production-focused, in NL or EN.",
     "instructors": {
       "pascal": {
         "name": "Pascal Dufour",

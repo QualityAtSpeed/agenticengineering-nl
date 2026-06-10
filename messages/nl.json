@@ -1,7 +1,7 @@
 {
   "meta": {
     "title": "agenticengineering.nl",
-    "description": "Agentic AI quality engineering trainingen met Claude Code of Codex."
+    "description": "Agentic AI quality engineering trainingen met Claude Code."
   },
   "nav": {
     "about": "Over ons",
@@ -17,7 +17,7 @@
   "hero": {
     "kicker": "AGENTIC AI QUALITY ENGINEERING · NL",
     "title": "Train je team in agentic AI quality engineering.",
-    "subtitle": "Twee praktijkgerichte trainingen in Claude Code of Codex. Twee dagen basis + kwaliteitsloop, één dag rollout + governance.",
+    "subtitle": "Twee praktijkgerichte trainingen in Claude Code. Twee dagen basis + kwaliteitsloop, één dag rollout + governance.",
     "ctaPrimary": "Boek training",
     "ctaSecondary": "Bekijk trainingen"
   },
@@ -79,7 +79,7 @@
       "prerequisites": [
         "Vertrouwd met git en de command line",
         "Schrijft features in minimaal één taal (TS/Python/Go/etc.)",
-        "Eigen laptop of desktop met Claude Code, Codex of OpenCode geïnstalleerd, met minimaal een Pro AI-abonnement"
+        "Eigen laptop of desktop met Claude Code geïnstalleerd, met minimaal een Claude Pro-abonnement"
       ],
       "outcomes": [
         "Lever een werkende feature op een starter repo — tests, hooks, CI groen vanaf minuut één",
@@ -98,9 +98,7 @@
         "Engineering managers en platform / QA leads",
         "Teams verantwoordelijk voor governance, kosten en adoptie organisatie-breed"
       ],
-      "prerequisites": [
-        "Basic training of vergelijkbare hands-on ervaring met Claude Code of Codex"
-      ],
+      "prerequisites": ["Basic training of vergelijkbare hands-on ervaring met Claude Code"],
       "outcomes": [
         "Stap met een rollout-plan voor je eigen organisatie naar buiten",
         "Orchestreer subagents en parallelle agents op team-schaal",
@@ -120,7 +118,7 @@
       "prerequisites": [
         "Vertrouwd met git en de command line",
         "Schrijft features in minimaal één taal (TS/Python/Go/etc.)",
-        "Eigen laptop of desktop met Claude Code, Codex of OpenCode geïnstalleerd, met minimaal een Pro AI-abonnement"
+        "Eigen laptop of desktop met Claude Code geïnstalleerd, met minimaal een Claude Pro-abonnement"
       ],
       "outcomes": [
         "Lever een werkende feature op een starter repo — tests, hooks, CI groen vanaf minuut één",
@@ -319,7 +317,7 @@
   },
   "about": {
     "title": "Over ons",
-    "intro": "We trainen engineering-teams in agentic AI quality engineering met Claude Code of Codex. Hands-on, productie-gericht, in NL of EN.",
+    "intro": "We trainen engineering-teams in agentic AI quality engineering met Claude Code. Hands-on, productie-gericht, in NL of EN.",
     "instructors": {
       "pascal": {
         "name": "Pascal Dufour",
