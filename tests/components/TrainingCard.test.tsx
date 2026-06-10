@@ -2,6 +2,7 @@ import { describe, it, expect } from 'vitest';
 import { render, screen } from '@testing-library/react';
 import { NextIntlClientProvider } from 'next-intl';
 import nl from '@/messages/nl.json';
+import en from '@/messages/en.json';
 import { TrainingCard } from '@/components/TrainingCard';
 import { trainings } from '@/data/trainings';
 
@@ -45,5 +46,29 @@ describe('<TrainingCard />', () => {
     renderCard('basic');
     const cta = screen.getByTestId('book-basic');
     expect(cta).toHaveAttribute('href', expect.stringContaining('/contact?training=basic'));
+  });
+
+  it('pilot CTA is labeled as booking ("Boek training")', () => {
+    renderCard('pilot');
+    expect(screen.getByTestId('book-pilot')).toHaveTextContent('Boek training');
+  });
+
+  it('basic CTA is labeled as request ("Vraag training aan")', () => {
+    renderCard('basic');
+    expect(screen.getByTestId('book-basic')).toHaveTextContent('Vraag training aan');
+  });
+
+  it('advanced CTA is labeled as request ("Vraag training aan")', () => {
+    renderCard('advanced');
+    expect(screen.getByTestId('book-advanced')).toHaveTextContent('Vraag training aan');
+  });
+
+  it('renders the English request label for non-pilot in the en locale', () => {
+    render(
+      <NextIntlClientProvider locale="en" messages={en}>
+        <TrainingCard trainingId="basic" locale="en" />
+      </NextIntlClientProvider>,
+    );
+    expect(screen.getByTestId('book-basic')).toHaveTextContent('Request training');
   });
 });

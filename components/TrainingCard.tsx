@@ -149,7 +149,7 @@ export function TrainingCard({ trainingId, locale }: { trainingId: TrainingId; l
           data-testid={`book-${trainingId}`}
           className="mt-3"
         >
-          {tLabels('bookCta')}
+          {tLabels(isPilot ? 'bookCta' : 'requestCta')}
         </Button>
         {isPilot && (
           <a
