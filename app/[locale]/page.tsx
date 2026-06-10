@@ -48,8 +48,7 @@ export default async function Home({ params }: { params: Promise<{ locale: Local
         kicker={tHero('kicker')}
         title={tHero('title')}
         subtitle={tHero('subtitle')}
-        primaryCta={{ label: tHero('ctaPrimary'), href: `/${locale}/contact` }}
-        secondaryCta={{ label: tHero('ctaSecondary'), href: `/${locale}/trainings` }}
+        primaryCta={{ label: tHero('cta'), href: `/${locale}/trainings` }}
       />
 
       <section id="trainings" className="border-border-subtle border-b px-6 py-20">

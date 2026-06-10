@@ -63,6 +63,12 @@ describe('<TrainingCard />', () => {
     expect(screen.getByTestId('book-advanced')).toHaveTextContent('Vraag training aan');
   });
 
+  it('pilot secondary contact link goes to plain contact (no pilot preselect)', () => {
+    renderCard('pilot');
+    const link = screen.getByTestId('book-pilot-contact');
+    expect(link).toHaveAttribute('href', '/nl/contact');
+  });
+
   it('renders the English request label for non-pilot in the en locale', () => {
     render(
       <NextIntlClientProvider locale="en" messages={en}>

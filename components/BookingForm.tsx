@@ -120,11 +120,7 @@ export function BookingForm({ locale }: { locale: string }) {
       </Button>
 
       <p className="text-text-muted text-sm">
-        <a
-          href={`/${locale}/contact?training=pilot`}
-          className="underline"
-          data-testid="booking-contact-link"
-        >
+        <a href={`/${locale}/contact`} className="underline" data-testid="booking-contact-link">
           {t('contactLink')}
         </a>
       </p>
