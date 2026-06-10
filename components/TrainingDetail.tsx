@@ -187,7 +187,7 @@ export function TrainingDetail({ trainingId, locale }: { trainingId: TrainingId;
               }
               data-testid={`book-training-${trainingId}`}
             >
-              {tCommon('bookCta')}
+              {tCommon(isPilot ? 'bookCta' : 'requestCta')}
             </Button>
             {isPilot && (
               <a

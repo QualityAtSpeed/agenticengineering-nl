@@ -64,6 +64,7 @@ Editing checklist:
 - New news article → create `news/<slug>.md` with required frontmatter (see below). Run `pnpm article:image <source-url> <slug>` to fetch and save the OG image before committing.
 - Pre-commit `lefthook` hook runs `format`, `lint`, and `readme-check` (validates README stays in sync; requires `claude` CLI + `ANTHROPIC_API_KEY`). Don't bypass with `--no-verify` unless you're fixing the hook itself.
 - Editing the pilot training requires keeping the booking-page CTA (`/trainings/pilot/book`) and the secondary contact link in sync in both `TrainingCard.tsx` and `TrainingDetail.tsx`.
+- The primary CTA label is conditional in both components (`isPilot ? 'bookCta' : 'requestCta'`): the pilot shows `trainings.labels.bookCta` ("Book training" / "Boek training"), basic and advanced show `trainings.labels.requestCta` ("Request training" / "Vraag training aan").
 
 ### News article frontmatter
 
