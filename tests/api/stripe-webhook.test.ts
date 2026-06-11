@@ -44,6 +44,7 @@ function signed(body: string) {
 
 beforeEach(() => {
   vi.clearAllMocks();
+  vi.unstubAllEnvs();
   __resetWebhookDedupeForTests();
   process.env.STRIPE_SECRET_KEY = 'sk_test_123';
   process.env.STRIPE_WEBHOOK_SECRET = SECRET;
@@ -53,7 +54,8 @@ beforeEach(() => {
 });
 
 describe('POST /api/stripe/webhook', () => {
-  it('200 + fires both emails on a valid completed event', async () => {
+  it('200 + fires both emails on a valid completed event in production', async () => {
+    vi.stubEnv('VERCEL_ENV', 'production');
     const res = await POST(signed(eventBody('evt_1')));
     expect(res.status).toBe(200);
     expect(confirmMock).toHaveBeenCalledTimes(1);
@@ -63,6 +65,14 @@ describe('POST /api/stripe/webhook', () => {
     expect(detail.grossCents).toBe(84458);
     expect(detail.attendees).toHaveLength(2);
     expect(detail.attendees[1]).toEqual({ name: 'Sam', email: 'sam@example.com' });
+  });
+
+  it('skips the operator notification outside production (preview/dev)', async () => {
+    vi.stubEnv('VERCEL_ENV', 'preview');
+    const res = await POST(signed(eventBody('evt_preview')));
+    expect(res.status).toBe(200);
+    expect(confirmMock).toHaveBeenCalledTimes(1);
+    expect(notifyMock).not.toHaveBeenCalled();
   });
 
   it('is idempotent — a redelivered event id does not resend', async () => {
