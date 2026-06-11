@@ -35,8 +35,6 @@ jobs:
           DEPLOY_URL: ${{ github.event.deployment_status.environment_url }}
           VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }}
           # Previews sit behind Vercel Deployment Protection (401 for external callers).
-          # Stripe can't send custom headers, but the bypass token may ride along as a
-          # query param — so it becomes part of the registered webhook URL.
           BYPASS: ${{ secrets.VERCEL_AUTOMATION_BYPASS_SECRET }}
         run: |
           HOST="${DEPLOY_URL#https://}"
