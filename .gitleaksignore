@@ -1,0 +1,9 @@
+# Valse-positieven van gitleaks' curl-auth-user-regel: de geflagde regels gebruikten
+# `curl -u "$STRIPE_KEY:"` met een env-var-referentie, nooit een letterlijk secret.
+# De werkboom is sindsdien omgezet naar Authorization-Bearer-headers (commit "remove
+# secrets from workflow"), maar gitleaks scant de PR-historie — deze fingerprints
+# wijzen naar de inmiddels herschreven regels in de historische commit c08c6e1.
+c08c6e1f8e397f342e4f97ecb236abd2b7eb16df:.github/workflows/preview-teardown.yml:curl-auth-user:49
+c08c6e1f8e397f342e4f97ecb236abd2b7eb16df:.github/workflows/preview-teardown.yml:curl-auth-user:58
+c08c6e1f8e397f342e4f97ecb236abd2b7eb16df:.github/workflows/stripe-preview.yml:curl-auth-user:63
+c08c6e1f8e397f342e4f97ecb236abd2b7eb16df:.github/workflows/stripe-preview.yml:curl-auth-user:71
