@@ -34,6 +34,10 @@ jobs:
         env:
           DEPLOY_URL: ${{ github.event.deployment_status.environment_url }}
           VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }}
+          # Previews sit behind Vercel Deployment Protection (401 for external callers).
+          # Stripe can't send custom headers, but the bypass token may ride along as a
+          # query param — so it becomes part of the registered webhook URL.
+          BYPASS: ${{ secrets.VERCEL_AUTOMATION_BYPASS_SECRET }}
         run: |
           HOST="${DEPLOY_URL#https://}"
           DEPLOYMENT=$(curl -sf "https://api.vercel.com/v13/deployments/get?url=$HOST" \
@@ -51,10 +55,17 @@ jobs:
           echo "branch=$BRANCH" >> "$GITHUB_OUTPUT"
           echo "deploy_id=$DEPLOY_ID" >> "$GITHUB_OUTPUT"
           echo "project_name=$PROJECT_NAME" >> "$GITHUB_OUTPUT"
-          echo "webhook_url=https://$GIT_ALIAS/api/stripe/webhook" >> "$GITHUB_OUTPUT"
+          WEBHOOK_URL="https://$GIT_ALIAS/api/stripe/webhook"
+          if [ -n "$BYPASS" ]; then
+              WEBHOOK_URL="$WEBHOOK_URL?x-vercel-protection-bypass=$BYPASS"
+          else
+            echo "::warning::VERCEL_AUTOMATION_BYPASS_SECRET not set — Stripe deliveries will hit Vercel's 401 if Deployment Protection is on."
+          fi
+          echo "webhook_url=$WEBHOOK_URL" >> "$GITHUB_OUTPUT"
 
       - name: Ensure Stripe webhook endpoint for this branch
         id: stripe
+
         if: steps.meta.outputs.skip != 'true'
         env:
           STRIPE_KEY: ${{ secrets.STRIPE_PREVIEW_KEY }}

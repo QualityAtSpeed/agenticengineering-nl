@@ -281,6 +281,10 @@ Previews all share **one Stripe sandbox** (sandboxes are Dashboard-only, no crea
 
 One-time setup: the preview sandbox's `STRIPE_SECRET_KEY` on Vercel's Preview environment, and a GitHub secret `STRIPE_PREVIEW_KEY` (restricted key from that sandbox, permission "Webhook Endpoints: Write"). `VERCEL_TOKEN`/`VERCEL_PROJECT_ID` already exist for teardown. Preview bookings share the sandbox's data — use the webhook endpoint description (contains the branch) to tell PRs apart in the Dashboard.
 
+Because previews sit behind Vercel
+
+**Deployment Protection**, external callers (Stripe) get a 401 unless they carry the bypass token. Stripe can't send custom headers, so the workflow appends `?x-vercel-protection-bypass=…` to the registered webhook URL — this requires the GitHub secret `VERCEL_AUTOMATION_BYPASS_SECRET` (Vercel → project → Settings → Deployment Protection → Protection Bypass for Automation). Without it the workflow warns and Stripe deliveries will 401.
+
 ## Security headers
 
 Set in `next.config.ts`. Apply only in production (dev keeps relaxed for local tooling).
