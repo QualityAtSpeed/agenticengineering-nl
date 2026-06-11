@@ -52,16 +52,18 @@ jobs:
             echo "skip=true" >> "$GITHUB_OUTPUT"
             exit 0
           fi
-          echo "branch=$BRANCH" >> "$GITHUB_OUTPUT"
-          echo "deploy_id=$DEPLOY_ID" >> "$GITHUB_OUTPUT"
-          echo "project_name=$PROJECT_NAME" >> "$GITHUB_OUTPUT"
           WEBHOOK_URL="https://$GIT_ALIAS/api/stripe/webhook"
           if [ -n "$BYPASS" ]; then
               WEBHOOK_URL="$WEBHOOK_URL?x-vercel-protection-bypass=$BYPASS"
           else
             echo "::warning::VERCEL_AUTOMATION_BYPASS_SECRET not set — Stripe deliveries will hit Vercel's 401 if Deployment Protection is on."
           fi
-          echo "webhook_url=$WEBHOOK_URL" >> "$GITHUB_OUTPUT"
+          {
+            echo "branch=$BRANCH"
+           echo "deploy_id=$DEPLOY_ID"
+           echo "project_name=$PROJECT_NAME"
+                       echo "webhook_url=$WEBHOOK_URL"
+          } >> "$GITHUB_OUTPUT"
 
       - name: Ensure Stripe webhook endpoint for this branch
         id: stripe
@@ -72,7 +74,7 @@ jobs:
           WEBHOOK_URL: ${{ steps.meta.outputs.webhook_url }}
         run: |
           EXISTING=$(curl -sf "https://api.stripe.com/v1/webhook_endpoints?limit=100" \
-            -u "$STRIPE_KEY:" | jq -r --arg url "$WEBHOOK_URL" \
+            -H "Authorization: Bearer $STRIPE_KEY" | jq -r --arg url "$WEBHOOK_URL" \
             '[.data[] | select(.url == $url)] | first | .id // empty')
           if [ -n "$EXISTING" ]; then
             echo "Endpoint $EXISTING already registered for $WEBHOOK_URL — nothing to do."
@@ -80,7 +82,7 @@ jobs:
             exit 0
           fi
           CREATED=$(curl -sf "https://api.stripe.com/v1/webhook_endpoints" \
-            -u "$STRIPE_KEY:" \
+            -H "Authorization: Bearer $STRIPE_KEY" \
             -d "url=$WEBHOOK_URL" \
             -d "enabled_events[]=checkout.session.completed" \
             -d "description=preview ${{ steps.meta.outputs.branch }} (auto, stripe-preview.yml)")

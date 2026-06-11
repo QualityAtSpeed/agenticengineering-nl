@@ -46,7 +46,7 @@ jobs:
           # the description we set at create time (contains the branch name) OR
           # any -git-<slugged-branch>- alias URL, then delete.
           SLUG=$(echo "$BRANCH" | tr '[:upper:]' '[:lower:]' | sed 's/[^a-z0-9]/-/g')
-          IDS=$(curl -sf "https://api.stripe.com/v1/webhook_endpoints?limit=100" -u "$STRIPE_KEY:" \
+          IDS=$(curl -sf "https://api.stripe.com/v1/webhook_endpoints?limit=100" -H "Authorization: Bearer $STRIPE_KEY" \
             | jq -r --arg b "preview $BRANCH (auto, stripe-preview.yml)" --arg slug "-git-$SLUG" \
               '.data[] | select(.description == $b or (.url | contains($slug))) | .id')
           if [ -z "$IDS" ]; then
@@ -55,7 +55,7 @@ jobs:
           fi
           for ID in $IDS; do
             echo "Deleting Stripe webhook endpoint $ID"
-            curl -sf --request DELETE "https://api.stripe.com/v1/webhook_endpoints/$ID" -u "$STRIPE_KEY:" >/dev/null
+            curl -sf --request DELETE "https://api.stripe.com/v1/webhook_endpoints/$ID" -H "Authorization: Bearer $STRIPE_KEY" >/dev/null
           done
 
       - name: Delete branch-scoped STRIPE_WEBHOOK_SECRET from Vercel
