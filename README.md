@@ -272,6 +272,15 @@ The two email sends use distinct error handling to prevent duplicate customer co
 - **Customer confirmation** is critical: if it throws, the event id is un-marked and the webhook returns 500, allowing Stripe to retry. Because the confirmation never sent, the retry is safe (no duplicate).
 - **Internal notification** is best-effort and **production-only**: it is gated on `VERCEL_ENV === 'production'`, so preview/dev submissions skip the operator email entirely. In production it is sent to the configured `CONTACT_EMAIL` (TO) address; if it throws, the error is logged and the webhook still returns 200. The event id stays marked, so no Stripe retry occurs and the customer never receives a duplicate confirmation. A missed notification is acceptable because the booking is visible in the Stripe Dashboard.
 
+### Stripe on preview deployments
+
+Previews all share **one Stripe sandbox** (sandboxes are Dashboard-only, no create API), but every PR branch gets its **own webhook endpoint + secret**, fully automated:
+
+- `stripe-preview.yml` (on `deployment_status`, non-production): resolves the deployment's stable `-git-` branch alias via the Vercel API, registers a Stripe webhook endpoint on `https://<alias>/api/stripe/webhook` if missing, stores the returned `whsec_` as a **branch-scoped** `STRIPE_WEBHOOK_SECRET` (target `preview`) and redeploys once. Subsequent pushes hit the endpoint-exists fast path.
+- `preview-teardown.yml` (on PR close) also deletes the branch's Stripe webhook endpoint and the branch-scoped env, keeping Stripe's 16-endpoints-per-account limit clear.
+
+One-time setup: the preview sandbox's `STRIPE_SECRET_KEY` on Vercel's Preview environment, and a GitHub secret `STRIPE_PREVIEW_KEY` (restricted key from that sandbox, permission "Webhook Endpoints: Write"). `VERCEL_TOKEN`/`VERCEL_PROJECT_ID` already exist for teardown. Preview bookings share the sandbox's data — use the webhook endpoint description (contains the branch) to tell PRs apart in the Dashboard.
+
 ## Security headers
 
 Set in `next.config.ts`. Apply only in production (dev keeps relaxed for local tooling).
