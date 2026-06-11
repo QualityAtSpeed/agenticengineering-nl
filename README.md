@@ -262,7 +262,7 @@ Stripe → POST /api/stripe/webhook → app/api/stripe/webhook/route.ts
                 ├─ Signature verification (STRIPE_WEBHOOK_SECRET)
                 └─ checkout.session.completed
                                    ├─ Resend confirmation email to customer  ← critical
-                                   └─ Resend notification to operator        ← best-effort
+                                   └─ Resend notification to operator        ← best-effort, production-only
 ```
 
 Fulfillment happens on the webhook (`checkout.session.completed`), never on the success redirect. The success page (`/[locale]/trainings/pilot/book/success`) is purely cosmetic — it cannot be trusted as proof of payment.
@@ -270,7 +270,7 @@ Fulfillment happens on the webhook (`checkout.session.completed`), never on the 
 The two email sends use distinct error handling to prevent duplicate customer confirmations:
 
 - **Customer confirmation** is critical: if it throws, the event id is un-marked and the webhook returns 500, allowing Stripe to retry. Because the confirmation never sent, the retry is safe (no duplicate).
-- **Internal notification** is best-effort: if it throws, the error is logged and the webhook still returns 200. The event id stays marked, so no Stripe retry occurs and the customer never receives a duplicate confirmation. A missed notification is acceptable because the booking is visible in the Stripe Dashboard.
+- **Internal notification** is best-effort and **production-only**: it is gated on `VERCEL_ENV === 'production'`, so preview/dev submissions skip the operator email entirely. In production it is sent to the configured `CONTACT_EMAIL` (TO) address; if it throws, the error is logged and the webhook still returns 200. The event id stays marked, so no Stripe retry occurs and the customer never receives a duplicate confirmation. A missed notification is acceptable because the booking is visible in the Stripe Dashboard.
 
 ## Security headers
 
