@@ -51,4 +51,13 @@ describe('<ContactForm />', () => {
       expect(screen.getByText(/Er ging iets mis/)).toBeInTheDocument();
     });
   });
+
+  it('does not offer the pilot as training interest (pilot books via the booking page)', () => {
+    renderForm();
+    const select = screen.getByTestId('contact-training-interest');
+    const values = Array.from(select.querySelectorAll('option')).map((o) =>
+      o.getAttribute('value'),
+    );
+    expect(values).toEqual(['basic', 'advanced', 'other']);
+  });
 });

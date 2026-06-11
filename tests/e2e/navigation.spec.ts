@@ -5,28 +5,25 @@ import type { Locale } from './pages/home-page';
 const locales: Locale[] = ['nl', 'en'];
 
 for (const locale of locales) {
-  test(`${locale} hero secondary CTA navigates to trainings (no 404)`, async ({ page }) => {
+  test(`${locale} hero primary CTA navigates to trainings (no 404)`, async ({ page }) => {
     const home = new HomePage(page, locale);
     await home.goto();
 
     // Guard against regression: the link must point at the plural route.
-    await expect(home.heroSecondaryCta).toHaveAttribute('href', `/${locale}/trainings`);
+    await expect(home.heroPrimaryCta).toHaveAttribute('href', `/${locale}/trainings`);
 
-    await home.heroSecondaryCta.click();
+    await home.heroPrimaryCta.click();
 
     await expect(page).toHaveURL(new RegExp(`/${locale}/trainings$`));
     await expect(page.getByRole('heading', { level: 1 })).toBeVisible();
   });
 
-  test(`${locale} hero primary CTA navigates to contact`, async ({ page }) => {
+  test(`${locale} hero has no secondary (book) CTA anymore`, async ({ page }) => {
     const home = new HomePage(page, locale);
     await home.goto();
 
-    await expect(home.heroPrimaryCta).toHaveAttribute('href', `/${locale}/contact`);
-
-    await home.heroPrimaryCta.click();
-
-    await expect(page).toHaveURL(new RegExp(`/${locale}/contact$`));
-    await expect(page.getByRole('heading', { level: 1 })).toBeVisible();
+    // The old "Boek training" header CTA is gone; trainings is the only hero CTA.
+    await expect(home.heroPrimaryCta).toBeVisible();
+    await expect(home.heroSecondaryCta).toHaveCount(0);
   });
 }

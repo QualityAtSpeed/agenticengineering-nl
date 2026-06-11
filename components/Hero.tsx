@@ -5,7 +5,7 @@ type HeroProps = {
   title: string;
   subtitle: string;
   primaryCta: { label: string; href: string };
-  secondaryCta: { label: string; href: string };
+  secondaryCta?: { label: string; href: string };
 };
 
 const ArrowIcon = () => (
@@ -46,10 +46,12 @@ export function Hero({ kicker, title, subtitle, primaryCta, secondaryCta }: Hero
             {primaryCta.label}
             <ArrowIcon />
           </Button>
-          <Button variant="secondary" href={secondaryCta.href} data-testid="hero-cta-secondary">
-            {secondaryCta.label}
-            <ArrowIcon />
-          </Button>
+          {secondaryCta && (
+            <Button variant="secondary" href={secondaryCta.href} data-testid="hero-cta-secondary">
+              {secondaryCta.label}
+              <ArrowIcon />
+            </Button>
+          )}
         </div>
       </div>
     </section>

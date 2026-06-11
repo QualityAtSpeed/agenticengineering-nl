@@ -18,8 +18,7 @@
     "kicker": "AGENTIC AI QUALITY ENGINEERING · NL",
     "title": "Train je team in agentic AI quality engineering.",
     "subtitle": "Twee praktijkgerichte trainingen in Claude Code. Twee dagen basis + kwaliteitsloop, één dag rollout + governance.",
-    "ctaPrimary": "Boek training",
-    "ctaSecondary": "Bekijk trainingen"
+    "cta": "Bekijk trainingen"
   },
   "trainings": {
     "sectionTitle": "Trainingen",
@@ -357,7 +356,6 @@
       "company": "Bedrijf (optioneel)",
       "trainingInterest": "Interesse in welke training",
       "trainingOptions": {
-        "pilot": "Pilot - Basic Training (2 dagen, gereduceerde prijs)",
         "basic": "Basic (2 dagen)",
         "advanced": "Advanced (1 dag)",
         "other": "Anders"
@@ -427,7 +425,7 @@
     "finalCta": {
       "title": "Klaar om je team op te leiden?",
       "body": "Plan een kennismaking. We reageren binnen 1 werkdag.",
-      "cta": "Boek training"
+      "cta": "Neem contact op"
     }
   }
 }

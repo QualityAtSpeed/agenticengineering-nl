@@ -191,7 +191,7 @@ export function TrainingDetail({ trainingId, locale }: { trainingId: TrainingId;
             </Button>
             {isPilot && (
               <a
-                href={`/${locale}/contact?training=pilot`}
+                href={`/${locale}/contact`}
                 data-testid="book-training-pilot-contact"
                 className="text-text-muted text-xs underline"
               >

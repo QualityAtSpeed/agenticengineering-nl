@@ -153,7 +153,7 @@ export function TrainingCard({ trainingId, locale }: { trainingId: TrainingId; l
         </Button>
         {isPilot && (
           <a
-            href={`/${locale}/contact?training=pilot`}
+            href={`/${locale}/contact`}
             data-testid="book-pilot-contact"
             className="text-text-muted mt-2 block text-center text-xs underline"
           >
