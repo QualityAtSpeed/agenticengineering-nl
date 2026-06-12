@@ -15,6 +15,15 @@ export async function Footer({ locale }: { locale: Locale }) {
             agentic·engineering
           </div>
           <p className="text-text-muted mt-3 text-sm">{t('tagline')}</p>
+          <p className="text-text-muted mt-2 text-sm">
+            <a
+              href={`https://qualityatspeed.nl/${locale}`}
+              data-testid="footer-qas"
+              className="hover:text-brand underline"
+            >
+              {t('qasAttribution')}
+            </a>
+          </p>
         </div>
         <div>
           <p className="text-text-muted text-xs font-bold tracking-wider uppercase">
