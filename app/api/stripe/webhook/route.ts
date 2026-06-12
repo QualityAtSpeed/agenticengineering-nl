@@ -62,7 +62,7 @@ export async function POST(req: Request) {
 
   // Internal notification is best-effort: a failure must not trigger a retry,
   // which would re-send the customer confirmation above.
-  // non production will not send a notification to hello@
+  // non production will not send a notification to CONTACT_EMAIL
   if (process.env.VERCEL_ENV === 'production') {
     try {
       await sendBookingNotification(detail);

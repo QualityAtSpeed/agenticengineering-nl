@@ -20,8 +20,15 @@ name: Stripe Preview Webhook
 on:
   deployment_status:
 
+permissions: {}
+
+concurrency:
+  group: stripe-preview-${{ github.event.deployment.environment }}
+  cancel-in-progress: false
+
 jobs:
   webhook:
+
     if: >-
       github.event.deployment_status.state == 'success'
       && github.event.deployment.environment != 'Production'
@@ -56,6 +63,7 @@ jobs:
           else
             echo "::warning::VERCEL_AUTOMATION_BYPASS_SECRET not set — Stripe deliveries will hit Vercel's 401 if Deployment Protection is on."
           fi
+          
           {
             echo "branch=$BRANCH"
            echo "deploy_id=$DEPLOY_ID"

@@ -1,6 +1,6 @@
-# False positives since gitleaks flags -u lines. However these are a env-var-reference never a real secret. 
+# False positives since gitleaks flags -u lines. However these are a env-var-reference never a real secret.
 # `curl -u "$STRIPE_KEY:"`
-# commits point to already rewritten lines 
+# commits point to already rewritten lines
 Valse-positieven van gitleaks' curl-auth-user-regel: de geflagde regels gebruikten
 c08c6e1f8e397f342e4f97ecb236abd2b7eb16df:.github/workflows/preview-teardown.yml:curl-auth-user:49
 c08c6e1f8e397f342e4f97ecb236abd2b7eb16df:.github/workflows/preview-teardown.yml:curl-auth-user:58
