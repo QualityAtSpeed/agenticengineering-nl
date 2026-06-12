@@ -1,0 +1,8 @@
+# False positives from gitleaks' curl-auth-user rule: the flagged lines used
+# `curl -u "$STRIPE_KEY:"` — an env-var reference, never a literal secret.
+# The fingerprints point at commit c08c6e1, whose workflows were later rewritten
+# to Bearer-header auth and ultimately removed; PR history keeps the old lines.
+c08c6e1f8e397f342e4f97ecb236abd2b7eb16df:.github/workflows/preview-teardown.yml:curl-auth-user:49
+c08c6e1f8e397f342e4f97ecb236abd2b7eb16df:.github/workflows/preview-teardown.yml:curl-auth-user:58
+c08c6e1f8e397f342e4f97ecb236abd2b7eb16df:.github/workflows/stripe-preview.yml:curl-auth-user:63
+c08c6e1f8e397f342e4f97ecb236abd2b7eb16df:.github/workflows/stripe-preview.yml:curl-auth-user:71

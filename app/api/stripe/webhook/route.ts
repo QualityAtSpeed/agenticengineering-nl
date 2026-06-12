@@ -62,12 +62,14 @@ export async function POST(req: Request) {
 
   // Internal notification is best-effort: a failure must not trigger a retry,
   // which would re-send the customer confirmation above.
-  try {
-    await sendBookingNotification(detail);
-  } catch {
-    console.error('webhook_notification_failed', event.id);
+  // non production will not send a notification to CONTACT_EMAIL
+  if (process.env.VERCEL_ENV === 'production') {
+    try {
+      await sendBookingNotification(detail);
+    } catch {
+      console.error('webhook_notification_failed', event.id);
+    }
   }
-
   return NextResponse.json({ received: true }, { status: 200 });
 }
 

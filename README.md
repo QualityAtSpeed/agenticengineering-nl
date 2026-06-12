@@ -262,7 +262,7 @@ Stripe → POST /api/stripe/webhook → app/api/stripe/webhook/route.ts
                 ├─ Signature verification (STRIPE_WEBHOOK_SECRET)
                 └─ checkout.session.completed
                                    ├─ Resend confirmation email to customer  ← critical
-                                   └─ Resend notification to operator        ← best-effort
+                                   └─ Resend notification to operator        ← best-effort, production-only
 ```
 
 Fulfillment happens on the webhook (`checkout.session.completed`), never on the success redirect. The success page (`/[locale]/trainings/pilot/book/success`) is purely cosmetic — it cannot be trusted as proof of payment.
@@ -270,7 +270,17 @@ Fulfillment happens on the webhook (`checkout.session.completed`), never on the 
 The two email sends use distinct error handling to prevent duplicate customer confirmations:
 
 - **Customer confirmation** is critical: if it throws, the event id is un-marked and the webhook returns 500, allowing Stripe to retry. Because the confirmation never sent, the retry is safe (no duplicate).
-- **Internal notification** is best-effort: if it throws, the error is logged and the webhook still returns 200. The event id stays marked, so no Stripe retry occurs and the customer never receives a duplicate confirmation. A missed notification is acceptable because the booking is visible in the Stripe Dashboard.
+- **Internal notification** is best-effort and **production-only**: it is gated on `VERCEL_ENV === 'production'`, so preview/dev submissions skip the operator email entirely. In production it is sent to the configured `CONTACT_EMAIL` (TO) address; if it throws, the error is logged and the webhook still returns 200. The event id stays marked, so no Stripe retry occurs and the customer never receives a duplicate confirmation. A missed notification is acceptable because the booking is visible in the Stripe Dashboard.
+
+### Stripe on preview deployments
+
+Payment testing happens on **one designated preview environment**: the `preview` branch. All previews share one Stripe sandbox (sandboxes are Dashboard-only, no create API); only the designated branch has a working webhook:
+
+- The sandbox holds **one manually created webhook endpoint** pointing at the `preview` branch's stable URL (`/api/stripe/webhook`); its `whsec_` lives in Vercel as `STRIPE_WEBHOOK_SECRET` on the Preview environment. Set up once in the Stripe + Vercel dashboards, then left alone.
+- The sandbox's `STRIPE_SECRET_KEY` is on Vercel's Preview environment, so **every** PR preview has a working checkout redirect — but only bookings made on the designated `preview` branch get webhook fulfillment (confirmation email). That's the payment-test environment.
+- Because previews sit behind Vercel **Deployment Protection**, external callers (Stripe) get a 401 unless the registered webhook URL carries the bypass token (`?x-vercel-protection-bypass=…`, from Vercel → Settings → Deployment Protection → Protection Bypass for Automation) — unless the designated domain is excluded from protection.
+
+An earlier iteration auto-provisioned a webhook endpoint + branch-scoped secret per PR branch via a `stripe-preview.yml` workflow; it was removed in favour of this simpler designated-environment setup (the automation had non-atomic provisioning and cleanup edge cases — see PR #74).
 
 ## Security headers
 
