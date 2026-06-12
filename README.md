@@ -274,14 +274,13 @@ The two email sends use distinct error handling to prevent duplicate customer co
 
 ### Stripe on preview deployments
 
-Previews all share **one Stripe sandbox** (sandboxes are Dashboard-only, no create API), but every PR branch gets its **own webhook endpoint + secret**, fully automated:
+Payment testing happens on **one designated preview environment**: the `preview` branch. All previews share one Stripe sandbox (sandboxes are Dashboard-only, no create API); only the designated branch has a working webhook:
 
-- `stripe-preview.yml` (on `deployment_status`, non-production): resolves the deployment's stable `-git-` branch alias via the Vercel API, registers a Stripe webhook endpoint on `https://<alias>/api/stripe/webhook` if missing, stores the returned `whsec_` as a **branch-scoped** `STRIPE_WEBHOOK_SECRET` (target `preview`) and redeploys once. Subsequent pushes hit the endpoint-exists fast path.
-- `preview-teardown.yml` (on PR close) also deletes the branch's Stripe webhook endpoint and the branch-scoped env, keeping Stripe's 16-endpoints-per-account limit clear.
+- The sandbox holds **one manually created webhook endpoint** pointing at the `preview` branch's stable URL (`/api/stripe/webhook`); its `whsec_` lives in Vercel as `STRIPE_WEBHOOK_SECRET` on the Preview environment. Set up once in the Stripe + Vercel dashboards, then left alone.
+- The sandbox's `STRIPE_SECRET_KEY` is on Vercel's Preview environment, so **every** PR preview has a working checkout redirect — but only bookings made on the designated `preview` branch get webhook fulfillment (confirmation email). That's the payment-test environment.
+- Because previews sit behind Vercel **Deployment Protection**, external callers (Stripe) get a 401 unless the registered webhook URL carries the bypass token (`?x-vercel-protection-bypass=…`, from Vercel → Settings → Deployment Protection → Protection Bypass for Automation) — unless the designated domain is excluded from protection.
 
-One-time setup: the preview sandbox's `STRIPE_SECRET_KEY` on Vercel's Preview environment, and a GitHub secret `STRIPE_PREVIEW_KEY` (restricted key from that sandbox, permission "Webhook Endpoints: Write"). `VERCEL_TOKEN`/`VERCEL_PROJECT_ID` already exist for teardown. Preview bookings share the sandbox's data — use the webhook endpoint description (contains the branch) to tell PRs apart in the Dashboard. Because previews sit behind Vercel
-
-**Deployment Protection**, external callers (Stripe) get a 401 unless they carry the bypass token. Stripe can't send custom headers, so the workflow appends `?x-vercel-protection-bypass=…` to the registered webhook URL — this requires the GitHub secret `VERCEL_AUTOMATION_BYPASS_SECRET` (Vercel → project → Settings → Deployment Protection → Protection Bypass for Automation). Without it the workflow warns and Stripe deliveries will 401.
+An earlier iteration auto-provisioned a webhook endpoint + branch-scoped secret per PR branch via a `stripe-preview.yml` workflow; it was removed in favour of this simpler designated-environment setup (the automation had non-atomic provisioning and cleanup edge cases — see PR #74).
 
 ## Security headers
 
