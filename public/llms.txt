@@ -1,0 +1,25 @@
+# agenticengineering.nl
+
+> Hands-on training in agentic AI quality engineering with Claude Code. Teams learn to build, test and ship features with AI agents — not by watching slides, but by shipping a working feature themselves. Bilingual (Dutch and English), run by Quality at Speed.
+
+agenticengineering.nl is an initiative of Quality at Speed. The site offers practitioner-led trainings and a curated news feed on agentic engineering.
+
+## Trainings
+
+- [Pilot — Basic Training](https://agenticengineering.nl/en/trainings/pilot): The Basic training as a one-time pilot. Two days, online, on June 29 and 30, 2026. Introductory price 349 EUR per person (ex VAT). Every attendee ships a working feature with Claude Code.
+- [Basic](https://agenticengineering.nl/en/trainings/basic): Two days of hands-on adoption. Every attendee ships a feature. 1399 EUR per person (ex VAT).
+- [Advanced](https://agenticengineering.nl/en/trainings/advanced): One day on scaling agentic AI quality engineering across teams, including rollout and governance. 999 EUR per person (ex VAT).
+
+Audience: developers, testers and DevOps engineers, plus managers who train alongside their team. Requirements: git experience, knowledge of one programming language, and Claude Code or OpenCode installed with a Claude Pro subscription.
+
+## How to book
+
+- [Book the pilot](https://agenticengineering.nl/en/trainings/pilot/book): direct online booking and payment for the June 2026 pilot.
+- [Contact](https://agenticengineering.nl/en/contact): request the Basic or Advanced training, or ask a question.
+
+## More
+
+- [Trainings overview](https://agenticengineering.nl/en/trainings)
+- [About](https://agenticengineering.nl/en/about)
+- [News and articles](https://agenticengineering.nl/en/articles)
+- [Nederlandse versie](https://agenticengineering.nl/nl)
