@@ -25,12 +25,23 @@ export type Module = { id: ModuleId; day?: 1 | 2 };
 
 export type TrainingId = 'basic' | 'advanced' | 'pilot';
 
+// Optional fixed schedule, in ISO 8601, for trainings that run on a known date.
+// Used only for machine-readable structured data (schema.org CourseInstance) —
+// the human-facing date still lives in the localized `name` string. Trainings
+// without a fixed date (basic/advanced) omit this.
+export type TrainingSchedule = {
+  startDate: string;
+  endDate: string;
+  courseMode: 'online';
+};
+
 export type Training = {
   id: TrainingId;
   durationDays: 1 | 2;
   priceEUR: number;
   modules: Module[];
   deliveryFormats: DeliveryFormat[];
+  schedule?: TrainingSchedule;
 };
 
 export const trainings: Record<TrainingId, Training> = {
@@ -38,6 +49,7 @@ export const trainings: Record<TrainingId, Training> = {
     id: 'pilot',
     durationDays: 2,
     priceEUR: 349,
+    schedule: { startDate: '2026-06-29', endDate: '2026-06-30', courseMode: 'online' },
     modules: [
       { id: 'agents-in-sdlc', day: 1 },
       { id: 'failure-modes-ai-code', day: 1 },

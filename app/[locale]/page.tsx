@@ -6,7 +6,7 @@ import { ProofStrip } from '@/components/ProofStrip';
 import { InstructorCard } from '@/components/InstructorCard';
 import { JsonLd } from '@/components/JsonLd';
 import { instructors } from '@/data/instructors';
-import { trainings } from '@/data/trainings';
+import { buildHomeJsonLd } from '@/lib/structured-data';
 import type { Locale } from '@/i18n/routing';
 
 export default async function Home({ params }: { params: Promise<{ locale: Locale }> }) {
@@ -18,32 +18,7 @@ export default async function Home({ params }: { params: Promise<{ locale: Local
 
   return (
     <main>
-      <JsonLd
-        data={{
-          '@context': 'https://schema.org',
-          '@graph': [
-            {
-              '@type': 'Organization',
-              name: 'agenticengineering.nl',
-              url: 'https://agenticengineering.nl',
-              sameAs: [
-                'https://github.com/QualityAtSpeed',
-                'https://linkedin.com/company/quality-speed-nl',
-              ],
-            },
-            ...Object.values(trainings).map((tr) => ({
-              '@type': 'Course',
-              name: `${tTrainings(`${tr.id}.name`)} - agentic engineering`,
-              provider: { '@type': 'Organization', name: 'agenticengineering.nl' },
-              offers: {
-                '@type': 'Offer',
-                priceCurrency: 'EUR',
-                price: tr.priceEUR,
-              },
-            })),
-          ],
-        }}
-      />
+      <JsonLd data={buildHomeJsonLd({ locale, trainingName: (id) => tTrainings(`${id}.name`) })} />
       <Hero
         kicker={tHero('kicker')}
         title={tHero('title')}

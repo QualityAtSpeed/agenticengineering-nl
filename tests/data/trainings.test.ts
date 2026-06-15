@@ -24,6 +24,16 @@ describe('trainings catalogue', () => {
     expect(basic.modules).toEqual(expected);
   });
 
+  it('only the pilot carries a fixed online schedule (ISO dates for structured data)', () => {
+    expect(trainings.pilot.schedule).toEqual({
+      startDate: '2026-06-29',
+      endDate: '2026-06-30',
+      courseMode: 'online',
+    });
+    expect(trainings.basic.schedule).toBeUndefined();
+    expect(trainings.advanced.schedule).toBeUndefined();
+  });
+
   it('Advanced is a 1-day training with 5 modules and no day tags', () => {
     const adv = trainings.advanced;
     expect(adv.durationDays).toBe(1);

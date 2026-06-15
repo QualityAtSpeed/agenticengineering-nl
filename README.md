@@ -57,7 +57,7 @@ Editing checklist:
 
 - UI/copy → read `PRODUCT.md` + `DESIGN.md` first.
 - New translation key → add to **both** `messages/nl.json` and `messages/en.json`; `pnpm verify:i18n` gates CI.
-- New training → add a `Training` entry in `data/trainings.ts` (typed: `id`, `durationDays`, `priceEUR`, `modules[]`, `deliveryFormats[]` — there is **no date field**) and add its copy keys to **both** `messages/{nl,en}.json` under `trainings.<id>` (`name`, `tagline`, `audience[]`, `prerequisites[]`, `outcomes[]`), plus `trainings.duration.<id>` and `trainings.cardMeta.<id>`. A scheduled date is **optional** and lives inside the `name` string in parentheses (e.g. `"Pilot - Basic Training (June 29th & 30th 2026)"` / `"... (29 en 30 juni 2026)"`) — localise it per file; omit the parens for trainings with no fixed date. New module IDs need a matching block under `modules.<module-id>` (`title`, `bullets[]`, `short`) in both files. Use kebab-case IDs; reuse existing module IDs where the content overlaps.
+- New training → add a `Training` entry in `data/trainings.ts` (typed: `id`, `durationDays`, `priceEUR`, `modules[]`, `deliveryFormats[]` — there is **no date field**) and add its copy keys to **both** `messages/{nl,en}.json` under `trainings.<id>` (`name`, `tagline`, `audience[]`, `prerequisites[]`, `outcomes[]`), plus `trainings.duration.<id>` and `trainings.cardMeta.<id>`. A scheduled date is **optional** and lives in two places: the human-facing date inside the `name` string in parentheses (e.g. `"Pilot - Basic Training (June 29th & 30th 2026)"` / `"... (29 en 30 juni 2026)"`, localised per file), and — for trainings that run on a known date — a machine-readable `schedule` field on the `Training` (ISO `startDate`/`endDate` + `courseMode: 'online'`). The `schedule` drives the schema.org `CourseInstance` in the structured data (`lib/structured-data.ts`); omit both for trainings with no fixed date. New module IDs need a matching block under `modules.<module-id>` (`title`, `bullets[]`, `short`) in both files. Use kebab-case IDs; reuse existing module IDs where the content overlaps.
 - Significant feature change (new/reworked training, etc.) → capture the design in a dated spec under `docs/superpowers/specs/<YYYY-MM-DD>-<slug>.md`.
 - New route → add it under `app/[locale]/`, give it a `generateMetadata` via `export const generateMetadata = metadataFor('/about', 'pages.about')` (the `metadataFor(path, key)` wrapper reads `meta.<key>.title`/`.description`, both locales). Pages with a dynamic param, non-`meta` namespace, or a composed title call `buildPageMetadata({ locale, path, title, description })` directly (see `app/[locale]/trainings/[trainingId]/page.tsx`). Add the path to `app/sitemap.ts` (the sitemap is an explicit `PATHS` list — training detail pages are derived from `data/trainings.ts`, other routes are listed by hand).
 - API/server logic → keep validation in `lib/validation.ts`, side effects in `lib/*`.
@@ -119,7 +119,8 @@ lib/
   pricing.ts           # VAT calculation + `priceWithVat` function
   stripe.ts            # Stripe client factory with memoization (getStripe, __resetStripeForTests)
   webhook-dedupe.ts    # Webhook event deduplication (markHandled, unmarkHandled, __resetWebhookDedupeForTests)
-  page-metadata.ts     # metadataFor(path, key) → generateMetadata wrapper for standard pages; buildPageMetadata({ locale, path, title, description }): Metadata — single source for per-page SEO (canonical, hreflang, OpenGraph)
+  structured-data.ts   # schema.org JSON-LD graph builder for the homepage (buildHomeJsonLd)
+  page-metadata.ts     # metadataFor(path, key) wrapper + buildPageMetadata({ locale, path, title, description }) — single source for per-page SEO (canonical, hreflang, OpenGraph)
 data/
   trainings.ts         # Training catalogue + modules (typed)
   instructors.ts       # Instructor profiles (typed)
@@ -151,12 +152,25 @@ Routes:
 
 - `/nl`, `/en` — locale-scoped pages
 - `/nl/about`, `/nl/contact`, `/nl/impressum` (and `/en/*`)
+- `/[locale]/trainings` — trainings overview
+- `/[locale]/trainings/[trainingId]` — training detail page
 - `/[locale]/trainings/pilot/book` — pilot booking form
 - `/[locale]/trainings/pilot/book/success` — post-payment UX
 - `POST /api/contact` — POST endpoint
 - `POST /api/checkout` — creates Stripe Checkout Session
 - `POST /api/stripe/webhook` — Stripe fulfillment webhook
 - `/sitemap.xml`, `/robots.txt`
+- `/llms.txt` — static machine-readable site summary for AI crawlers/assistants (`public/llms.txt`, hand-maintained; update prices/dates/links when trainings change)
+
+### Discoverability for AI assistants
+
+Assistants (ChatGPT, Claude) surface the site through their web-search tools, so discoverability rides on standard crawlability plus machine-readable facts:
+
+- `robots.txt` allows all user agents (GPTBot, ClaudeBot, OAI-SearchBot included).
+- `lib/structured-data.ts` builds the homepage schema.org graph: `Organization` + one `Course` per training, with a `CourseInstance` (online mode + ISO dates) for any training carrying a `schedule`. Keep this the single source — don't re-inline JSON-LD in pages.
+- `public/llms.txt` gives crawlers a concise overview with deep links.
+
+Out of scope for the repo (one-time, owner-side): submitting the sitemap to Bing Webmaster Tools (ChatGPT leans on Bing) and Google Search Console.
 
 ### Useful scripts
 
