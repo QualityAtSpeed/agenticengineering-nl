@@ -19,6 +19,7 @@ export async function generateMetadata({ params }: { params: Promise<{ locale: s
   const { locale } = await params;
   const t = await getTranslations({ locale, namespace: 'meta' });
   return {
+    metadataBase: new URL('https://agenticengineering.nl'),
     title: t('title'),
     description: t('description'),
     alternates: {

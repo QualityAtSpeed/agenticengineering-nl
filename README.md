@@ -59,7 +59,7 @@ Editing checklist:
 - New translation key → add to **both** `messages/nl.json` and `messages/en.json`; `pnpm verify:i18n` gates CI.
 - New training → add a `Training` entry in `data/trainings.ts` (typed: `id`, `durationDays`, `priceEUR`, `modules[]`, `deliveryFormats[]` — there is **no date field**) and add its copy keys to **both** `messages/{nl,en}.json` under `trainings.<id>` (`name`, `tagline`, `audience[]`, `prerequisites[]`, `outcomes[]`), plus `trainings.duration.<id>` and `trainings.cardMeta.<id>`. A scheduled date is **optional** and lives inside the `name` string in parentheses (e.g. `"Pilot - Basic Training (June 29th & 30th 2026)"` / `"... (29 en 30 juni 2026)"`) — localise it per file; omit the parens for trainings with no fixed date. New module IDs need a matching block under `modules.<module-id>` (`title`, `bullets[]`, `short`) in both files. Use kebab-case IDs; reuse existing module IDs where the content overlaps.
 - Significant feature change (new/reworked training, etc.) → capture the design in a dated spec under `docs/superpowers/specs/<YYYY-MM-DD>-<slug>.md`.
-- New route → add it under `app/[locale]/`; sitemap auto-picks it up.
+- New route → add it under `app/[locale]/`, give it a `generateMetadata` via `export const generateMetadata = metadataFor('/about', 'pages.about')` (the `metadataFor(path, key)` wrapper reads `meta.<key>.title`/`.description`, both locales). Pages with a dynamic param, non-`meta` namespace, or a composed title call `buildPageMetadata({ locale, path, title, description })` directly (see `app/[locale]/trainings/[trainingId]/page.tsx`). Add the path to `app/sitemap.ts` (the sitemap is an explicit `PATHS` list — training detail pages are derived from `data/trainings.ts`, other routes are listed by hand).
 - API/server logic → keep validation in `lib/validation.ts`, side effects in `lib/*`.
 - New news article → create `news/<slug>.md` with required frontmatter (see below). Run `pnpm article:image <source-url> <slug>` to fetch and save the OG image before committing.
 - Pre-commit `lefthook` hook runs `format`, `lint`, and `readme-check` (validates README stays in sync; requires `claude` CLI + `ANTHROPIC_API_KEY`). Don't bypass with `--no-verify` unless you're fixing the hook itself.
@@ -119,6 +119,7 @@ lib/
   pricing.ts           # VAT calculation + `priceWithVat` function
   stripe.ts            # Stripe client factory with memoization (getStripe, __resetStripeForTests)
   webhook-dedupe.ts    # Webhook event deduplication (markHandled, unmarkHandled, __resetWebhookDedupeForTests)
+  page-metadata.ts     # metadataFor(path, key) → generateMetadata wrapper for standard pages; buildPageMetadata({ locale, path, title, description }): Metadata — single source for per-page SEO (canonical, hreflang, OpenGraph)
 data/
   trainings.ts         # Training catalogue + modules (typed)
   instructors.ts       # Instructor profiles (typed)

@@ -3,7 +3,10 @@ import { TimelineEntryRow } from '@/components/TimelineEntry';
 import { ArticleFilterBar, type FilterType } from '@/components/ArticleFilterBar';
 import { getArticles } from '@/lib/articles';
 import { blogsEnabled } from '@/lib/flags';
+import { metadataFor } from '@/lib/page-metadata';
 import type { Locale } from '@/i18n/routing';
+
+export const generateMetadata = metadataFor('/articles', 'pages.articles');
 
 function normaliseType(raw: string | undefined): FilterType {
   if (raw === 'blog' || raw === 'article') return raw;

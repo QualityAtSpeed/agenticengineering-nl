@@ -2,6 +2,23 @@ import { setRequestLocale, getTranslations } from 'next-intl/server';
 import type { Locale } from '@/i18n/routing';
 import { TrainingId } from '@/data/trainings';
 import { TrainingDetail } from '@/components/TrainingDetail';
+import { buildPageMetadata } from '@/lib/page-metadata';
+
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ locale: Locale; trainingId: TrainingId }>;
+}) {
+  const { locale, trainingId } = await params;
+  const t = await getTranslations({ locale, namespace: 'trainings' });
+  // Per-training title/description from the catalogue copy — high-intent keywords.
+  return buildPageMetadata({
+    locale,
+    path: `/trainings/${trainingId}`,
+    title: `${t(`${trainingId}.name`)} · agentic engineering`,
+    description: t(`${trainingId}.tagline`),
+  });
+}
 
 export default async function TrainingDetailPage({
   params,

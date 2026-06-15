@@ -1,8 +1,18 @@
 import type { MetadataRoute } from 'next';
 import { routing } from '@/i18n/routing';
+import { trainings } from '@/data/trainings';
 
 const BASE = 'https://agenticengineering.nl';
-const PATHS = ['', '/about', '/articles', '/contact', '/impressum'] as const;
+// Training detail pages are conversion pages — they belong in the sitemap too.
+const PATHS = [
+  '',
+  '/about',
+  '/trainings',
+  '/articles',
+  '/contact',
+  '/impressum',
+  ...Object.keys(trainings).map((id) => `/trainings/${id}`),
+];
 
 export default function sitemap(): MetadataRoute.Sitemap {
   return PATHS.flatMap((p) =>
