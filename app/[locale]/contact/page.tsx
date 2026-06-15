@@ -1,11 +1,14 @@
 import { setRequestLocale, getTranslations } from 'next-intl/server';
 import { ContactForm } from '@/components/ContactForm';
+import { metadataFor } from '@/lib/page-metadata';
 import type { Locale } from '@/i18n/routing';
 
 type Props = {
   params: Promise<{ locale: Locale }>;
   searchParams: Promise<{ training?: 'basic' | 'advanced' }>;
 };
+
+export const generateMetadata = metadataFor('/contact', 'pages.contact');
 
 export default async function ContactPage({ params, searchParams }: Props) {
   const { locale } = await params;
