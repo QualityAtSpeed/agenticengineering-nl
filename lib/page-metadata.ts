@@ -1,5 +1,6 @@
 import type { Metadata } from 'next';
-import { routing } from '@/i18n/routing';
+import { Locale, routing } from '@/i18n/routing';
+import { getTranslations } from 'next-intl/server';
 
 const SITE = 'https://agenticengineering.nl';
 
@@ -32,5 +33,18 @@ export function buildPageMetadata({ locale, path, title, description }: Args): M
       locale: OG_LOCALE[locale] ?? locale,
       type: 'website',
     },
+  };
+}
+
+export function metadataFor(path: string, key: string) {
+  return async function generateMetadata({ params }: { params: Promise<{ locale: Locale }> }) {
+    const { locale } = await params;
+    const t = await getTranslations({ locale, namespace: 'meta' });
+    return buildPageMetadata({
+      locale,
+      path,
+      title: t(`${key}.title`),
+      description: t(`${key}.description`),
+    });
   };
 }

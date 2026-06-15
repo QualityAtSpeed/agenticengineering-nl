@@ -1,19 +1,10 @@
 import { setRequestLocale, getTranslations } from 'next-intl/server';
 import { InstructorCard } from '@/components/InstructorCard';
 import { instructors } from '@/data/instructors';
-import { buildPageMetadata } from '@/lib/page-metadata';
+import { metadataFor } from '@/lib/page-metadata';
 import type { Locale } from '@/i18n/routing';
 
-export async function generateMetadata({ params }: { params: Promise<{ locale: Locale }> }) {
-  const { locale } = await params;
-  const t = await getTranslations({ locale, namespace: 'meta' });
-  return buildPageMetadata({
-    locale,
-    path: '/about',
-    title: t('pages.about.title'),
-    description: t('pages.about.description'),
-  });
-}
+export const generateMetadata = metadataFor('/about', 'pages.about');
 
 export default async function About({ params }: { params: Promise<{ locale: Locale }> }) {
   const { locale } = await params;
