@@ -3,7 +3,19 @@ import { TimelineEntryRow } from '@/components/TimelineEntry';
 import { ArticleFilterBar, type FilterType } from '@/components/ArticleFilterBar';
 import { getArticles } from '@/lib/articles';
 import { blogsEnabled } from '@/lib/flags';
+import { buildPageMetadata } from '@/lib/page-metadata';
 import type { Locale } from '@/i18n/routing';
+
+export async function generateMetadata({ params }: { params: Promise<{ locale: Locale }> }) {
+  const { locale } = await params;
+  const t = await getTranslations({ locale, namespace: 'meta' });
+  return buildPageMetadata({
+    locale,
+    path: '/articles',
+    title: t('pages.articles.title'),
+    description: t('pages.articles.description'),
+  });
+}
 
 function normaliseType(raw: string | undefined): FilterType {
   if (raw === 'blog' || raw === 'article') return raw;

@@ -1,7 +1,25 @@
 {
   "meta": {
     "title": "agenticengineering.nl",
-    "description": "Agentic AI quality engineering trainingen met Claude Code."
+    "description": "Agentic AI quality engineering trainingen met Claude Code.",
+    "pages": {
+      "about": {
+        "title": "Over ons · agenticengineering.nl",
+        "description": "Wie we zijn en hoe we engineering-teams trainen in agentic AI quality engineering met Claude Code."
+      },
+      "contact": {
+        "title": "Contact · agenticengineering.nl",
+        "description": "Vraag een Basic- of Advanced-training aan, of stel je vraag over agentic engineering."
+      },
+      "trainings": {
+        "title": "Trainingen · agenticengineering.nl",
+        "description": "Hands-on trainingen in agentic engineering met Claude Code: Pilot, Basic en Advanced."
+      },
+      "articles": {
+        "title": "Artikelen · agenticengineering.nl",
+        "description": "Gecureerd nieuws en artikelen over agentic engineering, AI en quality engineering."
+      }
+    }
   },
   "nav": {
     "about": "Over ons",
