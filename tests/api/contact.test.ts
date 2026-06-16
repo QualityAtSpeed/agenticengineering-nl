@@ -2,12 +2,12 @@ import { describe, it, expect, vi, beforeEach } from 'vitest';
 
 vi.mock('@/lib/email', async () => {
   const actual = await vi.importActual<typeof import('@/lib/email')>('@/lib/email');
-  return { ...actual, sendContactEmail: vi.fn().mockResolvedValue({ id: 'mock' }) };
+  return { ...actual, sendContactRegistrationEmails: vi.fn().mockResolvedValue(undefined) };
 });
 
 import { POST } from '@/app/api/contact/route';
 import { __resetRateLimitForTests } from '@/lib/rate-limit';
-import { sendContactEmail } from '@/lib/email';
+import { sendContactRegistrationEmails } from '@/lib/email';
 
 const validBody = {
   name: 'Pascal',
@@ -44,7 +44,7 @@ describe('POST /api/contact', () => {
   it('200 on valid payload + sends email', async () => {
     const res = await POST(make(validBody));
     expect(res.status).toBe(200);
-    expect(sendContactEmail).toHaveBeenCalledTimes(1);
+    expect(sendContactRegistrationEmails).toHaveBeenCalledTimes(1);
   });
 
   it('400 on invalid payload', async () => {
@@ -62,7 +62,7 @@ describe('POST /api/contact', () => {
       vi.clearAllMocks();
       const res = await POST(make({ ...validBody, website }));
       expect(res.status).toBe(200);
-      expect(sendContactEmail).not.toHaveBeenCalled();
+      expect(sendContactRegistrationEmails).not.toHaveBeenCalled();
     }
   });
 
@@ -73,7 +73,9 @@ describe('POST /api/contact', () => {
   });
 
   it('502 on email error', async () => {
-    (sendContactEmail as ReturnType<typeof vi.fn>).mockRejectedValueOnce(new Error('boom'));
+    (sendContactRegistrationEmails as ReturnType<typeof vi.fn>).mockRejectedValueOnce(
+      new Error('boom'),
+    );
     const res = await POST(make(validBody));
     expect(res.status).toBe(502);
   });

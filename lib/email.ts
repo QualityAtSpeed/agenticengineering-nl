@@ -13,11 +13,9 @@ export class EmailError extends Error {
 }
 
 export async function sendContactEmail(input: ContactInput): Promise<{ id: string }> {
-  const apiKey = process.env.RESEND_API_KEY;
   const to = process.env.CONTACT_EMAIL;
-  const from = process.env.CONTACT_FROM_EMAIL;
-  if (!apiKey) throw new EmailError('RESEND_API_KEY missing');
-  if (!to || !from) throw new EmailError('CONTACT_EMAIL or CONTACT_FROM_EMAIL missing');
+  if (!to) throw new EmailError('CONTACT_EMAIL missing');
+  const { resend, from } = resendClient();
 
   const safeName = stripCRLF(input.name);
   const safeReplyTo = stripCRLF(input.email);
@@ -26,17 +24,19 @@ export async function sendContactEmail(input: ContactInput): Promise<{ id: strin
   const subject = stripCRLF(`[agenticengineering.nl] ${input.trainingInterest} — ${safeName}`);
 
   const text = [
+    'Nieuwe registratie / aanvraag:',
+    '',
     `Name: ${safeName}`,
     `Email: ${safeReplyTo}`,
     `Company: ${safeCompany || '—'}`,
     `Training interest: ${input.trainingInterest}`,
     `Delivery preference: ${input.deliveryPref}`,
+    `Questionnaire: automatisch verzonden naar ${safeReplyTo}`,
     '',
     'Message:',
     input.message,
   ].join('\n');
 
-  const resend = new Resend(apiKey);
   const result = await resend.emails.send({
     from,
     to,
@@ -48,6 +48,52 @@ export async function sendContactEmail(input: ContactInput): Promise<{ id: strin
     throw new EmailError(result.error?.message ?? 'unknown Resend error', result.error);
   }
   return { id: result.data.id };
+}
+
+export async function sendContactQuestionnaire(input: ContactInput): Promise<{ id: string }> {
+  const { resend, from } = resendClient();
+  const replyTo = process.env.CONTACT_EMAIL;
+  if (!replyTo) throw new EmailError('CONTACT_EMAIL missing');
+  const safeName = stripCRLF(input.name);
+  const to = stripCRLF(input.email);
+  const subject = stripCRLF('[agenticengineering.nl] Vragenlijst voor je training');
+  const text = [
+    `Hoi ${safeName},`,
+    '',
+    'Dank voor je registratie / aanvraag voor de Agentic Engineering training.',
+    'Kun je deze vragen beantwoorden? Dan kunnen we de training beter laten aansluiten op jou en je team.',
+    '',
+    '1. Voor hoeveel deelnemers is de training bedoeld?',
+    '2. Welke rollen zitten in de groep? Denk aan developers, QA, platform, product of management.',
+    '3. Hoeveel ervaring is er al met Claude Code, Cursor, GitHub Copilot of vergelijkbare tools?',
+    '4. Welke codebase, stack of workflow wil je vooral verbeteren?',
+    '5. Wat moet na de training concreet anders gaan in het werk?',
+    '6. Zijn er security-, compliance- of data-afspraken waar we rekening mee moeten houden?',
+    '7. Heeft je team voorkeur voor in-company, remote of een publieke cohort?',
+    '8. Welke periode of datum heeft je voorkeur?',
+    '',
+    'Je kunt gewoon op deze mail antwoorden.',
+    '',
+    'Groet,',
+    'Agentic Engineering',
+  ].join('\n');
+
+  const result = await resend.emails.send({
+    from,
+    to,
+    replyTo,
+    subject,
+    text,
+  });
+  if (result.error || !result.data?.id) {
+    throw new EmailError(result.error?.message ?? 'unknown Resend error', result.error);
+  }
+  return { id: result.data.id };
+}
+
+export async function sendContactRegistrationEmails(input: ContactInput): Promise<void> {
+  await sendContactEmail(input);
+  await sendContactQuestionnaire(input);
 }
 
 export type BookingDetails = {

@@ -1,6 +1,6 @@
 import { NextResponse } from 'next/server';
 import { contactSchema } from '@/lib/validation';
-import { sendContactEmail } from '@/lib/email';
+import { sendContactRegistrationEmails } from '@/lib/email';
 import { checkRateLimit } from '@/lib/rate-limit';
 import { isAllowedOrigin, clientIp } from '@/lib/http';
 
@@ -39,7 +39,7 @@ export async function POST(req: Request) {
   }
 
   try {
-    await sendContactEmail(parsed.data);
+    await sendContactRegistrationEmails(parsed.data);
     return NextResponse.json({ ok: true }, { status: 200 });
   } catch {
     console.error('contact_email_failed');

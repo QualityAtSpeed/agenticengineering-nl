@@ -109,7 +109,7 @@ components/            # Hero, Nav, Footer, TrainingCard, TrainingDetail, Contac
                        # ProofStrip, TimelineEntry, JsonLd, LangSwitcher, MobileMenu, …
 lib/
   validation.ts        # Zod schemas (contactSchema, bookingSchema, trainingInterestEnum, …)
-  email.ts             # Resend wrapper, sendContactEmail(), sendBookingConfirmation(), sendBookingNotification()
+  email.ts             # Resend wrapper (contact, questionnaire, booking confirmation/notification)
   rate-limit.ts        # Per-IP token bucket (in-memory; per-instance)
   http.ts              # HTTP utilities (isAllowedOrigin, clientIp for origin/IP validation)
   sanitize.ts          # CRLF strip for email headers
@@ -252,7 +252,9 @@ Browser → POST /api/contact → app/api/contact/route.ts
                 ├─ Per-IP rate-limit              → 429 if exceeded
                 ├─ Honeypot `website` field       → 200 silent-drop if set
                 ├─ Zod contactSchema validate     → 400 if invalid
-                └─ lib/email.ts → Resend.emails.send()
+                └─ lib/email.ts → sendContactRegistrationEmails()
+                                  ├─ sendContactEmail() → CONTACT_EMAIL operator overview
+                                  ├─ sendContactQuestionnaire() → registrant questionnaire
                                   ├─ EmailError → 502
                                   └─ ok → 200
 ```

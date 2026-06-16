@@ -1,5 +1,10 @@
 import { describe, it, expect, vi, beforeEach } from 'vitest';
-import { sendContactEmail, EmailError } from '@/lib/email';
+import {
+  sendContactEmail,
+  sendContactQuestionnaire,
+  sendContactRegistrationEmails,
+  EmailError,
+} from '@/lib/email';
 
 const sendMock = vi.fn();
 
@@ -38,6 +43,8 @@ describe('sendContactEmail', () => {
     expect(arg.to).toBe('hello@agenticengineering.nl');
     expect(arg.replyTo).toBe('pascal@example.com');
     expect(arg.subject).not.toMatch(/[\r\n]/);
+    expect(arg.text).toContain('Nieuwe registratie / aanvraag');
+    expect(arg.text).toContain('Questionnaire: automatisch verzonden');
   });
 
   it('throws EmailError on Resend error', async () => {
@@ -48,6 +55,30 @@ describe('sendContactEmail', () => {
   it('throws EmailError on missing RESEND_API_KEY', async () => {
     delete process.env.RESEND_API_KEY;
     await expect(sendContactEmail(payload)).rejects.toBeInstanceOf(EmailError);
+  });
+});
+
+describe('sendContactQuestionnaire', () => {
+  it('emails the registrant with intake questions', async () => {
+    sendMock.mockResolvedValue({ data: { id: 'q1' }, error: null });
+    await sendContactQuestionnaire(payload);
+    const arg = sendMock.mock.calls[0][0];
+    expect(arg.from).toBe('noreply@agenticengineering.nl');
+    expect(arg.to).toBe('pascal@example.com');
+    expect(arg.replyTo).toBe('hello@agenticengineering.nl');
+    expect(arg.subject).not.toMatch(/[\r\n]/);
+    expect(arg.text).toContain('Voor hoeveel deelnemers');
+    expect(arg.text).toContain('Je kunt gewoon op deze mail antwoorden.');
+  });
+});
+
+describe('sendContactRegistrationEmails', () => {
+  it('sends the operator overview and registrant questionnaire', async () => {
+    sendMock.mockResolvedValue({ data: { id: 'ok' }, error: null });
+    await sendContactRegistrationEmails(payload);
+    expect(sendMock).toHaveBeenCalledTimes(2);
+    expect(sendMock.mock.calls[0][0].to).toBe('hello@agenticengineering.nl');
+    expect(sendMock.mock.calls[1][0].to).toBe('pascal@example.com');
   });
 });
 
