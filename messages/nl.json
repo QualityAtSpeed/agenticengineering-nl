@@ -435,6 +435,16 @@
     "dark": "Donker",
     "system": "Systeem"
   },
+  "why": {
+    "title": "Waarom agentic engineering leren",
+    "tagline": "AI schaalt de breedte. Jij bepaalt de diepte.",
+    "paragraphs": [
+      "Het werk verschuift. De schaarse vaardigheid is niet langer zo snel mogelijk code typen, maar agents aansturen en hun werk verifiëren. Wie dat leert, dekt ineens veel meer grond af: veel bestanden tegelijk, de herhaalslagen, het saaie grondwerk en de tests die je anders blijft uitstellen. De tijd die je daarmee terugwint, gaat naar de vragen die er echt toe doen, en naar de diepgang die alleen een mens kan leveren.",
+      "Daar zit ook de eerlijke kant, en precies daarom is er training nodig en niet alleen toegang. Een agent klinkt even stellig als hij ernaast zit als wanneer hij gelijk heeft. \"Klaar\" is niet hetzelfde als \"bewezen\". En een agent met echte toegang heeft een echte impact als het misgaat. Het verschil tussen een agent die je vooruit helpt en een die schade aanricht is geen geluk, het is vakmanschap: goed afbakenen, grenzen instellen, en altijd verifiëren. Dat vakmanschap leer je hier.",
+      "Agents geven je daarvoor een gestructureerde manier van werken, een houvast in de wildgroei aan nieuwe AI-begrippen. Je hoeft niet elke term uit je hoofd te kennen. Je leert een aanpak die blijft staan terwijl de tools veranderen."
+    ],
+    "qe": "Voor quality engineers is dit een natuurlijke stap. Verificatie is jullie vak. In een wereld vol agents word je de laag die hun werk betrouwbaar inzetbaar maakt. Je rol verdwijnt niet, hij wordt de spil."
+  },
   "home": {
     "trainingsLede": "Twee trainingen, los of opeenvolgend. In-company of open inschrijving. Iedereen levert iets concreets op.",
     "instructorsTitle": "Wie geeft de training",

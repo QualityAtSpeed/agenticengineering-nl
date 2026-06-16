@@ -15,6 +15,8 @@ export default async function Home({ params }: { params: Promise<{ locale: Local
   const tHero = await getTranslations('hero');
   const tTrainings = await getTranslations('trainings');
   const tHome = await getTranslations('home');
+  const tWhy = await getTranslations('why');
+  const whyParagraphs = tWhy.raw('paragraphs') as string[];
 
   return (
     <main>
@@ -25,6 +27,23 @@ export default async function Home({ params }: { params: Promise<{ locale: Local
         subtitle={tHero('subtitle')}
         primaryCta={{ label: tHero('cta'), href: `/${locale}/trainings` }}
       />
+
+      <section className="border-border-subtle border-b px-6 py-20">
+        <div className="mx-auto max-w-3xl">
+          <h2 className="text-brand text-2xl font-bold sm:text-3xl">{tWhy('title')}</h2>
+          <p className="text-text-primary mt-3 text-xl font-semibold sm:text-2xl">
+            {tWhy('tagline')}
+          </p>
+          <div className="text-text-soft mt-6 space-y-5 text-base leading-relaxed">
+            {whyParagraphs.map((p, i) => (
+              <p key={i}>{p}</p>
+            ))}
+          </div>
+          <div className="border-brand bg-bg-tint mt-8 rounded-md border-l-4 px-5 py-4">
+            <p className="text-text-primary text-base leading-relaxed">{tWhy('qe')}</p>
+          </div>
+        </div>
+      </section>
 
       <section id="trainings" className="border-border-subtle border-b px-6 py-20">
         <div className="mx-auto max-w-5xl">

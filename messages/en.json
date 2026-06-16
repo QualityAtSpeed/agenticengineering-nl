@@ -431,6 +431,16 @@
     "dark": "Dark",
     "system": "System"
   },
+  "why": {
+    "title": "Why learn agentic engineering",
+    "tagline": "AI scales the breadth. You set the depth.",
+    "paragraphs": [
+      "The work is shifting. The scarce skill is no longer typing code as fast as possible, but directing agents and verifying their work. Whoever learns that suddenly covers far more ground: many files at once, the repetitive passes, the dull groundwork, and the tests you otherwise keep putting off. The time you win back goes to the questions that truly matter, and to the depth only a human can deliver.",
+      "There is an honest side to this too, and that is exactly why training is needed and not just access. An agent sounds just as confident when it is wrong as when it is right. \"Done\" is not the same as \"proven\". And an agent with real access has real impact when things go wrong. The difference between an agent that moves you forward and one that does damage is not luck, it is craftsmanship: scope it well, set boundaries, and always verify. That craftsmanship is what you learn here.",
+      "Agents give you a structured way of working for exactly that, a handhold in the sprawl of new AI concepts. You do not need to memorize every term. You learn an approach that holds while the tools keep changing."
+    ],
+    "qe": "For quality engineers this is a natural step. Verification is your craft. In a world full of agents, you become the layer that makes their work reliably deployable. Your role does not disappear, it becomes the linchpin."
+  },
   "home": {
     "trainingsLede": "Two trainings, separately or consecutively. In-company or public cohort. Everyone ships something concrete.",
     "instructorsTitle": "Who runs the training",
