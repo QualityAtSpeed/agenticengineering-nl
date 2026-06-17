@@ -15,12 +15,19 @@ import { __resetWebhookDedupeForTests } from '@/lib/webhook-dedupe';
 const SECRET = 'whsec_test_secret';
 const stripe = new Stripe('sk_test_123');
 
-function eventBody(id: string) {
+function eventBody(
+  id: string,
+  {
+    type = 'checkout.session.completed',
+    paymentStatus = 'paid',
+  }: { type?: string; paymentStatus?: string } = {},
+) {
   return JSON.stringify({
     id,
-    type: 'checkout.session.completed',
+    type,
     data: {
       object: {
+        payment_status: paymentStatus,
         metadata: {
           trainingId: 'pilot',
           seats: '2',
@@ -117,6 +124,46 @@ describe('POST /api/stripe/webhook', () => {
     notifyMock.mockRejectedValueOnce(new Error('resend down'));
     const res = await POST(signed(eventBody('evt_notify_fail')));
     expect(res.status).toBe(200);
+    expect(confirmMock).toHaveBeenCalledTimes(1);
+  });
+
+  // ── Delayed-notification methods (iDEAL etc.): Stripe fires `completed`
+  // before the money clears, then an async_payment_* event when it settles.
+  it('does NOT fulfill a completed session that is not yet paid (delayed iDEAL)', async () => {
+    const res = await POST(signed(eventBody('evt_unpaid', { paymentStatus: 'unpaid' })));
+    expect(res.status).toBe(200);
+    expect(confirmMock).not.toHaveBeenCalled();
+    expect(notifyMock).not.toHaveBeenCalled();
+  });
+
+  it('fulfills on async_payment_succeeded once the delayed payment clears', async () => {
+    vi.stubEnv('VERCEL_ENV', 'production');
+    const res = await POST(
+      signed(eventBody('evt_async_ok', { type: 'checkout.session.async_payment_succeeded' })),
+    );
+    expect(res.status).toBe(200);
+    expect(confirmMock).toHaveBeenCalledTimes(1);
+    expect(notifyMock).toHaveBeenCalledTimes(1);
+  });
+
+  it('does NOT fulfill on async_payment_failed, but returns 200', async () => {
+    const res = await POST(
+      signed(
+        eventBody('evt_async_fail', {
+          type: 'checkout.session.async_payment_failed',
+          paymentStatus: 'unpaid',
+        }),
+      ),
+    );
+    expect(res.status).toBe(200);
+    expect(confirmMock).not.toHaveBeenCalled();
+  });
+
+  it('the delayed path sends exactly one confirmation: unpaid completed then async success', async () => {
+    await POST(signed(eventBody('evt_completed_unpaid', { paymentStatus: 'unpaid' })));
+    await POST(
+      signed(eventBody('evt_async_settled', { type: 'checkout.session.async_payment_succeeded' })),
+    );
     expect(confirmMock).toHaveBeenCalledTimes(1);
   });
 });
