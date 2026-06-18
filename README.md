@@ -275,12 +275,15 @@ Browser → POST /api/checkout → app/api/checkout/route.ts
 
 Stripe → POST /api/stripe/webhook → app/api/stripe/webhook/route.ts
                 ├─ Signature verification (STRIPE_WEBHOOK_SECRET)
-                └─ checkout.session.completed
-                                   ├─ Resend confirmation email to customer  ← critical
-                                   └─ Resend notification to operator        ← best-effort, production-only
+                ├─ completed / async_payment_succeeded  → only if payment_status === 'paid'
+                │                  ├─ Resend confirmation email to customer  ← critical
+                │                  └─ Resend notification to operator        ← best-effort, production-only
+                └─ async_payment_failed                 → logged, no fulfillment
 ```
 
-Fulfillment happens on the webhook (`checkout.session.completed`), never on the success redirect. The success page (`/[locale]/trainings/pilot/book/success`) is purely cosmetic — it cannot be trusted as proof of payment.
+Fulfillment happens on the webhook, never on the success redirect. The success page (`/[locale]/trainings/pilot/book/success`) is purely cosmetic — it cannot be trusted as proof of payment.
+
+**Delayed-notification methods (iDEAL, Bancontact, …).** These fire `checkout.session.completed` _before_ the money clears, then a `checkout.session.async_payment_succeeded` (or `_failed`) once it settles. The webhook fulfils on either event but **only when `session.payment_status === 'paid'`**, so an unpaid `completed` is ignored and the async success event does the fulfilment — exactly one confirmation per booking. `async_payment_failed` is logged and not fulfilled. (Instant payments are already paid at `completed`, so they fulfil immediately.) See [Stripe's delayed-notification fulfillment docs](https://docs.stripe.com/payments/checkout/fulfillment#delayed-notification).
 
 The two email sends use distinct error handling to prevent duplicate customer confirmations:
 
