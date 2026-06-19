@@ -4,12 +4,12 @@ import type { Locale } from '@/i18n/routing';
 
 type Props = { params: Promise<{ locale: Locale }> };
 
-export default async function BookingPage({ params }: Props) {
+export default async function DiscountAug26BookingPage({ params }: Props) {
   const { locale } = await params;
   setRequestLocale(locale);
   const t = await getTranslations('booking');
   const tTrainings = await getTranslations('trainings');
-  const trainingName = tTrainings('pilot.name');
+  const trainingName = tTrainings('discount-aug-26.name');
 
   return (
     <main className="px-6 py-16 sm:py-20">
@@ -19,7 +19,7 @@ export default async function BookingPage({ params }: Props) {
         </h1>
         <p className="text-text-soft mt-3 text-lg">{t('intro', { trainingName })}</p>
         <div className="mt-10">
-          <BookingForm locale={locale} />
+          <BookingForm locale={locale} trainingId="discount-aug-26" />
         </div>
       </div>
     </main>

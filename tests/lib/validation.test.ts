@@ -9,6 +9,7 @@ const valid = {
   deliveryPref: 'remote',
   message: 'I am interested in the basic training for our team of 6.',
   website: '',
+  trainingId: 'pilot',
 };
 
 describe('contactSchema', () => {
@@ -46,26 +47,39 @@ describe('bookingSchema', () => {
     );
   });
 
+  it('accepts a discount-aug-26 booking with one attendee', () => {
+    expect(
+      bookingSchema.safeParse({ trainingId: 'discount-aug-26', attendees: [attendee] }).success,
+    ).toBe(true);
+  });
+
   it('rejects an empty attendee list', () => {
-    expect(bookingSchema.safeParse({ trainingId: 'pilot', attendees: [] }).success).toBe(false);
+    expect(bookingSchema.safeParse({ trainingId: valid.trainingId, attendees: [] }).success).toBe(
+      false,
+    );
   });
 
   it('rejects more than 10 attendees', () => {
     const many = Array.from({ length: 11 }, () => attendee);
-    expect(bookingSchema.safeParse({ trainingId: 'pilot', attendees: many }).success).toBe(false);
+    expect(bookingSchema.safeParse({ trainingId: valid.trainingId, attendees: many }).success).toBe(
+      false,
+    );
   });
 
   it('rejects a bad email', () => {
     expect(
       bookingSchema.safeParse({
-        trainingId: 'pilot',
+        trainingId: valid.trainingId,
         attendees: [{ name: 'X', email: 'not-email' }],
       }).success,
     ).toBe(false);
   });
 
-  it('rejects a non-pilot trainingId (pilot-only scope)', () => {
+  it('rejects a non-bookable trainingId (basic/advanced are not self-serve)', () => {
     expect(bookingSchema.safeParse({ trainingId: 'basic', attendees: [attendee] }).success).toBe(
+      false,
+    );
+    expect(bookingSchema.safeParse({ trainingId: 'advanced', attendees: [attendee] }).success).toBe(
       false,
     );
   });

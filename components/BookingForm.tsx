@@ -14,7 +14,13 @@ const INPUT_CLASS =
 
 const MAX_SEATS = 10;
 
-export function BookingForm({ locale }: { locale: string }) {
+export function BookingForm({
+  locale,
+  trainingId = 'pilot',
+}: {
+  locale: string;
+  trainingId?: BookingInput['trainingId'];
+}) {
   const t = useTranslations('booking');
   const [status, setStatus] = useState<Status>('idle');
 
@@ -25,7 +31,7 @@ export function BookingForm({ locale }: { locale: string }) {
     formState: { errors },
   } = useForm<BookingInput>({
     resolver: zodResolver(bookingSchema),
-    defaultValues: { trainingId: 'pilot', attendees: [{ name: '', email: '' }] },
+    defaultValues: { trainingId, attendees: [{ name: '', email: '' }] },
   });
 
   const { fields, replace } = useFieldArray({ control, name: 'attendees' });
@@ -52,7 +58,7 @@ export function BookingForm({ locale }: { locale: string }) {
 
   return (
     <form onSubmit={handleSubmit(onSubmit)} className="space-y-5">
-      <input type="hidden" {...register('trainingId')} value="pilot" />
+      <input type="hidden" {...register('trainingId')} value={trainingId} />
 
       <label className="block">
         <span className="text-text-primary text-sm font-semibold">{t('seatsLabel')}</span>

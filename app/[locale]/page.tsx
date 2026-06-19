@@ -55,7 +55,7 @@ export default async function Home({ params }: { params: Promise<{ locale: Local
           </div>
           <div>
             <TrainingCard trainingId="pilot" locale={locale} />
-            <TrainingCard trainingId="basic" locale={locale} />
+            <TrainingCard trainingId="discount-aug-26" locale={locale} />
             <TrainingCard trainingId="advanced" locale={locale} />
           </div>
         </div>

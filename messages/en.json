@@ -43,7 +43,8 @@
     "duration": {
       "basic": "2 days",
       "advanced": "1 day",
-      "pilot": "2 days"
+      "pilot": "2 days",
+      "discount-aug-26": "2 days"
     },
     "deliveryFormats": {
       "inCompany": "In-company",
@@ -83,7 +84,35 @@
         "metaDuration": "2 days, 16 hours",
         "metaAudience": "DevOps teams and managers",
         "metaOutcome": "Feature on your own repo"
+      },
+      "discount-aug-26": {
+        "metaDuration": "2 days, 16 hours",
+        "metaAudience": "DevOps teams and managers",
+        "metaOutcome": "Feature on your own repo"
       }
+    },
+    "discount-aug-26": {
+      "name": "Basic Training (21 & 22 September 2026)",
+      "tagline": "Two days hands-on; you ship a working feature on your own repo.",
+      "earlyBirdNote": "30% discount through 31 July",
+      "audience": [
+        "Whole DevOps teams: developers, QA / test engineers, ops / platform",
+        "Mixed-role cohorts adopting agentic workflows together",
+        "Engineering managers training their teams alongside them"
+      ],
+      "prerequisites": [
+        "Comfortable with git and the command line",
+        "Writes features in at least one language (TS/Python/Go/etc.)",
+        "Own laptop or desktop with Claude Code or OpenCode installed, plus at least an active Claude Pro subscription"
+      ],
+      "outcomes": [
+        "Ship a working feature on a starter repo — tests, hooks, CI green from minute one",
+        "Recognise the failure modes of AI-generated code in your own work",
+        "Practise test-first with an agent without writing fake-passing tests",
+        "Set up hooks and quality gates that survive the next sprint",
+        "Use existing MCP servers in real workflows",
+        "Leave with a governance starter your team can actually use"
+      ]
     },
     "basic": {
       "name": "Basic",
@@ -398,8 +427,8 @@
     }
   },
   "booking": {
-    "title": "Book the pilot",
-    "intro": "Reserve your seat for the pilot on 29–30 June 2026. Price per attendee, incl. 21% VAT.",
+    "title": "{trainingName}",
+    "intro": "Reserve your seat for the {trainingName}. Price per attendee, incl. 21% VAT.",
     "seatsLabel": "Number of attendees",
     "attendeeName": "Attendee name",
     "attendeeEmail": "Attendee email",
