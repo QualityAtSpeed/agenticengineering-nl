@@ -32,7 +32,7 @@ export type TrainingId = 'basic' | 'advanced' | 'pilot' | 'discount-aug-26';
 export type TrainingSchedule = {
   startDate: string;
   endDate: string;
-  courseMode: 'online';
+  courseMode: string[];
 };
 
 // Optional early-bird: a discount that applies while `now < deadline` (ISO 8601,
@@ -57,7 +57,7 @@ export const trainings: Record<TrainingId, Training> = {
     id: 'pilot',
     durationDays: 2,
     priceEUR: 349,
-    schedule: { startDate: '2026-06-29', endDate: '2026-06-30', courseMode: 'online' },
+    schedule: { startDate: '2026-06-29', endDate: '2026-06-30', courseMode: ['online'] },
     modules: [
       { id: 'agents-in-sdlc', day: 1 },
       { id: 'failure-modes-ai-code', day: 1 },
@@ -73,14 +73,16 @@ export const trainings: Record<TrainingId, Training> = {
     ],
     deliveryFormats: ['inCompany', 'publicCohort', 'remote'],
   },
-  // Discount-aug-26-cohort: de Basic-training met een vaste datum + early-bird. Zelfde
-  // 2-daagse curriculum als basic/pilot; basisprijs = de Basic-prijs (€1399),
-  // 30% korting bij inschrijving vóór 1 augustus 2026.
+
   'discount-aug-26': {
     id: 'discount-aug-26',
     durationDays: 2,
     priceEUR: 1399,
-    schedule: { startDate: '2026-09-21', endDate: '2026-09-22', courseMode: 'online' },
+    schedule: {
+      startDate: '2026-09-21',
+      endDate: '2026-09-22',
+      courseMode: ['online', 'inPerson'],
+    },
     earlyBird: { discountPct: 30, deadline: '2026-08-01T00:00:00+02:00' },
     modules: [
       { id: 'agents-in-sdlc', day: 1 },
