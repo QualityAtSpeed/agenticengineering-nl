@@ -9,6 +9,7 @@ const valid = {
   deliveryPref: 'remote',
   message: 'I am interested in the basic training for our team of 6.',
   website: '',
+  trainingId: 'pilot',
 };
 
 describe('contactSchema', () => {
@@ -53,18 +54,22 @@ describe('bookingSchema', () => {
   });
 
   it('rejects an empty attendee list', () => {
-    expect(bookingSchema.safeParse({ trainingId: 'pilot', attendees: [] }).success).toBe(false);
+    expect(bookingSchema.safeParse({ trainingId: valid.trainingId, attendees: [] }).success).toBe(
+      false,
+    );
   });
 
   it('rejects more than 10 attendees', () => {
     const many = Array.from({ length: 11 }, () => attendee);
-    expect(bookingSchema.safeParse({ trainingId: 'pilot', attendees: many }).success).toBe(false);
+    expect(bookingSchema.safeParse({ trainingId: valid.trainingId, attendees: many }).success).toBe(
+      false,
+    );
   });
 
   it('rejects a bad email', () => {
     expect(
       bookingSchema.safeParse({
-        trainingId: 'pilot',
+        trainingId: valid.trainingId,
         attendees: [{ name: 'X', email: 'not-email' }],
       }).success,
     ).toBe(false);
