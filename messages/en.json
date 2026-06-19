@@ -427,8 +427,8 @@
     }
   },
   "booking": {
-    "title": "Book the pilot",
-    "intro": "Reserve your seat for the pilot on 29–30 June 2026. Price per attendee, incl. 21% VAT.",
+    "title": "{trainingName}",
+    "intro": "Reserve your seat for the {trainingName}. Price per attendee, incl. 21% VAT.",
     "seatsLabel": "Number of attendees",
     "attendeeName": "Attendee name",
     "attendeeEmail": "Attendee email",

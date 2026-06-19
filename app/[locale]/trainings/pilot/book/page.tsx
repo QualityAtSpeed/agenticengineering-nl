@@ -8,12 +8,16 @@ export default async function BookingPage({ params }: Props) {
   const { locale } = await params;
   setRequestLocale(locale);
   const t = await getTranslations('booking');
+  const tTrainings = await getTranslations('trainings');
+  const trainingName = tTrainings('pilot.name');
 
   return (
     <main className="px-6 py-16 sm:py-20">
       <div className="mx-auto max-w-2xl">
-        <h1 className="text-brand-deep text-3xl font-bold sm:text-4xl">{t('title')}</h1>
-        <p className="text-text-soft mt-3 text-lg">{t('intro')}</p>
+        <h1 className="text-brand-deep text-3xl font-bold sm:text-4xl">
+          {t('title', { trainingName })}
+        </h1>
+        <p className="text-text-soft mt-3 text-lg">{t('intro', { trainingName })}</p>
         <div className="mt-10">
           <BookingForm locale={locale} />
         </div>

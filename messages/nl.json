@@ -431,8 +431,8 @@
     }
   },
   "booking": {
-    "title": "Boek de pilot",
-    "intro": "Reserveer je plek voor de pilot op 29 en 30 juni 2026. Prijs per deelnemer, incl. 21% btw.",
+    "title": "{trainingName}",
+    "intro": "Reserveer je plek voor de {trainingName}. Prijs per deelnemer, incl. 21% btw.",
     "seatsLabel": "Aantal deelnemers",
     "attendeeName": "Naam deelnemer",
     "attendeeEmail": "E-mail deelnemer",
