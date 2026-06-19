@@ -46,6 +46,12 @@ describe('bookingSchema', () => {
     );
   });
 
+  it('accepts a najaar-2026 booking with one attendee', () => {
+    expect(
+      bookingSchema.safeParse({ trainingId: 'najaar-2026', attendees: [attendee] }).success,
+    ).toBe(true);
+  });
+
   it('rejects an empty attendee list', () => {
     expect(bookingSchema.safeParse({ trainingId: 'pilot', attendees: [] }).success).toBe(false);
   });
@@ -64,8 +70,11 @@ describe('bookingSchema', () => {
     ).toBe(false);
   });
 
-  it('rejects a non-pilot trainingId (pilot-only scope)', () => {
+  it('rejects a non-bookable trainingId (basic/advanced are not self-serve)', () => {
     expect(bookingSchema.safeParse({ trainingId: 'basic', attendees: [attendee] }).success).toBe(
+      false,
+    );
+    expect(bookingSchema.safeParse({ trainingId: 'advanced', attendees: [attendee] }).success).toBe(
       false,
     );
   });

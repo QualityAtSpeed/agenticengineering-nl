@@ -24,14 +24,33 @@ describe('trainings catalogue', () => {
     expect(basic.modules).toEqual(expected);
   });
 
-  it('only the pilot carries a fixed online schedule (ISO dates for structured data)', () => {
+  it('the dated cohorts (pilot, najaar-2026) carry a fixed online schedule for structured data', () => {
     expect(trainings.pilot.schedule).toEqual({
       startDate: '2026-06-29',
       endDate: '2026-06-30',
       courseMode: 'online',
     });
+    expect(trainings['najaar-2026'].schedule).toEqual({
+      startDate: '2026-09-21',
+      endDate: '2026-09-22',
+      courseMode: 'online',
+    });
     expect(trainings.basic.schedule).toBeUndefined();
     expect(trainings.advanced.schedule).toBeUndefined();
+  });
+
+  it('najaar-2026 is the Basic curriculum as a dated cohort with a 30% early-bird until 1 Aug', () => {
+    const najaar = trainings['najaar-2026'];
+    expect(najaar.durationDays).toBe(2);
+    expect(najaar.priceEUR).toBe(1399); // regular Basic price, not the pilot rate
+    expect(najaar.modules).toEqual(trainings.basic.modules); // same curriculum as Basic
+    expect(najaar.earlyBird).toEqual({
+      discountPct: 30,
+      deadline: '2026-08-01T00:00:00+02:00',
+    });
+    // the base trainings carry no early-bird
+    expect(trainings.basic.earlyBird).toBeUndefined();
+    expect(trainings.pilot.earlyBird).toBeUndefined();
   });
 
   it('Advanced is a 1-day training with 5 modules and no day tags', () => {

@@ -46,6 +46,36 @@ describe('POST /api/checkout', () => {
     expect(arg.metadata.attendee_0).toContain('pascal@example.com');
   });
 
+  it('prices najaar-2026 with the early-bird discount before the deadline (server-enforced)', async () => {
+    vi.useFakeTimers();
+    vi.setSystemTime(new Date('2026-07-15T12:00:00+02:00'));
+    try {
+      const res = await POST(
+        make({ trainingId: 'najaar-2026', attendees: [{ name: 'A', email: 'a@x.com' }] }),
+      );
+      expect(res.status).toBe(200);
+      const arg = createMock.mock.calls[0][0];
+      // €1399 net → 30% off → €979,30 net → +21% VAT = 118495 cents gross
+      expect(arg.line_items[0].price_data.unit_amount).toBe(118495);
+      expect(arg.metadata.trainingId).toBe('najaar-2026');
+      expect(arg.success_url).toContain('/trainings/najaar-2026/book/success');
+    } finally {
+      vi.useRealTimers();
+    }
+  });
+
+  it('prices najaar-2026 at the full price after the deadline', async () => {
+    vi.useFakeTimers();
+    vi.setSystemTime(new Date('2026-08-15T12:00:00+02:00'));
+    try {
+      await POST(make({ trainingId: 'najaar-2026', attendees: [{ name: 'A', email: 'a@x.com' }] }));
+      // €1399 net → +21% VAT = 169279 cents gross, no discount
+      expect(createMock.mock.calls[0][0].line_items[0].price_data.unit_amount).toBe(169279);
+    } finally {
+      vi.useRealTimers();
+    }
+  });
+
   it('ignores any client-supplied amount (no price tampering)', async () => {
     await POST(make({ ...validBody, amount: 1, priceEUR: 1 }));
     expect(createMock.mock.calls[0][0].line_items[0].price_data.unit_amount).toBe(42229);

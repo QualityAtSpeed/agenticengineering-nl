@@ -3,6 +3,7 @@ import { render, screen } from '@testing-library/react';
 import { NextIntlClientProvider } from 'next-intl';
 import en from '@/messages/en.json';
 import BookingPage from '@/app/[locale]/trainings/pilot/book/page';
+import NajaarBookingPage from '@/app/[locale]/trainings/najaar-2026/book/page';
 
 vi.mock('next-intl/server', () => ({
   setRequestLocale: vi.fn(),
@@ -35,5 +36,18 @@ describe('BookingPage', () => {
     await renderPage();
     expect(screen.getByText(en.booking.title)).toBeInTheDocument();
     expect(screen.getByTestId('booking-submit')).toBeInTheDocument();
+  });
+
+  it('najaar-2026 booking page renders the form wired to its own trainingId', async () => {
+    const ui = await NajaarBookingPage({ params: Promise.resolve({ locale: 'en' as const }) });
+    const { container } = render(
+      <NextIntlClientProvider locale="en" messages={en}>
+        {ui}
+      </NextIntlClientProvider>,
+    );
+    expect(screen.getByText(en.booking.title)).toBeInTheDocument();
+    expect(screen.getByTestId('booking-submit')).toBeInTheDocument();
+    const hidden = container.querySelector('input[name="trainingId"]') as HTMLInputElement;
+    expect(hidden).toHaveValue('najaar-2026');
   });
 });
