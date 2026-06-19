@@ -1,6 +1,8 @@
 import { useTranslations } from 'next-intl';
 import { Button } from '@/components/Button';
 import { trainings, type TrainingId } from '@/data/trainings';
+import { priceFor } from '@/lib/pricing';
+import { bookableTrainingEnum } from '@/lib/validation';
 
 const ClockIcon = () => (
   <svg
@@ -84,13 +86,24 @@ function MetaIcon({ which }: { which: 'clock' | 'people' | 'star' }) {
   return <StarIcon />;
 }
 
-export function TrainingCard({ trainingId, locale }: { trainingId: TrainingId; locale: string }) {
+export function TrainingCard({
+  trainingId,
+  locale,
+  now,
+}: {
+  trainingId: TrainingId;
+  locale: string;
+  now?: Date;
+}) {
   const training = trainings[trainingId];
   const t = useTranslations('trainings');
   const tLabels = useTranslations('trainings.labels');
   const tCard = useTranslations('trainings.cardMeta');
 
   const isPilot = trainingId === 'pilot';
+  // Bookable = self-serve via Stripe checkout (zelfde set als het boeking-schema).
+  const isBookable = (bookableTrainingEnum.options as readonly TrainingId[]).includes(trainingId);
+  const price = priceFor(trainingId, now);
 
   return (
     <article
@@ -134,27 +147,47 @@ export function TrainingCard({ trainingId, locale }: { trainingId: TrainingId; l
       </div>
 
       <div className={isPilot ? 'lg:pt-[1.875rem]' : undefined}>
-        <p className="text-text-primary text-xl font-bold tabular-nums">
-          €{training.priceEUR.toLocaleString('nl-NL')}
-        </p>
+        {price.earlyBird ? (
+          <>
+            <p className="text-text-muted text-sm font-medium tabular-nums line-through">
+              €{training.priceEUR.toLocaleString('nl-NL')}
+            </p>
+            <p className="text-text-primary text-xl font-bold tabular-nums">
+              €
+              {(price.netCents / 100).toLocaleString('nl-NL', {
+                minimumFractionDigits: 2,
+                maximumFractionDigits: 2,
+              })}
+            </p>
+          </>
+        ) : (
+          <p className="text-text-primary text-xl font-bold tabular-nums">
+            €{training.priceEUR.toLocaleString('nl-NL')}
+          </p>
+        )}
         <p className="text-text-muted text-xs">{tLabels('priceSuffix')}</p>
+        {price.earlyBird && (
+          <p className="text-accent-green-hover mt-1 text-xs font-semibold">
+            {t(`${trainingId}.earlyBirdNote`)}
+          </p>
+        )}
         <Button
           size="sm"
           fullWidth
           href={
-            isPilot
-              ? `/${locale}/trainings/pilot/book`
+            isBookable
+              ? `/${locale}/trainings/${trainingId}/book`
               : `/${locale}/contact?training=${trainingId}`
           }
           data-testid={`book-${trainingId}`}
           className="mt-3"
         >
-          {tLabels(isPilot ? 'bookCta' : 'requestCta')}
+          {tLabels(isBookable ? 'bookCta' : 'requestCta')}
         </Button>
-        {isPilot && (
+        {isBookable && (
           <a
             href={`/${locale}/contact`}
-            data-testid="book-pilot-contact"
+            data-testid={`book-${trainingId}-contact`}
             className="text-text-muted mt-2 block text-center text-xs underline"
           >
             {tLabels('contactLink')}

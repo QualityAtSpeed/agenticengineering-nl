@@ -57,14 +57,15 @@ Editing checklist:
 
 - UI/copy → read `PRODUCT.md` + `DESIGN.md` first.
 - New translation key → add to **both** `messages/nl.json` and `messages/en.json`; `pnpm verify:i18n` gates CI.
-- New training → add a `Training` entry in `data/trainings.ts` (typed: `id`, `durationDays`, `priceEUR`, `modules[]`, `deliveryFormats[]` — there is **no date field**) and add its copy keys to **both** `messages/{nl,en}.json` under `trainings.<id>` (`name`, `tagline`, `audience[]`, `prerequisites[]`, `outcomes[]`), plus `trainings.duration.<id>` and `trainings.cardMeta.<id>`. A scheduled date is **optional** and lives in two places: the human-facing date inside the `name` string in parentheses (e.g. `"Pilot - Basic Training (June 29th & 30th 2026)"` / `"... (29 en 30 juni 2026)"`, localised per file), and — for trainings that run on a known date — a machine-readable `schedule` field on the `Training` (ISO `startDate`/`endDate` + `courseMode: 'online'`). The `schedule` drives the schema.org `CourseInstance` in the structured data (`lib/structured-data.ts`); omit both for trainings with no fixed date. New module IDs need a matching block under `modules.<module-id>` (`title`, `bullets[]`, `short`) in both files. Use kebab-case IDs; reuse existing module IDs where the content overlaps.
+- New training → add a `Training` entry in `data/trainings.ts` (typed: `id`, `durationDays`, `priceEUR`, `modules[]`, `deliveryFormats[]`, plus optional `schedule` and `earlyBird`) and add its copy keys to **both** `messages/{nl,en}.json` under `trainings.<id>` (`name`, `tagline`, `audience[]`, `prerequisites[]`, `outcomes[]` — plus `earlyBirdNote` when the training has an `earlyBird`), plus `trainings.duration.<id>` and `trainings.cardMeta.<id>`. A scheduled date is **optional** and lives in two places: the human-facing date inside the `name` string in parentheses (e.g. `"Pilot - Basic Training (June 29th & 30th 2026)"` / `"... (29 en 30 juni 2026)"`, localised per file), and — for trainings that run on a known date — a machine-readable `schedule` field on the `Training` (ISO `startDate`/`endDate` + `courseMode: 'online'`). The `schedule` drives the schema.org `CourseInstance` in the structured data (`lib/structured-data.ts`); omit both for trainings with no fixed date. An optional `earlyBird` (`{ discountPct, deadline }`, with the deadline as an ISO string carrying an explicit timezone offset) applies a **server-enforced** discount while `now` is strictly before the deadline — see `priceFor()` in `lib/pricing.ts`; the card and detail page then render the struck base price, the discounted price, and the `earlyBirdNote`. New module IDs need a matching block under `modules.<module-id>` (`title`, `bullets[]`, `short`) in both files. Use kebab-case IDs; reuse existing module IDs where the content overlaps.
 - Significant feature change (new/reworked training, etc.) → capture the design in a dated spec under `docs/superpowers/specs/<YYYY-MM-DD>-<slug>.md`.
 - New route → add it under `app/[locale]/`, give it a `generateMetadata` via `export const generateMetadata = metadataFor('/about', 'pages.about')` (the `metadataFor(path, key)` wrapper reads `meta.<key>.title`/`.description`, both locales). Pages with a dynamic param, non-`meta` namespace, or a composed title call `buildPageMetadata({ locale, path, title, description })` directly (see `app/[locale]/trainings/[trainingId]/page.tsx`). Add the path to `app/sitemap.ts` (the sitemap is an explicit `PATHS` list — training detail pages are derived from `data/trainings.ts`, other routes are listed by hand).
 - API/server logic → keep validation in `lib/validation.ts`, side effects in `lib/*`.
 - New news article → create `news/<slug>.md` with required frontmatter (see below). Run `pnpm article:image <source-url> <slug>` to fetch and save the OG image before committing.
 - Pre-commit `lefthook` hook runs `format`, `lint`, and `readme-check` (validates README stays in sync; requires `claude` CLI + `ANTHROPIC_API_KEY`). Don't bypass with `--no-verify` unless you're fixing the hook itself.
-- Editing the pilot training requires keeping the booking-page CTA (`/trainings/pilot/book`) and the secondary contact link in sync in both `TrainingCard.tsx` and `TrainingDetail.tsx`.
-- The primary CTA label is conditional in both components (`isPilot ? 'bookCta' : 'requestCta'`): the pilot shows `trainings.labels.bookCta` ("Book training" / "Boek training"), basic and advanced show `trainings.labels.requestCta` ("Request training" / "Vraag training aan").
+- Bookable trainings (self-serve Stripe checkout) are the set in `bookableTrainingEnum` (`lib/validation.ts`) — currently `pilot` and `najaar-2026`. Each one needs its booking routes (`/trainings/<id>/book` + `/trainings/<id>/book/success`) and, in both `TrainingCard.tsx` and `TrainingDetail.tsx`, its booking CTA (`/trainings/<id>/book`) and secondary contact link kept in sync.
+- The primary CTA label is conditional in both components (`isBookable ? 'bookCta' : 'requestCta'`, where `isBookable` is membership of `bookableTrainingEnum`): bookable trainings show `trainings.labels.bookCta` ("Book training" / "Boek training"), the rest show `trainings.labels.requestCta` ("Request training" / "Vraag training aan").
+- The `/trainings` overview and the homepage render a **curated, ordered** list of cards (`DISPLAYED_TRAININGS` in `app/[locale]/trainings/page.tsx`; hardcoded cards on the homepage), not every entry in `data/trainings.ts`. `basic` stays in the dataset (its detail route still resolves and it is the template the dated cohorts mirror) but is not shown as a card.
 
 ### News article frontmatter
 
@@ -154,8 +155,8 @@ Routes:
 - `/nl/about`, `/nl/contact`, `/nl/impressum` (and `/en/*`)
 - `/[locale]/trainings` — trainings overview
 - `/[locale]/trainings/[trainingId]` — training detail page
-- `/[locale]/trainings/pilot/book` — pilot booking form
-- `/[locale]/trainings/pilot/book/success` — post-payment UX
+- `/[locale]/trainings/<id>/book` — booking form for each bookable training (`pilot`, `najaar-2026`)
+- `/[locale]/trainings/<id>/book/success` — post-payment UX
 - `POST /api/contact` — POST endpoint
 - `POST /api/checkout` — creates Stripe Checkout Session
 - `POST /api/stripe/webhook` — Stripe fulfillment webhook
@@ -269,7 +270,7 @@ To-field is never user-controlled. CRLF-stripped via `lib/sanitize.ts` to preven
 
 ```
 Browser → POST /api/checkout → app/api/checkout/route.ts
-                ├─ Server-side pricing from data/trainings.ts (+21% VAT)
+                ├─ Server-side pricing from data/trainings.ts via priceFor() (early-bird date-conditional, +21% VAT)
                 └─ lib/stripe.ts → Stripe Checkout Session
                                    └─ redirect to Stripe-hosted checkout
 

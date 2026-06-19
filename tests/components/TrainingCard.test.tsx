@@ -78,3 +78,42 @@ describe('<TrainingCard />', () => {
     expect(screen.getByTestId('book-basic')).toHaveTextContent('Request training');
   });
 });
+
+describe('<TrainingCard /> — najaar-2026 early-bird', () => {
+  const BEFORE = new Date('2026-07-15T12:00:00+02:00');
+  const AFTER = new Date('2026-08-15T12:00:00+02:00');
+
+  function renderNajaar(now: Date) {
+    return render(
+      <NextIntlClientProvider locale="nl" messages={nl}>
+        <TrainingCard trainingId="najaar-2026" locale="nl" now={now} />
+      </NextIntlClientProvider>,
+    );
+  }
+
+  it('primary CTA links to its own booking page, not the contact form', () => {
+    renderNajaar(BEFORE);
+    const cta = screen.getByTestId('book-najaar-2026');
+    expect(cta).toHaveAttribute('href', expect.stringContaining('/trainings/najaar-2026/book'));
+    expect(cta).not.toHaveAttribute('href', expect.stringContaining('/contact'));
+  });
+
+  it('CTA is labeled as booking ("Boek training")', () => {
+    renderNajaar(BEFORE);
+    expect(screen.getByTestId('book-najaar-2026')).toHaveTextContent('Boek training');
+  });
+
+  it('before the deadline shows the early-bird price with the base price struck through', () => {
+    renderNajaar(BEFORE);
+    expect(screen.getByText(/€\s*1\.399/)).toBeInTheDocument();
+    expect(screen.getByText(/€\s*979,30/)).toBeInTheDocument();
+    expect(screen.getByText(/30%/)).toBeInTheDocument();
+  });
+
+  it('after the deadline shows the full price and no discount', () => {
+    renderNajaar(AFTER);
+    expect(screen.getByText(/€\s*1\.399/)).toBeInTheDocument();
+    expect(screen.queryByText(/€\s*979,30/)).not.toBeInTheDocument();
+    expect(screen.queryByText(/30%/)).not.toBeInTheDocument();
+  });
+});

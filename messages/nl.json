@@ -43,7 +43,8 @@
     "duration": {
       "basic": "2 dagen",
       "advanced": "1 dag",
-      "pilot": "2 dagen"
+      "pilot": "2 dagen",
+      "najaar-2026": "2 dagen"
     },
     "deliveryFormats": {
       "inCompany": "In-company",
@@ -83,7 +84,35 @@
         "metaDuration": "2 dagen, 16 uur",
         "metaAudience": "DevOps-teams en managers",
         "metaOutcome": "Feature op je eigen repo"
+      },
+      "najaar-2026": {
+        "metaDuration": "2 dagen, 16 uur",
+        "metaAudience": "DevOps-teams en managers",
+        "metaOutcome": "Feature op je eigen repo"
       }
+    },
+    "najaar-2026": {
+      "name": "Basic Training (21 & 22 september 2026)",
+      "tagline": "Twee dagen hands-on; je levert een werkende feature op je eigen repo.",
+      "earlyBirdNote": "30% vroegboekkorting t/m 31 juli",
+      "audience": [
+        "Hele DevOps-teams: developers, QA / testers, ops / platform",
+        "Gemengde teams die agentic workflows samen adopteren",
+        "Engineering managers die met hun team meetrainen"
+      ],
+      "prerequisites": [
+        "Vertrouwd met git en de command line",
+        "Schrijft features in minimaal één taal (TS/Python/Go/etc.)",
+        "Eigen laptop of desktop met Claude Code of OpenCode geïnstalleerd, met minimaal een Claude Pro-abonnement"
+      ],
+      "outcomes": [
+        "Lever een werkende feature op een starter repo — tests, hooks, CI groen vanaf minuut één",
+        "Herken failure modes van AI-gegenereerde code in je eigen werk",
+        "Oefen test-first met een agent zonder nietszeggende tests te schrijven",
+        "Zet hooks en quality gates op die de volgende sprint overleven",
+        "Gebruik bestaande MCP servers in echte workflows",
+        "Stap naar buiten met een governance-starter die je team echt kan gebruiken"
+      ]
     },
     "basic": {
       "name": "Basic",

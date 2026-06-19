@@ -1,9 +1,16 @@
 import { NextResponse } from 'next/server';
 import { bookingSchema } from '@/lib/validation';
-import { priceWithVat } from '@/lib/pricing';
+import { priceFor } from '@/lib/pricing';
 import { getStripe } from '@/lib/stripe';
 import { isAllowedOrigin, clientIp } from '@/lib/http';
 import { checkRateLimit } from '@/lib/rate-limit';
+import type { TrainingId } from '@/data/trainings';
+
+// Stripe product label per bookable training (receipt/dashboard text).
+const PRODUCT_NAME: Partial<Record<TrainingId, string>> = {
+  pilot: 'Pilot - Basic Training (29 en 30 juni 2026)',
+  'najaar-2026': 'Agentic Engineering Training (21 & 22 september 2026)',
+};
 
 function baseUrl(req: Request): string {
   const origin = req.headers.get('origin');
@@ -36,7 +43,7 @@ export async function POST(req: Request) {
   }
 
   const { trainingId, attendees } = parsed.data;
-  const { grossCents } = priceWithVat(trainingId);
+  const { grossCents } = priceFor(trainingId, new Date()); // server-enforced early-bird
   const origin = baseUrl(req);
 
   const metadata: Record<string, string> = {
@@ -57,13 +64,13 @@ export async function POST(req: Request) {
           price_data: {
             currency: 'eur',
             unit_amount: grossCents,
-            product_data: { name: 'Pilot - Basic Training (29 en 30 juni 2026)' },
+            product_data: { name: PRODUCT_NAME[trainingId] ?? trainingId },
           },
         },
       ],
       metadata,
-      success_url: `${origin}/nl/trainings/pilot/book/success`,
-      cancel_url: `${origin}/nl/trainings/pilot/book`,
+      success_url: `${origin}/nl/trainings/${trainingId}/book/success`,
+      cancel_url: `${origin}/nl/trainings/${trainingId}/book`,
     });
 
     if (!session.url) {

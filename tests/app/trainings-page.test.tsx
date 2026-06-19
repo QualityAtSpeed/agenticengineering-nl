@@ -37,17 +37,20 @@ describe('<TrainingsPage />', () => {
     expect(
       screen.getByRole('heading', { name: 'Pilot - Basic Training (June 29th & 30th 2026)' }),
     ).toBeInTheDocument();
-    expect(screen.getByRole('heading', { name: 'Basic' })).toBeInTheDocument();
+    expect(
+      screen.getByRole('heading', { name: 'Basic Training (21 & 22 September 2026)' }),
+    ).toBeInTheDocument();
     expect(screen.getByRole('heading', { name: 'Advanced' })).toBeInTheDocument();
     expect(screen.getByRole('heading', { name: /Trainings/ })).toBeInTheDocument();
 
     expect(screen.getAllByText(/2 days/).length).toBeGreaterThan(0);
     expect(screen.getByText(/1 day/)).toBeInTheDocument();
-    const expectedPriceBasic = trainings.basic.priceEUR.toLocaleString('nl-NL').replace('.,', '.'); //1.399
+    // najaar-2026 toont z'n basisprijs €1.399 (doorgestreept vóór de deadline, gewoon erna).
+    // De early-bird-weergave zelf wordt deterministisch getest in TrainingCard.test.tsx.
+    expect(screen.getByText(/€\s*1\.399/)).toBeInTheDocument();
     const expectedPriceAdvanced = trainings.advanced.priceEUR
       .toLocaleString('nl-NL')
       .replace('.,', '.'); //999
-    expect(screen.getByText(new RegExp(`€\\s*${expectedPriceBasic}\\b`))).toBeInTheDocument();
     expect(screen.getByText(new RegExp(`€\\s*${expectedPriceAdvanced}\\b`))).toBeInTheDocument();
   });
 });

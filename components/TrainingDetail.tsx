@@ -1,6 +1,8 @@
 import { useTranslations } from 'next-intl';
 import { Button } from '@/components/Button';
 import { trainings, type TrainingId, type Module } from '@/data/trainings';
+import { priceFor } from '@/lib/pricing';
+import { bookableTrainingEnum } from '@/lib/validation';
 
 const ClockIcon = () => (
   <svg
@@ -100,13 +102,23 @@ const PriceIcon = () => (
   </svg>
 );
 
-export function TrainingDetail({ trainingId, locale }: { trainingId: TrainingId; locale: string }) {
+export function TrainingDetail({
+  trainingId,
+  locale,
+  now,
+}: {
+  trainingId: TrainingId;
+  locale: string;
+  now?: Date;
+}) {
   const training = trainings[trainingId];
   const t = useTranslations('trainings');
   const tCommon = useTranslations('trainings.labels');
   const tModules = useTranslations('modules');
 
-  const isPilot = trainingId === 'pilot';
+  // Bookable = self-serve via Stripe checkout (zelfde set als het boeking-schema).
+  const isBookable = (bookableTrainingEnum.options as readonly TrainingId[]).includes(trainingId);
+  const price = priceFor(trainingId, now);
 
   const audience = t.raw(`${trainingId}.audience`) as string[];
   const prerequisites = t.raw(`${trainingId}.prerequisites`) as string[];
@@ -150,8 +162,11 @@ export function TrainingDetail({ trainingId, locale }: { trainingId: TrainingId;
           </FactRow>
           <FactRow icon={<PriceIcon />} label={tCommon('price')}>
             <span className="font-semibold">
-              €{training.priceEUR.toLocaleString('nl-NL')}{' '}
-              <span className="text-text-muted text-sm font-normal">{tCommon('priceSuffix')}</span>
+              <PriceInline
+                baseEUR={training.priceEUR}
+                price={price}
+                suffix={tCommon('priceSuffix')}
+              />
             </span>
           </FactRow>
         </dl>
@@ -174,25 +189,35 @@ export function TrainingDetail({ trainingId, locale }: { trainingId: TrainingId;
         )}
 
         <div className="border-border-subtle bg-bg-tint mt-10 flex flex-col gap-4 rounded-lg border px-6 py-6 sm:flex-row sm:items-center sm:justify-between">
-          <p className="text-text-primary font-semibold">
-            €{training.priceEUR.toLocaleString('nl-NL')}{' '}
-            <span className="text-text-muted text-sm font-normal">{tCommon('priceSuffix')}</span>
-          </p>
+          <div>
+            <p className="text-text-primary font-semibold">
+              <PriceInline
+                baseEUR={training.priceEUR}
+                price={price}
+                suffix={tCommon('priceSuffix')}
+              />
+            </p>
+            {price.earlyBird && (
+              <p className="text-accent-green-hover mt-1 text-sm font-semibold">
+                {t(`${trainingId}.earlyBirdNote`)}
+              </p>
+            )}
+          </div>
           <div className="flex flex-col items-stretch gap-2 sm:items-end">
             <Button
               href={
-                isPilot
-                  ? `/${locale}/trainings/pilot/book`
+                isBookable
+                  ? `/${locale}/trainings/${trainingId}/book`
                   : `/${locale}/contact?training=${trainingId}`
               }
               data-testid={`book-training-${trainingId}`}
             >
-              {tCommon(isPilot ? 'bookCta' : 'requestCta')}
+              {tCommon(isBookable ? 'bookCta' : 'requestCta')}
             </Button>
-            {isPilot && (
+            {isBookable && (
               <a
                 href={`/${locale}/contact`}
-                data-testid="book-training-pilot-contact"
+                data-testid={`book-training-${trainingId}-contact`}
                 className="text-text-muted text-xs underline"
               >
                 {tCommon('contactLink')}
@@ -202,6 +227,38 @@ export function TrainingDetail({ trainingId, locale }: { trainingId: TrainingId;
         </div>
       </div>
     </section>
+  );
+}
+
+function PriceInline({
+  baseEUR,
+  price,
+  suffix,
+}: {
+  baseEUR: number;
+  price: { earlyBird: boolean; netCents: number };
+  suffix: string;
+}) {
+  if (!price.earlyBird) {
+    return (
+      <>
+        €{baseEUR.toLocaleString('nl-NL')}{' '}
+        <span className="text-text-muted text-sm font-normal">{suffix}</span>
+      </>
+    );
+  }
+  return (
+    <>
+      <span className="text-text-muted mr-2 font-normal line-through">
+        €{baseEUR.toLocaleString('nl-NL')}
+      </span>
+      €
+      {(price.netCents / 100).toLocaleString('nl-NL', {
+        minimumFractionDigits: 2,
+        maximumFractionDigits: 2,
+      })}{' '}
+      <span className="text-text-muted text-sm font-normal">{suffix}</span>
+    </>
   );
 }
 

@@ -20,9 +20,11 @@ export const attendeeSchema = z.object({
   email: z.string().trim().email().max(254),
 });
 
-// Pilot-only by design (see spec). Widen the literal when more trainings go self-serve.
+// Self-serve bookable trainings (Stripe checkout). Widen as more cohorts go self-serve.
+export const bookableTrainingEnum = z.enum(['pilot', 'najaar-2026']);
+
 export const bookingSchema = z.object({
-  trainingId: z.literal('pilot'),
+  trainingId: bookableTrainingEnum,
   attendees: z.array(attendeeSchema).min(1).max(10),
 });
 
