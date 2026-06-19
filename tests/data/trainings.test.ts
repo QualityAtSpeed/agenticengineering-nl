@@ -28,12 +28,12 @@ describe('trainings catalogue', () => {
     expect(trainings.pilot.schedule).toEqual({
       startDate: '2026-06-29',
       endDate: '2026-06-30',
-      courseMode: 'online',
+      courseMode: ['online'],
     });
     expect(trainings['discount-aug-26'].schedule).toEqual({
       startDate: '2026-09-21',
       endDate: '2026-09-22',
-      courseMode: 'online',
+      courseMode: ['online', 'inPerson'],
     });
     expect(trainings.basic.schedule).toBeUndefined();
     expect(trainings.advanced.schedule).toBeUndefined();
