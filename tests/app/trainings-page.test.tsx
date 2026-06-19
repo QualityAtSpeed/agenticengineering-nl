@@ -45,8 +45,7 @@ describe('<TrainingsPage />', () => {
 
     expect(screen.getAllByText(/2 days/).length).toBeGreaterThan(0);
     expect(screen.getByText(/1 day/)).toBeInTheDocument();
-    // discount-aug-26 toont z'n basisprijs €1.399 (doorgestreept vóór de deadline, gewoon erna).
-    // De early-bird-weergave zelf wordt deterministisch getest in TrainingCard.test.tsx.
+
     expect(screen.getByText(/€\s*1\.399/)).toBeInTheDocument();
     const expectedPriceAdvanced = trainings.advanced.priceEUR
       .toLocaleString('nl-NL')

@@ -6,8 +6,7 @@ import type { TrainingId } from '@/data/trainings';
 
 export const generateMetadata = metadataFor('/trainings', 'pages.trainings');
 
-// Zichtbare trainings op /trainings, in volgorde. Basic blijft in de data (detail-route +
-// template voor de cohorts), maar staat niet meer als kaart — discount-aug-26 neemt z'n plek in.
+//hardcoded order of trainings. Basic is temporarily hidden for now.
 const DISPLAYED_TRAININGS: TrainingId[] = ['pilot', 'discount-aug-26', 'advanced'];
 
 export default async function TrainingsPage({ params }: { params: Promise<{ locale: Locale }> }) {
