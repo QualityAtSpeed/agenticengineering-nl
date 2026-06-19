@@ -44,7 +44,7 @@
       "basic": "2 dagen",
       "advanced": "1 dag",
       "pilot": "2 dagen",
-      "najaar-2026": "2 dagen"
+      "discount-aug-26": "2 dagen"
     },
     "deliveryFormats": {
       "inCompany": "In-company",
@@ -85,13 +85,13 @@
         "metaAudience": "DevOps-teams en managers",
         "metaOutcome": "Feature op je eigen repo"
       },
-      "najaar-2026": {
+      "discount-aug-26": {
         "metaDuration": "2 dagen, 16 uur",
         "metaAudience": "DevOps-teams en managers",
         "metaOutcome": "Feature op je eigen repo"
       }
     },
-    "najaar-2026": {
+    "discount-aug-26": {
       "name": "Basic Training (21 & 22 september 2026)",
       "tagline": "Twee dagen hands-on; je levert een werkende feature op je eigen repo.",
       "earlyBirdNote": "30% korting t/m 31 juli",

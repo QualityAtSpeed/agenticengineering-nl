@@ -4,7 +4,7 @@ import { NextIntlClientProvider } from 'next-intl';
 import nl from '@/messages/nl.json';
 import { TrainingDetail } from '@/components/TrainingDetail';
 
-function renderDetail(trainingId: 'basic' | 'advanced' | 'pilot' | 'najaar-2026', now?: Date) {
+function renderDetail(trainingId: 'basic' | 'advanced' | 'pilot' | 'discount-aug-26', now?: Date) {
   return render(
     <NextIntlClientProvider locale="nl" messages={nl}>
       <TrainingDetail trainingId={trainingId} locale="nl" now={now} />
@@ -31,17 +31,17 @@ describe('<TrainingDetail /> CTA labels', () => {
     expect(screen.getByTestId('book-training-advanced')).toHaveTextContent('Vraag training aan');
   });
 
-  it('najaar-2026 CTA is labeled as booking and links to its booking page', () => {
-    renderDetail('najaar-2026', BEFORE_DEADLINE);
-    const cta = screen.getByTestId('book-training-najaar-2026');
+  it('discount-aug-26 CTA is labeled as booking and links to its booking page', () => {
+    renderDetail('discount-aug-26', BEFORE_DEADLINE);
+    const cta = screen.getByTestId('book-training-discount-aug-26');
     expect(cta).toHaveTextContent('Boek training');
-    expect(cta).toHaveAttribute('href', expect.stringContaining('/trainings/najaar-2026/book'));
+    expect(cta).toHaveAttribute('href', expect.stringContaining('/trainings/discount-aug-26/book'));
   });
 });
 
-describe('<TrainingDetail /> najaar-2026 early-bird price', () => {
+describe('<TrainingDetail /> discount-aug-26 early-bird price', () => {
   it('before the deadline shows the struck base price, the discount, and the note', () => {
-    renderDetail('najaar-2026', BEFORE_DEADLINE);
+    renderDetail('discount-aug-26', BEFORE_DEADLINE);
     // price is shown in two spots (fact row + bottom CTA box)
     expect(screen.getAllByText(/€\s*1\.399/).length).toBeGreaterThan(0);
     expect(screen.getAllByText(/€\s*979,30/).length).toBeGreaterThan(0);
@@ -49,7 +49,7 @@ describe('<TrainingDetail /> najaar-2026 early-bird price', () => {
   });
 
   it('after the deadline shows the full price and no discount', () => {
-    renderDetail('najaar-2026', AFTER_DEADLINE);
+    renderDetail('discount-aug-26', AFTER_DEADLINE);
     expect(screen.getAllByText(/€\s*1\.399/).length).toBeGreaterThan(0);
     expect(screen.queryByText(/€\s*979,30/)).not.toBeInTheDocument();
     expect(screen.queryByText(/30%/)).not.toBeInTheDocument();

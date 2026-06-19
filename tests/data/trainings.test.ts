@@ -24,13 +24,13 @@ describe('trainings catalogue', () => {
     expect(basic.modules).toEqual(expected);
   });
 
-  it('the dated cohorts (pilot, najaar-2026) carry a fixed online schedule for structured data', () => {
+  it('the dated cohorts (pilot, discount-aug-26) carry a fixed online schedule for structured data', () => {
     expect(trainings.pilot.schedule).toEqual({
       startDate: '2026-06-29',
       endDate: '2026-06-30',
       courseMode: 'online',
     });
-    expect(trainings['najaar-2026'].schedule).toEqual({
+    expect(trainings['discount-aug-26'].schedule).toEqual({
       startDate: '2026-09-21',
       endDate: '2026-09-22',
       courseMode: 'online',
@@ -39,12 +39,12 @@ describe('trainings catalogue', () => {
     expect(trainings.advanced.schedule).toBeUndefined();
   });
 
-  it('najaar-2026 is the Basic curriculum as a dated cohort with a 30% early-bird until 1 Aug', () => {
-    const najaar = trainings['najaar-2026'];
-    expect(najaar.durationDays).toBe(2);
-    expect(najaar.priceEUR).toBe(1399); // regular Basic price, not the pilot rate
-    expect(najaar.modules).toEqual(trainings.basic.modules); // same curriculum as Basic
-    expect(najaar.earlyBird).toEqual({
+  it('discount-aug-26 is the Basic curriculum as a dated cohort with a 30% early-bird until 1 Aug', () => {
+    const discountAug26 = trainings['discount-aug-26'];
+    expect(discountAug26.durationDays).toBe(2);
+    expect(discountAug26.priceEUR).toBe(1399); // regular Basic price, not the pilot rate
+    expect(discountAug26.modules).toEqual(trainings.basic.modules); // same curriculum as Basic
+    expect(discountAug26.earlyBird).toEqual({
       discountPct: 30,
       deadline: '2026-08-01T00:00:00+02:00',
     });

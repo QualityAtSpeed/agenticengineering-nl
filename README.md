@@ -63,7 +63,7 @@ Editing checklist:
 - API/server logic → keep validation in `lib/validation.ts`, side effects in `lib/*`.
 - New news article → create `news/<slug>.md` with required frontmatter (see below). Run `pnpm article:image <source-url> <slug>` to fetch and save the OG image before committing.
 - Pre-commit `lefthook` hook runs `format`, `lint`, and `readme-check` (validates README stays in sync; requires `claude` CLI + `ANTHROPIC_API_KEY`). Don't bypass with `--no-verify` unless you're fixing the hook itself.
-- Bookable trainings (self-serve Stripe checkout) are the set in `bookableTrainingEnum` (`lib/validation.ts`) — currently `pilot` and `najaar-2026`. Each one needs its booking routes (`/trainings/<id>/book` + `/trainings/<id>/book/success`) and, in both `TrainingCard.tsx` and `TrainingDetail.tsx`, its booking CTA (`/trainings/<id>/book`) and secondary contact link kept in sync.
+- Bookable trainings (self-serve Stripe checkout) are the set in `bookableTrainingEnum` (`lib/validation.ts`) — currently `pilot` and `discount-aug-26`. Each one needs its booking routes (`/trainings/<id>/book` + `/trainings/<id>/book/success`) and, in both `TrainingCard.tsx` and `TrainingDetail.tsx`, its booking CTA (`/trainings/<id>/book`) and secondary contact link kept in sync.
 - The primary CTA label is conditional in both components (`isBookable ? 'bookCta' : 'requestCta'`, where `isBookable` is membership of `bookableTrainingEnum`): bookable trainings show `trainings.labels.bookCta` ("Book training" / "Boek training"), the rest show `trainings.labels.requestCta` ("Request training" / "Vraag training aan").
 - The `/trainings` overview and the homepage render a **curated, ordered** list of cards (`DISPLAYED_TRAININGS` in `app/[locale]/trainings/page.tsx`; hardcoded cards on the homepage), not every entry in `data/trainings.ts`. `basic` stays in the dataset (its detail route still resolves and it is the template the dated cohorts mirror) but is not shown as a card.
 
@@ -155,7 +155,7 @@ Routes:
 - `/nl/about`, `/nl/contact`, `/nl/impressum` (and `/en/*`)
 - `/[locale]/trainings` — trainings overview
 - `/[locale]/trainings/[trainingId]` — training detail page
-- `/[locale]/trainings/<id>/book` — booking form for each bookable training (`pilot`, `najaar-2026`)
+- `/[locale]/trainings/<id>/book` — booking form for each bookable training (`pilot`, `discount-aug-26`)
 - `/[locale]/trainings/<id>/book/success` — post-payment UX
 - `POST /api/contact` — POST endpoint
 - `POST /api/checkout` — creates Stripe Checkout Session

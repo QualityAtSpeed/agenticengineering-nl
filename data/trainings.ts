@@ -23,7 +23,7 @@ export type DeliveryFormat = 'inCompany' | 'publicCohort' | 'remote';
 
 export type Module = { id: ModuleId; day?: 1 | 2 };
 
-export type TrainingId = 'basic' | 'advanced' | 'pilot' | 'najaar-2026';
+export type TrainingId = 'basic' | 'advanced' | 'pilot' | 'discount-aug-26';
 
 // Optional fixed schedule, in ISO 8601, for trainings that run on a known date.
 // Used only for machine-readable structured data (schema.org CourseInstance) —
@@ -73,11 +73,11 @@ export const trainings: Record<TrainingId, Training> = {
     ],
     deliveryFormats: ['inCompany', 'publicCohort', 'remote'],
   },
-  // Najaar-cohort: de Basic-training met een vaste datum + early-bird. Zelfde
+  // Discount-aug-26-cohort: de Basic-training met een vaste datum + early-bird. Zelfde
   // 2-daagse curriculum als basic/pilot; basisprijs = de Basic-prijs (€1399),
   // 30% korting bij inschrijving vóór 1 augustus 2026.
-  'najaar-2026': {
-    id: 'najaar-2026',
+  'discount-aug-26': {
+    id: 'discount-aug-26',
     durationDays: 2,
     priceEUR: 1399,
     schedule: { startDate: '2026-09-21', endDate: '2026-09-22', courseMode: 'online' },

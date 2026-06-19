@@ -9,7 +9,7 @@ import type { TrainingId } from '@/data/trainings';
 // Stripe product label per bookable training (receipt/dashboard text).
 const PRODUCT_NAME: Partial<Record<TrainingId, string>> = {
   pilot: 'Pilot - Basic Training (29 en 30 juni 2026)',
-  'najaar-2026': 'Agentic Engineering Training (21 & 22 september 2026)',
+  'discount-aug-26': 'Agentic Engineering Training (21 & 22 september 2026)',
 };
 
 function baseUrl(req: Request): string {

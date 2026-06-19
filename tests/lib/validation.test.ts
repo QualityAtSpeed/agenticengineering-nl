@@ -46,9 +46,9 @@ describe('bookingSchema', () => {
     );
   });
 
-  it('accepts a najaar-2026 booking with one attendee', () => {
+  it('accepts a discount-aug-26 booking with one attendee', () => {
     expect(
-      bookingSchema.safeParse({ trainingId: 'najaar-2026', attendees: [attendee] }).success,
+      bookingSchema.safeParse({ trainingId: 'discount-aug-26', attendees: [attendee] }).success,
     ).toBe(true);
   });
 

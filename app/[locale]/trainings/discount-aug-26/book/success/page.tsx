@@ -3,7 +3,7 @@ import type { Locale } from '@/i18n/routing';
 
 type Props = { params: Promise<{ locale: Locale }> };
 
-export default async function NajaarBookingSuccessPage({ params }: Props) {
+export default async function DiscountAug26BookingSuccessPage({ params }: Props) {
   const { locale } = await params;
   setRequestLocale(locale);
   const t = await getTranslations('booking');
