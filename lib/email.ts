@@ -12,6 +12,9 @@ export class EmailError extends Error {
   }
 }
 
+const escapeHtml = (s: string): string =>
+  s.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+
 export async function sendContactEmail(input: ContactInput): Promise<{ id: string }> {
   const apiKey = process.env.RESEND_API_KEY;
   const to = process.env.CONTACT_EMAIL;
@@ -54,9 +57,8 @@ export type BookingDetails = {
   attendees: { name: string; email: string }[];
   seats: number;
   grossCents: number;
+  training: string;
 };
-
-const PILOT_LABEL = 'Pilot - Basic Training (29 en 30 juni 2026)';
 
 function formatEuro(cents: number): string {
   return (cents / 100).toLocaleString('nl-NL', { minimumFractionDigits: 2 });
@@ -67,7 +69,7 @@ function bookingLines(b: BookingDetails): string {
     .map((a, i) => `  ${i + 1}. ${stripCRLF(a.name)} <${stripCRLF(a.email)}>`)
     .join('\n');
   return [
-    `Training: ${PILOT_LABEL}`,
+    `Training: ${b.training}`,
     `Seats: ${b.seats}`,
     `Total (incl. BTW): €${formatEuro(b.grossCents)}`,
     '',
@@ -86,16 +88,32 @@ function resendClient(): { resend: Resend; from: string } {
 
 export async function sendBookingConfirmation(b: BookingDetails): Promise<{ id: string }> {
   const { resend, from } = resendClient();
-  const to = stripCRLF(b.attendees[0].email);
-  const subject = stripCRLF(`[agenticengineering.nl] Bevestiging boeking — ${PILOT_LABEL}`);
-  const text = [
-    'Bedankt voor je boeking! Je plek is bevestigd.',
-    '',
-    bookingLines(b),
-    '',
-    'We nemen contact op met praktische details voor de trainingsdagen.',
-  ].join('\n');
-  const result = await resend.emails.send({ from, to, subject, text });
+
+  const attendeesHtml = b.attendees
+    .map(
+      (a) =>
+        `<tr><td style="padding:11px 0;border-bottom:1px solid #f0f3f6;">` +
+        `<span style="font-size:15px;color:#16202b;font-weight:bold;">${escapeHtml(stripCRLF(a.name))}</span><br/>` +
+        `<span style="font-size:13px;color:#8a94a2;">${escapeHtml(stripCRLF(a.email))}</span></td></tr>`,
+    )
+    .join('');
+
+  const result = await resend.emails.send({
+    from,
+    to: stripCRLF(b.attendees[0].email),
+
+    template: {
+      id: 'booking-confirmation',
+      variables: {
+        // moet Record<string, string | number> zijn
+        customerName: stripCRLF(b.attendees[0].name),
+        training: b.training,
+        seats: b.seats, // number mag
+        total: formatEuro(b.grossCents), // string, bv. "1.184,95"
+        attendeesHtml, // string (HTML) -> in de template als {{{attendeesHtml}}}
+      },
+    },
+  });
   if (result.error || !result.data?.id) {
     throw new EmailError(result.error?.message ?? 'unknown Resend error', result.error);
   }

@@ -226,6 +226,18 @@ Or paste real values in Vercel UI → Project → Settings → Environment Varia
 
 Local dev does not need these (contact form requires them at runtime). For local mail testing, create `.env.local` with the same keys.
 
+### Resend templates
+
+`sendBookingConfirmation()` in [lib/email.ts](lib/email.ts) does **not** build its own HTML — it calls `resend.emails.send()` with a `template.id`. That template must exist in the Resend dashboard (Templates), on the same account as `RESEND_API_KEY`, or the send fails at runtime. The other two mails (`sendContactEmail`, `sendBookingNotification`) are plain-text and need no template.
+
+| Template ID            | Used by                     | Variables                                                                                                                                                                                                                  |
+| ---------------------- | --------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `booking-confirmation` | `sendBookingConfirmation()` | `customerName` (string), `training` (string), `seats` (number), `total` (string, formatted euro e.g. `"1.184,95"`), `attendeesHtml` (string of HTML `<tr>` rows — reference as `{{{attendeesHtml}}}` so it is not escaped) |
+
+Variables are passed as `Record<string, string \| number>`. `attendeesHtml` is pre-rendered HTML; use the triple-mustache `{{{attendeesHtml}}}` in the template body so Resend doesn't HTML-escape it. The other variables are plain values and use normal `{{customerName}}` etc.
+
+Note: `BookingDetails` now requires a `training` field (alongside `attendees`, `seats`, `grossCents`).
+
 ### Feature flags
 
 `BLOGS_ENABLED` gates the blog feature on `/articles`. Implementation in `lib/flags.ts`.
