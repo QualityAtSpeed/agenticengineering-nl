@@ -60,6 +60,7 @@ const booking: BookingDetails = {
   ],
   seats: 2,
   grossCents: 84458,
+  training: 'basic',
 };
 
 describe('sendBookingConfirmation', () => {
@@ -72,8 +73,9 @@ describe('sendBookingConfirmation', () => {
     const arg = sendMock.mock.calls[0][0];
     expect(arg.to).toBe('pascal@example.com');
     expect(arg.from).toBe('noreply@agenticengineering.nl');
-    expect(arg.subject).not.toMatch(/[\r\n]/);
-    expect(arg.text).toContain('€844,58'); // 84458 cents, nl-NL formatting
+    expect(arg.template.id).toBe('booking-confirmation');
+    expect(arg.template.variables.customerName).not.toMatch(/[\r\n]/);
+    expect(arg.template.variables.total).toContain('844,58'); // 84458 cents, nl-NL formatting
   });
 });
 
