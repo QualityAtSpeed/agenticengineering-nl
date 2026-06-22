@@ -29,7 +29,7 @@ export default async function Home({ params }: { params: Promise<{ locale: Local
       />
 
       <section className="border-border-subtle border-b px-6 py-20">
-        <div className="mx-auto max-w-3xl">
+        <div className="mx-auto max-w-4xl">
           <h2 className="text-brand text-2xl font-bold sm:text-3xl">{tWhy('title')}</h2>
           <p className="text-text-primary mt-3 text-xl font-semibold sm:text-2xl">
             {tWhy('tagline')}
@@ -46,7 +46,7 @@ export default async function Home({ params }: { params: Promise<{ locale: Local
       </section>
 
       <section id="trainings" className="border-border-subtle border-b px-6 py-20">
-        <div className="mx-auto max-w-5xl">
+        <div className="mx-auto max-w-4xl">
           <div className="mb-8 max-w-2xl">
             <h2 className="text-brand text-2xl font-bold sm:text-3xl">
               {tTrainings('sectionTitle')}
