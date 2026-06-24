@@ -129,7 +129,15 @@ export function TrainingDetail({
   const modulesDay2 = training.modules.filter((m) => m.day === 2);
 
   return (
-    <section id={`training-${trainingId}`} className="border-border-subtle border-b px-6 py-20">
+    <section
+      id={`training-${trainingId}`}
+      className="border-border-subtle relative overflow-hidden border-b px-6 py-20"
+    >
+      {isSoldOut && (
+        <div className="bg-accent-red text-on-accent absolute top-12 -right-24 w-72 rotate-45 py-1 text-center text-xs font-extrabold tracking-wider uppercase shadow-md">
+          {tCommon('soldOut')}
+        </div>
+      )}
       <div className="mx-auto max-w-5xl">
         <div className="mb-8 max-w-2xl">
           <h2 className="text-brand text-2xl font-bold sm:text-3xl">{t(`${trainingId}.name`)}</h2>
@@ -201,6 +209,18 @@ export function TrainingDetail({
             {price.earlyBird && (
               <p className="text-accent-green-hover mt-1 text-sm font-semibold">
                 {t(`${trainingId}.earlyBirdNote`)}
+              </p>
+            )}
+            {isSoldOut && (
+              <p className="text-text-soft mt-2 text-sm">
+                {tCommon('soldOutNote')}{' '}
+                <a
+                  href={`/${locale}/contact?training=${trainingId}`}
+                  data-testid={`book-training-${trainingId}-soldout-contact`}
+                  className="text-brand font-semibold underline"
+                >
+                  {tCommon('soldOutContact')}
+                </a>
               </p>
             )}
           </div>

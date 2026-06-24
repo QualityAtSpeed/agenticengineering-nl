@@ -68,7 +68,9 @@
       "taughtBy": "Taught by",
       "pilotBadge": "Pilot · reduced price",
       "soldOut": "Sold out",
-      "contactLink": "Questions? Contact"
+      "contactLink": "Questions? Contact",
+      "soldOutNote": "This training is currently fully booked, want to know more?",
+      "soldOutContact": "Get in touch with us"
     },
     "cardMeta": {
       "basic": {
