@@ -33,6 +33,10 @@ test('submitting redirects to the Stripe url (checkout stubbed)', async ({ page 
   await page.goto('/nl/trainings/discount-aug-26/book');
   await page.getByTestId('booking-attendee-name-0').fill('Pascal');
   await page.getByTestId('booking-attendee-email-0').fill('pascal@example.com');
+  await page.getByTestId('booking-company').fill('company-name');
+  await page.getByTestId('booking-street').fill('Dokter Spanjaardsweg 23');
+  await page.getByTestId('booking-zipcode').fill('8025BT');
+  await page.getByTestId('booking-city').fill('Zwolle');
   await Promise.all([
     page.waitForURL('https://example.com/stub-checkout'),
     page.getByTestId('booking-submit').click(),
