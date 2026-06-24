@@ -58,5 +58,6 @@ describe('<TestimonialsSection />', () => {
     ).toBeInTheDocument();
     expect(screen.getByText('Quote A')).toBeInTheDocument();
     expect(screen.getByText('Quote B')).toBeInTheDocument();
+    expect(screen.getAllByRole('article')).toHaveLength(2);
   });
 });

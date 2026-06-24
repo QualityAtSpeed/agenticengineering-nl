@@ -12,14 +12,14 @@ export const testimonials: Testimonial[] = [
     id: 'placeholder-1',
     quote:
       'The training turned vague "use AI" guidance into a concrete workflow my team actually follows.',
-    name: 'Placeholder Name',
+    name: 'Placeholder Name One',
     role: 'Engineering Lead, Example Co',
   },
   {
     id: 'placeholder-2',
     quote:
       'Hands-on from the first hour. We shipped a real change with agentic tooling by the end of day one.',
-    name: 'Placeholder Name',
+    name: 'Placeholder Name Two',
     role: 'Senior Engineer, Example BV',
   },
 ];
