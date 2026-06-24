@@ -284,7 +284,9 @@ Stripe → POST /api/stripe/webhook → app/api/stripe/webhook/route.ts
                 └─ async_payment_failed                 → logged, no fulfillment
 ```
 
-The booking form (`BookingForm.tsx`) collects, besides attendees, company billing details: company name, KvK number (optional, 8 digits when filled), address (street, postal code, city, country), and a free-text notes box (max 500 chars, the Stripe metadata value limit). These are validated by `bookingSchema` (`lib/validation.ts`), passed through `POST /api/checkout` into the Stripe Checkout Session `metadata`, read back from `metadata` in the webhook, and included **only** in the operator notification email (`sendBookingNotification`) — the customer confirmation does not echo them.
+The booking form (`BookingForm.tsx`) collects, besides attendees, an **account type** (`zakelijk` / `persoonlijk`, default `zakelijk`) and billing details. Address (street, postal code, city, country) and the free-text notes box (max 500 chars, the Stripe metadata value limit) are collected for **every** booking. Company name and KvK number (optional, 8 digits when filled) are collected **only for business (`zakelijk`) accounts** — the form hides those two fields when `accountType === 'persoonlijk'`. These are validated by `bookingSchema` (`lib/validation.ts`), passed through `POST /api/checkout` into the Stripe Checkout Session `metadata`, read back from `metadata` in the webhook, and included **only** in the operator notification email (`sendBookingNotification`) — the customer confirmation does not echo them.
+
+Company name is **conditionally required**: `bookingSchema` uses `.superRefine()` to require it only when `accountType === 'zakelijk'` (it is unconstrained for personal bookings). Both `accountType` and `company` carry zod `.default()` values, so the schema's input and output types differ — the form uses `BookingFormInput` (`z.input`), the server uses `BookingInput` (`z.infer`).
 
 Fulfillment happens on the webhook, never on the success redirect. The success page (`/[locale]/trainings/pilot/book/success`) is purely cosmetic — it cannot be trusted as proof of payment.
 
@@ -423,7 +425,7 @@ Translation messages live in `messages/{nl,en}.json`. Locale routing in `i18n/ro
 
 CI runs `pnpm verify:i18n` to enforce key parity between NL and EN. Add a new key → add it to both files.
 
-Namespaces in use: `meta`, `nav`, `hero`, `trainings`, `modules`, `proof`, `footer`, `about`, `articles`, `contact`, `booking`, `impressum`, `theme`, `home`, `why`. The `booking` namespace covers the booking form: seat selector and attendees (`seatsLabel`, `attendeeName`, `attendeeEmail`), company billing details (`companyHeading`, `company`, `kvk`, `street`, `zipCode`, `city`, `country`, `notes`), submit/contact (`submit`, `submitting`, `contactLink`), sold-out copy (`soldOutHeading`, `soldOutBody`, `soldOutBack`), `errors.*` (`required`, `invalidEmail`, `invalidKvk`, `generic`, `rateLimited`), and `success.*`.
+Namespaces in use: `meta`, `nav`, `hero`, `trainings`, `modules`, `proof`, `footer`, `about`, `articles`, `contact`, `booking`, `impressum`, `theme`, `home`, `why`. The `booking` namespace covers the booking form: seat selector and attendees (`seatsLabel`, `attendeeName`, `attendeeEmail`), account-type radio options (`accountBusiness`, `accountPersonal`), company billing details (`companyHeading`, `company`, `kvk`, `street`, `zipCode`, `city`, `country`, `notes`), submit/contact (`submit`, `submitting`, `contactLink`), sold-out copy (`soldOutHeading`, `soldOutBody`, `soldOutBack`), `errors.*` (`required`, `invalidEmail`, `invalidKvk`, `generic`, `rateLimited`), and `success.*`.
 
 ## Testing
 

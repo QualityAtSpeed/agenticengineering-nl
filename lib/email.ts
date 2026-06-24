@@ -90,7 +90,7 @@ function bookingLines(b: BookingDetails): string {
 function companyLines(c: CompanyDetails): string {
   return [
     'Bedrijfsgegevens:',
-    `  Bedrijfsnaam: ${stripCRLF(c.company)}`,
+    `  Bedrijfsnaam: ${stripCRLF(c.company) || '—'}`,
     `  KVK: ${stripCRLF(c.kvk) || '—'}`,
     `  Adres: ${stripCRLF(c.street)}, ${stripCRLF(c.zipCode)} ${stripCRLF(c.city)}, ${stripCRLF(c.country)}`,
     '',

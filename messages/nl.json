@@ -438,6 +438,8 @@
     "intro": "Reserveer je plek voor de {trainingName}. Prijs per deelnemer, incl. 21% btw.",
     "seatsLabel": "Aantal deelnemers",
     "companyHeading": "Bedrijfsgegevens",
+    "accountBusiness": "Zakelijk",
+    "accountPersonal": "Persoonlijk",
     "company": "Bedrijfsnaam",
     "kvk": "KVK-nummer (optioneel)",
     "street": "Straat en huisnummer",

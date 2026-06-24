@@ -4,7 +4,7 @@ import { useState } from 'react';
 import { useForm, useFieldArray } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useTranslations } from 'next-intl';
-import { bookingSchema, type BookingInput } from '@/lib/validation';
+import { bookingSchema, type BookingInput, type BookingFormInput } from '@/lib/validation';
 import { Button } from '@/components/Button';
 
 type Status = 'idle' | 'submitting' | 'error' | 'rateLimited';
@@ -28,12 +28,14 @@ export function BookingForm({
     register,
     handleSubmit,
     control,
+    watch,
     formState: { errors },
-  } = useForm<BookingInput>({
+  } = useForm<BookingFormInput, unknown, BookingInput>({
     resolver: zodResolver(bookingSchema),
     defaultValues: {
       trainingId,
       attendees: [{ name: '', email: '' }],
+      accountType: 'zakelijk',
       company: '',
       kvk: '',
       street: '',
@@ -45,6 +47,9 @@ export function BookingForm({
   });
 
   const { fields, replace } = useFieldArray({ control, name: 'attendees' });
+
+  const accountType = watch('accountType');
+  const isBusiness = accountType === 'zakelijk';
 
   function setSeats(n: number) {
     const next = Array.from({ length: n }, (_, i) => fields[i] ?? { name: '', email: '' });
@@ -76,32 +81,59 @@ export function BookingForm({
             {t('companyHeading')}
           </legend>
 
-          <label className="block sm:col-span-2">
-            <span className="text-text-primary text-sm font-semibold">{t('company')}</span>
-            <input
-              type="text"
-              data-testid="booking-company"
-              {...register('company')}
-              className={`${INPUT_CLASS} mt-1.5`}
-            />
-            {errors.company && (
-              <p className="text-accent-red mt-1.5 text-xs">{t('errors.required')}</p>
-            )}
-          </label>
+          <div className="flex gap-4 sm:col-span-2" role="radiogroup">
+            <label className="text-text-muted flex items-center gap-2 text-sm">
+              <input
+                type="radio"
+                value="zakelijk"
+                data-testid="booking-account-business"
+                {...register('accountType')}
+                className="accent-brand/60"
+              />
+              {t('accountBusiness')}
+            </label>
+            <label className="text-text-muted flex items-center gap-2 text-sm">
+              <input
+                type="radio"
+                value="persoonlijk"
+                data-testid="booking-account-personal"
+                {...register('accountType')}
+                className="accent-brand/60"
+              />
+              {t('accountPersonal')}
+            </label>
+          </div>
 
-          <label className="block sm:col-span-2">
-            <span className="text-text-primary text-sm font-semibold">{t('kvk')}</span>
-            <input
-              type="text"
-              inputMode="numeric"
-              data-testid="booking-kvk"
-              {...register('kvk')}
-              className={`${INPUT_CLASS} mt-1.5`}
-            />
-            {errors.kvk && (
-              <p className="text-accent-red mt-1.5 text-xs">{t('errors.invalidKvk')}</p>
-            )}
-          </label>
+          {isBusiness && (
+            <label className="block sm:col-span-2">
+              <span className="text-text-primary text-sm font-semibold">{t('company')}</span>
+              <input
+                type="text"
+                data-testid="booking-company"
+                {...register('company')}
+                className={`${INPUT_CLASS} mt-1.5`}
+              />
+              {errors.company && (
+                <p className="text-accent-red mt-1.5 text-xs">{t('errors.required')}</p>
+              )}
+            </label>
+          )}
+
+          {isBusiness && (
+            <label className="block sm:col-span-2">
+              <span className="text-text-primary text-sm font-semibold">{t('kvk')}</span>
+              <input
+                type="text"
+                inputMode="numeric"
+                data-testid="booking-kvk"
+                {...register('kvk')}
+                className={`${INPUT_CLASS} mt-1.5`}
+              />
+              {errors.kvk && (
+                <p className="text-accent-red mt-1.5 text-xs">{t('errors.invalidKvk')}</p>
+              )}
+            </label>
+          )}
 
           <label className="block sm:col-span-2">
             <span className="text-text-primary text-sm font-semibold">{t('street')}</span>
