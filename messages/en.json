@@ -67,7 +67,10 @@
       "requestCta": "Request training",
       "taughtBy": "Taught by",
       "pilotBadge": "Pilot · reduced price",
-      "contactLink": "Questions? Contact"
+      "soldOut": "Sold out",
+      "contactLink": "Questions? Contact",
+      "soldOutNote": "This training is currently fully booked, want to know more?",
+      "soldOutContact": "Get in touch with us"
     },
     "cardMeta": {
       "basic": {
@@ -435,6 +438,9 @@
     "submit": "Continue to payment",
     "submitting": "Working…",
     "contactLink": "Prefer to ask questions first? Get in touch",
+    "soldOutHeading": "Sold out",
+    "soldOutBody": "This training is fully booked, so booking is closed.",
+    "soldOutBack": "Back to trainings",
     "errors": {
       "required": "This field is required.",
       "invalidEmail": "Enter a valid email address.",

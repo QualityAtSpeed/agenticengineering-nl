@@ -67,7 +67,10 @@
       "requestCta": "Vraag training aan",
       "taughtBy": "Gegeven door",
       "pilotBadge": "Pilot · gereduceerde prijs",
-      "contactLink": "Vragen? Contact"
+      "soldOut": "Uitverkocht",
+      "contactLink": "Vragen? Contact",
+      "soldOutNote": "Deze training is op dit moment volgeboekt, meer weten?",
+      "soldOutContact": "Neem contact met ons op"
     },
     "cardMeta": {
       "basic": {
@@ -439,6 +442,9 @@
     "submit": "Naar betaling",
     "submitting": "Bezig…",
     "contactLink": "Liever eerst vragen stellen? Neem contact op",
+    "soldOutHeading": "Uitverkocht",
+    "soldOutBody": "Deze training is volgeboekt, dus boeken is niet meer mogelijk.",
+    "soldOutBack": "Terug naar trainingen",
     "errors": {
       "required": "Dit veld is verplicht.",
       "invalidEmail": "Vul een geldig e-mailadres in.",
