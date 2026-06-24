@@ -107,7 +107,8 @@ app/
   globals.css          # Tailwind v4 @theme block (single source of design tokens)
 components/            # Hero, Nav, Footer, TrainingCard, TrainingDetail, ContactForm,
                        # BookingForm, ArticleFilterBar, InstructorCard, Button, DayAgenda,
-                       # ProofStrip, TimelineEntry, JsonLd, LangSwitcher, MobileMenu, …
+                       # ProofStrip, TimelineEntry, JsonLd, LangSwitcher, MobileMenu,
+                       # TestimonialCard, …
 lib/
   validation.ts        # Zod schemas (contactSchema, bookingSchema, trainingInterestEnum, …)
   email.ts             # Resend wrapper, sendContactEmail(), sendBookingConfirmation(), sendBookingNotification()
