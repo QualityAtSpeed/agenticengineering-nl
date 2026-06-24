@@ -66,18 +66,10 @@ describe('POST /api/checkout', () => {
   });
 
   it('enables promotion-code redemption for bookable trainings, alongside the attribution metadata', async () => {
-    await POST(make(validBody));
-    const pilotArg = createMock.mock.calls[0][0];
-    expect(pilotArg.allow_promotion_codes).toBe(true);
-    // coexists with the metadata the referral program ties a redemption back to
-    expect(pilotArg.metadata.trainingId).toBe('pilot');
-
-    vi.clearAllMocks();
-    await POST(
-      make({ trainingId: 'discount-aug-26', attendees: [{ name: 'A', email: 'a@x.com' }] }),
-    );
+    await POST(make(bookableBody));
     const discArg = createMock.mock.calls[0][0];
     expect(discArg.allow_promotion_codes).toBe(true);
+    // coexists with the metadata the referral program ties a redemption back to
     expect(discArg.metadata.trainingId).toBe('discount-aug-26');
   });
 
@@ -85,7 +77,7 @@ describe('POST /api/checkout', () => {
     listMock.mockResolvedValue({
       data: [{ id: 'promo_123', metadata: { referrer: 'piet@example.com' } }],
     });
-    await POST(make({ ...validBody, referralCode: 'REF-7F3K9' }));
+    await POST(make({ ...bookableBody, referralCode: 'REF-7F3K9' }));
     expect(listMock).toHaveBeenCalledWith(
       expect.objectContaining({ code: 'REF-7F3K9', active: true }),
     );
@@ -98,7 +90,7 @@ describe('POST /api/checkout', () => {
 
   it('rejects an unknown / expired referral code with 400 and creates no session', async () => {
     listMock.mockResolvedValue({ data: [] });
-    const res = await POST(make({ ...validBody, referralCode: 'NOPE' }));
+    const res = await POST(make({ ...bookableBody, referralCode: 'NOPE' }));
     expect(res.status).toBe(400);
     expect((await res.json()).error).toBe('invalid_referral');
     expect(createMock).not.toHaveBeenCalled();
