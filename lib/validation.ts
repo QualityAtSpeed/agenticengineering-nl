@@ -26,6 +26,9 @@ export const bookableTrainingEnum = z.enum(['pilot', 'discount-aug-26']);
 export const bookingSchema = z.object({
   trainingId: bookableTrainingEnum,
   attendees: z.array(attendeeSchema).min(1).max(10),
+  // Optional referral / discount code; resolved server-side to a Stripe
+  // promotion code (Stripe enforces the coupon + max_redemptions).
+  referralCode: z.string().trim().max(64).optional(),
 });
 
 export type BookingInput = z.infer<typeof bookingSchema>;

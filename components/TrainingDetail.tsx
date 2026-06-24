@@ -3,6 +3,7 @@ import { Button } from '@/components/Button';
 import { trainings, type TrainingId, type Module } from '@/data/trainings';
 import { priceFor } from '@/lib/pricing';
 import { bookableTrainingEnum } from '@/lib/validation';
+import { SoldOutBadge } from '@/components/SoldOutBadge';
 
 const ClockIcon = () => (
   <svg
@@ -118,6 +119,7 @@ export function TrainingDetail({
 
   // Bookable = self-serve via Stripe checkout (zelfde set als het boeking-schema).
   const isBookable = (bookableTrainingEnum.options as readonly TrainingId[]).includes(trainingId);
+  const isSoldOut = training.soldOut === true;
   const price = priceFor(trainingId, now);
 
   const audience = t.raw(`${trainingId}.audience`) as string[];
@@ -128,7 +130,11 @@ export function TrainingDetail({
   const modulesDay2 = training.modules.filter((m) => m.day === 2);
 
   return (
-    <section id={`training-${trainingId}`} className="border-border-subtle border-b px-6 py-20">
+    <section
+      id={`training-${trainingId}`}
+      className="border-border-subtle relative overflow-hidden border-b px-6 py-20"
+    >
+      {isSoldOut && <SoldOutBadge className="top-12" />}
       <div className="mx-auto max-w-5xl">
         <div className="mb-8 max-w-2xl">
           <h2 className="text-brand text-2xl font-bold sm:text-3xl">{t(`${trainingId}.name`)}</h2>
@@ -202,19 +208,41 @@ export function TrainingDetail({
                 {t(`${trainingId}.earlyBirdNote`)}
               </p>
             )}
+            {isSoldOut && (
+              <p className="text-text-soft mt-2 text-sm">
+                {tCommon('soldOutNote')}{' '}
+                <a
+                  href={`/${locale}/contact?training=${trainingId}`}
+                  data-testid={`book-training-${trainingId}-soldout-contact`}
+                  className="text-brand font-semibold underline"
+                >
+                  {tCommon('soldOutContact')}
+                </a>
+              </p>
+            )}
           </div>
           <div className="flex flex-col items-stretch gap-2 sm:items-end">
-            <Button
-              href={
-                isBookable
-                  ? `/${locale}/trainings/${trainingId}/book`
-                  : `/${locale}/contact?training=${trainingId}`
-              }
-              data-testid={`book-training-${trainingId}`}
-            >
-              {tCommon(isBookable ? 'bookCta' : 'requestCta')}
-            </Button>
-            {isBookable && (
+            {isSoldOut ? (
+              <Button
+                disabled
+                aria-label={`${tCommon(isBookable ? 'bookCta' : 'requestCta')} — ${tCommon('soldOut')}`}
+                data-testid={`book-training-${trainingId}`}
+              >
+                {tCommon(isBookable ? 'bookCta' : 'requestCta')}
+              </Button>
+            ) : (
+              <Button
+                href={
+                  isBookable
+                    ? `/${locale}/trainings/${trainingId}/book`
+                    : `/${locale}/contact?training=${trainingId}`
+                }
+                data-testid={`book-training-${trainingId}`}
+              >
+                {tCommon(isBookable ? 'bookCta' : 'requestCta')}
+              </Button>
+            )}
+            {isBookable && !isSoldOut && (
               <a
                 href={`/${locale}/contact`}
                 data-testid={`book-training-${trainingId}-contact`}

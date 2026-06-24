@@ -40,9 +40,10 @@ describe('<TrainingDetailPage />', () => {
     expect(screen.getByTestId('book-training-basic')).toBeInTheDocument();
   });
 
-  it('pilot detail CTA links to the booking page', async () => {
+  it('pilot detail CTA is disabled (sold out), not a booking link', async () => {
     await renderPage('pilot');
     const cta = screen.getByTestId('book-training-pilot');
-    expect(cta).toHaveAttribute('href', expect.stringContaining('/trainings/pilot/book'));
+    expect(cta).toBeDisabled();
+    expect(cta).not.toHaveAttribute('href');
   });
 });

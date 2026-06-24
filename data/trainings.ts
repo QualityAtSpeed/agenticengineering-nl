@@ -50,6 +50,9 @@ export type Training = {
   deliveryFormats: DeliveryFormat[];
   schedule?: TrainingSchedule;
   earlyBird?: EarlyBird;
+  // When true, the card renders a sold-out state: dimmed content, a red
+  // "sold out" badge/label, and a disabled booking button.
+  soldOut?: boolean;
 };
 
 export const trainings: Record<TrainingId, Training> = {
@@ -72,6 +75,7 @@ export const trainings: Record<TrainingId, Training> = {
       { id: 'capstone-ship-feature', day: 2 },
     ],
     deliveryFormats: ['inCompany', 'publicCohort', 'remote'],
+    soldOut: true,
   },
 
   'discount-aug-26': {

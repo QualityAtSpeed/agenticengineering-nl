@@ -1,13 +1,23 @@
 import { test, expect } from '@playwright/test';
 
+// pilot is sold out (booking closed), so the form flows run against the live
+// bookable training. pilot's sold-out notice has its own test below.
 for (const locale of ['nl', 'en'] as const) {
   test(`booking form renders and grows rows (${locale})`, async ({ page }) => {
-    await page.goto(`/${locale}/trainings/pilot/book`);
+    await page.goto(`/${locale}/trainings/discount-aug-26/book`);
     await expect(page.getByTestId('booking-submit')).toBeVisible();
     await expect(page.getByTestId('booking-attendee-name-0')).toBeVisible();
 
     await page.getByTestId('booking-seats').selectOption('3');
     await expect(page.getByTestId('booking-attendee-name-2')).toBeVisible();
+  });
+
+  test(`sold-out training shows the notice, not the form (${locale})`, async ({ page }) => {
+    await page.goto(`/${locale}/trainings/pilot/book`);
+    await expect(page.getByTestId('booking-submit')).toBeHidden();
+    await expect(
+      page.getByText(locale === 'nl' ? 'Uitverkocht' : 'Sold out', { exact: true }),
+    ).toBeVisible();
   });
 }
 
@@ -20,7 +30,7 @@ test('submitting redirects to the Stripe url (checkout stubbed)', async ({ page 
     }),
   );
 
-  await page.goto('/nl/trainings/pilot/book');
+  await page.goto('/nl/trainings/discount-aug-26/book');
   await page.getByTestId('booking-attendee-name-0').fill('Pascal');
   await page.getByTestId('booking-attendee-email-0').fill('pascal@example.com');
   await Promise.all([
