@@ -11,6 +11,7 @@ permissions:
 
 jobs:
   verify:
+    name: Lint, types, tests & build
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@34e114876b0b11c390a56381ad16ebd13914f8d5 # v4.3.1
@@ -31,6 +32,7 @@ jobs:
       - run: pnpm build
 
   audit:
+    name: pnpm audit
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@34e114876b0b11c390a56381ad16ebd13914f8d5 # v4.3.1
@@ -43,6 +45,7 @@ jobs:
       - run: pnpm audit --audit-level=high
 
   osv:
+    name: OSV vulnerability scan
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@34e114876b0b11c390a56381ad16ebd13914f8d5 # v4.3.1
@@ -52,6 +55,7 @@ jobs:
             --lockfile=pnpm-lock.yaml
 
   gitleaks:
+    name: Secret scan (gitleaks)
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@34e114876b0b11c390a56381ad16ebd13914f8d5 # v4.3.1
@@ -63,6 +67,7 @@ jobs:
           GITLEAKS_LICENSE: ${{ secrets.GITLEAKS_LICENSE }}
 
   e2e:
+    name: E2E (Playwright)
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@34e114876b0b11c390a56381ad16ebd13914f8d5 # v4.3.1
