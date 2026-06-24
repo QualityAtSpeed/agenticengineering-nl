@@ -112,22 +112,21 @@ export function TrainingCard({
     <article
       className={
         isPilot
-          ? 'bg-brand-soft ring-brand/30 -mx-6 my-8 grid items-start gap-7 rounded-lg p-6 ring-1 lg:grid-cols-[1fr_200px]'
+          ? 'bg-brand-soft ring-brand/30 relative -mx-6 my-8 grid items-start gap-7 overflow-hidden rounded-lg p-6 ring-1 lg:grid-cols-[1fr_200px]'
           : 'border-border-subtle grid items-start gap-7 border-t py-8 last:border-b lg:grid-cols-[1fr_200px]'
       }
     >
+      {isSoldOut && (
+        <div className="bg-accent-red text-on-accent absolute top-9 -right-24 w-72 rotate-45 py-1 text-center text-xs font-extrabold tracking-wider uppercase shadow-md">
+          {tLabels('soldOut')}
+        </div>
+      )}
       <div className="flex flex-col gap-4 lg:flex-row lg:gap-10">
         <div className="min-w-0 flex-1">
-          {isSoldOut ? (
-            <span className="bg-accent-red text-on-accent mb-2 inline-block rounded-full px-2.5 py-0.5 text-xs font-bold tracking-wider uppercase">
-              {tLabels('soldOut')}
+          {isPilot && (
+            <span className="bg-brand text-on-accent mb-2 inline-block rounded-full px-2.5 py-0.5 text-xs font-bold tracking-wider uppercase">
+              {tLabels('pilotBadge')}
             </span>
-          ) : (
-            isPilot && (
-              <span className="bg-brand text-on-accent mb-2 inline-block rounded-full px-2.5 py-0.5 text-xs font-bold tracking-wider uppercase">
-                {tLabels('pilotBadge')}
-              </span>
-            )
           )}
           <h3 className={`text-text-primary text-xl font-bold ${dim}`}>
             {t(`${trainingId}.name`)}
