@@ -10,7 +10,7 @@ export function ProofStrip({ locale: _locale }: { locale: Locale }) {
 
   return (
     <section className="border-border-subtle bg-bg-elevated border-b px-6 py-20">
-      <div className="mx-auto max-w-5xl">
+      <div className="mx-auto max-w-4xl">
         <h2 className="text-brand text-2xl font-bold sm:text-3xl">{t('heading')}</h2>
         <p className="text-text-soft mt-3 max-w-2xl">{t('subhead')}</p>
 
