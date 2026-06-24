@@ -440,6 +440,9 @@
     "submit": "Naar betaling",
     "submitting": "Bezig…",
     "contactLink": "Liever eerst vragen stellen? Neem contact op",
+    "soldOutHeading": "Uitverkocht",
+    "soldOutBody": "Deze training is volgeboekt, dus boeken is niet meer mogelijk.",
+    "soldOutBack": "Terug naar trainingen",
     "errors": {
       "required": "Dit veld is verplicht.",
       "invalidEmail": "Vul een geldig e-mailadres in.",

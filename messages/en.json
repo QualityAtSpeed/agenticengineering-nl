@@ -436,6 +436,9 @@
     "submit": "Continue to payment",
     "submitting": "Working…",
     "contactLink": "Prefer to ask questions first? Get in touch",
+    "soldOutHeading": "Sold out",
+    "soldOutBody": "This training is fully booked, so booking is closed.",
+    "soldOutBack": "Back to trainings",
     "errors": {
       "required": "This field is required.",
       "invalidEmail": "Enter a valid email address.",

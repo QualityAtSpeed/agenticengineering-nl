@@ -4,7 +4,7 @@ import { priceFor } from '@/lib/pricing';
 import { getStripe } from '@/lib/stripe';
 import { isAllowedOrigin, clientIp } from '@/lib/http';
 import { checkRateLimit } from '@/lib/rate-limit';
-import type { TrainingId } from '@/data/trainings';
+import { trainings, type TrainingId } from '@/data/trainings';
 
 // Stripe product label per bookable training (receipt/dashboard text).
 const PRODUCT_NAME: Partial<Record<TrainingId, string>> = {
@@ -43,6 +43,13 @@ export async function POST(req: Request) {
   }
 
   const { trainingId, attendees } = parsed.data;
+
+  // Authoritative sold-out gate: a sold-out training can never reach Stripe,
+  // regardless of what the client posts.
+  if (trainings[trainingId].soldOut) {
+    return NextResponse.json({ ok: false, error: 'sold_out' }, { status: 409 });
+  }
+
   const { grossCents } = priceFor(trainingId, new Date()); // server-enforced early-bird
   const origin = baseUrl(req);
 
