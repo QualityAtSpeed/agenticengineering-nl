@@ -35,13 +35,6 @@ describe('<TrainingCard />', () => {
     );
   });
 
-  it('pilot primary CTA links to the booking page, not the contact form', () => {
-    renderCard('pilot');
-    const cta = screen.getByTestId('book-pilot');
-    expect(cta).toHaveAttribute('href', expect.stringContaining('/trainings/pilot/book'));
-    expect(cta).not.toHaveAttribute('href', expect.stringContaining('/contact'));
-  });
-
   it('non-pilot primary CTA still links to the contact form', () => {
     renderCard('basic');
     const cta = screen.getByTestId('book-basic');
@@ -61,12 +54,6 @@ describe('<TrainingCard />', () => {
   it('advanced CTA is labeled as request ("Vraag training aan")', () => {
     renderCard('advanced');
     expect(screen.getByTestId('book-advanced')).toHaveTextContent('Vraag training aan');
-  });
-
-  it('pilot secondary contact link goes to plain contact (no pilot preselect)', () => {
-    renderCard('pilot');
-    const link = screen.getByTestId('book-pilot-contact');
-    expect(link).toHaveAttribute('href', '/nl/contact');
   });
 
   it('renders the English request label for non-pilot in the en locale', () => {
@@ -115,5 +102,50 @@ describe('<TrainingCard /> — discount-aug-26 early-bird', () => {
     expect(screen.getByText(/€\s*1\.399/)).toBeInTheDocument();
     expect(screen.queryByText(/€\s*979,30/)).not.toBeInTheDocument();
     expect(screen.queryByText(/30%/)).not.toBeInTheDocument();
+  });
+});
+
+describe('<TrainingCard /> — sold out (pilot)', () => {
+  it('shows the sold-out badge', () => {
+    renderCard('pilot');
+    expect(screen.getByText('Uitverkocht')).toBeInTheDocument();
+  });
+
+  it('shows the sold-out badge in the en locale', () => {
+    render(
+      <NextIntlClientProvider locale="en" messages={en}>
+        <TrainingCard trainingId="pilot" locale="en" />
+      </NextIntlClientProvider>,
+    );
+    expect(screen.getByText('Sold out')).toBeInTheDocument();
+  });
+
+  it('renders the booking CTA as a disabled, non-clickable button (not a link)', () => {
+    renderCard('pilot');
+    const cta = screen.getByTestId('book-pilot');
+    expect(cta.tagName).toBe('BUTTON');
+    expect(cta).toBeDisabled();
+    expect(cta).not.toHaveAttribute('href');
+    // pointer-events-none removes the hover state on the disabled CTA.
+    expect(cta).toHaveClass('pointer-events-none');
+  });
+
+  it('hides the secondary contact link', () => {
+    renderCard('pilot');
+    expect(screen.queryByTestId('book-pilot-contact')).not.toBeInTheDocument();
+  });
+
+  it('shows the sold-out text only once (no duplicate label above the button)', () => {
+    renderCard('pilot');
+    expect(screen.getAllByText('Uitverkocht')).toHaveLength(1);
+  });
+});
+
+describe('<TrainingCard /> — not sold out (regression guard)', () => {
+  it('a non-sold-out training has no sold-out badge and an enabled CTA', () => {
+    renderCard('basic');
+    expect(screen.queryByText('Uitverkocht')).not.toBeInTheDocument();
+    const cta = screen.getByTestId('book-basic');
+    expect(cta).not.toBeDisabled();
   });
 });

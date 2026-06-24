@@ -55,3 +55,29 @@ describe('<TrainingDetail /> discount-aug-26 early-bird price', () => {
     expect(screen.queryByText(/30%/)).not.toBeInTheDocument();
   });
 });
+
+describe('<TrainingDetail /> sold out (pilot)', () => {
+  it('renders the booking CTA as a disabled, non-clickable button (not a link)', () => {
+    renderDetail('pilot');
+    const cta = screen.getByTestId('book-training-pilot');
+    expect(cta.tagName).toBe('BUTTON');
+    expect(cta).toBeDisabled();
+    expect(cta).not.toHaveAttribute('href');
+    // pointer-events-none removes the hover state on the disabled CTA.
+    expect(cta).toHaveClass('pointer-events-none');
+  });
+
+  it('hides the secondary contact link', () => {
+    renderDetail('pilot');
+    expect(screen.queryByTestId('book-training-pilot-contact')).not.toBeInTheDocument();
+  });
+});
+
+describe('<TrainingDetail /> not sold out (regression guard)', () => {
+  it('a non-sold-out bookable training keeps an enabled booking link', () => {
+    renderDetail('discount-aug-26', BEFORE_DEADLINE);
+    const cta = screen.getByTestId('book-training-discount-aug-26');
+    expect(cta).not.toBeDisabled();
+    expect(cta).toHaveAttribute('href', expect.stringContaining('/trainings/discount-aug-26/book'));
+  });
+});
