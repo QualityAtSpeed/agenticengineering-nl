@@ -129,7 +129,9 @@ export function TrainingCard({
               </span>
             )
           )}
-          <h3 className={`text-text-primary text-xl font-bold ${dim}`}>{t(`${trainingId}.name`)}</h3>
+          <h3 className={`text-text-primary text-xl font-bold ${dim}`}>
+            {t(`${trainingId}.name`)}
+          </h3>
           <p className="text-text-soft mt-2 text-[0.9375rem]">{t(`${trainingId}.tagline`)}</p>
           <Button
             variant="secondary"
@@ -188,7 +190,7 @@ export function TrainingCard({
             fullWidth
             disabled
             data-testid={`book-${trainingId}`}
-            className="mt-3 pointer-events-none"
+            className="pointer-events-none mt-3"
           >
             {tLabels(isBookable ? 'bookCta' : 'requestCta')}
           </Button>
