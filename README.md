@@ -108,7 +108,7 @@ app/
 components/            # Hero, Nav, Footer, TrainingCard, TrainingDetail, ContactForm,
                        # BookingForm, ArticleFilterBar, InstructorCard, Button, DayAgenda,
                        # ProofStrip, TimelineEntry, JsonLd, LangSwitcher, MobileMenu,
-                       # TestimonialCard, …
+                       # TestimonialCard, TestimonialsSection, …
 lib/
   validation.ts        # Zod schemas (contactSchema, bookingSchema, trainingInterestEnum, …)
   email.ts             # Resend wrapper, sendContactEmail(), sendBookingConfirmation(), sendBookingNotification()
@@ -426,7 +426,7 @@ Translation messages live in `messages/{nl,en}.json`. Locale routing in `i18n/ro
 
 CI runs `pnpm verify:i18n` to enforce key parity between NL and EN. Add a new key → add it to both files.
 
-Namespaces in use: `meta`, `nav`, `hero`, `trainings`, `modules`, `proof`, `footer`, `about`, `articles`, `contact`, `booking`, `impressum`, `theme`, `home`, `why`. The `booking` namespace covers the pilot seat-selector form (`seatsLabel`, `attendeeName`, `attendeeEmail`, `submit`, `submitting`, `contactLink`, `errors.*`, `success.*`).
+Namespaces in use: `meta`, `nav`, `hero`, `trainings`, `modules`, `proof`, `footer`, `about`, `articles`, `contact`, `booking`, `impressum`, `theme`, `home`, `why`, `testimonials`. The `booking` namespace covers the pilot seat-selector form (`seatsLabel`, `attendeeName`, `attendeeEmail`, `submit`, `submitting`, `contactLink`, `errors.*`, `success.*`).
 
 ## Testing
 
