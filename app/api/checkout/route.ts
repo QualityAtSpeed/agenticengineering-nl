@@ -42,7 +42,19 @@ export async function POST(req: Request) {
     return NextResponse.json({ ok: false, error: 'invalid_payload' }, { status: 400 });
   }
 
-  const { trainingId, attendees, referralCode } = parsed.data;
+  const {
+    trainingId,
+    attendees,
+    accountType,
+    company,
+    kvk,
+    street,
+    zipCode,
+    city,
+    country,
+    notes,
+    referralCode,
+  } = parsed.data;
 
   // Authoritative sold-out gate: a sold-out training can never reach Stripe,
   // regardless of what the client posts.
@@ -56,6 +68,14 @@ export async function POST(req: Request) {
   const metadata: Record<string, string> = {
     trainingId,
     seats: String(attendees.length),
+    accountType,
+    company,
+    kvk,
+    street,
+    zipCode,
+    city,
+    country,
+    notes,
   };
   attendees.forEach((a, i) => {
     metadata[`attendee_${i}`] = `${a.name} <${a.email}>`;

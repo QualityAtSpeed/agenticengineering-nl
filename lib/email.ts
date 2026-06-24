@@ -54,9 +54,20 @@ export type BookingDetails = {
   attendees: { name: string; email: string }[];
   seats: number;
   grossCents: number;
+  company?: CompanyDetails;
   // Referral attribution, set when a referral/promo code was redeemed.
   referralCode?: string;
   referrer?: string;
+};
+
+export type CompanyDetails = {
+  company: string;
+  kvk: string;
+  street: string;
+  zipCode: string;
+  city: string;
+  country: string;
+  notes: string;
 };
 
 const PILOT_LABEL = 'Pilot - Basic Training (29 en 30 juni 2026)';
@@ -76,6 +87,18 @@ function bookingLines(b: BookingDetails): string {
     '',
     'Attendees:',
     attendees,
+  ].join('\n');
+}
+
+function companyLines(c: CompanyDetails): string {
+  return [
+    'Bedrijfsgegevens:',
+    `  Bedrijfsnaam: ${stripCRLF(c.company) || '—'}`,
+    `  KVK: ${stripCRLF(c.kvk) || '—'}`,
+    `  Adres: ${stripCRLF(c.street)}, ${stripCRLF(c.zipCode)} ${stripCRLF(c.city)}, ${stripCRLF(c.country)}`,
+    '',
+    'Aanvullende informatie:',
+    stripCRLF(c.notes) || '—',
   ].join('\n');
 }
 
@@ -115,7 +138,13 @@ export async function sendBookingNotification(b: BookingDetails): Promise<{ id: 
         b.referrer ? [`Verwezen door: ${stripCRLF(b.referrer)}`] : [],
       )
     : [];
-  const text = ['Nieuwe betaalde boeking:', '', bookingLines(b), ...referralLines].join('\n');
+  const text = [
+    'Nieuwe betaalde boeking:',
+    '',
+    bookingLines(b),
+    ...(b.company ? ['', companyLines(b.company)] : []),
+    ...referralLines,
+  ].join('\n');
   const result = await resend.emails.send({
     from,
     to,
