@@ -3,6 +3,7 @@ import { Button } from '@/components/Button';
 import { trainings, type TrainingId, type Module } from '@/data/trainings';
 import { priceFor } from '@/lib/pricing';
 import { bookableTrainingEnum } from '@/lib/validation';
+import { SoldOutBadge } from '@/components/SoldOutBadge';
 
 const ClockIcon = () => (
   <svg
@@ -133,11 +134,7 @@ export function TrainingDetail({
       id={`training-${trainingId}`}
       className="border-border-subtle relative overflow-hidden border-b px-6 py-20"
     >
-      {isSoldOut && (
-        <div className="bg-accent-red text-on-accent absolute top-12 -right-24 w-72 rotate-45 py-1 text-center text-xs font-extrabold tracking-wider uppercase shadow-md">
-          {tCommon('soldOut')}
-        </div>
-      )}
+      {isSoldOut && <SoldOutBadge className="top-12" />}
       <div className="mx-auto max-w-5xl">
         <div className="mb-8 max-w-2xl">
           <h2 className="text-brand text-2xl font-bold sm:text-3xl">{t(`${trainingId}.name`)}</h2>
@@ -228,8 +225,8 @@ export function TrainingDetail({
             {isSoldOut ? (
               <Button
                 disabled
+                aria-label={`${tCommon(isBookable ? 'bookCta' : 'requestCta')} — ${tCommon('soldOut')}`}
                 data-testid={`book-training-${trainingId}`}
-                className="pointer-events-none"
               >
                 {tCommon(isBookable ? 'bookCta' : 'requestCta')}
               </Button>

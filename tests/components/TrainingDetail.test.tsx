@@ -16,9 +16,9 @@ const BEFORE_DEADLINE = new Date('2026-07-15T12:00:00+02:00');
 const AFTER_DEADLINE = new Date('2026-08-15T12:00:00+02:00');
 
 describe('<TrainingDetail /> CTA labels', () => {
-  it('pilot CTA is labeled as booking ("Boek training")', () => {
+  it('pilot CTA is disabled (pilot is sold out)', () => {
     renderDetail('pilot');
-    expect(screen.getByTestId('book-training-pilot')).toHaveTextContent('Boek training');
+    expect(screen.getByTestId('book-training-pilot')).toBeDisabled();
   });
 
   it('basic CTA is labeled as request ("Vraag training aan")', () => {
@@ -57,19 +57,22 @@ describe('<TrainingDetail /> discount-aug-26 early-bird price', () => {
 });
 
 describe('<TrainingDetail /> sold out (pilot)', () => {
-  it('renders the booking CTA as a disabled, non-clickable button (not a link)', () => {
+  it('renders the booking CTA as a disabled button (not a link)', () => {
     renderDetail('pilot');
     const cta = screen.getByTestId('book-training-pilot');
     expect(cta.tagName).toBe('BUTTON');
     expect(cta).toBeDisabled();
     expect(cta).not.toHaveAttribute('href');
-    // pointer-events-none removes the hover state on the disabled CTA.
-    expect(cta).toHaveClass('pointer-events-none');
+    // the sold-out reason is exposed to assistive tech via aria-label.
+    expect(cta).toHaveAttribute('aria-label', expect.stringContaining('Uitverkocht'));
   });
 
-  it('hides the secondary contact link', () => {
+  it('keeps a contact path via the sold-out note', () => {
     renderDetail('pilot');
-    expect(screen.queryByTestId('book-training-pilot-contact')).not.toBeInTheDocument();
+    expect(screen.getByTestId('book-training-pilot-soldout-contact')).toHaveAttribute(
+      'href',
+      expect.stringContaining('/contact'),
+    );
   });
 });
 

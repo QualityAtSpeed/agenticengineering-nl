@@ -3,6 +3,7 @@ import { Button } from '@/components/Button';
 import { trainings, type TrainingId } from '@/data/trainings';
 import { priceFor } from '@/lib/pricing';
 import { bookableTrainingEnum } from '@/lib/validation';
+import { SoldOutBadge } from '@/components/SoldOutBadge';
 
 const ClockIcon = () => (
   <svg
@@ -113,14 +114,10 @@ export function TrainingCard({
       className={
         isPilot
           ? 'bg-brand-soft ring-brand/30 relative -mx-6 my-8 grid items-start gap-7 overflow-hidden rounded-lg p-6 ring-1 lg:grid-cols-[1fr_200px]'
-          : 'border-border-subtle grid items-start gap-7 border-t py-8 last:border-b lg:grid-cols-[1fr_200px]'
+          : 'border-border-subtle relative grid items-start gap-7 overflow-hidden border-t py-8 last:border-b lg:grid-cols-[1fr_200px]'
       }
     >
-      {isSoldOut && (
-        <div className="bg-accent-red text-on-accent absolute top-9 -right-24 w-72 rotate-45 py-1 text-center text-xs font-extrabold tracking-wider uppercase shadow-md">
-          {tLabels('soldOut')}
-        </div>
-      )}
+      {isSoldOut && <SoldOutBadge />}
       <div className="flex flex-col gap-4 lg:flex-row lg:gap-10">
         <div className="min-w-0 flex-1">
           {isPilot && (
@@ -188,8 +185,9 @@ export function TrainingCard({
             size="sm"
             fullWidth
             disabled
+            aria-label={`${tLabels(isBookable ? 'bookCta' : 'requestCta')} — ${tLabels('soldOut')}`}
             data-testid={`book-${trainingId}`}
-            className="pointer-events-none mt-3"
+            className="mt-3"
           >
             {tLabels(isBookable ? 'bookCta' : 'requestCta')}
           </Button>
@@ -208,7 +206,7 @@ export function TrainingCard({
             {tLabels(isBookable ? 'bookCta' : 'requestCta')}
           </Button>
         )}
-        {isBookable && !isSoldOut && (
+        {isBookable && (
           <a
             href={`/${locale}/contact`}
             data-testid={`book-${trainingId}-contact`}

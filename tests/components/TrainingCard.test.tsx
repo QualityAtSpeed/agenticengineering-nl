@@ -41,9 +41,9 @@ describe('<TrainingCard />', () => {
     expect(cta).toHaveAttribute('href', expect.stringContaining('/contact?training=basic'));
   });
 
-  it('pilot CTA is labeled as booking ("Boek training")', () => {
+  it('pilot CTA is disabled (pilot is sold out)', () => {
     renderCard('pilot');
-    expect(screen.getByTestId('book-pilot')).toHaveTextContent('Boek training');
+    expect(screen.getByTestId('book-pilot')).toBeDisabled();
   });
 
   it('basic CTA is labeled as request ("Vraag training aan")', () => {
@@ -120,19 +120,22 @@ describe('<TrainingCard /> — sold out (pilot)', () => {
     expect(screen.getByText('Sold out')).toBeInTheDocument();
   });
 
-  it('renders the booking CTA as a disabled, non-clickable button (not a link)', () => {
+  it('renders the booking CTA as a disabled button (not a link)', () => {
     renderCard('pilot');
     const cta = screen.getByTestId('book-pilot');
     expect(cta.tagName).toBe('BUTTON');
     expect(cta).toBeDisabled();
     expect(cta).not.toHaveAttribute('href');
-    // pointer-events-none removes the hover state on the disabled CTA.
-    expect(cta).toHaveClass('pointer-events-none');
+    // the sold-out reason is exposed to assistive tech via aria-label.
+    expect(cta).toHaveAttribute('aria-label', expect.stringContaining('Uitverkocht'));
   });
 
-  it('hides the secondary contact link', () => {
+  it('keeps the secondary contact link so you can always get in touch', () => {
     renderCard('pilot');
-    expect(screen.queryByTestId('book-pilot-contact')).not.toBeInTheDocument();
+    expect(screen.getByTestId('book-pilot-contact')).toHaveAttribute(
+      'href',
+      expect.stringContaining('/contact'),
+    );
   });
 
   it('shows the sold-out text only once (no duplicate label above the button)', () => {
