@@ -46,9 +46,20 @@ describe('POST /api/checkout', () => {
     expect(arg.metadata.attendee_0).toContain('pascal@example.com');
   });
 
-  it('enables promotion-code redemption (referral / discount codes)', async () => {
+  it('enables promotion-code redemption for bookable trainings, alongside the attribution metadata', async () => {
     await POST(make(validBody));
-    expect(createMock.mock.calls[0][0].allow_promotion_codes).toBe(true);
+    const pilotArg = createMock.mock.calls[0][0];
+    expect(pilotArg.allow_promotion_codes).toBe(true);
+    // coexists with the metadata the referral program ties a redemption back to
+    expect(pilotArg.metadata.trainingId).toBe('pilot');
+
+    vi.clearAllMocks();
+    await POST(
+      make({ trainingId: 'discount-aug-26', attendees: [{ name: 'A', email: 'a@x.com' }] }),
+    );
+    const discArg = createMock.mock.calls[0][0];
+    expect(discArg.allow_promotion_codes).toBe(true);
+    expect(discArg.metadata.trainingId).toBe('discount-aug-26');
   });
 
   it('prices discount-aug-26 with the early-bird discount before the deadline (server-enforced)', async () => {
