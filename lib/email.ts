@@ -54,6 +54,17 @@ export type BookingDetails = {
   attendees: { name: string; email: string }[];
   seats: number;
   grossCents: number;
+  company?: CompanyDetails;
+};
+
+export type CompanyDetails = {
+  company: string;
+  kvk: string;
+  street: string;
+  zipCode: string;
+  city: string;
+  country: string;
+  notes: string;
 };
 
 const PILOT_LABEL = 'Pilot - Basic Training (29 en 30 juni 2026)';
@@ -73,6 +84,18 @@ function bookingLines(b: BookingDetails): string {
     '',
     'Attendees:',
     attendees,
+  ].join('\n');
+}
+
+function companyLines(c: CompanyDetails): string {
+  return [
+    'Bedrijfsgegevens:',
+    `  Bedrijfsnaam: ${stripCRLF(c.company)}`,
+    `  KVK: ${stripCRLF(c.kvk) || '—'}`,
+    `  Adres: ${stripCRLF(c.street)}, ${stripCRLF(c.zipCode)} ${stripCRLF(c.city)}, ${stripCRLF(c.country)}`,
+    '',
+    'Aanvullende informatie:',
+    stripCRLF(c.notes) || '—',
   ].join('\n');
 }
 
@@ -107,7 +130,12 @@ export async function sendBookingNotification(b: BookingDetails): Promise<{ id: 
   const to = process.env.CONTACT_EMAIL;
   if (!to) throw new EmailError('CONTACT_EMAIL missing');
   const subject = stripCRLF(`[agenticengineering.nl] Nieuwe boeking — ${b.seats} plek(ken)`);
-  const text = ['Nieuwe betaalde boeking:', '', bookingLines(b)].join('\n');
+  const text = [
+    'Nieuwe betaalde boeking:',
+    '',
+    bookingLines(b),
+    ...(b.company ? ['', companyLines(b.company)] : []),
+  ].join('\n');
   const result = await resend.emails.send({
     from,
     to,

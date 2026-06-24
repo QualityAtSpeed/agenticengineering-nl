@@ -437,6 +437,14 @@
     "title": "{trainingName}",
     "intro": "Reserveer je plek voor de {trainingName}. Prijs per deelnemer, incl. 21% btw.",
     "seatsLabel": "Aantal deelnemers",
+    "companyHeading": "Bedrijfsgegevens",
+    "company": "Bedrijfsnaam",
+    "kvk": "KVK-nummer (optioneel)",
+    "street": "Straat en huisnummer",
+    "zipCode": "Postcode",
+    "city": "Plaats",
+    "country": "Land",
+    "notes": "Aanvullende informatie (optioneel)",
     "attendeeName": "Naam deelnemer",
     "attendeeEmail": "E-mail deelnemer",
     "submit": "Naar betaling",
@@ -448,6 +456,7 @@
     "errors": {
       "required": "Dit veld is verplicht.",
       "invalidEmail": "Vul een geldig e-mailadres in.",
+      "invalidKvk": "KVK-nummer bestaat uit 8 cijfers.",
       "generic": "Er ging iets mis. Probeer het opnieuw.",
       "rateLimited": "Te veel pogingen. Wacht even en probeer opnieuw."
     },

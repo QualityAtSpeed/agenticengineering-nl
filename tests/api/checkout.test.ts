@@ -8,9 +8,20 @@ vi.mock('@/lib/stripe', () => ({
 import { POST } from '@/app/api/checkout/route';
 import { __resetRateLimitForTests } from '@/lib/rate-limit';
 
+const companyFields = {
+  company: 'ValidateIT',
+  kvk: '12345678',
+  street: 'Dokter Spanjaardweg 23',
+  zipCode: '8025 BT',
+  city: 'Zwolle',
+  country: 'Nederland',
+  notes: '',
+};
+
 const validBody = {
   trainingId: 'pilot',
   attendees: [{ name: 'Pascal', email: 'pascal@example.com' }],
+  ...companyFields,
 };
 
 function make(body: unknown, headers: Record<string, string> = {}) {
@@ -40,6 +51,7 @@ describe('POST /api/checkout', () => {
   const bookableBody = {
     trainingId: 'discount-aug-26',
     attendees: [{ name: 'Pascal', email: 'pascal@example.com' }],
+    ...companyFields,
   };
 
   it('200 returns the session url and prices server-side', async () => {
@@ -65,7 +77,11 @@ describe('POST /api/checkout', () => {
     vi.setSystemTime(new Date('2026-07-15T12:00:00+02:00'));
     try {
       const res = await POST(
-        make({ trainingId: 'discount-aug-26', attendees: [{ name: 'A', email: 'a@x.com' }] }),
+        make({
+          trainingId: 'discount-aug-26',
+          attendees: [{ name: 'A', email: 'a@x.com' }],
+          ...companyFields,
+        }),
       );
       expect(res.status).toBe(200);
       const arg = createMock.mock.calls[0][0];
@@ -83,7 +99,11 @@ describe('POST /api/checkout', () => {
     vi.setSystemTime(new Date('2026-08-15T12:00:00+02:00'));
     try {
       await POST(
-        make({ trainingId: 'discount-aug-26', attendees: [{ name: 'A', email: 'a@x.com' }] }),
+        make({
+          trainingId: 'discount-aug-26',
+          attendees: [{ name: 'A', email: 'a@x.com' }],
+          ...companyFields,
+        }),
       );
       // €1399 net → +21% VAT = 169279 cents gross, no discount
       expect(createMock.mock.calls[0][0].line_items[0].price_data.unit_amount).toBe(169279);
@@ -114,6 +134,7 @@ describe('POST /api/checkout', () => {
             { name: 'A', email: 'a@x.com' },
             { name: 'B', email: 'b@x.com' },
           ],
+          ...companyFields,
         }),
       );
       expect(createMock.mock.calls[0][0].line_items[0].quantity).toBe(2);

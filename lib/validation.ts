@@ -26,6 +26,17 @@ export const bookableTrainingEnum = z.enum(['pilot', 'discount-aug-26']);
 export const bookingSchema = z.object({
   trainingId: bookableTrainingEnum,
   attendees: z.array(attendeeSchema).min(1).max(10),
+  company: z.string().trim().min(1).max(200),
+  kvk: z
+    .string()
+    .trim()
+    .regex(/^\d{8}$/)
+    .or(z.literal('')),
+  zipCode: z.string().trim().min(2).max(12),
+  street: z.string().trim().min(1).max(100),
+  city: z.string().trim().min(1).max(100),
+  country: z.string().trim().min(1).max(100),
+  notes: z.string().trim().max(500),
 });
 
 export type BookingInput = z.infer<typeof bookingSchema>;

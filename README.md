@@ -284,6 +284,8 @@ Stripe → POST /api/stripe/webhook → app/api/stripe/webhook/route.ts
                 └─ async_payment_failed                 → logged, no fulfillment
 ```
 
+The booking form (`BookingForm.tsx`) collects, besides attendees, company billing details: company name, KvK number (optional, 8 digits when filled), address (street, postal code, city, country), and a free-text notes box (max 500 chars, the Stripe metadata value limit). These are validated by `bookingSchema` (`lib/validation.ts`), passed through `POST /api/checkout` into the Stripe Checkout Session `metadata`, read back from `metadata` in the webhook, and included **only** in the operator notification email (`sendBookingNotification`) — the customer confirmation does not echo them.
+
 Fulfillment happens on the webhook, never on the success redirect. The success page (`/[locale]/trainings/pilot/book/success`) is purely cosmetic — it cannot be trusted as proof of payment.
 
 **Delayed-notification methods (iDEAL, Bancontact, …).** These fire `checkout.session.completed` _before_ the money clears, then a `checkout.session.async_payment_succeeded` (or `_failed`) once it settles. The webhook fulfils on either event but **only when `session.payment_status === 'paid'`**, so an unpaid `completed` is ignored and the async success event does the fulfilment — exactly one confirmation per booking. `async_payment_failed` is logged and not fulfilled. (Instant payments are already paid at `completed`, so they fulfil immediately.) See [Stripe's delayed-notification fulfillment docs](https://docs.stripe.com/payments/checkout/fulfillment#delayed-notification).
@@ -421,7 +423,7 @@ Translation messages live in `messages/{nl,en}.json`. Locale routing in `i18n/ro
 
 CI runs `pnpm verify:i18n` to enforce key parity between NL and EN. Add a new key → add it to both files.
 
-Namespaces in use: `meta`, `nav`, `hero`, `trainings`, `modules`, `proof`, `footer`, `about`, `articles`, `contact`, `booking`, `impressum`, `theme`, `home`, `why`. The `booking` namespace covers the pilot seat-selector form (`seatsLabel`, `attendeeName`, `attendeeEmail`, `submit`, `submitting`, `contactLink`, `errors.*`, `success.*`).
+Namespaces in use: `meta`, `nav`, `hero`, `trainings`, `modules`, `proof`, `footer`, `about`, `articles`, `contact`, `booking`, `impressum`, `theme`, `home`, `why`. The `booking` namespace covers the booking form: seat selector and attendees (`seatsLabel`, `attendeeName`, `attendeeEmail`), company billing details (`companyHeading`, `company`, `kvk`, `street`, `zipCode`, `city`, `country`, `notes`), submit/contact (`submit`, `submitting`, `contactLink`), sold-out copy (`soldOutHeading`, `soldOutBody`, `soldOutBack`), `errors.*` (`required`, `invalidEmail`, `invalidKvk`, `generic`, `rateLimited`), and `success.*`.
 
 ## Testing
 

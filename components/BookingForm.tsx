@@ -31,7 +31,17 @@ export function BookingForm({
     formState: { errors },
   } = useForm<BookingInput>({
     resolver: zodResolver(bookingSchema),
-    defaultValues: { trainingId, attendees: [{ name: '', email: '' }] },
+    defaultValues: {
+      trainingId,
+      attendees: [{ name: '', email: '' }],
+      company: '',
+      kvk: '',
+      street: '',
+      zipCode: '',
+      city: '',
+      country: 'Nederland',
+      notes: '',
+    },
   });
 
   const { fields, replace } = useFieldArray({ control, name: 'attendees' });
@@ -60,55 +70,153 @@ export function BookingForm({
     <form onSubmit={handleSubmit(onSubmit)} className="space-y-5">
       <input type="hidden" {...register('trainingId')} value={trainingId} />
 
-      <label className="block">
-        <span className="text-text-primary text-sm font-semibold">{t('seatsLabel')}</span>
-        <div className="mt-1.5">
-          <select
-            data-testid="booking-seats"
-            defaultValue="1"
-            onChange={(e) => setSeats(Number(e.target.value))}
-            className={INPUT_CLASS}
-          >
-            {Array.from({ length: MAX_SEATS }, (_, i) => i + 1).map((n) => (
-              <option key={n} value={n}>
-                {n}
-              </option>
-            ))}
-          </select>
-        </div>
-      </label>
+      <div className="border-border-subtle space-y-5 rounded-md border p-4">
+        <fieldset className="grid gap-3 sm:grid-cols-2">
+          <legend className="text-text-primary mb-1.5 text-sm font-semibold">
+            {t('companyHeading')}
+          </legend>
 
-      {fields.map((field, i) => (
-        <div
-          key={field.id}
-          className="border-border-subtle grid gap-3 rounded-md border p-4 sm:grid-cols-2"
-        >
-          <label className="block">
-            <span className="text-text-primary text-sm font-semibold">{t('attendeeName')}</span>
+          <label className="block sm:col-span-2">
+            <span className="text-text-primary text-sm font-semibold">{t('company')}</span>
             <input
               type="text"
-              data-testid={`booking-attendee-name-${i}`}
-              {...register(`attendees.${i}.name` as const)}
+              data-testid="booking-company"
+              {...register('company')}
               className={`${INPUT_CLASS} mt-1.5`}
             />
-            {errors.attendees?.[i]?.name && (
+            {errors.company && (
               <p className="text-accent-red mt-1.5 text-xs">{t('errors.required')}</p>
             )}
           </label>
-          <label className="block">
-            <span className="text-text-primary text-sm font-semibold">{t('attendeeEmail')}</span>
+
+          <label className="block sm:col-span-2">
+            <span className="text-text-primary text-sm font-semibold">{t('kvk')}</span>
             <input
-              type="email"
-              data-testid={`booking-attendee-email-${i}`}
-              {...register(`attendees.${i}.email` as const)}
+              type="text"
+              inputMode="numeric"
+              data-testid="booking-kvk"
+              {...register('kvk')}
               className={`${INPUT_CLASS} mt-1.5`}
             />
-            {errors.attendees?.[i]?.email && (
-              <p className="text-accent-red mt-1.5 text-xs">{t('errors.invalidEmail')}</p>
+            {errors.kvk && (
+              <p className="text-accent-red mt-1.5 text-xs">{t('errors.invalidKvk')}</p>
             )}
           </label>
-        </div>
-      ))}
+
+          <label className="block sm:col-span-2">
+            <span className="text-text-primary text-sm font-semibold">{t('street')}</span>
+            <input
+              type="text"
+              data-testid="booking-street"
+              {...register('street')}
+              className={`${INPUT_CLASS} mt-1.5`}
+            />
+            {errors.street && (
+              <p className="text-accent-red mt-1.5 text-xs">{t('errors.required')}</p>
+            )}
+          </label>
+
+          <label className="block">
+            <span className="text-text-primary text-sm font-semibold">{t('zipCode')}</span>
+            <input
+              type="text"
+              data-testid="booking-zipcode"
+              {...register('zipCode')}
+              className={`${INPUT_CLASS} mt-1.5`}
+            />
+            {errors.zipCode && (
+              <p className="text-accent-red mt-1.5 text-xs">{t('errors.required')}</p>
+            )}
+          </label>
+
+          <label className="block">
+            <span className="text-text-primary text-sm font-semibold">{t('city')}</span>
+            <input
+              type="text"
+              data-testid="booking-city"
+              {...register('city')}
+              className={`${INPUT_CLASS} mt-1.5`}
+            />
+            {errors.city && (
+              <p className="text-accent-red mt-1.5 text-xs">{t('errors.required')}</p>
+            )}
+          </label>
+
+          <label className="block sm:col-span-2">
+            <span className="text-text-primary text-sm font-semibold">{t('country')}</span>
+            <input
+              type="text"
+              data-testid="booking-country"
+              {...register('country')}
+              className={`${INPUT_CLASS} mt-1.5`}
+            />
+            {errors.country && (
+              <p className="text-accent-red mt-1.5 text-xs">{t('errors.required')}</p>
+            )}
+          </label>
+
+          <label className="block sm:col-span-2">
+            <span className="text-text-primary text-sm font-semibold">{t('notes')}</span>
+            <textarea
+              rows={4}
+              maxLength={500}
+              data-testid="booking-notes"
+              {...register('notes')}
+              className={`${INPUT_CLASS} mt-1.5`}
+            />
+          </label>
+        </fieldset>
+
+        <label className="border-border-subtle block border-t pt-5">
+          <span className="text-text-primary text-sm font-semibold">{t('seatsLabel')}</span>
+          <div className="mt-1.5">
+            <select
+              data-testid="booking-seats"
+              defaultValue="1"
+              onChange={(e) => setSeats(Number(e.target.value))}
+              className={INPUT_CLASS}
+            >
+              {Array.from({ length: MAX_SEATS }, (_, i) => i + 1).map((n) => (
+                <option key={n} value={n}>
+                  {n}
+                </option>
+              ))}
+            </select>
+          </div>
+        </label>
+
+        {fields.map((field, i) => (
+          <div
+            key={field.id}
+            className="border-border-subtle grid gap-3 border-t pt-5 sm:grid-cols-2"
+          >
+            <label className="block">
+              <span className="text-text-primary text-sm font-semibold">{t('attendeeName')}</span>
+              <input
+                type="text"
+                data-testid={`booking-attendee-name-${i}`}
+                {...register(`attendees.${i}.name` as const)}
+                className={`${INPUT_CLASS} mt-1.5`}
+              />
+              {errors.attendees?.[i]?.name && (
+                <p className="text-accent-red mt-1.5 text-xs">{t('errors.required')}</p>
+              )}
+            </label>
+            <label className="block">
+              <span className="text-text-primary text-sm font-semibold">{t('attendeeEmail')}</span>
+              <input
+                type="email"
+                data-testid={`booking-attendee-email-${i}`}
+                {...register(`attendees.${i}.email` as const)}
+                className={`${INPUT_CLASS} mt-1.5`}
+              />
+              {errors.attendees?.[i]?.email && (
+                <p className="text-accent-red mt-1.5 text-xs">{t('errors.invalidEmail')}</p>
+              )}
+            </label>
+          </div>
+        ))}
+      </div>
 
       {status === 'error' && (
         <p className="border-accent-red/30 bg-accent-red/10 text-accent-red rounded-md border px-3 py-2 text-sm">

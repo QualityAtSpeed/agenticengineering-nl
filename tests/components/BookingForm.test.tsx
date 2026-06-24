@@ -42,6 +42,12 @@ describe('BookingForm', () => {
     vi.stubGlobal('fetch', fetchMock);
 
     renderForm();
+    fireEvent.input(screen.getByTestId('booking-company'), { target: { value: 'ValidateIT' } });
+    fireEvent.input(screen.getByTestId('booking-street'), {
+      target: { value: 'Dokter Spanjaardweg 23' },
+    });
+    fireEvent.input(screen.getByTestId('booking-zipcode'), { target: { value: '8025 BT' } });
+    fireEvent.input(screen.getByTestId('booking-city'), { target: { value: 'Zwolle' } });
     fireEvent.input(screen.getByTestId('booking-attendee-name-0'), { target: { value: 'Pascal' } });
     fireEvent.input(screen.getByTestId('booking-attendee-email-0'), {
       target: { value: 'pascal@example.com' },

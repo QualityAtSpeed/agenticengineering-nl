@@ -71,6 +71,15 @@ export async function POST(req: Request) {
     attendees,
     seats: Number(metadata.seats ?? attendees.length),
     grossCents: session.amount_total ?? 0,
+    company: {
+      company: metadata.company ?? '',
+      kvk: metadata.kvk ?? '',
+      street: metadata.street ?? '',
+      zipCode: metadata.zipCode ?? '',
+      city: metadata.city ?? '',
+      country: metadata.country ?? '',
+      notes: metadata.notes ?? '',
+    },
   };
 
   try {
