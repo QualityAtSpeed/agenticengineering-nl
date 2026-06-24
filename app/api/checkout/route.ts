@@ -57,6 +57,12 @@ export async function POST(req: Request) {
   try {
     const session = await getStripe().checkout.sessions.create({
       mode: 'payment',
+      // Lets a customer redeem a referral / discount promotion code on the
+      // Stripe-hosted checkout. Stripe validates the code and enforces its
+      // coupon (e.g. 10% off) + max_redemptions. Attribution (who referred)
+      // lives in each promotion code's metadata.referrer — see the referral
+      // design ticket for code generation + the 10%-refund reconciliation.
+      allow_promotion_codes: true,
       customer_email: attendees[0].email,
       line_items: [
         {

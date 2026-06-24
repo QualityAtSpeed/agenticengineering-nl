@@ -285,6 +285,8 @@ Stripe → POST /api/stripe/webhook → app/api/stripe/webhook/route.ts
 
 Fulfillment happens on the webhook, never on the success redirect. The success page (`/[locale]/trainings/pilot/book/success`) is purely cosmetic — it cannot be trusted as proof of payment.
 
+**Promotion / referral codes.** The Checkout Session is created with `allow_promotion_codes: true`, so a customer can redeem a Stripe promotion code (a referral code or a general discount) on the hosted checkout; Stripe validates it and enforces its coupon (e.g. 10% off) and `max_redemptions`. Per-referrer code generation and the referrer-refund reconciliation are operational (Stripe-side); attribution for a referral lives in each promotion code's `metadata.referrer`.
+
 **Delayed-notification methods (iDEAL, Bancontact, …).** These fire `checkout.session.completed` _before_ the money clears, then a `checkout.session.async_payment_succeeded` (or `_failed`) once it settles. The webhook fulfils on either event but **only when `session.payment_status === 'paid'`**, so an unpaid `completed` is ignored and the async success event does the fulfilment — exactly one confirmation per booking. `async_payment_failed` is logged and not fulfilled. (Instant payments are already paid at `completed`, so they fulfil immediately.) See [Stripe's delayed-notification fulfillment docs](https://docs.stripe.com/payments/checkout/fulfillment#delayed-notification).
 
 The two email sends use distinct error handling to prevent duplicate customer confirmations:

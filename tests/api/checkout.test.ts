@@ -46,6 +46,11 @@ describe('POST /api/checkout', () => {
     expect(arg.metadata.attendee_0).toContain('pascal@example.com');
   });
 
+  it('enables promotion-code redemption (referral / discount codes)', async () => {
+    await POST(make(validBody));
+    expect(createMock.mock.calls[0][0].allow_promotion_codes).toBe(true);
+  });
+
   it('prices discount-aug-26 with the early-bird discount before the deadline (server-enforced)', async () => {
     vi.useFakeTimers();
     vi.setSystemTime(new Date('2026-07-15T12:00:00+02:00'));
