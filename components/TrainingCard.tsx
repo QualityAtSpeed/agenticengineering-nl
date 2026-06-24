@@ -101,9 +101,12 @@ export function TrainingCard({
   const tCard = useTranslations('trainings.cardMeta');
 
   const isPilot = trainingId === 'pilot';
+  const isSoldOut = training.soldOut === true;
   // Bookable = self-serve via Stripe checkout (zelfde set als het boeking-schema).
   const isBookable = (bookableTrainingEnum.options as readonly TrainingId[]).includes(trainingId);
   const price = priceFor(trainingId, now);
+  // Sold-out cohorts dim their content; the badge, label and CTA stay full-opacity.
+  const dim = isSoldOut ? 'opacity-60' : '';
 
   return (
     <article
@@ -115,19 +118,25 @@ export function TrainingCard({
     >
       <div className="flex flex-col gap-4 lg:flex-row lg:gap-10">
         <div className="min-w-0 flex-1">
-          {isPilot && (
-            <span className="bg-brand text-on-accent mb-2 inline-block rounded-full px-2.5 py-0.5 text-xs font-bold tracking-wider uppercase">
-              {tLabels('pilotBadge')}
+          {isSoldOut ? (
+            <span className="bg-accent-red text-on-accent mb-2 inline-block rounded-full px-2.5 py-0.5 text-xs font-bold tracking-wider uppercase">
+              {tLabels('soldOut')}
             </span>
+          ) : (
+            isPilot && (
+              <span className="bg-brand text-on-accent mb-2 inline-block rounded-full px-2.5 py-0.5 text-xs font-bold tracking-wider uppercase">
+                {tLabels('pilotBadge')}
+              </span>
+            )
           )}
-          <h3 className="text-text-primary text-xl font-bold">{t(`${trainingId}.name`)}</h3>
-          <p className="text-text-soft mt-2 text-[0.9375rem]">{t(`${trainingId}.tagline`)}</p>
+          <h3 className={`text-text-primary text-xl font-bold ${dim}`}>{t(`${trainingId}.name`)}</h3>
+          <p className={`text-text-soft mt-2 text-[0.9375rem] ${dim}`}>{t(`${trainingId}.tagline`)}</p>
           <Button
             variant="secondary"
             size="sm"
             href={`/${locale}/trainings/${trainingId}`}
             data-testid={`view-curriculum-${trainingId}`}
-            className="mt-3"
+            className={`mt-3 ${dim}`}
           >
             {tLabels('viewDetails')}
             <ArrowIcon />
@@ -135,7 +144,7 @@ export function TrainingCard({
         </div>
 
         <ul
-          className={`text-text-muted m-0 list-none space-y-1.5 p-0 text-sm ${isPilot ? 'lg:pt-[1.875rem]' : 'lg:pt-[0.3125rem]'}`}
+          className={`text-text-muted m-0 list-none space-y-1.5 p-0 text-sm ${isPilot ? 'lg:pt-[1.875rem]' : 'lg:pt-[0.3125rem]'} ${dim}`}
         >
           {metaItems.map((m) => (
             <li key={m.key} className="flex items-center gap-2">
@@ -147,44 +156,58 @@ export function TrainingCard({
       </div>
 
       <div className={isPilot ? 'lg:pt-[1.875rem]' : undefined}>
-        {price.earlyBird ? (
-          <>
-            <p className="text-text-muted text-sm font-medium tabular-nums line-through">
+        <div className={dim}>
+          {price.earlyBird ? (
+            <>
+              <p className="text-text-muted text-sm font-medium tabular-nums line-through">
+                €{training.priceEUR.toLocaleString('nl-NL')}
+              </p>
+              <p className="text-text-primary text-xl font-bold tabular-nums">
+                €
+                {(price.netCents / 100).toLocaleString('nl-NL', {
+                  minimumFractionDigits: 2,
+                  maximumFractionDigits: 2,
+                })}
+              </p>
+            </>
+          ) : (
+            <p className="text-text-primary text-xl font-bold tabular-nums">
               €{training.priceEUR.toLocaleString('nl-NL')}
             </p>
-            <p className="text-text-primary text-xl font-bold tabular-nums">
-              €
-              {(price.netCents / 100).toLocaleString('nl-NL', {
-                minimumFractionDigits: 2,
-                maximumFractionDigits: 2,
-              })}
+          )}
+          <p className="text-text-muted text-xs">{tLabels('priceSuffix')}</p>
+          {price.earlyBird && (
+            <p className="text-accent-green-hover mt-1 text-xs font-semibold">
+              {t(`${trainingId}.earlyBirdNote`)}
             </p>
-          </>
+          )}
+        </div>
+        {isSoldOut ? (
+          <Button
+            size="sm"
+            fullWidth
+            disabled
+            data-testid={`book-${trainingId}`}
+            className="mt-3 pointer-events-none"
+          >
+            {tLabels(isBookable ? 'bookCta' : 'requestCta')}
+          </Button>
         ) : (
-          <p className="text-text-primary text-xl font-bold tabular-nums">
-            €{training.priceEUR.toLocaleString('nl-NL')}
-          </p>
+          <Button
+            size="sm"
+            fullWidth
+            href={
+              isBookable
+                ? `/${locale}/trainings/${trainingId}/book`
+                : `/${locale}/contact?training=${trainingId}`
+            }
+            data-testid={`book-${trainingId}`}
+            className="mt-3"
+          >
+            {tLabels(isBookable ? 'bookCta' : 'requestCta')}
+          </Button>
         )}
-        <p className="text-text-muted text-xs">{tLabels('priceSuffix')}</p>
-        {price.earlyBird && (
-          <p className="text-accent-green-hover mt-1 text-xs font-semibold">
-            {t(`${trainingId}.earlyBirdNote`)}
-          </p>
-        )}
-        <Button
-          size="sm"
-          fullWidth
-          href={
-            isBookable
-              ? `/${locale}/trainings/${trainingId}/book`
-              : `/${locale}/contact?training=${trainingId}`
-          }
-          data-testid={`book-${trainingId}`}
-          className="mt-3"
-        >
-          {tLabels(isBookable ? 'bookCta' : 'requestCta')}
-        </Button>
-        {isBookable && (
+        {isBookable && !isSoldOut && (
           <a
             href={`/${locale}/contact`}
             data-testid={`book-${trainingId}-contact`}
