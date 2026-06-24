@@ -32,10 +32,11 @@ async function renderPage() {
 }
 
 describe('BookingPage', () => {
-  it('renders the booking title and form', async () => {
+  it('pilot is sold out: shows the sold-out notice, not the booking form', async () => {
     await renderPage();
-    expect(screen.getByText(en.booking.title)).toBeInTheDocument();
-    expect(screen.getByTestId('booking-submit')).toBeInTheDocument();
+    expect(screen.getByText(en.booking.soldOutHeading)).toBeInTheDocument();
+    expect(screen.getByText(en.booking.soldOutBody)).toBeInTheDocument();
+    expect(screen.queryByTestId('booking-submit')).not.toBeInTheDocument();
   });
 
   it('discount-aug-26 booking page renders the form wired to its own trainingId', async () => {
