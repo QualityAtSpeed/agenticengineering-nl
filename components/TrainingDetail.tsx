@@ -118,6 +118,7 @@ export function TrainingDetail({
 
   // Bookable = self-serve via Stripe checkout (zelfde set als het boeking-schema).
   const isBookable = (bookableTrainingEnum.options as readonly TrainingId[]).includes(trainingId);
+  const isSoldOut = training.soldOut === true;
   const price = priceFor(trainingId, now);
 
   const audience = t.raw(`${trainingId}.audience`) as string[];
@@ -204,17 +205,27 @@ export function TrainingDetail({
             )}
           </div>
           <div className="flex flex-col items-stretch gap-2 sm:items-end">
-            <Button
-              href={
-                isBookable
-                  ? `/${locale}/trainings/${trainingId}/book`
-                  : `/${locale}/contact?training=${trainingId}`
-              }
-              data-testid={`book-training-${trainingId}`}
-            >
-              {tCommon(isBookable ? 'bookCta' : 'requestCta')}
-            </Button>
-            {isBookable && (
+            {isSoldOut ? (
+              <Button
+                disabled
+                data-testid={`book-training-${trainingId}`}
+                className="pointer-events-none"
+              >
+                {tCommon(isBookable ? 'bookCta' : 'requestCta')}
+              </Button>
+            ) : (
+              <Button
+                href={
+                  isBookable
+                    ? `/${locale}/trainings/${trainingId}/book`
+                    : `/${locale}/contact?training=${trainingId}`
+                }
+                data-testid={`book-training-${trainingId}`}
+              >
+                {tCommon(isBookable ? 'bookCta' : 'requestCta')}
+              </Button>
+            )}
+            {isBookable && !isSoldOut && (
               <a
                 href={`/${locale}/contact`}
                 data-testid={`book-training-${trainingId}-contact`}
