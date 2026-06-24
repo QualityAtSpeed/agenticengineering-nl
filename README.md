@@ -138,6 +138,7 @@ docs/
   superpowers/specs/   # Design specs for significant feature changes (dated markdown)
 PRODUCT.md             # Brand register (users, tone, anti-references, principles)
 DESIGN.md              # Design system (colors, typography, components, do's/don'ts)
+CLAUDE.md              # Operational shortlist for agents (commands, conventions, deployment)
 LICENSE                # MIT license (© QualityAtSpeed)
 next.config.ts         # Security headers + next-intl plugin
 ```
@@ -435,6 +436,8 @@ CI workflow: `.github/workflows/ci.yml` runs typecheck + lint + unit + i18n inte
 - `DESIGN.md` — Stitch-format design system: colors (OKLCH dark palette), typography (JetBrains Mono display, Inter body), components, do's/don'ts.
 
 These two files inform every UI decision. Read them before touching components.
+
+- `CLAUDE.md` — agent-facing operational shortlist (commands, layout, conventions, pre-commit hook, deployment). Complements this README rather than duplicating it.
 
 ## Contributing
 
