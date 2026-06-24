@@ -442,6 +442,8 @@
     "submit": "Naar betaling",
     "submitting": "Bezig…",
     "contactLink": "Liever eerst vragen stellen? Neem contact op",
+    "referralLabel": "Referral- of kortingscode (optioneel)",
+    "referralHint": "Heb je een code van een oud-cursist? Vul 'm hier in voor je korting.",
     "soldOutHeading": "Uitverkocht",
     "soldOutBody": "Deze training is volgeboekt, dus boeken is niet meer mogelijk.",
     "soldOutBack": "Terug naar trainingen",
@@ -449,7 +451,8 @@
       "required": "Dit veld is verplicht.",
       "invalidEmail": "Vul een geldig e-mailadres in.",
       "generic": "Er ging iets mis. Probeer het opnieuw.",
-      "rateLimited": "Te veel pogingen. Wacht even en probeer opnieuw."
+      "rateLimited": "Te veel pogingen. Wacht even en probeer opnieuw.",
+      "invalidReferral": "Deze code is ongeldig of verlopen. Controleer 'm en probeer opnieuw."
     },
     "success": {
       "title": "Betaling gelukt — je plek is geboekt!",

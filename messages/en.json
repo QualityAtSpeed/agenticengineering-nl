@@ -438,6 +438,8 @@
     "submit": "Continue to payment",
     "submitting": "Working…",
     "contactLink": "Prefer to ask questions first? Get in touch",
+    "referralLabel": "Referral or discount code (optional)",
+    "referralHint": "Got a code from a past attendee? Enter it here for your discount.",
     "soldOutHeading": "Sold out",
     "soldOutBody": "This training is fully booked, so booking is closed.",
     "soldOutBack": "Back to trainings",
@@ -445,7 +447,8 @@
       "required": "This field is required.",
       "invalidEmail": "Enter a valid email address.",
       "generic": "Something went wrong. Please try again.",
-      "rateLimited": "Too many attempts. Please wait and try again."
+      "rateLimited": "Too many attempts. Please wait and try again.",
+      "invalidReferral": "This code is invalid or expired. Check it and try again."
     },
     "success": {
       "title": "Payment successful — your seat is booked!",

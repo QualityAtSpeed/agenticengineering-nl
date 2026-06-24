@@ -54,6 +54,9 @@ export type BookingDetails = {
   attendees: { name: string; email: string }[];
   seats: number;
   grossCents: number;
+  // Referral attribution, set when a referral/promo code was redeemed.
+  referralCode?: string;
+  referrer?: string;
 };
 
 const PILOT_LABEL = 'Pilot - Basic Training (29 en 30 juni 2026)';
@@ -107,7 +110,12 @@ export async function sendBookingNotification(b: BookingDetails): Promise<{ id: 
   const to = process.env.CONTACT_EMAIL;
   if (!to) throw new EmailError('CONTACT_EMAIL missing');
   const subject = stripCRLF(`[agenticengineering.nl] Nieuwe boeking — ${b.seats} plek(ken)`);
-  const text = ['Nieuwe betaalde boeking:', '', bookingLines(b)].join('\n');
+  const referralLines = b.referralCode
+    ? ['', `Referral code: ${stripCRLF(b.referralCode)}`].concat(
+        b.referrer ? [`Verwezen door: ${stripCRLF(b.referrer)}`] : [],
+      )
+    : [];
+  const text = ['Nieuwe betaalde boeking:', '', bookingLines(b), ...referralLines].join('\n');
   const result = await resend.emails.send({
     from,
     to,
