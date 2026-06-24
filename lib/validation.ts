@@ -41,6 +41,9 @@ export const bookingSchema = z
     city: z.string().trim().min(1).max(100),
     country: z.string().trim().min(1).max(100),
     notes: z.string().trim().max(500),
+    // Optional referral / discount code; resolved server-side to a Stripe
+    // promotion code (Stripe enforces the coupon + max_redemptions).
+    referralCode: z.string().trim().max(64).optional(),
   })
   // Company name is only required for a business (zakelijk) booking.
   .superRefine((data, ctx) => {

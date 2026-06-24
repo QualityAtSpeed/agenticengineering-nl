@@ -55,6 +55,9 @@ export type BookingDetails = {
   seats: number;
   grossCents: number;
   company?: CompanyDetails;
+  // Referral attribution, set when a referral/promo code was redeemed.
+  referralCode?: string;
+  referrer?: string;
 };
 
 export type CompanyDetails = {
@@ -130,11 +133,17 @@ export async function sendBookingNotification(b: BookingDetails): Promise<{ id: 
   const to = process.env.CONTACT_EMAIL;
   if (!to) throw new EmailError('CONTACT_EMAIL missing');
   const subject = stripCRLF(`[agenticengineering.nl] Nieuwe boeking — ${b.seats} plek(ken)`);
+  const referralLines = b.referralCode
+    ? ['', `Referral code: ${stripCRLF(b.referralCode)}`].concat(
+        b.referrer ? [`Verwezen door: ${stripCRLF(b.referrer)}`] : [],
+      )
+    : [];
   const text = [
     'Nieuwe betaalde boeking:',
     '',
     bookingLines(b),
     ...(b.company ? ['', companyLines(b.company)] : []),
+    ...referralLines,
   ].join('\n');
   const result = await resend.emails.send({
     from,

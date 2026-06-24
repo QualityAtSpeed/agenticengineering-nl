@@ -1,13 +1,13 @@
 'use client';
 
 import { useState } from 'react';
-import { useForm, useFieldArray } from 'react-hook-form';
+import { useForm, useFieldArray, useWatch } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useTranslations } from 'next-intl';
 import { bookingSchema, type BookingInput, type BookingFormInput } from '@/lib/validation';
 import { Button } from '@/components/Button';
 
-type Status = 'idle' | 'submitting' | 'error' | 'rateLimited';
+type Status = 'idle' | 'submitting' | 'error' | 'rateLimited' | 'invalidReferral';
 
 const INPUT_CLASS =
   'border-border-strong bg-bg-base text-text-primary focus:border-brand focus:ring-brand/20 w-full rounded-md border px-3 py-2 text-[0.9375rem] focus:ring-2 focus:outline-none';
@@ -28,7 +28,6 @@ export function BookingForm({
     register,
     handleSubmit,
     control,
-    watch,
     formState: { errors },
   } = useForm<BookingFormInput, unknown, BookingInput>({
     resolver: zodResolver(bookingSchema),
@@ -43,12 +42,13 @@ export function BookingForm({
       city: '',
       country: 'Nederland',
       notes: '',
+      referralCode: '',
     },
   });
 
   const { fields, replace } = useFieldArray({ control, name: 'attendees' });
 
-  const accountType = watch('accountType');
+  const accountType = useWatch({ control, name: 'accountType' });
   const isBusiness = accountType === 'zakelijk';
 
   function setSeats(n: number) {
@@ -68,7 +68,18 @@ export function BookingForm({
       window.location.assign(url);
       return;
     }
-    setStatus(res.status === 429 ? 'rateLimited' : 'error');
+    if (res.status === 429) {
+      setStatus('rateLimited');
+      return;
+    }
+    if (res.status === 400) {
+      const body = (await res.json().catch(() => null)) as { error?: string } | null;
+      if (body?.error === 'invalid_referral') {
+        setStatus('invalidReferral');
+        return;
+      }
+    }
+    setStatus('error');
   }
 
   return (
@@ -250,6 +261,17 @@ export function BookingForm({
         ))}
       </div>
 
+      <label className="block">
+        <span className="text-text-primary text-sm font-semibold">{t('referralLabel')}</span>
+        <input
+          type="text"
+          data-testid="booking-referral-code"
+          {...register('referralCode')}
+          className={`${INPUT_CLASS} mt-1.5`}
+        />
+        <span className="text-text-muted mt-1 block text-xs">{t('referralHint')}</span>
+      </label>
+
       {status === 'error' && (
         <p className="border-accent-red/30 bg-accent-red/10 text-accent-red rounded-md border px-3 py-2 text-sm">
           {t('errors.generic')}
@@ -258,6 +280,11 @@ export function BookingForm({
       {status === 'rateLimited' && (
         <p className="border-accent-orange/30 bg-accent-orange/10 text-accent-orange rounded-md border px-3 py-2 text-sm">
           {t('errors.rateLimited')}
+        </p>
+      )}
+      {status === 'invalidReferral' && (
+        <p className="border-accent-red/30 bg-accent-red/10 text-accent-red rounded-md border px-3 py-2 text-sm">
+          {t('errors.invalidReferral')}
         </p>
       )}
 

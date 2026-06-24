@@ -80,6 +80,8 @@ export async function POST(req: Request) {
       country: metadata.country ?? '',
       notes: metadata.notes ?? '',
     },
+    referralCode: metadata.referralCode,
+    referrer: metadata.referrer,
   };
 
   try {

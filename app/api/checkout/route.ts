@@ -53,6 +53,7 @@ export async function POST(req: Request) {
     city,
     country,
     notes,
+    referralCode,
   } = parsed.data;
 
   // Authoritative sold-out gate: a sold-out training can never reach Stripe,
@@ -81,8 +82,33 @@ export async function POST(req: Request) {
   });
 
   try {
+    // Resolve an optional referral / promo code to a Stripe promotion code so the
+    // discount + max_redemptions are enforced by Stripe; tag for attribution.
+    let promotionCodeId: string | undefined;
+    if (referralCode) {
+      const codes = await getStripe().promotionCodes.list({
+        code: referralCode,
+        active: true,
+        limit: 1,
+      });
+      const promo = codes.data[0];
+      if (!promo) {
+        return NextResponse.json({ ok: false, error: 'invalid_referral' }, { status: 400 });
+      }
+      promotionCodeId = promo.id;
+      metadata.referralCode = referralCode;
+      if (promo.metadata?.referrer) metadata.referrer = promo.metadata.referrer;
+    }
+
     const session = await getStripe().checkout.sessions.create({
       mode: 'payment',
+      // A resolved referral/promo code is applied via `discounts`; otherwise the
+      // customer can still enter a code on the hosted checkout. (Stripe forbids
+      // `discounts` and `allow_promotion_codes` together.) Attribution for a
+      // referral lives in the promotion code's metadata.referrer.
+      ...(promotionCodeId
+        ? { discounts: [{ promotion_code: promotionCodeId }] }
+        : { allow_promotion_codes: true }),
       customer_email: attendees[0].email,
       line_items: [
         {
