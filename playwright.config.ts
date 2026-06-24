@@ -10,6 +10,7 @@ export default defineConfig({
     timeout: 120_000,
     env: {
       BLOGS_ENABLED: 'true',
+      TESTIMONIALS_ENABLED: 'true',
     },
   },
   use: { baseURL: 'http://localhost:3000', locale: 'nl-NL' },

@@ -7,6 +7,7 @@ import { InstructorCard } from '@/components/InstructorCard';
 import { JsonLd } from '@/components/JsonLd';
 import { instructors } from '@/data/instructors';
 import { buildHomeJsonLd } from '@/lib/structured-data';
+import { TestimonialsSection } from '@/components/TestimonialsSection';
 import type { Locale } from '@/i18n/routing';
 
 export default async function Home({ params }: { params: Promise<{ locale: Locale }> }) {
@@ -60,6 +61,8 @@ export default async function Home({ params }: { params: Promise<{ locale: Local
           </div>
         </div>
       </section>
+
+      <TestimonialsSection />
 
       <ProofStrip locale={locale} />
 
