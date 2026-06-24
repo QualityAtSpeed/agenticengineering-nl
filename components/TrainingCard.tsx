@@ -130,13 +130,13 @@ export function TrainingCard({
             )
           )}
           <h3 className={`text-text-primary text-xl font-bold ${dim}`}>{t(`${trainingId}.name`)}</h3>
-          <p className={`text-text-soft mt-2 text-[0.9375rem] ${dim}`}>{t(`${trainingId}.tagline`)}</p>
+          <p className="text-text-soft mt-2 text-[0.9375rem]">{t(`${trainingId}.tagline`)}</p>
           <Button
             variant="secondary"
             size="sm"
             href={`/${locale}/trainings/${trainingId}`}
             data-testid={`view-curriculum-${trainingId}`}
-            className={`mt-3 ${dim}`}
+            className="mt-3"
           >
             {tLabels('viewDetails')}
             <ArrowIcon />
@@ -144,7 +144,7 @@ export function TrainingCard({
         </div>
 
         <ul
-          className={`text-text-muted m-0 list-none space-y-1.5 p-0 text-sm ${isPilot ? 'lg:pt-[1.875rem]' : 'lg:pt-[0.3125rem]'} ${dim}`}
+          className={`text-text-muted m-0 list-none space-y-1.5 p-0 text-sm ${isPilot ? 'lg:pt-[1.875rem]' : 'lg:pt-[0.3125rem]'}`}
         >
           {metaItems.map((m) => (
             <li key={m.key} className="flex items-center gap-2">
@@ -156,32 +156,32 @@ export function TrainingCard({
       </div>
 
       <div className={isPilot ? 'lg:pt-[1.875rem]' : undefined}>
-        <div className={dim}>
-          {price.earlyBird ? (
-            <>
-              <p className="text-text-muted text-sm font-medium tabular-nums line-through">
-                €{training.priceEUR.toLocaleString('nl-NL')}
-              </p>
-              <p className="text-text-primary text-xl font-bold tabular-nums">
-                €
-                {(price.netCents / 100).toLocaleString('nl-NL', {
-                  minimumFractionDigits: 2,
-                  maximumFractionDigits: 2,
-                })}
-              </p>
-            </>
-          ) : (
-            <p className="text-text-primary text-xl font-bold tabular-nums">
+        {/* Sold-out dim is applied only to the large/bold price (AA needs 3:1),
+            never to the small struck price / suffix / note (those need 4.5:1). */}
+        {price.earlyBird ? (
+          <>
+            <p className="text-text-muted text-sm font-medium tabular-nums line-through">
               €{training.priceEUR.toLocaleString('nl-NL')}
             </p>
-          )}
-          <p className="text-text-muted text-xs">{tLabels('priceSuffix')}</p>
-          {price.earlyBird && (
-            <p className="text-accent-green-hover mt-1 text-xs font-semibold">
-              {t(`${trainingId}.earlyBirdNote`)}
+            <p className={`text-text-primary text-xl font-bold tabular-nums ${dim}`}>
+              €
+              {(price.netCents / 100).toLocaleString('nl-NL', {
+                minimumFractionDigits: 2,
+                maximumFractionDigits: 2,
+              })}
             </p>
-          )}
-        </div>
+          </>
+        ) : (
+          <p className={`text-text-primary text-xl font-bold tabular-nums ${dim}`}>
+            €{training.priceEUR.toLocaleString('nl-NL')}
+          </p>
+        )}
+        <p className="text-text-muted text-xs">{tLabels('priceSuffix')}</p>
+        {price.earlyBird && (
+          <p className="text-accent-green-hover mt-1 text-xs font-semibold">
+            {t(`${trainingId}.earlyBirdNote`)}
+          </p>
+        )}
         {isSoldOut ? (
           <Button
             size="sm"
