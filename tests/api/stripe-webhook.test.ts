@@ -20,7 +20,9 @@ function eventBody(
   {
     type = 'checkout.session.completed',
     paymentStatus = 'paid',
-  }: { type?: string; paymentStatus?: string } = {},
+    referralCode,
+    referrer,
+  }: { type?: string; paymentStatus?: string; referralCode?: string; referrer?: string } = {},
 ) {
   return JSON.stringify({
     id,
@@ -33,6 +35,8 @@ function eventBody(
           seats: '2',
           attendee_0: 'Pascal <pascal@example.com>',
           attendee_1: 'Sam <sam@example.com>',
+          ...(referralCode ? { referralCode } : {}),
+          ...(referrer ? { referrer } : {}),
         },
         amount_total: 84458,
       },
@@ -72,6 +76,16 @@ describe('POST /api/stripe/webhook', () => {
     expect(detail.grossCents).toBe(84458);
     expect(detail.attendees).toHaveLength(2);
     expect(detail.attendees[1]).toEqual({ name: 'Sam', email: 'sam@example.com' });
+  });
+
+  it('passes referral attribution (code + referrer) to the emails for reconciliation', async () => {
+    vi.stubEnv('VERCEL_ENV', 'production');
+    await POST(
+      signed(eventBody('evt_ref', { referralCode: 'REF-7F3K9', referrer: 'piet@example.com' })),
+    );
+    const detail = notifyMock.mock.calls[0][0];
+    expect(detail.referralCode).toBe('REF-7F3K9');
+    expect(detail.referrer).toBe('piet@example.com');
   });
 
   it('skips the operator notification outside production (preview/dev)', async () => {

@@ -71,6 +71,8 @@ export async function POST(req: Request) {
     attendees,
     seats: Number(metadata.seats ?? attendees.length),
     grossCents: session.amount_total ?? 0,
+    referralCode: metadata.referralCode,
+    referrer: metadata.referrer,
   };
 
   try {

@@ -53,6 +53,19 @@ describe('bookingSchema', () => {
     ).toBe(true);
   });
 
+  it('accepts an optional referral code, and a booking without one', () => {
+    expect(
+      bookingSchema.safeParse({
+        trainingId: 'pilot',
+        attendees: [attendee],
+        referralCode: 'REF-7F3K9',
+      }).success,
+    ).toBe(true);
+    expect(bookingSchema.safeParse({ trainingId: 'pilot', attendees: [attendee] }).success).toBe(
+      true,
+    );
+  });
+
   it('rejects an empty attendee list', () => {
     expect(bookingSchema.safeParse({ trainingId: valid.trainingId, attendees: [] }).success).toBe(
       false,

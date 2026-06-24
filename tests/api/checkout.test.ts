@@ -1,8 +1,12 @@
 import { describe, it, expect, vi, beforeEach } from 'vitest';
 
 const createMock = vi.fn();
+const listMock = vi.fn();
 vi.mock('@/lib/stripe', () => ({
-  getStripe: () => ({ checkout: { sessions: { create: createMock } } }),
+  getStripe: () => ({
+    checkout: { sessions: { create: createMock } },
+    promotionCodes: { list: listMock },
+  }),
 }));
 
 import { POST } from '@/app/api/checkout/route';
@@ -31,6 +35,7 @@ beforeEach(() => {
   __resetRateLimitForTests();
   process.env.STRIPE_SECRET_KEY = 'sk_test_123';
   createMock.mockResolvedValue({ url: 'https://checkout.stripe.com/c/session_abc' });
+  listMock.mockResolvedValue({ data: [] });
 });
 
 describe('POST /api/checkout', () => {
@@ -60,6 +65,29 @@ describe('POST /api/checkout', () => {
     const discArg = createMock.mock.calls[0][0];
     expect(discArg.allow_promotion_codes).toBe(true);
     expect(discArg.metadata.trainingId).toBe('discount-aug-26');
+  });
+
+  it('applies a valid referral code as a Stripe discount and records attribution', async () => {
+    listMock.mockResolvedValue({
+      data: [{ id: 'promo_123', metadata: { referrer: 'piet@example.com' } }],
+    });
+    await POST(make({ ...validBody, referralCode: 'REF-7F3K9' }));
+    expect(listMock).toHaveBeenCalledWith(
+      expect.objectContaining({ code: 'REF-7F3K9', active: true }),
+    );
+    const arg = createMock.mock.calls[0][0];
+    expect(arg.discounts).toEqual([{ promotion_code: 'promo_123' }]);
+    expect(arg.allow_promotion_codes).toBeUndefined();
+    expect(arg.metadata.referralCode).toBe('REF-7F3K9');
+    expect(arg.metadata.referrer).toBe('piet@example.com');
+  });
+
+  it('rejects an unknown / expired referral code with 400 and creates no session', async () => {
+    listMock.mockResolvedValue({ data: [] });
+    const res = await POST(make({ ...validBody, referralCode: 'NOPE' }));
+    expect(res.status).toBe(400);
+    expect((await res.json()).error).toBe('invalid_referral');
+    expect(createMock).not.toHaveBeenCalled();
   });
 
   it('prices discount-aug-26 with the early-bird discount before the deadline (server-enforced)', async () => {
