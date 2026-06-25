@@ -190,22 +190,22 @@
       "short": "Agentic engineering"
     },
     "assignment-hobby-page": {
-      "title": "Bouw een pagina voor je hobby",
+      "title": "Bouw je eerste feature",
       "bullets": [
-        "Bouw je eerste pagina samen met de agent, van leeg scherm naar live",
+        "Bouw je eerste feature samen met de agent, van leeg scherm naar live",
         "Stuur op het resultaat in plaats van op elke losse stap",
         "Eerste gevoel bij de loop: vragen, bekijken, bijsturen"
       ],
-      "short": "Hobby-pagina"
+      "short": "Eerste feature"
     },
     "assignment-expand-website": {
-      "title": "Breid je hobby-site uit",
+      "title": "Bouw je feature verder uit",
       "bullets": [
-        "Voeg secties en functionaliteit toe aan je hobby-pagina",
+        "Voeg secties en functionaliteit toe aan je feature",
         "Laat de agent grotere wijzigingen eerst in stappen plannen",
         "Merk hoe goede context de output strakker maakt"
       ],
-      "short": "Site uitbreiden"
+      "short": "Feature uitbouwen"
     },
     "assignment-tone-of-voice": {
       "title": "Tone of voice via CLAUDE.md",
@@ -271,13 +271,13 @@
       "short": "Memory"
     },
     "openspec": {
-      "title": "OpenSpec",
+      "title": "Spec-driven development",
       "bullets": [
         "Specs schrijven die een agent betrouwbaar kan uitvoeren",
         "Werk afbakenen voordat de agent begint te bouwen",
         "Van spec naar een werkende, geteste wijziging"
       ],
-      "short": "OpenSpec"
+      "short": "Spec-driven"
     },
     "agents-in-sdlc": {
       "title": "Agents in je SDLC: waar ze passen, waar ze breken",

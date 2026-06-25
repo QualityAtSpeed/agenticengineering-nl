@@ -190,22 +190,22 @@
       "short": "Agentic engineering"
     },
     "assignment-hobby-page": {
-      "title": "Build a page for your hobby",
+      "title": "Build your first feature",
       "bullets": [
-        "Build your first page with the agent, from blank screen to live",
+        "Build your first feature with the agent, from blank screen to live",
         "Steer on the outcome instead of dictating each step",
         "First feel for the loop: ask, review, adjust"
       ],
-      "short": "Hobby page"
+      "short": "First feature"
     },
     "assignment-expand-website": {
-      "title": "Expand your hobby website",
+      "title": "Build out your feature",
       "bullets": [
-        "Add sections and functionality to your hobby page",
+        "Add sections and functionality to your feature",
         "Have the agent plan larger changes in steps first",
         "Notice how good context tightens the output"
       ],
-      "short": "Expand site"
+      "short": "Build out feature"
     },
     "assignment-tone-of-voice": {
       "title": "Tone of voice via CLAUDE.md",
@@ -271,13 +271,13 @@
       "short": "Memory"
     },
     "openspec": {
-      "title": "OpenSpec",
+      "title": "Spec-driven development",
       "bullets": [
         "Write specs an agent can execute reliably",
         "Scope the work before the agent starts building",
         "From spec to a working, tested change"
       ],
-      "short": "OpenSpec"
+      "short": "Spec-driven"
     },
     "context-architecture": {
       "title": "Context architecture",
