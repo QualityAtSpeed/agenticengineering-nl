@@ -190,34 +190,34 @@
       "short": "Agentic engineering"
     },
     "assignment-hobby-page": {
-      "title": "Assignment 1: a page for your hobby",
+      "title": "Build a page for your hobby",
       "bullets": [
         "Build your first page with the agent, from blank screen to live",
         "Steer on the outcome instead of dictating each step",
         "First feel for the loop: ask, review, adjust"
       ],
-      "short": "Assignment 1: hobby"
+      "short": "Hobby page"
     },
     "assignment-expand-website": {
-      "title": "Assignment 2: expand your hobby website",
+      "title": "Expand your hobby website",
       "bullets": [
-        "Add sections and functionality to your Assignment 1 page",
+        "Add sections and functionality to your hobby page",
         "Have the agent plan larger changes in steps first",
         "Notice how good context tightens the output"
       ],
-      "short": "Assignment 2: expand"
+      "short": "Expand site"
     },
     "assignment-tone-of-voice": {
-      "title": "Assignment 3a & 3b: tone of voice, editing CLAUDE.md",
+      "title": "Tone of voice via CLAUDE.md",
       "bullets": [
         "Set a tone of voice the agent holds to consistently",
         "Edit CLAUDE.md so your conventions stick across sessions",
         "See the gap between asking each time and rules that persist"
       ],
-      "short": "Assignment 3: tone"
+      "short": "Tone of voice"
     },
     "out-of-the-loop": {
-      "title": "Out of the loop (Assignment 5B)",
+      "title": "Getting out of the loop",
       "bullets": [
         "Let the agent finish longer stretches on its own",
         "Decide up front where you stay in the loop and where you don't",
@@ -226,13 +226,13 @@
       "short": "Out of the loop"
     },
     "assignment-create-skill": {
-      "title": "Assignment 4a–4c: create a skill, edit skill.md, skill creator",
+      "title": "Creating and editing skills",
       "bullets": [
         "Build your first skill from start to finish",
         "Edit skill.md and watch behaviour change right away",
         "Use the skill creator to stand up new skills faster"
       ],
-      "short": "Assignment 4: skills"
+      "short": "Skills"
     },
     "plugins-caveman-superpowers": {
       "title": "Plugins: Caveman & Superpowers",
@@ -298,7 +298,7 @@
       "short": "Window mechanics"
     },
     "build-first-feature": {
-      "title": "Lab: your first feature with quality",
+      "title": "Lab: your first quality feature",
       "bullets": [
         "End-to-end on a starter repo: brief → tests → code → review",
         "Put Superpowers skills and quality gates to work on your own changes",
@@ -357,7 +357,7 @@
       "short": "Failure modes"
     },
     "test-first-with-agents": {
-      "title": "Test-first with agents",
+      "title": "Test-first with agents (TDD)",
       "bullets": [
         "The TDD loop with an agent driver",
         "When tests precede code, when they don't, why it matters",
@@ -366,13 +366,13 @@
       "short": "Test-first"
     },
     "hooks-and-quality-gates": {
-      "title": "Hooks + quality gates",
+      "title": "Rules vs hooks",
       "bullets": [
         "Pre-commit checks: lint, format, type-check",
         "Custom hooks for agent-specific risks",
         "Rules vs. hooks: what belongs where, and why"
       ],
-      "short": "Hooks + gates"
+      "short": "Rules vs hooks"
     },
     "agent-harnessing": {
       "title": "Agent harnessing for teams",

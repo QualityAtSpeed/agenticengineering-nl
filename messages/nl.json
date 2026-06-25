@@ -190,34 +190,34 @@
       "short": "Agentic engineering"
     },
     "assignment-hobby-page": {
-      "title": "Opdracht 1: een pagina voor je hobby",
+      "title": "Bouw een pagina voor je hobby",
       "bullets": [
         "Bouw je eerste pagina samen met de agent, van leeg scherm naar live",
         "Stuur op het resultaat in plaats van op elke losse stap",
         "Eerste gevoel bij de loop: vragen, bekijken, bijsturen"
       ],
-      "short": "Opdracht 1: hobby"
+      "short": "Hobby-pagina"
     },
     "assignment-expand-website": {
-      "title": "Opdracht 2: breid je hobby-site uit",
+      "title": "Breid je hobby-site uit",
       "bullets": [
-        "Voeg secties en functionaliteit toe aan de pagina uit opdracht 1",
+        "Voeg secties en functionaliteit toe aan je hobby-pagina",
         "Laat de agent grotere wijzigingen eerst in stappen plannen",
         "Merk hoe goede context de output strakker maakt"
       ],
-      "short": "Opdracht 2: uitbreiden"
+      "short": "Site uitbreiden"
     },
     "assignment-tone-of-voice": {
-      "title": "Opdracht 3a & 3b: tone of voice en CLAUDE.md bijwerken",
+      "title": "Tone of voice via CLAUDE.md",
       "bullets": [
         "Leg een tone of voice vast die de agent consequent aanhoudt",
         "Bewerk CLAUDE.md zodat afspraken tussen sessies blijven plakken",
         "Zie het verschil tussen elke keer vragen en regels die blijven"
       ],
-      "short": "Opdracht 3: tone"
+      "short": "Tone of voice"
     },
     "out-of-the-loop": {
-      "title": "Out of the loop (opdracht 5B)",
+      "title": "Out of the loop",
       "bullets": [
         "Laat de agent langere stukken zelfstandig afronden",
         "Bepaal vooraf waar je wel en niet wilt meekijken",
@@ -226,13 +226,13 @@
       "short": "Out of the loop"
     },
     "assignment-create-skill": {
-      "title": "Opdracht 4a–4c: skill maken, skill.md bewerken, skill creator",
+      "title": "Skills maken en bewerken",
       "bullets": [
         "Maak je eerste eigen skill van begin tot eind",
         "Bewerk skill.md en zie het gedrag direct mee veranderen",
         "Gebruik de skill creator om sneller nieuwe skills op te zetten"
       ],
-      "short": "Opdracht 4: skills"
+      "short": "Skills"
     },
     "plugins-caveman-superpowers": {
       "title": "Plugins: Caveman & Superpowers",
@@ -316,7 +316,7 @@
       "short": "Failure modes"
     },
     "test-first-with-agents": {
-      "title": "Test-first met agents",
+      "title": "Test-first met agents (TDD)",
       "bullets": [
         "De TDD-loop met een agent als driver",
         "Wanneer tests vóór code komen, wanneer niet, waarom het uitmaakt",
@@ -325,16 +325,16 @@
       "short": "Test-first"
     },
     "hooks-and-quality-gates": {
-      "title": "Hooks + quality gates",
+      "title": "Rules vs hooks",
       "bullets": [
         "Pre-commit checks: lint, format, type-check",
         "Custom hooks voor agent-specifieke risico's",
         "Rules vs. hooks: wat hoort waar, en waarom"
       ],
-      "short": "Hooks + gates"
+      "short": "Rules vs hooks"
     },
     "build-first-feature": {
-      "title": "Lab: je eerste feature met quality",
+      "title": "Lab: je eerste quality-feature",
       "bullets": [
         "End-to-end op een starter repo: brief → tests → code → review",
         "Zet Superpowers-skills en quality gates in op je eigen wijzigingen",
