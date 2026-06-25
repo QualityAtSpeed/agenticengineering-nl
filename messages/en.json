@@ -57,8 +57,8 @@
       "outcomes": "What you'll learn",
       "modules": "Programme",
       "durationLabel": "Duration",
-      "day1": "Day 1 Quality engineering with agents",
-      "day2": "Day 2 Agent mechanics + capstone",
+      "day1": "Day 1 · Fundamentals: from concept to first tooling",
+      "day2": "Day 2 · Quality & advanced",
       "price": "Price",
       "priceSuffix": "ex. VAT",
       "viewDetails": "View programme",
@@ -180,10 +180,109 @@
     }
   },
   "modules": {
+    "agentic-engineering": {
+      "title": "Agentic engineering",
+      "bullets": [
+        "What agentic engineering is, and how it differs from one-off prompts",
+        "The agent as a colleague that writes code, not autocomplete",
+        "Where it already works today and where you stay careful"
+      ],
+      "short": "Agentic engineering"
+    },
+    "assignment-hobby-page": {
+      "title": "Build your first feature",
+      "bullets": [
+        "Build your first feature with the agent, from blank screen to live",
+        "Steer on the outcome instead of dictating each step",
+        "First feel for the loop: ask, review, adjust"
+      ],
+      "short": "First feature"
+    },
+    "assignment-expand-website": {
+      "title": "Build out your feature",
+      "bullets": [
+        "Add sections and functionality to your feature",
+        "Have the agent plan larger changes in steps first",
+        "Notice how good context tightens the output"
+      ],
+      "short": "Build out feature"
+    },
+    "assignment-tone-of-voice": {
+      "title": "Tone of voice via CLAUDE.md",
+      "bullets": [
+        "Set a tone of voice the agent holds to consistently",
+        "Edit CLAUDE.md so your conventions stick across sessions",
+        "See the gap between asking each time and rules that persist"
+      ],
+      "short": "Tone of voice"
+    },
+    "out-of-the-loop": {
+      "title": "Getting out of the loop",
+      "bullets": [
+        "Let the agent finish longer stretches on its own",
+        "Decide up front where you stay in the loop and where you don't",
+        "Build trust without losing control"
+      ],
+      "short": "Out of the loop"
+    },
+    "assignment-create-skill": {
+      "title": "Creating and editing skills",
+      "bullets": [
+        "Build your first skill from start to finish",
+        "Edit skill.md and watch behaviour change right away",
+        "Use the skill creator to stand up new skills faster"
+      ],
+      "short": "Skills"
+    },
+    "plugins-caveman-superpowers": {
+      "title": "Plugins: Caveman & Superpowers",
+      "bullets": [
+        "What plugins add on top of a bare agent",
+        "Caveman for compact, cheaper communication",
+        "Superpowers: skills that enforce workflows like TDD"
+      ],
+      "short": "Plugins"
+    },
+    "subagents": {
+      "title": "Subagents",
+      "bullets": [
+        "Split work across multiple agents working in parallel",
+        "A lead agent that delegates subtasks and merges the results",
+        "When subagents help and when they're overkill"
+      ],
+      "short": "Subagents"
+    },
+    "building-a-pipeline": {
+      "title": "Building a pipeline",
+      "bullets": [
+        "Chain separate steps into a repeatable flow",
+        "Agents, tests and gates in one pipeline",
+        "A pipeline that still runs next sprint"
+      ],
+      "short": "Pipeline"
+    },
+    "persistent-memory": {
+      "title": "Persistent memory",
+      "bullets": [
+        "Let the agent remember what matters between sessions",
+        "What to keep in memory and what to leave out",
+        "Memory that helps without piling up noise"
+      ],
+      "short": "Memory"
+    },
+    "openspec": {
+      "title": "Spec-driven development",
+      "bullets": [
+        "Write specs an agent can execute reliably",
+        "Scope the work before the agent starts building",
+        "From spec to a working, tested change"
+      ],
+      "short": "Spec-driven"
+    },
     "context-architecture": {
       "title": "Context architecture",
       "bullets": [
-        "CLAUDE.md / AGENTS.md design",
+        "CLAUDE.md, AGENTS.md and the folder layout that steer the agent",
         "Rules files and project-wide configuration",
         "Hierarchy: user, project, local overrides"
       ],
@@ -199,25 +298,25 @@
       "short": "Window mechanics"
     },
     "build-first-feature": {
-      "title": "Lab: build your first feature with quality discipline",
+      "title": "Lab: your first quality feature",
       "bullets": [
         "End-to-end on a starter repo: brief → tests → code → review",
-        "Run today's quality stack against your own changes",
-        "Cohort feedback before Day 2"
+        "Put Superpowers skills and quality gates to work on your own changes",
+        "Ship with green checks from the first commit"
       ],
-      "short": "Capstone lab"
+      "short": "Quality lab"
     },
     "intro-skills-rules": {
-      "title": "Intro to Skills & Rules",
+      "title": "Skills & Rules",
       "bullets": ["When to write a skill", "When to write a rule", "Your first own skill"],
       "short": "Skills + rules"
     },
     "using-mcp-servers": {
-      "title": "Using MCP servers",
+      "title": "MCP servers (with Playwright)",
       "bullets": [
-        "MCP overview",
-        "Connect existing servers (Filesystem, GitHub, Linear, etc.)",
-        "Scope and permission best practices"
+        "What MCP servers are and when to use them",
+        "Connect existing servers (GitHub, Filesystem, etc.)",
+        "Playwright MCP: the agent clicks and tests in the browser"
       ],
       "short": "MCP servers"
     },
@@ -258,7 +357,7 @@
       "short": "Failure modes"
     },
     "test-first-with-agents": {
-      "title": "Test-first with agents",
+      "title": "Test-first with agents (TDD)",
       "bullets": [
         "The TDD loop with an agent driver",
         "When tests precede code, when they don't, why it matters",
@@ -267,13 +366,13 @@
       "short": "Test-first"
     },
     "hooks-and-quality-gates": {
-      "title": "Hooks + quality gates",
+      "title": "Rules vs hooks",
       "bullets": [
         "Pre-commit checks: lint, format, type-check",
         "Custom hooks for agent-specific risks",
-        "Fast feedback loops that don't get bypassed"
+        "Rules vs. hooks: what belongs where, and why"
       ],
-      "short": "Hooks + gates"
+      "short": "Rules vs hooks"
     },
     "agent-harnessing": {
       "title": "Agent harnessing for teams",
@@ -297,7 +396,7 @@
       "title": "Ship a feature end-to-end",
       "bullets": [
         "Implement a feature on a starter repo from a brief",
-        "Apply Day-1 quality stack + Day-2 context tooling (MCP, skills, rules)",
+        "Apply everything from both days: context, skills, tests, hooks",
         "Demo and review with the cohort"
       ],
       "short": "Ship feature"

@@ -1,23 +1,35 @@
 export type ModuleId =
-  // Basic Day 1 — quality engineering with agents (6 modules)
-  | 'agents-in-sdlc'
+  // 2-day · Day 1 — fundamentals: from concept to first tooling (10 modules)
+  | 'agentic-engineering'
+  | 'assignment-hobby-page'
+  | 'context-architecture'
+  | 'assignment-expand-website'
+  | 'assignment-tone-of-voice'
+  | 'out-of-the-loop'
+  | 'intro-skills-rules'
+  | 'assignment-create-skill'
+  | 'using-mcp-servers'
+  | 'plugins-caveman-superpowers'
+  // 2-day · Day 2 — quality & advanced (10 modules)
   | 'failure-modes-ai-code'
   | 'test-first-with-agents'
+  | 'subagents'
   | 'hooks-and-quality-gates'
   | 'build-first-feature'
+  | 'building-a-pipeline'
+  | 'persistent-memory'
+  | 'openspec'
   | 'regression-and-governance'
-  // Basic Day 2 — agent mechanics + capstone (5 modules)
-  | 'context-architecture'
-  | 'context-window-mechanics'
-  | 'using-mcp-servers'
-  | 'intro-skills-rules'
   | 'capstone-ship-feature'
-  // Advanced (5 modules)
+  // Advanced 1-day (5 modules)
   | 'team-rollout-playbook'
   | 'agent-harnessing'
   | 'governance-and-policy-gates'
   | 'observability-and-cost'
-  | 'capstone-rollout-tabletop';
+  | 'capstone-rollout-tabletop'
+  // Legacy — retained for i18n + agenda fixtures, not in any current curriculum
+  | 'agents-in-sdlc'
+  | 'context-window-mechanics';
 
 export type DeliveryFormat = 'inCompany' | 'publicCohort' | 'remote';
 
@@ -55,25 +67,41 @@ export type Training = {
   soldOut?: boolean;
 };
 
+// The approved 2-day curriculum (Miro Day 1 / Day 2 frames). Shared verbatim by
+// every 2-day offering — Basic and its dated cohorts (pilot, discount-aug-26) —
+// so the three can never drift apart. Day 1 = fundamentals, Day 2 = quality &
+// advanced. Pure logistics frames (breaks, lunch, opening, recap, wrap-up) are
+// omitted; times and presenters stay in the delivery plan, not the curriculum.
+const twoDayCurriculum: Module[] = [
+  { id: 'agentic-engineering', day: 1 },
+  { id: 'assignment-hobby-page', day: 1 },
+  { id: 'context-architecture', day: 1 },
+  { id: 'assignment-expand-website', day: 1 },
+  { id: 'assignment-tone-of-voice', day: 1 },
+  { id: 'out-of-the-loop', day: 1 },
+  { id: 'intro-skills-rules', day: 1 },
+  { id: 'assignment-create-skill', day: 1 },
+  { id: 'using-mcp-servers', day: 1 },
+  { id: 'plugins-caveman-superpowers', day: 1 },
+  { id: 'failure-modes-ai-code', day: 2 },
+  { id: 'test-first-with-agents', day: 2 },
+  { id: 'subagents', day: 2 },
+  { id: 'hooks-and-quality-gates', day: 2 },
+  { id: 'build-first-feature', day: 2 },
+  { id: 'building-a-pipeline', day: 2 },
+  { id: 'persistent-memory', day: 2 },
+  { id: 'openspec', day: 2 },
+  { id: 'regression-and-governance', day: 2 },
+  { id: 'capstone-ship-feature', day: 2 },
+];
+
 export const trainings: Record<TrainingId, Training> = {
   pilot: {
     id: 'pilot',
     durationDays: 2,
     priceEUR: 349,
     schedule: { startDate: '2026-06-29', endDate: '2026-06-30', courseMode: ['online'] },
-    modules: [
-      { id: 'agents-in-sdlc', day: 1 },
-      { id: 'failure-modes-ai-code', day: 1 },
-      { id: 'test-first-with-agents', day: 1 },
-      { id: 'hooks-and-quality-gates', day: 1 },
-      { id: 'build-first-feature', day: 1 },
-      { id: 'regression-and-governance', day: 1 },
-      { id: 'context-architecture', day: 2 },
-      { id: 'context-window-mechanics', day: 2 },
-      { id: 'using-mcp-servers', day: 2 },
-      { id: 'intro-skills-rules', day: 2 },
-      { id: 'capstone-ship-feature', day: 2 },
-    ],
+    modules: twoDayCurriculum,
     deliveryFormats: ['inCompany', 'publicCohort', 'remote'],
     soldOut: true,
   },
@@ -88,38 +116,14 @@ export const trainings: Record<TrainingId, Training> = {
       courseMode: ['online', 'inPerson'],
     },
     earlyBird: { discountPct: 30, deadline: '2026-08-01T00:00:00+02:00' },
-    modules: [
-      { id: 'agents-in-sdlc', day: 1 },
-      { id: 'failure-modes-ai-code', day: 1 },
-      { id: 'test-first-with-agents', day: 1 },
-      { id: 'hooks-and-quality-gates', day: 1 },
-      { id: 'build-first-feature', day: 1 },
-      { id: 'regression-and-governance', day: 1 },
-      { id: 'context-architecture', day: 2 },
-      { id: 'context-window-mechanics', day: 2 },
-      { id: 'using-mcp-servers', day: 2 },
-      { id: 'intro-skills-rules', day: 2 },
-      { id: 'capstone-ship-feature', day: 2 },
-    ],
+    modules: twoDayCurriculum,
     deliveryFormats: ['inCompany', 'publicCohort', 'remote'],
   },
   basic: {
     id: 'basic',
     durationDays: 2,
     priceEUR: 1399,
-    modules: [
-      { id: 'agents-in-sdlc', day: 1 },
-      { id: 'failure-modes-ai-code', day: 1 },
-      { id: 'test-first-with-agents', day: 1 },
-      { id: 'hooks-and-quality-gates', day: 1 },
-      { id: 'build-first-feature', day: 1 },
-      { id: 'regression-and-governance', day: 1 },
-      { id: 'context-architecture', day: 2 },
-      { id: 'context-window-mechanics', day: 2 },
-      { id: 'using-mcp-servers', day: 2 },
-      { id: 'intro-skills-rules', day: 2 },
-      { id: 'capstone-ship-feature', day: 2 },
-    ],
+    modules: twoDayCurriculum,
     deliveryFormats: ['inCompany', 'publicCohort', 'remote'],
   },
   advanced: {
