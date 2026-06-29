@@ -48,7 +48,7 @@
     },
     "deliveryFormats": {
       "inCompany": "In-company",
-      "publicCohort": "Public cohort",
+      "publicCohort": "Open enrollment",
       "remote": "Remote"
     },
     "labels": {
@@ -100,7 +100,7 @@
       "earlyBirdNote": "30% discount through 31 July",
       "audience": [
         "Whole DevOps teams: developers, QA / test engineers, ops / platform",
-        "Mixed-role cohorts adopting agentic workflows together",
+        "Mixed-role groups adopting agentic workflows together",
         "Engineering managers training their teams alongside them"
       ],
       "prerequisites": [
@@ -122,7 +122,7 @@
       "tagline": "Two days of hands-on adoption — every attendee ships a feature.",
       "audience": [
         "Whole DevOps teams: developers, QA / test engineers, ops / platform",
-        "Mixed-role cohorts adopting agentic workflows together",
+        "Mixed-role groups adopting agentic workflows together",
         "Engineering managers training their teams alongside them"
       ],
       "prerequisites": [
@@ -161,7 +161,7 @@
       "tagline": "Dry-run of the Basic training at a reduced price. Same two days, every attendee ships a feature. This training is only available as online training on June 29th and 30th, 2026.",
       "audience": [
         "Whole DevOps teams: developers, QA / test engineers, ops / platform",
-        "Mixed-role cohorts adopting agentic workflows together",
+        "Mixed-role groups adopting agentic workflows together",
         "Engineering managers training their teams alongside them"
       ],
       "prerequisites": [
@@ -397,7 +397,7 @@
       "bullets": [
         "Implement a feature on a starter repo from a brief",
         "Apply everything from both days: context, skills, tests, hooks",
-        "Demo and review with the cohort"
+        "Demo and review with the group"
       ],
       "short": "Ship feature"
     },
@@ -590,7 +590,7 @@
     "qe": "For quality engineers this is a logical step. Verification is your craft. In a world full of agents, you become the layer that makes their work reliably deployable. Your role does not disappear; it only grows more important."
   },
   "home": {
-    "trainingsLede": "Two trainings, separately or consecutively. In-company or public cohort. Everyone ships something concrete.",
+    "trainingsLede": "Two trainings, separately or consecutively. In-company or open enrollment. Everyone ships something concrete.",
     "instructorsTitle": "Who runs the training",
     "instructorsLede": "Senior engineers with practitioner experience in agentic workflows and quality engineering.",
     "instructorsLink": "Meet the team",
