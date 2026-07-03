@@ -5,21 +5,21 @@ export type Testimonial = {
   role: string; // free-form attribution, e.g. "Lead Engineer, Acme"
 };
 
-// Placeholder content — the section stays gated off (TESTIMONIALS_ENABLED unset)
-// until real testimonials replace these.
+// Real testimonials. The section stays gated off (TESTIMONIALS_ENABLED unset)
+// until enabled in production.
 export const testimonials: Testimonial[] = [
   {
-    id: 'placeholder-1',
+    id: 'chiel-bleumink',
     quote:
-      'The training turned vague "use AI" guidance into a concrete workflow my team actually follows.',
-    name: 'Placeholder Name One',
-    role: 'Engineering Lead, Example Co',
+      'Vond het een geweldige en leerzame training. Enorm veel dingen bijgeleerd die ik direct ook kan toepassen. En alleen maar meer motivatie gekregen om meer projecten op te pakken!',
+    name: 'Chiel Bleumink',
+    role: 'Senior Test Automation Engineer',
   },
   {
-    id: 'placeholder-2',
+    id: 'bas-dijkstra',
     quote:
-      'Hands-on from the first hour. We shipped a real change with agentic tooling by the end of day one.',
-    name: 'Placeholder Name Two',
-    role: 'Senior Engineer, Example BV',
+      'Heel leuke training, interessant en een heel prettige sfeer. Niet alleen als engineer iets geleerd, ook als trainer.',
+    name: 'Bas Dijkstra',
+    role: 'Senior Test Automation Engineer / Trainer',
   },
 ];
