@@ -589,6 +589,10 @@
     ],
     "qe": "For quality engineers this is a logical step. Verification is your craft. In a world full of agents, you become the layer that makes their work reliably deployable. Your role does not disappear; it only grows more important."
   },
+  "testimonials": {
+    "title": "What participants say",
+    "lede": "Feedback from engineers and teams who have taken the training."
+  },
   "home": {
     "trainingsLede": "Two trainings, separately or consecutively. In-company or open enrollment. Everyone ships something concrete.",
     "instructorsTitle": "Who runs the training",

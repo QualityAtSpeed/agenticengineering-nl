@@ -108,7 +108,8 @@ app/
   globals.css          # Tailwind v4 @theme block (single source of design tokens)
 components/            # Hero, Nav, Footer, TrainingCard, TrainingDetail, ContactForm,
                        # BookingForm, ArticleFilterBar, InstructorCard, Button, DayAgenda,
-                       # ProofStrip, TimelineEntry, JsonLd, LangSwitcher, MobileMenu, …
+                       # ProofStrip, TimelineEntry, JsonLd, LangSwitcher, MobileMenu,
+                       # TestimonialCard, TestimonialsSection, …
 lib/
   validation.ts        # Zod schemas (contactSchema, bookingSchema, trainingInterestEnum, …)
   email.ts             # Resend wrapper, sendContactEmail(), sendBookingConfirmation(), sendBookingNotification()
@@ -123,9 +124,10 @@ lib/
   webhook-dedupe.ts    # Webhook event deduplication (markHandled, unmarkHandled, __resetWebhookDedupeForTests)
   structured-data.ts   # schema.org JSON-LD graph builder for the homepage (buildHomeJsonLd)
   page-metadata.ts     # metadataFor(path, key) wrapper + buildPageMetadata({ locale, path, title, description }) — single source for per-page SEO (canonical, hreflang, OpenGraph)
-data/
+data/                  # typed catalogues (trainings.ts, instructors.ts, testimonials.ts) + trusted-domains.json
   trainings.ts         # Training catalogue + modules (typed)
   instructors.ts       # Instructor profiles (typed)
+  testimonials.ts      # Testimonial quotes (typed, verbatim — name/role not translated)
   trusted-domains.json # Allowlist for origin/CSRF checks
 news/                  # Markdown news + blog posts (frontmatter + body)
 i18n/                  # next-intl config (routing.ts, request.ts)
@@ -137,6 +139,7 @@ scripts/
 tests/                 # Vitest unit + Playwright e2e
 docs/
   superpowers/specs/   # Design specs for significant feature changes (dated markdown)
+  superpowers/plans/   # Step-by-step implementation plans (dated markdown, checkbox tasks)
 PRODUCT.md             # Brand register (users, tone, anti-references, principles)
 DESIGN.md              # Design system (colors, typography, components, do's/don'ts)
 CLAUDE.md              # Operational shortlist for agents (commands, conventions, deployment)
@@ -203,6 +206,7 @@ cp .env.example .env.local
 | `CONTACT_FROM_EMAIL`     | server      | FROM address on outbound mail. Must be on a Resend-verified domain. Currently `hello@agenticengineering.nl`.                                                 |
 | `CONTACT_EMAIL`          | server      | TO address (inbox that receives form submissions). Differs by env (see Preview section below).                                                               |
 | `BLOGS_ENABLED`          | server      | Feature flag for blog entries on `/articles`. Set to `'true'` to show blog entries and the all/blogs/articles filter bar. Unset/empty hides both. See below. |
+| `TESTIMONIALS_ENABLED`   | server      | Feature flag for the homepage testimonials section. Set to `'true'` to show it; unset/empty hides it. Stays hidden until real content exists.                |
 | `STRIPE_SECRET_KEY`      | server      | Stripe secret API key for creating Checkout Sessions and verifying webhooks.                                                                                 |
 | `STRIPE_PUBLISHABLE_KEY` | client-safe | Stripe publishable key (reserved for future Elements; redirect uses the Session URL).                                                                        |
 | `STRIPE_WEBHOOK_SECRET`  | server      | Signing secret for `/api/stripe/webhook` signature verification.                                                                                             |
@@ -246,6 +250,8 @@ When flipping the flag on in Vercel, set it for the relevant scope:
 vercel env add BLOGS_ENABLED preview     # paste: true
 vercel env add BLOGS_ENABLED production  # paste: true (when ready to launch)
 ```
+
+`TESTIMONIALS_ENABLED` gates the homepage testimonials section (`components/TestimonialsSection.tsx`). Unset/empty (or any value other than `'true'`) hides the section entirely. Content lives in `data/testimonials.ts` (verbatim quotes); the section also self-hides when that array is empty.
 
 ## Contact form pipeline
 
@@ -427,7 +433,7 @@ Translation messages live in `messages/{nl,en}.json`. Locale routing in `i18n/ro
 
 CI runs `pnpm verify:i18n` to enforce key parity between NL and EN. Add a new key → add it to both files.
 
-Namespaces in use: `meta`, `nav`, `hero`, `trainings`, `modules`, `proof`, `footer`, `about`, `articles`, `contact`, `booking`, `impressum`, `theme`, `home`, `why`. The `booking` namespace covers the booking form: seat selector and attendees (`seatsLabel`, `attendeeName`, `attendeeEmail`), account-type radio options (`accountBusiness`, `accountPersonal`), company billing details (`companyHeading`, `company`, `kvk`, `street`, `zipCode`, `city`, `country`, `notes`), referral-code (`referralLabel`, `referralHint`), submit/contact (`submit`, `submitting`, `contactLink`), sold-out copy (`soldOutHeading`, `soldOutBody`, `soldOutBack`), `errors.*` (`required`, `invalidEmail`, `invalidKvk`, `generic`, `rateLimited`, `invalidReferral`), and `success.*`.
+Namespaces in use: `meta`, `nav`, `hero`, `trainings`, `modules`, `proof`, `footer`, `about`, `articles`, `contact`, `booking`, `impressum`, `theme`, `home`, `why`, `testimonials`. The `booking` namespace covers the booking form: seat selector and attendees (`seatsLabel`, `attendeeName`, `attendeeEmail`), account-type radio options (`accountBusiness`, `accountPersonal`), company billing details (`companyHeading`, `company`, `kvk`, `street`, `zipCode`, `city`, `country`, `notes`), referral-code (`referralLabel`, `referralHint`), submit/contact (`submit`, `submitting`, `contactLink`), sold-out copy (`soldOutHeading`, `soldOutBody`, `soldOutBack`), `errors.*` (`required`, `invalidEmail`, `invalidKvk`, `generic`, `rateLimited`, `invalidReferral`), and `success.*`.
 
 ## Testing
 
