@@ -57,8 +57,8 @@
       "outcomes": "Wat je leert",
       "modules": "Programma",
       "durationLabel": "Tijdsduur",
-      "day1": "Dag 1 · Quality engineering met agents",
-      "day2": "Dag 2 · Agent mechanics + capstone",
+      "day1": "Dag 1 · Fundamenten: van concept naar eerste tooling",
+      "day2": "Dag 2 · Kwaliteit & gevorderd",
       "price": "Prijs",
       "priceSuffix": "Excl. BTW p.p.",
       "viewDetails": "Bekijk programma",
@@ -67,7 +67,10 @@
       "requestCta": "Vraag training aan",
       "taughtBy": "Gegeven door",
       "pilotBadge": "Pilot · gereduceerde prijs",
-      "contactLink": "Vragen? Contact"
+      "soldOut": "Uitverkocht",
+      "contactLink": "Vragen? Contact",
+      "soldOutNote": "Deze training is op dit moment volgeboekt, meer weten?",
+      "soldOutContact": "Neem contact met ons op"
     },
     "cardMeta": {
       "basic": {
@@ -177,6 +180,105 @@
     }
   },
   "modules": {
+    "agentic-engineering": {
+      "title": "Agentic engineering",
+      "bullets": [
+        "Wat agentic engineering is en hoe het verschilt van losse prompts",
+        "De agent als collega die code schrijft, niet als autocomplete",
+        "Waar het vandaag al werkt en waar je voorzichtig blijft"
+      ],
+      "short": "Agentic engineering"
+    },
+    "assignment-hobby-page": {
+      "title": "Bouw je eerste feature",
+      "bullets": [
+        "Bouw je eerste feature samen met de agent, van leeg scherm naar live",
+        "Stuur op het resultaat in plaats van op elke losse stap",
+        "Eerste gevoel bij de loop: vragen, bekijken, bijsturen"
+      ],
+      "short": "Eerste feature"
+    },
+    "assignment-expand-website": {
+      "title": "Bouw je feature verder uit",
+      "bullets": [
+        "Voeg secties en functionaliteit toe aan je feature",
+        "Laat de agent grotere wijzigingen eerst in stappen plannen",
+        "Merk hoe goede context de output strakker maakt"
+      ],
+      "short": "Feature uitbouwen"
+    },
+    "assignment-tone-of-voice": {
+      "title": "Tone of voice via CLAUDE.md",
+      "bullets": [
+        "Leg een tone of voice vast die de agent consequent aanhoudt",
+        "Bewerk CLAUDE.md zodat afspraken tussen sessies blijven plakken",
+        "Zie het verschil tussen elke keer vragen en regels die blijven"
+      ],
+      "short": "Tone of voice"
+    },
+    "out-of-the-loop": {
+      "title": "Out of the loop",
+      "bullets": [
+        "Laat de agent langere stukken zelfstandig afronden",
+        "Bepaal vooraf waar je wel en niet wilt meekijken",
+        "Bouw vertrouwen op zonder de controle te verliezen"
+      ],
+      "short": "Out of the loop"
+    },
+    "assignment-create-skill": {
+      "title": "Skills maken en bewerken",
+      "bullets": [
+        "Maak je eerste eigen skill van begin tot eind",
+        "Bewerk skill.md en zie het gedrag direct mee veranderen",
+        "Gebruik de skill creator om sneller nieuwe skills op te zetten"
+      ],
+      "short": "Skills"
+    },
+    "plugins-caveman-superpowers": {
+      "title": "Plugins: Caveman & Superpowers",
+      "bullets": [
+        "Wat plugins toevoegen bovenop een kale agent",
+        "Caveman voor compacte, goedkopere communicatie",
+        "Superpowers: skills die workflows zoals TDD afdwingen"
+      ],
+      "short": "Plugins"
+    },
+    "subagents": {
+      "title": "Subagents",
+      "bullets": [
+        "Werk opsplitsen over meerdere agents die parallel werken",
+        "Een hoofd-agent die deeltaken uitzet en resultaten samenvat",
+        "Wanneer subagents helpen en wanneer ze overkill zijn"
+      ],
+      "short": "Subagents"
+    },
+    "building-a-pipeline": {
+      "title": "Een pipeline bouwen",
+      "bullets": [
+        "Losse stappen aan elkaar knopen tot een herhaalbare flow",
+        "Agents, tests en gates in één keten",
+        "Een pipeline die de volgende sprint nog draait"
+      ],
+      "short": "Pipeline bouwen"
+    },
+    "persistent-memory": {
+      "title": "Persistente memory",
+      "bullets": [
+        "Laat de agent onthouden wat tussen sessies telt",
+        "Wat je wel en niet in geheugen wilt vastleggen",
+        "Geheugen dat helpt zonder ruis op te bouwen"
+      ],
+      "short": "Memory"
+    },
+    "openspec": {
+      "title": "Spec-driven development",
+      "bullets": [
+        "Specs schrijven die een agent betrouwbaar kan uitvoeren",
+        "Werk afbakenen voordat de agent begint te bouwen",
+        "Van spec naar een werkende, geteste wijziging"
+      ],
+      "short": "Spec-driven"
+    },
     "agents-in-sdlc": {
       "title": "Agents in je SDLC: waar ze passen, waar ze breken",
       "bullets": [
@@ -214,7 +316,7 @@
       "short": "Failure modes"
     },
     "test-first-with-agents": {
-      "title": "Test-first met agents",
+      "title": "Test-first met agents (TDD)",
       "bullets": [
         "De TDD-loop met een agent als driver",
         "Wanneer tests vóór code komen, wanneer niet, waarom het uitmaakt",
@@ -223,22 +325,22 @@
       "short": "Test-first"
     },
     "hooks-and-quality-gates": {
-      "title": "Hooks + quality gates",
+      "title": "Rules vs hooks",
       "bullets": [
         "Pre-commit checks: lint, format, type-check",
         "Custom hooks voor agent-specifieke risico's",
-        "Snelle feedback-loops die niet omzeild worden"
+        "Rules vs. hooks: wat hoort waar, en waarom"
       ],
-      "short": "Hooks + gates"
+      "short": "Rules vs hooks"
     },
     "build-first-feature": {
-      "title": "Lab: bouw je eerste feature met quality-discipline",
+      "title": "Lab: je eerste quality-feature",
       "bullets": [
         "End-to-end op een starter repo: brief → tests → code → review",
-        "Pas de quality stack van vandaag toe op je eigen wijzigingen",
-        "Feedback van het cohort vóór Dag 2"
+        "Zet Superpowers-skills en quality gates in op je eigen wijzigingen",
+        "Lever met groene checks vanaf de eerste commit"
       ],
-      "short": "Capstone-lab"
+      "short": "Quality-lab"
     },
     "regression-and-governance": {
       "title": "Regressie-strategie + governance basics",
@@ -252,8 +354,8 @@
     "context-architecture": {
       "title": "Context architecture",
       "bullets": [
-        "CLAUDE.md / AGENTS.md design",
-        "Rules files en project-wide configuratie",
+        "CLAUDE.md, AGENTS.md en de mapindeling die de agent sturen",
+        "Rules-files en project-brede configuratie",
         "Hiërarchie: user, project, lokale overrides"
       ],
       "short": "Context architecture"
@@ -268,16 +370,16 @@
       "short": "Window mechanics"
     },
     "using-mcp-servers": {
-      "title": "Gebruik MCP servers",
+      "title": "MCP servers (met Playwright)",
       "bullets": [
-        "MCP overzicht",
-        "Bestaande servers koppelen (Filesystem, GitHub, Linear, etc.)",
-        "Best practices voor scope en permissions"
+        "Wat MCP servers zijn en wanneer je ze inzet",
+        "Bestaande servers koppelen (GitHub, Filesystem, etc.)",
+        "Playwright MCP: de agent klikt en test in de browser"
       ],
       "short": "MCP servers"
     },
     "intro-skills-rules": {
-      "title": "Introductie tot Skills & Rules",
+      "title": "Skills & Rules",
       "bullets": [
         "Wanneer schrijf je een skill",
         "Wanneer schrijf je een rule",
@@ -295,10 +397,10 @@
       "short": "Agent harnessing"
     },
     "capstone-ship-feature": {
-      "title": "Lever een feature op",
+      "title": "Lever een feature op (end-to-end)",
       "bullets": [
         "Implementeer een feature op een starter repo vanaf een brief",
-        "Pas de Dag-1 quality stack + Dag-2 context tooling (MCP, skills, rules) toe",
+        "Pas alles van de twee dagen toe: context, skills, tests, hooks",
         "Demo en review met de groep"
       ],
       "short": "Feature opleveren"
@@ -434,16 +536,33 @@
     "title": "{trainingName}",
     "intro": "Reserveer je plek voor de {trainingName}. Prijs per deelnemer, incl. 21% btw.",
     "seatsLabel": "Aantal deelnemers",
+    "companyHeading": "Bedrijfsgegevens",
+    "accountBusiness": "Zakelijk",
+    "accountPersonal": "Persoonlijk",
+    "company": "Bedrijfsnaam",
+    "kvk": "KVK-nummer (optioneel)",
+    "street": "Straat en huisnummer",
+    "zipCode": "Postcode",
+    "city": "Plaats",
+    "country": "Land",
+    "notes": "Aanvullende informatie (optioneel)",
     "attendeeName": "Naam deelnemer",
     "attendeeEmail": "E-mail deelnemer",
     "submit": "Naar betaling",
     "submitting": "Bezig…",
     "contactLink": "Liever eerst vragen stellen? Neem contact op",
+    "referralLabel": "Referral- of kortingscode (optioneel)",
+    "referralHint": "Heb je een code van een oud-cursist? Vul 'm hier in voor je korting.",
+    "soldOutHeading": "Uitverkocht",
+    "soldOutBody": "Deze training is volgeboekt, dus boeken is niet meer mogelijk.",
+    "soldOutBack": "Terug naar trainingen",
     "errors": {
       "required": "Dit veld is verplicht.",
       "invalidEmail": "Vul een geldig e-mailadres in.",
+      "invalidKvk": "KVK-nummer bestaat uit 8 cijfers.",
       "generic": "Er ging iets mis. Probeer het opnieuw.",
-      "rateLimited": "Te veel pogingen. Wacht even en probeer opnieuw."
+      "rateLimited": "Te veel pogingen. Wacht even en probeer opnieuw.",
+      "invalidReferral": "Deze code is ongeldig of verlopen. Controleer 'm en probeer opnieuw."
     },
     "success": {
       "title": "Betaling gelukt — je plek is geboekt!",

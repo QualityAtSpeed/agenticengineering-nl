@@ -23,10 +23,40 @@ export const attendeeSchema = z.object({
 // Self-serve bookable trainings (Stripe checkout). Widen as more cohorts go self-serve.
 export const bookableTrainingEnum = z.enum(['pilot', 'discount-aug-26']);
 
-export const bookingSchema = z.object({
-  trainingId: bookableTrainingEnum,
-  attendees: z.array(attendeeSchema).min(1).max(10),
-});
+export const accountTypeEnum = z.enum(['zakelijk', 'persoonlijk']);
+
+export const bookingSchema = z
+  .object({
+    trainingId: bookableTrainingEnum,
+    attendees: z.array(attendeeSchema).min(1).max(10),
+    accountType: accountTypeEnum.default('zakelijk'),
+    company: z.string().trim().max(200).default(''),
+    kvk: z
+      .string()
+      .trim()
+      .regex(/^\d{8}$/)
+      .or(z.literal('')),
+    zipCode: z.string().trim().min(2).max(12),
+    street: z.string().trim().min(1).max(100),
+    city: z.string().trim().min(1).max(100),
+    country: z.string().trim().min(1).max(100),
+    notes: z.string().trim().max(500),
+    // Optional referral / discount code; resolved server-side to a Stripe
+    // promotion code (Stripe enforces the coupon + max_redemptions).
+    referralCode: z.string().trim().max(64).optional(),
+  })
+  // Company name is only required for a business (zakelijk) booking.
+  .superRefine((data, ctx) => {
+    if (data.accountType === 'zakelijk' && data.company.length === 0) {
+      ctx.addIssue({
+        code: 'custom',
+        path: ['company'],
+        message: 'required',
+      });
+    }
+  });
 
 export type BookingInput = z.infer<typeof bookingSchema>;
+// Form-side type: fields with .default() are optional on input, required on output.
+export type BookingFormInput = z.input<typeof bookingSchema>;
 export type Attendee = z.infer<typeof attendeeSchema>;

@@ -3,6 +3,7 @@ import { Button } from '@/components/Button';
 import { trainings, type TrainingId } from '@/data/trainings';
 import { priceFor } from '@/lib/pricing';
 import { bookableTrainingEnum } from '@/lib/validation';
+import { SoldOutBadge } from '@/components/SoldOutBadge';
 
 const ClockIcon = () => (
   <svg
@@ -101,18 +102,22 @@ export function TrainingCard({
   const tCard = useTranslations('trainings.cardMeta');
 
   const isPilot = trainingId === 'pilot';
+  const isSoldOut = training.soldOut === true;
   // Bookable = self-serve via Stripe checkout (zelfde set als het boeking-schema).
   const isBookable = (bookableTrainingEnum.options as readonly TrainingId[]).includes(trainingId);
   const price = priceFor(trainingId, now);
+  // Sold-out cohorts dim their content; the badge, label and CTA stay full-opacity.
+  const dim = isSoldOut ? 'opacity-60' : '';
 
   return (
     <article
       className={
         isPilot
-          ? 'bg-brand-soft ring-brand/30 -mx-6 my-8 grid items-start gap-7 rounded-lg p-6 ring-1 lg:grid-cols-[1fr_200px]'
-          : 'border-border-subtle grid items-start gap-7 border-t py-8 last:border-b lg:grid-cols-[1fr_200px]'
+          ? 'bg-brand-soft ring-brand/30 relative -mx-6 my-8 grid items-start gap-7 overflow-hidden rounded-lg p-6 ring-1 lg:grid-cols-[1fr_200px]'
+          : 'border-border-subtle relative grid items-start gap-7 overflow-hidden border-t py-8 last:border-b lg:grid-cols-[1fr_200px]'
       }
     >
+      {isSoldOut && <SoldOutBadge />}
       <div className="flex flex-col gap-4 lg:flex-row lg:gap-10">
         <div className="min-w-0 flex-1">
           {isPilot && (
@@ -120,7 +125,9 @@ export function TrainingCard({
               {tLabels('pilotBadge')}
             </span>
           )}
-          <h3 className="text-text-primary text-xl font-bold">{t(`${trainingId}.name`)}</h3>
+          <h3 className={`text-text-primary text-xl font-bold ${dim}`}>
+            {t(`${trainingId}.name`)}
+          </h3>
           <p className="text-text-soft mt-2 text-[0.9375rem]">{t(`${trainingId}.tagline`)}</p>
           <Button
             variant="secondary"
@@ -147,12 +154,14 @@ export function TrainingCard({
       </div>
 
       <div className={isPilot ? 'lg:pt-[1.875rem]' : undefined}>
+        {/* Sold-out dim is applied only to the large/bold price (AA needs 3:1),
+            never to the small struck price / suffix / note (those need 4.5:1). */}
         {price.earlyBird ? (
           <>
             <p className="text-text-muted text-sm font-medium tabular-nums line-through">
               €{training.priceEUR.toLocaleString('nl-NL')}
             </p>
-            <p className="text-text-primary text-xl font-bold tabular-nums">
+            <p className={`text-text-primary text-xl font-bold tabular-nums ${dim}`}>
               €
               {(price.netCents / 100).toLocaleString('nl-NL', {
                 minimumFractionDigits: 2,
@@ -161,7 +170,7 @@ export function TrainingCard({
             </p>
           </>
         ) : (
-          <p className="text-text-primary text-xl font-bold tabular-nums">
+          <p className={`text-text-primary text-xl font-bold tabular-nums ${dim}`}>
             €{training.priceEUR.toLocaleString('nl-NL')}
           </p>
         )}
@@ -171,19 +180,32 @@ export function TrainingCard({
             {t(`${trainingId}.earlyBirdNote`)}
           </p>
         )}
-        <Button
-          size="sm"
-          fullWidth
-          href={
-            isBookable
-              ? `/${locale}/trainings/${trainingId}/book`
-              : `/${locale}/contact?training=${trainingId}`
-          }
-          data-testid={`book-${trainingId}`}
-          className="mt-3"
-        >
-          {tLabels(isBookable ? 'bookCta' : 'requestCta')}
-        </Button>
+        {isSoldOut ? (
+          <Button
+            size="sm"
+            fullWidth
+            disabled
+            aria-label={`${tLabels(isBookable ? 'bookCta' : 'requestCta')} — ${tLabels('soldOut')}`}
+            data-testid={`book-${trainingId}`}
+            className="mt-3"
+          >
+            {tLabels(isBookable ? 'bookCta' : 'requestCta')}
+          </Button>
+        ) : (
+          <Button
+            size="sm"
+            fullWidth
+            href={
+              isBookable
+                ? `/${locale}/trainings/${trainingId}/book`
+                : `/${locale}/contact?training=${trainingId}`
+            }
+            data-testid={`book-${trainingId}`}
+            className="mt-3"
+          >
+            {tLabels(isBookable ? 'bookCta' : 'requestCta')}
+          </Button>
+        )}
         {isBookable && (
           <a
             href={`/${locale}/contact`}
