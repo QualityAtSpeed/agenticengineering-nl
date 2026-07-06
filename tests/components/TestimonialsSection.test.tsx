@@ -6,9 +6,9 @@ import en from '@/messages/en.json';
 const h = vi.hoisted(() => ({
   enabled: true,
   list: [
-    { id: 'a', quote: 'Quote A', name: 'Alice', role: 'Lead, Acme' },
-    { id: 'b', quote: 'Quote B', name: 'Bob', role: 'Eng, Beta' },
-  ] as Array<{ id: string; quote: string; name: string; role: string }>,
+    { id: 'a', quoteNL: 'Quote A', quoteEN: 'Quote A', name: 'Alice', role: 'Lead, Acme' },
+    { id: 'b', quoteNL: 'Quote B', quoteEN: 'Quote B', name: 'Bob', role: 'Eng, Beta' },
+  ] as Array<{ id: string; quoteNL: string; quoteEN: string; name: string; role: string }>,
 }));
 
 vi.mock('@/lib/flags', () => ({ testimonialsEnabled: () => h.enabled }));
@@ -32,8 +32,8 @@ function renderSection() {
 beforeEach(() => {
   h.enabled = true;
   h.list = [
-    { id: 'a', quote: 'Quote A', name: 'Alice', role: 'Lead, Acme' },
-    { id: 'b', quote: 'Quote B', name: 'Bob', role: 'Eng, Beta' },
+    { id: 'a', quoteNL: 'Quote A', quoteEN: 'Quote A', name: 'Alice', role: 'Lead, Acme' },
+    { id: 'b', quoteNL: 'Quote B', quoteEN: 'Quote B', name: 'Bob', role: 'Eng, Beta' },
   ];
 });
 
