@@ -32,11 +32,11 @@ async function renderPage() {
 }
 
 describe('<TrainingsPage />', () => {
-  it('renders the training overview page', async () => {
+  it('renders the training overview page without the pilot cohort', async () => {
     await renderPage();
     expect(
-      screen.getByRole('heading', { name: 'Pilot - Basic Training (June 29th & 30th 2026)' }),
-    ).toBeInTheDocument();
+      screen.queryByRole('heading', { name: 'Pilot - Basic Training (June 29th & 30th 2026)' }),
+    ).not.toBeInTheDocument();
     expect(
       screen.getByRole('heading', { name: 'Basic Training (21 & 22 September 2026)' }),
     ).toBeInTheDocument();
