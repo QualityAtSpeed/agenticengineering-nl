@@ -3,6 +3,10 @@
     "title": "agenticengineering.nl",
     "description": "Hands-on agentic engineering-trainingen met Claude Code. Leer je dev- en QA-team AI-agents inzetten met kwaliteit die in productie standhoudt.",
     "pages": {
+      "home": {
+        "title": "Agentic engineering training met Claude Code · agenticengineering.nl",
+        "description": "Hands-on agentic engineering-training met Claude Code voor dev- en QA-teams. Kwaliteit die in productie standhoudt."
+      },
       "about": {
         "title": "Over ons · agenticengineering.nl",
         "description": "Wie we zijn en hoe we engineering-teams trainen in agentic AI quality engineering met Claude Code."
