@@ -14,7 +14,7 @@ export function TestimonialsSection() {
           <h2 className="text-brand text-2xl font-bold sm:text-3xl">{t('title')}</h2>
           <p className="text-text-soft mt-2 text-base">{t('lede')}</p>
         </div>
-        <div className="grid gap-5 md:grid-cols-2">
+        <div className="grid items-stretch gap-5 md:grid-cols-2">
           {testimonials.map((tm) => (
             <TestimonialCard
               key={tm.id}
@@ -22,6 +22,7 @@ export function TestimonialsSection() {
               quoteEN={tm.quoteEN}
               name={tm.name}
               role={tm.role}
+              translatedFrom={tm.translatedFrom}
             />
           ))}
         </div>

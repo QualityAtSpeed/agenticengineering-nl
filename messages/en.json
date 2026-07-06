@@ -591,7 +591,9 @@
   },
   "testimonials": {
     "title": "What participants say",
-    "lede": "Feedback from engineers and teams who have taken the training."
+    "lede": "Feedback from engineers and teams who have taken the training.",
+    "translatedFromNL": "Translated from Dutch",
+    "translatedFromEN": "Translated from English"
   },
   "home": {
     "trainingsLede": "Two trainings, separately or consecutively. In-company or open enrollment. Everyone ships something concrete.",

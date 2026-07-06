@@ -4,6 +4,7 @@ export type Testimonial = {
   quoteEN: string;
   name: string; // attribution name
   role: string; // free-form attribution, e.g. "Lead Engineer, Acme"
+  translatedFrom?: string; // locale the quote was originally written in; omit when no translation
 };
 
 // Real testimonials. The section stays gated off (TESTIMONIALS_ENABLED unset)
@@ -17,6 +18,7 @@ export const testimonials: Testimonial[] = [
       'It was a fantastic and educational training. I learned so many things that I can apply immediately. And I have only gained more motivation to take on more projects!',
     name: 'Chiel Bleumink',
     role: 'Senior Test Automation Engineer',
+    translatedFrom: 'nl',
   },
   {
     id: 'bas-dijkstra',
@@ -26,5 +28,6 @@ export const testimonials: Testimonial[] = [
       'Very enjoyable training, interesting, and a great atmosphere. I learned something not only as an engineer, but also as a trainer.',
     name: 'Bas Dijkstra',
     role: 'Senior Test Automation Engineer / Trainer',
+    translatedFrom: 'nl',
   },
 ];
