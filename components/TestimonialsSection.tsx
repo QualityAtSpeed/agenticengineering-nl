@@ -16,7 +16,13 @@ export function TestimonialsSection() {
         </div>
         <div className="grid gap-5 md:grid-cols-2">
           {testimonials.map((tm) => (
-            <TestimonialCard key={tm.id} quote={tm.quote} name={tm.name} role={tm.role} />
+            <TestimonialCard
+              key={tm.id}
+              quoteNL={tm.quoteNL}
+              quoteEN={tm.quoteEN}
+              name={tm.name}
+              role={tm.role}
+            />
           ))}
         </div>
       </div>
