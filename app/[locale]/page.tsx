@@ -8,7 +8,10 @@ import { JsonLd } from '@/components/JsonLd';
 import { instructors } from '@/data/instructors';
 import { buildHomeJsonLd } from '@/lib/structured-data';
 import { TestimonialsSection } from '@/components/TestimonialsSection';
+import { metadataFor } from '@/lib/page-metadata';
 import type { Locale } from '@/i18n/routing';
+
+export const generateMetadata = metadataFor('', 'pages.home');
 
 export default async function Home({ params }: { params: Promise<{ locale: Locale }> }) {
   const { locale } = await params;

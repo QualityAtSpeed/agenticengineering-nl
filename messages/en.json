@@ -3,6 +3,10 @@
     "title": "agenticengineering.nl",
     "description": "Hands-on agentic engineering training with Claude Code. Teach your dev and QA teams to ship with AI agents and quality that survives production.",
     "pages": {
+      "home": {
+        "title": "Agentic engineering training with Claude Code · agenticengineering.nl",
+        "description": "Hands-on agentic engineering training with Claude Code for dev and QA teams. Quality that survives production."
+      },
       "about": {
         "title": "About · agenticengineering.nl",
         "description": "Who we are and how we train engineering teams in agentic AI quality engineering with Claude Code."
