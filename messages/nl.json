@@ -595,7 +595,9 @@
   },
   "testimonials": {
     "title": "Wat deelnemers zeggen",
-    "lede": "Reacties van engineers en teams die de training hebben gevolgd."
+    "lede": "Reacties van engineers en teams die de training hebben gevolgd.",
+    "translatedFromNL": "Vertaald vanuit het Nederlands",
+    "translatedFromEN": "Vertaald vanuit het Engels"
   },
   "home": {
     "trainingsLede": "Twee trainingen, los of opeenvolgend. In-company of open inschrijving. Iedereen levert iets concreets op.",
