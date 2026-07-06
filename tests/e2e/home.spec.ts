@@ -12,3 +12,8 @@ test('redirects / to /nl', async ({ page }) => {
   await page.goto('/');
   await expect(page).toHaveURL(/\/nl$/);
 });
+
+test('shows the testimonials section when the flag is enabled', async ({ page }) => {
+  await page.goto('/nl');
+  await expect(page.getByRole('heading', { name: /Wat deelnemers zeggen/ })).toBeVisible();
+});

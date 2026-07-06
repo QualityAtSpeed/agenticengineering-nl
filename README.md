@@ -63,9 +63,9 @@ Editing checklist:
 - API/server logic → keep validation in `lib/validation.ts`, side effects in `lib/*`.
 - New news article → create `news/<slug>.md` with required frontmatter (see below). Run `pnpm article:image <source-url> <slug>` to fetch and save the OG image before committing.
 - Pre-commit `lefthook` hook runs `format`, `lint`, and `readme-check` (validates README stays in sync; requires `claude` CLI + `ANTHROPIC_API_KEY`). Don't bypass with `--no-verify` unless you're fixing the hook itself.
-- Bookable trainings (self-serve Stripe checkout) are the set in `bookableTrainingEnum` (`lib/validation.ts`) — currently `pilot` and `discount-aug-26`. Each one needs its booking routes (`/trainings/<id>/book` + `/trainings/<id>/book/success`) and, in both `TrainingCard.tsx` and `TrainingDetail.tsx`, its booking CTA (`/trainings/<id>/book`) and secondary contact link kept in sync. Each booking page file (`app/[locale]/trainings/<id>/book/page.tsx`) must fetch the training name from `getTranslations('trainings')` and pass it to the booking messages as `{ trainingName }` (both `booking.title` and `booking.intro` expect it) — see `app/[locale]/trainings/pilot/book/page.tsx` for the pattern.
+- Bookable trainings (self-serve Stripe checkout) are the set in `bookableTrainingEnum` (`lib/validation.ts`) — currently `pilot` and `discount-aug-26`. Each one needs its booking routes (`/trainings/<id>/book` + `/trainings/<id>/book/success`) and, in both `TrainingCard.tsx` and `TrainingDetail.tsx`, its booking CTA (`/trainings/<id>/book`) and secondary contact link kept in sync. Each booking page file (`app/[locale]/trainings/<id>/book/page.tsx`) is a thin wrapper that calls `setRequestLocale` and delegates to the shared `components/BookPage.tsx` with its `trainingId`; `BookPage` fetches the training name from `getTranslations('trainings')` and passes it to the booking messages as `{ trainingName }` (both `booking.title` and `booking.intro` expect it) — see `app/[locale]/trainings/pilot/book/page.tsx` for the pattern.
 - The primary CTA label is conditional in both components (`isBookable ? 'bookCta' : 'requestCta'`, where `isBookable` is membership of `bookableTrainingEnum`): bookable trainings show `trainings.labels.bookCta` ("Book training" / "Boek training"), the rest show `trainings.labels.requestCta` ("Request training" / "Vraag training aan").
-- A training with `soldOut: true` on its `Training` entry renders a sold-out state in **both** `TrainingCard.tsx` and `TrainingDetail.tsx`: the shared `components/SoldOutBadge.tsx` ribbon (`trainings.labels.soldOut`, "Sold out" / "Uitverkocht") — a diagonal banner (`position: absolute`, `rotate-45`, pinned to the top-right corner, clipped by the parent's `overflow-hidden`) — overlays both the card and the detail page section (it does not replace the pilot badge; on the pilot card both render), the card content and large price are dimmed (`opacity-60`; the small struck price / suffix / note stay full-opacity for AA contrast), and the primary CTA renders **disabled** with no `href` and an `aria-label` that names the sold-out state; the secondary contact link **stays** so visitors can always get in touch about a (sold-out) training. On the detail page, the bottom price box additionally shows a sold-out note (`trainings.labels.soldOutNote` + a `soldOutContact` link to `/<locale>/contact?training=<id>`) below the price, with the disabled CTA kept. The booking page (`app/[locale]/trainings/<id>/book/page.tsx`) swaps its copy to `booking.soldOutHeading` / `soldOutBody` / `soldOutBack` and hides the `BookingForm`. The authoritative gate is server-side: `POST /api/checkout` returns `409 { ok: false, error: 'sold_out' }` for a sold-out `trainingId` before reaching Stripe, regardless of what the client posts — the disabled CTA is UX only.
+- A training with `soldOut: true` on its `Training` entry renders a sold-out state in **both** `TrainingCard.tsx` and `TrainingDetail.tsx`: the shared `components/SoldOutBadge.tsx` ribbon (`trainings.labels.soldOut`, "Sold out" / "Uitverkocht") — a diagonal banner (`position: absolute`, `rotate-45`, pinned to the top-right corner, clipped by the parent's `overflow-hidden`) — overlays both the card and the detail page section (it does not replace the pilot badge; on the pilot card both render), the card content and large price are dimmed (`opacity-60`; the small struck price / suffix / note stay full-opacity for AA contrast), and the primary CTA renders **disabled** with no `href` and an `aria-label` that names the sold-out state; the secondary contact link **stays** so visitors can always get in touch about a (sold-out) training. On the detail page, the bottom price box additionally shows a sold-out note (`trainings.labels.soldOutNote` + a `soldOutContact` link to `/<locale>/contact?training=<id>`) below the price, with the disabled CTA kept. The shared `components/BookPage.tsx` (used by every `/trainings/<id>/book` route) guards generically on `trainings[trainingId].soldOut`, so a sold-out training's booking page automatically swaps its copy to `booking.soldOutHeading` / `soldOutBody` / `soldOutBack` and hides the `BookingForm` — no per-route check. The authoritative gate is server-side: `POST /api/checkout` returns `409 { ok: false, error: 'sold_out' }` for a sold-out `trainingId` before reaching Stripe, regardless of what the client posts — the disabled CTA is UX only.
 - The `/trainings` overview and the homepage render a **curated, ordered** list of cards (`DISPLAYED_TRAININGS` in `app/[locale]/trainings/page.tsx`; hardcoded cards on the homepage), not every entry in `data/trainings.ts`. `basic` stays in the dataset (its detail route still resolves and it is the template the dated cohorts mirror) but is not shown as a card.
 
 ### News article frontmatter
@@ -108,7 +108,8 @@ app/
   globals.css          # Tailwind v4 @theme block (single source of design tokens)
 components/            # Hero, Nav, Footer, TrainingCard, TrainingDetail, ContactForm,
                        # BookingForm, ArticleFilterBar, InstructorCard, Button, DayAgenda,
-                       # ProofStrip, TimelineEntry, JsonLd, LangSwitcher, MobileMenu, …
+                       # ProofStrip, TimelineEntry, JsonLd, LangSwitcher, MobileMenu,
+                       # TestimonialCard, TestimonialsSection, …
 lib/
   validation.ts        # Zod schemas (contactSchema, bookingSchema, trainingInterestEnum, …)
   email.ts             # Resend wrapper, sendContactEmail(), sendBookingConfirmation(), sendBookingNotification()
@@ -123,9 +124,10 @@ lib/
   webhook-dedupe.ts    # Webhook event deduplication (markHandled, unmarkHandled, __resetWebhookDedupeForTests)
   structured-data.ts   # schema.org JSON-LD graph builder for the homepage (buildHomeJsonLd)
   page-metadata.ts     # metadataFor(path, key) wrapper + buildPageMetadata({ locale, path, title, description }) — single source for per-page SEO (canonical, hreflang, OpenGraph)
-data/
+data/                  # typed catalogues (trainings.ts, instructors.ts, testimonials.ts) + trusted-domains.json
   trainings.ts         # Training catalogue + modules (typed)
   instructors.ts       # Instructor profiles (typed)
+  testimonials.ts      # Testimonial quotes (typed, verbatim — name/role not translated)
   trusted-domains.json # Allowlist for origin/CSRF checks
 news/                  # Markdown news + blog posts (frontmatter + body)
 i18n/                  # next-intl config (routing.ts, request.ts)
@@ -137,6 +139,7 @@ scripts/
 tests/                 # Vitest unit + Playwright e2e
 docs/
   superpowers/specs/   # Design specs for significant feature changes (dated markdown)
+  superpowers/plans/   # Step-by-step implementation plans (dated markdown, checkbox tasks)
 PRODUCT.md             # Brand register (users, tone, anti-references, principles)
 DESIGN.md              # Design system (colors, typography, components, do's/don'ts)
 CLAUDE.md              # Operational shortlist for agents (commands, conventions, deployment)
@@ -203,6 +206,7 @@ cp .env.example .env.local
 | `CONTACT_FROM_EMAIL`     | server      | FROM address on outbound mail. Must be on a Resend-verified domain. Currently `hello@agenticengineering.nl`.                                                 |
 | `CONTACT_EMAIL`          | server      | TO address (inbox that receives form submissions). Differs by env (see Preview section below).                                                               |
 | `BLOGS_ENABLED`          | server      | Feature flag for blog entries on `/articles`. Set to `'true'` to show blog entries and the all/blogs/articles filter bar. Unset/empty hides both. See below. |
+| `TESTIMONIALS_ENABLED`   | server      | Feature flag for the homepage testimonials section. Set to `'true'` to show it; unset/empty hides it. Stays hidden until real content exists.                |
 | `STRIPE_SECRET_KEY`      | server      | Stripe secret API key for creating Checkout Sessions and verifying webhooks.                                                                                 |
 | `STRIPE_PUBLISHABLE_KEY` | client-safe | Stripe publishable key (reserved for future Elements; redirect uses the Session URL).                                                                        |
 | `STRIPE_WEBHOOK_SECRET`  | server      | Signing secret for `/api/stripe/webhook` signature verification.                                                                                             |
@@ -246,6 +250,8 @@ When flipping the flag on in Vercel, set it for the relevant scope:
 vercel env add BLOGS_ENABLED preview     # paste: true
 vercel env add BLOGS_ENABLED production  # paste: true (when ready to launch)
 ```
+
+`TESTIMONIALS_ENABLED` gates the homepage testimonials section (`components/TestimonialsSection.tsx`). Unset/empty (or any value other than `'true'`) hides the section entirely. Content lives in `data/testimonials.ts` (verbatim quotes); the section also self-hides when that array is empty.
 
 ## Contact form pipeline
 
@@ -427,7 +433,7 @@ Translation messages live in `messages/{nl,en}.json`. Locale routing in `i18n/ro
 
 CI runs `pnpm verify:i18n` to enforce key parity between NL and EN. Add a new key → add it to both files.
 
-Namespaces in use: `meta`, `nav`, `hero`, `trainings`, `modules`, `proof`, `footer`, `about`, `articles`, `contact`, `booking`, `impressum`, `theme`, `home`, `why`. The `booking` namespace covers the booking form: seat selector and attendees (`seatsLabel`, `attendeeName`, `attendeeEmail`), account-type radio options (`accountBusiness`, `accountPersonal`), company billing details (`companyHeading`, `company`, `kvk`, `street`, `zipCode`, `city`, `country`, `notes`), referral-code (`referralLabel`, `referralHint`), submit/contact (`submit`, `submitting`, `contactLink`), sold-out copy (`soldOutHeading`, `soldOutBody`, `soldOutBack`), `errors.*` (`required`, `invalidEmail`, `invalidKvk`, `generic`, `rateLimited`, `invalidReferral`), and `success.*`.
+Namespaces in use: `meta`, `nav`, `hero`, `trainings`, `modules`, `proof`, `footer`, `about`, `articles`, `contact`, `booking`, `impressum`, `theme`, `home`, `why`, `testimonials`. The `booking` namespace covers the booking form: seat selector and attendees (`seatsLabel`, `attendeeName`, `attendeeEmail`), account-type radio options (`accountBusiness`, `accountPersonal`), company billing details (`companyHeading`, `company`, `kvk`, `street`, `zipCode`, `city`, `country`, `notes`), referral-code (`referralLabel`, `referralHint`), submit/contact (`submit`, `submitting`, `contactLink`), sold-out copy (`soldOutHeading`, `soldOutBody`, `soldOutBack`), `errors.*` (`required`, `invalidEmail`, `invalidKvk`, `generic`, `rateLimited`, `invalidReferral`), and `success.*`.
 
 ## Testing
 
