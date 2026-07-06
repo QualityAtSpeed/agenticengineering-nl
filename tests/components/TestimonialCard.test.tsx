@@ -11,7 +11,8 @@ describe('<TestimonialCard />', () => {
 
   it('renders the attribution name and role inside a cite element', () => {
     render(<TestimonialCard quote="Great training" name="Jane Doe" role="Lead, Acme" />);
-    const cite = screen.getByText(/Jane Doe/);
+    const span = screen.getByText(/Jane Doe/);
+    const cite = span.closest('cite') as HTMLElement;
     expect(cite.tagName).toBe('CITE');
     expect(cite).toHaveTextContent('Lead, Acme');
   });
