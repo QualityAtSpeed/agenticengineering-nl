@@ -43,6 +43,7 @@ reports/
 
 # Claude local settings
 .claude/settings.local.json
+.claude/worktrees/
 *.tsbuildinfo
 .vercel
 
