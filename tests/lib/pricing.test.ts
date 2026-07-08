@@ -11,7 +11,7 @@ describe('priceWithVat', () => {
   });
 
   it('computes basic and advanced consistently', () => {
-    expect(priceWithVat('basic').grossCents).toBe(169279); // round(139900*1.21)
+    expect(priceWithVat('basic').grossCents).toBe(120879); // round(99900*1.21)
     expect(priceWithVat('advanced').grossCents).toBe(120879); // round(99900*1.21)
   });
 

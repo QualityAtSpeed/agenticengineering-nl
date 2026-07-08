@@ -122,7 +122,7 @@ export const trainings: Record<TrainingId, Training> = {
   basic: {
     id: 'basic',
     durationDays: 2,
-    priceEUR: 1399,
+    priceEUR: 999,
     modules: twoDayCurriculum,
     deliveryFormats: ['inCompany', 'publicCohort', 'remote'],
   },
