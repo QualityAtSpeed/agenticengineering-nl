@@ -5,7 +5,7 @@ describe('trainings catalogue', () => {
   it('Basic is a 2-day training with 20 modules split 10 / 10 across two days', () => {
     const basic = trainings.basic;
     expect(basic.durationDays).toBe(2);
-    expect(basic.priceEUR).toBe(1399);
+    expect(basic.priceEUR).toBe(999);
 
     const expected: { id: ModuleId; day: 1 | 2 }[] = [
       // Day 1 — fundamentals: from concept to first tooling
@@ -60,7 +60,7 @@ describe('trainings catalogue', () => {
   it('discount-aug-26 is the Basic curriculum as a dated cohort with a 30% early-bird until 1 Aug', () => {
     const discountAug26 = trainings['discount-aug-26'];
     expect(discountAug26.durationDays).toBe(2);
-    expect(discountAug26.priceEUR).toBe(1399); // regular Basic price, not the pilot rate
+    expect(discountAug26.priceEUR).toBe(1399); // full cohort price, not the pilot rate
     expect(discountAug26.modules).toEqual(trainings.basic.modules); // same curriculum as Basic
     expect(discountAug26.earlyBird).toEqual({
       discountPct: 30,
