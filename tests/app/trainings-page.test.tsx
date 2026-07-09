@@ -46,10 +46,8 @@ describe('<TrainingsPage />', () => {
     expect(screen.getAllByText(/2 days/).length).toBeGreaterThan(0);
     expect(screen.getByText(/1 day/)).toBeInTheDocument();
 
-    expect(screen.getByText(/€\s*1\.399/)).toBeInTheDocument();
-    const expectedPriceAdvanced = trainings.advanced.priceEUR
-      .toLocaleString('nl-NL')
-      .replace('.,', '.'); //999
-    expect(screen.getByText(new RegExp(`€\\s*${expectedPriceAdvanced}\\b`))).toBeInTheDocument();
+    // Both listed cohorts (discount-aug-26, advanced) are priced at €999
+    const price = trainings.advanced.priceEUR.toLocaleString('nl-NL'); // "999"
+    expect(screen.getAllByText(new RegExp(`€\\s*${price}`)).length).toBeGreaterThanOrEqual(2);
   });
 });
