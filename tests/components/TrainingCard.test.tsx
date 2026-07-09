@@ -92,15 +92,15 @@ describe('<TrainingCard /> — discount-aug-26 early-bird', () => {
 
   it('before the deadline shows the early-bird price with the base price struck through', () => {
     renderDiscountAug26(BEFORE);
-    expect(screen.getByText(/€\s*1\.399/)).toBeInTheDocument();
-    expect(screen.getByText(/€\s*979,30/)).toBeInTheDocument();
+    expect(screen.getByText(/€\s*999/)).toBeInTheDocument();
+    expect(screen.getByText(/€\s*699,30/)).toBeInTheDocument();
     expect(screen.getByText(/30%/)).toBeInTheDocument();
   });
 
   it('after the deadline shows the full price and no discount', () => {
     renderDiscountAug26(AFTER);
-    expect(screen.getByText(/€\s*1\.399/)).toBeInTheDocument();
-    expect(screen.queryByText(/€\s*979,30/)).not.toBeInTheDocument();
+    expect(screen.getByText(/€\s*999/)).toBeInTheDocument();
+    expect(screen.queryByText(/€\s*699,30/)).not.toBeInTheDocument();
     expect(screen.queryByText(/30%/)).not.toBeInTheDocument();
   });
 });

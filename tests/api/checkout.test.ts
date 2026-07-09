@@ -68,7 +68,7 @@ describe('POST /api/checkout', () => {
       expect(await res.json()).toEqual({ url: 'https://checkout.stripe.com/c/session_abc' });
       const arg = createMock.mock.calls[0][0];
       expect(arg.mode).toBe('payment');
-      expect(arg.line_items[0].price_data.unit_amount).toBe(169279);
+      expect(arg.line_items[0].price_data.unit_amount).toBe(120879);
       expect(arg.line_items[0].quantity).toBe(1);
       expect(arg.metadata.trainingId).toBe('discount-aug-26');
       expect(arg.metadata.attendee_0).toContain('pascal@example.com');
@@ -121,8 +121,8 @@ describe('POST /api/checkout', () => {
       );
       expect(res.status).toBe(200);
       const arg = createMock.mock.calls[0][0];
-      // €1399 net → 30% off → €979,30 net → +21% VAT = 118495 cents gross
-      expect(arg.line_items[0].price_data.unit_amount).toBe(118495);
+      // €999 net → 30% off → €699,30 net → +21% VAT = 84615 cents gross
+      expect(arg.line_items[0].price_data.unit_amount).toBe(84615);
       expect(arg.metadata.trainingId).toBe('discount-aug-26');
       expect(arg.success_url).toContain('/trainings/discount-aug-26/book/success');
     } finally {
@@ -141,8 +141,8 @@ describe('POST /api/checkout', () => {
           ...companyFields,
         }),
       );
-      // €1399 net → +21% VAT = 169279 cents gross, no discount
-      expect(createMock.mock.calls[0][0].line_items[0].price_data.unit_amount).toBe(169279);
+      // €999 net → +21% VAT = 120879 cents gross, no discount
+      expect(createMock.mock.calls[0][0].line_items[0].price_data.unit_amount).toBe(120879);
     } finally {
       vi.useRealTimers();
     }
@@ -153,7 +153,7 @@ describe('POST /api/checkout', () => {
     vi.setSystemTime(AFTER_DEADLINE);
     try {
       await POST(make({ ...bookableBody, amount: 1, priceEUR: 1 }));
-      expect(createMock.mock.calls[0][0].line_items[0].price_data.unit_amount).toBe(169279);
+      expect(createMock.mock.calls[0][0].line_items[0].price_data.unit_amount).toBe(120879);
     } finally {
       vi.useRealTimers();
     }
