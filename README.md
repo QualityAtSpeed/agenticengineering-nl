@@ -100,7 +100,7 @@ Deploy: push to `main` → auto-prod via Vercel GitHub App. Push any other branc
 
 ```
 app/
-  [locale]/            # NL/EN routed pages (home, about, contact, impressum)
+  [locale]/            # NL/EN routed pages (home, about, contact, faq, impressum)
   api/checkout/        # POST handler — creates Stripe Checkout Session
   api/contact/         # POST handler — Zod + rate-limit + Resend
   api/stripe/webhook/  # POST handler — Stripe webhook signature verification + fulfillment
@@ -158,7 +158,7 @@ pnpm dev                  # http://localhost:3000 (auto-redirects /  → /nl)
 Routes:
 
 - `/nl`, `/en` — locale-scoped pages
-- `/nl/about`, `/nl/contact`, `/nl/impressum` (and `/en/*`)
+- `/nl/about`, `/nl/contact`, `/nl/faq`, `/nl/impressum` (and `/en/*`)
 - `/[locale]/trainings` — trainings overview
 - `/[locale]/trainings/[trainingId]` — training detail page
 - `/[locale]/trainings/<id>/book` — booking form for each bookable training (`pilot`, `discount-aug-26`)
