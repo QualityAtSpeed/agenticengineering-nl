@@ -6,13 +6,16 @@ type BuildArgs = {
   locale: string;
   // Resolver for a training's display name in the active locale (e.g. next-intl `t`).
   trainingName: (id: TrainingId) => string;
+  // Resolver for a training's short description in the active locale — feeds the
+  // schema.org Course `description`, which Google requires for Course rich results.
+  trainingDescription: (id: TrainingId) => string;
 };
 
 // Builds the schema.org JSON-LD graph for the homepage: the Organization plus
 // one Course per training. Trainings with a fixed `schedule` also get a
 // schema.org CourseInstance, so search engines and AI assistants can see a
 // concrete, bookable date instead of a static page. Pure + testable.
-export function buildHomeJsonLd({ locale, trainingName }: BuildArgs) {
+export function buildHomeJsonLd({ locale, trainingName, trainingDescription }: BuildArgs) {
   return {
     '@context': 'https://schema.org',
     '@graph': [
@@ -31,6 +34,7 @@ export function buildHomeJsonLd({ locale, trainingName }: BuildArgs) {
         const course: Record<string, unknown> = {
           '@type': 'Course',
           name: `${trainingName(tr.id)} - agentic engineering`,
+          description: trainingDescription(tr.id),
           url: `${SITE}/${locale}/trainings/${tr.id}`,
           provider: { '@type': 'Organization', name: 'agenticengineering.nl', url: SITE },
           offers: {
