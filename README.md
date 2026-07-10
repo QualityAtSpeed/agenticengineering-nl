@@ -123,7 +123,7 @@ lib/
   pricing.ts           # VAT calculation + `priceWithVat` function
   stripe.ts            # Stripe client factory with memoization (getStripe, __resetStripeForTests)
   webhook-dedupe.ts    # Webhook event deduplication (markHandled, unmarkHandled, __resetWebhookDedupeForTests)
-  structured-data.ts   # schema.org JSON-LD graph builder for the homepage (buildHomeJsonLd)
+  structured-data.ts   # schema.org JSON-LD builders (homepage: buildHomeJsonLd, FAQ: buildFaqJsonLd)
   page-metadata.ts     # metadataFor(path, key) wrapper + buildPageMetadata({ locale, path, title, description }) — single source for per-page SEO (canonical, hreflang, OpenGraph)
 data/                  # typed catalogues (trainings.ts, instructors.ts, testimonials.ts) + trusted-domains.json
   trainings.ts         # Training catalogue + modules (typed)
