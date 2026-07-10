@@ -62,4 +62,16 @@ describe('<Nav />', () => {
     );
     expect(screen.getByTestId('nav-faq')).toHaveAttribute('href', '/en/faq');
   });
+
+  it('shows the FAQ link inside the mobile menu', async () => {
+    const ui = await Nav({ locale: 'en' });
+    render(
+      <NextIntlClientProvider locale="en" messages={en}>
+        {ui}
+      </NextIntlClientProvider>,
+    );
+    fireEvent.click(screen.getByTestId('mobile-menu-toggle'));
+    const panel = screen.getByTestId('mobile-menu-panel');
+    expect(within(panel).getByTestId('mobile-menu-faq')).toHaveAttribute('href', '/en/faq');
+  });
 });
