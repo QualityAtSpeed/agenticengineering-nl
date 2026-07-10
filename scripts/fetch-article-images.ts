@@ -2,6 +2,7 @@ import fs from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { chromium } from 'playwright';
+import sharp from 'sharp';
 
 const TRUSTED_FILE = path.join(process.cwd(), 'data', 'trusted-domains.json');
 
@@ -27,7 +28,7 @@ export interface FetchOptions {
 
 const FALLBACK = '/qas-icon.svg';
 const GOTO_TIMEOUT_MS = 20_000;
-const ALLOWED_EXTS = new Set(['jpg', 'jpeg', 'png', 'webp', 'gif']);
+const WEBP_QUALITY = 82;
 
 export async function fetchArticleImage(
   sourceUrl: string,
@@ -110,21 +111,20 @@ export async function fetchArticleImage(
         return { imagePath: FALLBACK, ok: false, reason: `img HTTP ${imgRes.status}` };
       }
       const buf = Buffer.from(await imgRes.arrayBuffer());
-      const ct = (imgRes.headers.get('content-type') ?? '').toLowerCase();
-      const urlExt = path.extname(imgUrl.pathname).slice(1).toLowerCase();
-      const ctExt = ct.includes('png')
-        ? 'png'
-        : ct.includes('webp')
-          ? 'webp'
-          : ct.includes('gif')
-            ? 'gif'
-            : ct.includes('jpeg') || ct.includes('jpg')
-              ? 'jpg'
-              : '';
-      const ext = ALLOWED_EXTS.has(urlExt) ? urlExt : ctExt || 'jpg';
-      const filename = `${slug}.${ext}`;
+      let webpBuf: Buffer;
+      try {
+        // animated: true keeps GIF/animated-WebP frames instead of only the first frame
+        webpBuf = await sharp(buf, { animated: true }).webp({ quality: WEBP_QUALITY }).toBuffer();
+      } catch (err) {
+        return {
+          imagePath: FALLBACK,
+          ok: false,
+          reason: `webp conversion failed: ${err instanceof Error ? err.message : String(err)}`,
+        };
+      }
+      const filename = `${slug}.webp`;
       const tmp = path.join(outputDir, `${filename}.tmp`);
-      fs.writeFileSync(tmp, buf);
+      fs.writeFileSync(tmp, webpBuf);
       fs.renameSync(tmp, path.join(outputDir, filename));
       return { imagePath: `/news/${filename}`, ok: true };
     } catch (err) {
