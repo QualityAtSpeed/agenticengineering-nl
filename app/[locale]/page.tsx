@@ -24,7 +24,13 @@ export default async function Home({ params }: { params: Promise<{ locale: Local
 
   return (
     <main>
-      <JsonLd data={buildHomeJsonLd({ locale, trainingName: (id) => tTrainings(`${id}.name`) })} />
+      <JsonLd
+        data={buildHomeJsonLd({
+          locale,
+          trainingName: (id) => tTrainings(`${id}.name`),
+          trainingDescription: (id) => tTrainings(`${id}.tagline`),
+        })}
+      />
       <Hero
         kicker={tHero('kicker')}
         title={tHero('title')}

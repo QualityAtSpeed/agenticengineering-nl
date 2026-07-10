@@ -3,11 +3,14 @@ import { buildHomeJsonLd } from '@/lib/structured-data';
 import { trainings } from '@/data/trainings';
 
 const name = (id: string) => `${id} title`;
+const description = (id: string) => `${id} description`;
 
 describe('buildHomeJsonLd', () => {
-  const graph = buildHomeJsonLd({ locale: 'nl', trainingName: name })['@graph'] as Array<
-    Record<string, unknown>
-  >;
+  const graph = buildHomeJsonLd({
+    locale: 'nl',
+    trainingName: name,
+    trainingDescription: description,
+  })['@graph'] as Array<Record<string, unknown>>;
 
   it('includes the Organization node with canonical url', () => {
     const org = graph.find((n) => n['@type'] === 'Organization');
@@ -20,6 +23,15 @@ describe('buildHomeJsonLd', () => {
     const pilot = courses.find((c) => (c.url as string)?.endsWith('/nl/trainings/pilot'));
     expect(pilot, 'pilot Course links to /nl/trainings/pilot').toBeTruthy();
     expect((pilot?.offers as Record<string, unknown>)?.priceCurrency).toBe('EUR');
+  });
+
+  it('gives every Course a non-empty description from the description resolver', () => {
+    const courses = graph.filter((n) => n['@type'] === 'Course');
+    expect(courses).toHaveLength(Object.keys(trainings).length);
+    for (const c of courses) {
+      const id = (c.url as string).split('/').pop() as string;
+      expect(c.description, `${id} Course has a description`).toBe(description(id));
+    }
   });
 
   it('gives the scheduled pilot a CourseInstance with online mode and ISO dates', () => {
