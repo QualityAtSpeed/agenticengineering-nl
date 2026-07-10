@@ -64,8 +64,8 @@ export function buildHomeJsonLd({ locale, trainingName }: BuildArgs) {
 export type FaqItem = { question: string; answer: string };
 
 // Builds the schema.org FAQPage JSON-LD for the FAQ page. Pure + testable.
-// Note: Google shows FAQ rich results only for gov/health sites since 2023;
-// the schema still helps AI assistants and crawlers parse the answers.
+// Note: Google no longer shows FAQ rich results at all (since May 2026); the
+// schema is kept for AI assistants and crawlers that parse the answers.
 export function buildFaqJsonLd(items: FaqItem[]) {
   return {
     '@context': 'https://schema.org',
