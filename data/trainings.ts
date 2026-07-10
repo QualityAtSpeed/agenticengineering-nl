@@ -109,7 +109,7 @@ export const trainings: Record<TrainingId, Training> = {
   'discount-aug-26': {
     id: 'discount-aug-26',
     durationDays: 2,
-    priceEUR: 1399,
+    priceEUR: 999,
     schedule: {
       startDate: '2026-09-21',
       endDate: '2026-09-22',
@@ -122,7 +122,7 @@ export const trainings: Record<TrainingId, Training> = {
   basic: {
     id: 'basic',
     durationDays: 2,
-    priceEUR: 1399,
+    priceEUR: 999,
     modules: twoDayCurriculum,
     deliveryFormats: ['inCompany', 'publicCohort', 'remote'],
   },

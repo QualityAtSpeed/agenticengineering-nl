@@ -1,8 +1,12 @@
 {
   "meta": {
-    "title": "agenticengineering.nl",
+    "title": "Agentic engineering training with Claude Code",
     "description": "Hands-on agentic engineering training with Claude Code. Teach your dev and QA teams to ship with AI agents and quality that survives production.",
     "pages": {
+      "home": {
+        "title": "Agentic engineering training with Claude Code · agenticengineering.nl",
+        "description": "Hands-on agentic engineering training with Claude Code for dev and QA teams. Quality that survives production."
+      },
       "about": {
         "title": "About · agenticengineering.nl",
         "description": "Who we are and how we train engineering teams in agentic AI quality engineering with Claude Code."
@@ -591,7 +595,9 @@
   },
   "testimonials": {
     "title": "What participants say",
-    "lede": "Feedback from engineers and teams who have taken the training."
+    "lede": "Feedback from engineers and teams who have taken the training.",
+    "translatedFromNL": "Translated from Dutch",
+    "translatedFromEN": "Translated from English"
   },
   "home": {
     "trainingsLede": "Two trainings, separately or consecutively. In-company or open enrollment. Everyone ships something concrete.",

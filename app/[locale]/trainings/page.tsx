@@ -7,7 +7,7 @@ import type { TrainingId } from '@/data/trainings';
 export const generateMetadata = metadataFor('/trainings', 'pages.trainings');
 
 //hardcoded order of trainings. Basic is temporarily hidden for now.
-const DISPLAYED_TRAININGS: TrainingId[] = ['pilot', 'discount-aug-26', 'advanced'];
+const DISPLAYED_TRAININGS: TrainingId[] = ['discount-aug-26', 'advanced'];
 
 export default async function TrainingsPage({ params }: { params: Promise<{ locale: Locale }> }) {
   const { locale } = await params;
