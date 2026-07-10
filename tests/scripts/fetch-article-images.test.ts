@@ -22,6 +22,12 @@ vi.mock('playwright', () => ({
   chromium: { launch: playwrightMocks.launch },
 }));
 
+// Smallest valid 1x1 PNG — sharp rejects non-image bytes, so tests need real image data.
+const TINY_PNG = Buffer.from(
+  'iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mNk+M9QDwADhgGAWjR9awAAAABJRU5ErkJggg==',
+  'base64',
+);
+
 function makeWorkspace(trusted: string[]) {
   const base = fs.mkdtempSync(path.join(os.tmpdir(), 'fetch-img-test-'));
   const outputDir = path.join(base, 'output');
@@ -142,17 +148,16 @@ describe('fetchArticleImage', () => {
     expect(playwrightMocks.launch).not.toHaveBeenCalled();
   });
 
-  it('drives chromium to read og:image and downloads it on happy path', async () => {
+  it('drives chromium to read og:image, downloads it and converts to webp on happy path', async () => {
     const { outputDir, trustedFile } = makeWorkspace(['medium.com']);
     playwrightMocks.getAttribute.mockResolvedValue('https://cdn.medium.com/img.png');
-    const imageBytes = Buffer.from('FAKE_PNG_BYTES');
     vi.stubGlobal(
       'fetch',
       mockImageFetch([
         {
           url: 'https://cdn.medium.com/img.png',
           headers: { 'content-type': 'image/png' },
-          body: imageBytes,
+          body: TINY_PNG,
         },
       ]),
     );
@@ -163,8 +168,8 @@ describe('fetchArticleImage', () => {
     });
 
     expect(result.ok).toBe(true);
-    expect(result.imagePath).toBe('/news/2026-05-12-foo.png');
-    expect(fs.existsSync(path.join(outputDir, '2026-05-12-foo.png'))).toBe(true);
+    expect(result.imagePath).toBe('/news/2026-05-12-foo.webp');
+    expect(fs.existsSync(path.join(outputDir, '2026-05-12-foo.webp'))).toBe(true);
 
     expect(playwrightMocks.launch).toHaveBeenCalledOnce();
     expect(playwrightMocks.newPage).toHaveBeenCalledOnce();
@@ -227,14 +232,13 @@ describe('fetchArticleImage', () => {
   it('resolves relative og:image URLs against the source URL', async () => {
     const { outputDir, trustedFile } = makeWorkspace(['medium.com']);
     playwrightMocks.getAttribute.mockResolvedValue('/static/img.jpg');
-    const imageBytes = Buffer.from('IMG');
     vi.stubGlobal(
       'fetch',
       mockImageFetch([
         {
           url: 'https://medium.com/static/img.jpg',
           headers: { 'content-type': 'image/jpeg' },
-          body: imageBytes,
+          body: TINY_PNG,
         },
       ]),
     );
@@ -245,7 +249,32 @@ describe('fetchArticleImage', () => {
     });
 
     expect(result.ok).toBe(true);
-    expect(result.imagePath).toBe('/news/slug.jpg');
+    expect(result.imagePath).toBe('/news/slug.webp');
+  });
+
+  it('falls back when downloaded bytes are not a decodable image', async () => {
+    const { outputDir, trustedFile } = makeWorkspace(['medium.com']);
+    playwrightMocks.getAttribute.mockResolvedValue('https://cdn.medium.com/img.png');
+    vi.stubGlobal(
+      'fetch',
+      mockImageFetch([
+        {
+          url: 'https://cdn.medium.com/img.png',
+          headers: { 'content-type': 'image/png' },
+          body: Buffer.from('NOT_AN_IMAGE'),
+        },
+      ]),
+    );
+
+    const result = await fetchArticleImage('https://medium.com/post', 'slug', {
+      outputDir,
+      trustedFile,
+    });
+
+    expect(result.ok).toBe(false);
+    expect(result.reason).toMatch(/webp conversion failed/);
+    expect(result.imagePath).toBe('/qas-icon.svg');
+    expect(playwrightMocks.browserClose).toHaveBeenCalledOnce();
   });
 
   it('falls back when the page navigation throws', async () => {

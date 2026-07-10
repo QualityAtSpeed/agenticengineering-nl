@@ -92,7 +92,7 @@ pnpm article:image <source-url> <slug>
 # Example: pnpm article:image https://medium.com/some-post my-article-slug
 ```
 
-"The script reads the page's `og:image` in headless mode, downloads it, and saves it to `public/news/<slug>.<ext>`. The source host **and** the image host must both be listed in `data/trusted-domains.json` — add new domains there when needed.
+"The script reads the page's `og:image` in headless mode, downloads it, converts it to WebP (quality 82), and saves it to `public/news/<slug>.webp`. The source host **and** the image host must both be listed in `data/trusted-domains.json` — add new domains there when needed.
 
 Deploy: push to `main` → auto-prod via Vercel GitHub App. Push any other branch → preview URL (see [Preview environment](#preview-environment)).
 

@@ -4,7 +4,7 @@ title_en: 'Project Glasswing: what Mythos showed us'
 url: 'https://blog.cloudflare.com/cyber-frontier-models/'
 type: 'article'
 date: '2026-05-18'
-image: '/news/2026-05-18-cyber-frontier-models.png'
+image: '/news/2026-05-18-cyber-frontier-models.webp'
 author: 'Grant Bourzikas'
 placed_by: 'Jorick'
 summary_nl: "Cloudflare testte Anthropic's Mythos Preview, een op beveiliging gericht LLM, op hun infrastructuur en ontdekte dat het uitblinkt in het koppelen van kwetsbaarheden tot werkende exploits. Effectief AI-gestuurd kwetsbaarheidsonderzoek vereist een geavanceerde meerfasige aanpak met parallelle deeltaken en kritische review — geen generieke coding agent."
