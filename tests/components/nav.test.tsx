@@ -52,4 +52,14 @@ describe('<Nav />', () => {
     expect(within(panel).getByTestId('lang-switch-en')).toBeInTheDocument();
     expect(within(panel).getByTestId('lang-switch-nl')).toBeInTheDocument();
   });
+
+  it('renders the FAQ link with the locale-prefixed href', async () => {
+    const ui = await Nav({ locale: 'en' });
+    render(
+      <NextIntlClientProvider locale="en" messages={en}>
+        {ui}
+      </NextIntlClientProvider>,
+    );
+    expect(screen.getByTestId('nav-faq')).toHaveAttribute('href', '/en/faq');
+  });
 });

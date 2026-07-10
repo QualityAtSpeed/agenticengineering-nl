@@ -41,6 +41,15 @@ export async function Footer({ locale }: { locale: Locale }) {
             </li>
             <li>
               <Link
+                href={`/${locale}/faq`}
+                data-testid="footer-faq"
+                className="text-text-soft hover:text-brand"
+              >
+                {tNav('faq')}
+              </Link>
+            </li>
+            <li>
+              <Link
                 href={`/${locale}/impressum`}
                 data-testid="footer-impressum"
                 className="text-text-soft hover:text-brand inline-flex items-center gap-1.5"
