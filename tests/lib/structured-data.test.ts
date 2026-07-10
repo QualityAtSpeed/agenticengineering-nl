@@ -1,5 +1,5 @@
 import { describe, it, expect } from 'vitest';
-import { buildHomeJsonLd } from '@/lib/structured-data';
+import { buildHomeJsonLd, buildFaqJsonLd } from '@/lib/structured-data';
 import { trainings } from '@/data/trainings';
 
 const name = (id: string) => `${id} title`;
@@ -58,5 +58,28 @@ describe('buildHomeJsonLd', () => {
     const advanced = courses.find((c) => (c.url as string)?.endsWith('/trainings/advanced'));
     expect(basic?.hasCourseInstance).toBeUndefined();
     expect(advanced?.hasCourseInstance).toBeUndefined();
+  });
+});
+
+describe('buildFaqJsonLd', () => {
+  const items = [
+    { question: 'Wat is agentic engineering?', answer: 'AI-agents die code genereren.' },
+    { question: 'Kan het in-company?', answer: 'Ja, beide trainingen.' },
+  ];
+  const jsonLd = buildFaqJsonLd(items);
+
+  it('emits a FAQPage with one Question per item', () => {
+    expect(jsonLd['@type']).toBe('FAQPage');
+    const questions = jsonLd.mainEntity as Array<Record<string, unknown>>;
+    expect(questions).toHaveLength(2);
+    expect(questions.every((q) => q['@type'] === 'Question')).toBe(true);
+  });
+
+  it('keeps question and answer text verbatim', () => {
+    const questions = jsonLd.mainEntity as Array<Record<string, unknown>>;
+    expect(questions[0].name).toBe('Wat is agentic engineering?');
+    expect((questions[0].acceptedAnswer as Record<string, unknown>).text).toBe(
+      'AI-agents die code genereren.',
+    );
   });
 });

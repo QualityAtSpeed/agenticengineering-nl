@@ -100,7 +100,7 @@ Deploy: push to `main` → auto-prod via Vercel GitHub App. Push any other branc
 
 ```
 app/
-  [locale]/            # NL/EN routed pages (home, about, contact, impressum)
+  [locale]/            # NL/EN routed pages (home, about, contact, faq, impressum)
   api/checkout/        # POST handler — creates Stripe Checkout Session
   api/contact/         # POST handler — Zod + rate-limit + Resend
   api/stripe/webhook/  # POST handler — Stripe webhook signature verification + fulfillment
@@ -123,7 +123,7 @@ lib/
   pricing.ts           # VAT calculation + `priceWithVat` function
   stripe.ts            # Stripe client factory with memoization (getStripe, __resetStripeForTests)
   webhook-dedupe.ts    # Webhook event deduplication (markHandled, unmarkHandled, __resetWebhookDedupeForTests)
-  structured-data.ts   # schema.org JSON-LD graph builder for the homepage (buildHomeJsonLd)
+  structured-data.ts   # schema.org JSON-LD builders (homepage: buildHomeJsonLd, FAQ: buildFaqJsonLd)
   page-metadata.ts     # metadataFor(path, key) wrapper + buildPageMetadata({ locale, path, title, description }) — single source for per-page SEO (canonical, hreflang, OpenGraph)
 data/                  # typed catalogues (trainings.ts, instructors.ts, testimonials.ts) + trusted-domains.json
   trainings.ts         # Training catalogue + modules (typed)
@@ -158,7 +158,7 @@ pnpm dev                  # http://localhost:3000 (auto-redirects /  → /nl)
 Routes:
 
 - `/nl`, `/en` — locale-scoped pages
-- `/nl/about`, `/nl/contact`, `/nl/impressum` (and `/en/*`)
+- `/nl/about`, `/nl/contact`, `/nl/faq`, `/nl/impressum` (and `/en/*`)
 - `/[locale]/trainings` — trainings overview
 - `/[locale]/trainings/[trainingId]` — training detail page
 - `/[locale]/trainings/<id>/book` — booking form for each bookable training (`pilot`, `discount-aug-26`)
@@ -434,7 +434,7 @@ Translation messages live in `messages/{nl,en}.json`. Locale routing in `i18n/ro
 
 CI runs `pnpm verify:i18n` to enforce key parity between NL and EN. Add a new key → add it to both files.
 
-Namespaces in use: `meta`, `nav`, `hero`, `trainings`, `modules`, `proof`, `footer`, `about`, `articles`, `contact`, `booking`, `impressum`, `theme`, `home`, `why`, `testimonials`. The `booking` namespace covers the booking form: seat selector and attendees (`seatsLabel`, `attendeeName`, `attendeeEmail`), account-type radio options (`accountBusiness`, `accountPersonal`), company billing details (`companyHeading`, `company`, `kvk`, `street`, `zipCode`, `city`, `country`, `notes`), referral-code (`referralLabel`, `referralHint`), submit/contact (`submit`, `submitting`, `contactLink`), sold-out copy (`soldOutHeading`, `soldOutBody`, `soldOutBack`), `errors.*` (`required`, `invalidEmail`, `invalidKvk`, `generic`, `rateLimited`, `invalidReferral`), and `success.*`.
+Namespaces in use: `meta`, `nav`, `hero`, `trainings`, `modules`, `proof`, `footer`, `about`, `articles`, `contact`, `faq`, `booking`, `impressum`, `theme`, `home`, `why`, `testimonials`. The `faq` namespace covers the FAQ page: `title`, `intro`, `items` (array of `question`/`answer` pairs) and the contact CTA (`ctaLabel`, `ctaLink`). The `booking` namespace covers the booking form: seat selector and attendees (`seatsLabel`, `attendeeName`, `attendeeEmail`), account-type radio options (`accountBusiness`, `accountPersonal`), company billing details (`companyHeading`, `company`, `kvk`, `street`, `zipCode`, `city`, `country`, `notes`), referral-code (`referralLabel`, `referralHint`), submit/contact (`submit`, `submitting`, `contactLink`), sold-out copy (`soldOutHeading`, `soldOutBody`, `soldOutBack`), `errors.*` (`required`, `invalidEmail`, `invalidKvk`, `generic`, `rateLimited`, `invalidReferral`), and `success.*`.
 
 ## Testing
 

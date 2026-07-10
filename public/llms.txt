@@ -20,6 +20,7 @@ Audience: developers, testers and DevOps engineers, plus managers who train alon
 ## More
 
 - [Trainings overview](https://agenticengineering.nl/en/trainings)
+- [FAQ](https://agenticengineering.nl/en/faq): frequently asked questions about the trainings — prerequisites, format, pricing, tools and in-company options.
 - [About](https://agenticengineering.nl/en/about)
 - [News and articles](https://agenticengineering.nl/en/articles)
 - [Nederlandse versie](https://agenticengineering.nl/nl)

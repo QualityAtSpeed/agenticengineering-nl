@@ -22,6 +22,10 @@
       "articles": {
         "title": "Artikelen · agenticengineering.nl",
         "description": "Gecureerd nieuws en artikelen over agentic engineering, AI en quality engineering."
+      },
+      "faq": {
+        "title": "FAQ · agenticengineering.nl",
+        "description": "Veelgestelde vragen over onze agentic engineering-trainingen: voorkennis, format, kosten, tools en in-company mogelijkheden."
       }
     }
   },
@@ -29,6 +33,7 @@
     "about": "Over ons",
     "articles": "Artikelen",
     "contact": "Contact",
+    "faq": "FAQ",
     "switchToEn": "EN",
     "switchToNl": "NL",
     "brand": "Agentic·engineering",
@@ -535,6 +540,50 @@
       "title": "Verzonden",
       "body": "Binnen een werkdag ontvang je een bevestiging van je inschrijving met bijbehorende factuur. Na betaling ontvang je een uitnodiging tot het trainingsmateriaal en verdere details."
     }
+  },
+  "faq": {
+    "title": "Veelgestelde vragen",
+    "intro": "Antwoorden op de meestgestelde vragen over onze trainingen.",
+    "items": [
+      {
+        "question": "Wat is agentic engineering?",
+        "answer": "Agentic engineering is het inzetten van AI-agents om code te genereren en te verifiëren, in samenwerking met een engineer. De engineer stuurt de agents aan, bewaakt de kwaliteit en bepaalt waar menselijk inzicht nodig is."
+      },
+      {
+        "question": "Voor wie zijn de trainingen?",
+        "answer": "De Basic training is gericht op complete DevOps-teams: developers, QA / testers, ops en engineering managers die meetrainen. De Advanced training is voor tech leads, staff+ engineers en managers die agentic workflows team-breed uitrollen. De trainingspagina's geven per training meer detail."
+      },
+      {
+        "question": "Welke voorkennis heb ik nodig?",
+        "answer": "Voor de Basic training verwachten we dat je vertrouwd bent met git en de command line en features schrijft in minimaal één taal (TypeScript, Python, Go, etc.). Ervaring met agentic engineering is niet nodig. Je neemt een eigen laptop mee met Claude Code of OpenCode en minimaal een Claude Pro-abonnement. De Advanced training vereist de Basic training of vergelijkbare hands-on ervaring met Claude Code."
+      },
+      {
+        "question": "Wat kan ik na afloop?",
+        "answer": "Na de Basic training lever je een werkende feature op een starter repo — met tests, hooks en groene CI — herken je failure modes van AI-gegenereerde code, werk je test-first met een agent, zet je quality gates op en gebruik je MCP servers in echte workflows. Na de Advanced training vertrek je met een door peers getoetst 90-dagen rolloutplan, orkestreer je subagents op team-schaal en heb je observability en cost guardrails staan."
+      },
+      {
+        "question": "Wat is het format en de duur?",
+        "answer": "De Basic training duurt twee dagen (16 uur), de Advanced training één dag (8 uur). Beide zijn beschikbaar als open inschrijving, in-company of remote."
+      },
+      {
+        "question": "Werken jullie met Claude Code? Welke tools komen aan bod?",
+        "answer": "Ja, Claude Code staat centraal; OpenCode kan ook. Daarnaast werk je met MCP servers, skills, hooks, subagents en CI-integratie."
+      },
+      {
+        "question": "Wat kost een training en zijn er kortingen?",
+        "answer": "Beide trainingen kosten € 999 per persoon, exclusief btw. Voor aangekondigde cohorts geldt regelmatig een early-bird-korting, en met een referral-code van een oud-cursist krijg je korting bij het boeken."
+      },
+      {
+        "question": "Kunnen jullie in-company trainen?",
+        "answer": "Ja, beide trainingen geven we ook in-company, op locatie of remote. Neem contact op via het contactformulier om de mogelijkheden te bespreken."
+      },
+      {
+        "question": "In welke taal wordt de training gegeven?",
+        "answer": "We geven de trainingen in het Nederlands en in het Engels."
+      }
+    ],
+    "ctaLabel": "Staat je vraag er niet tussen?",
+    "ctaLink": "Neem contact op"
   },
   "booking": {
     "title": "{trainingName}",

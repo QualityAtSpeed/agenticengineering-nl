@@ -22,6 +22,10 @@
       "articles": {
         "title": "Articles · agenticengineering.nl",
         "description": "Curated news and articles on agentic engineering, AI and quality engineering."
+      },
+      "faq": {
+        "title": "FAQ · agenticengineering.nl",
+        "description": "Frequently asked questions about our agentic engineering trainings: prerequisites, format, pricing, tools and in-company options."
       }
     }
   },
@@ -29,6 +33,7 @@
     "about": "About",
     "articles": "Articles",
     "contact": "Contact",
+    "faq": "FAQ",
     "switchToEn": "EN",
     "switchToNl": "NL",
     "brand": "Agentic·engineering",
@@ -531,6 +536,50 @@
       "title": "Sent",
       "body": "Within 1 business day, you'll receive a confirmation of your registration with the accompanying invoice. After payment, you'll receive an invitation to the training materials and further details."
     }
+  },
+  "faq": {
+    "title": "Frequently asked questions",
+    "intro": "Answers to the most common questions about our trainings.",
+    "items": [
+      {
+        "question": "What is agentic engineering?",
+        "answer": "Agentic engineering means using AI agents to generate and verify code, in collaboration with an engineer. The engineer directs the agents, guards quality and decides where human judgement is needed."
+      },
+      {
+        "question": "Who are the trainings for?",
+        "answer": "The Basic training targets complete DevOps teams: developers, QA / testers, ops and engineering managers training alongside their team. The Advanced training is for tech leads, staff+ engineers and managers rolling out agentic workflows team-wide. The training pages give more detail per training."
+      },
+      {
+        "question": "What prior knowledge do I need?",
+        "answer": "For the Basic training we expect you to be comfortable with git and the command line and to write features in at least one language (TypeScript, Python, Go, etc.). Experience with agentic engineering is not required. Bring your own laptop with Claude Code or OpenCode installed and at least a Claude Pro subscription. The Advanced training requires the Basic training or comparable hands-on experience with Claude Code."
+      },
+      {
+        "question": "What will I be able to do afterwards?",
+        "answer": "After the Basic training you ship a working feature on a starter repo — with tests, hooks and green CI — recognise failure modes of AI-generated code, work test-first with an agent, set up quality gates and use MCP servers in real workflows. After the Advanced training you leave with a peer-reviewed 90-day rollout plan, orchestrate subagents at team scale and have observability and cost guardrails in place."
+      },
+      {
+        "question": "What is the format and duration?",
+        "answer": "The Basic training takes two days (16 hours), the Advanced training one day (8 hours). Both are available as public cohort, in-company or remote."
+      },
+      {
+        "question": "Do you work with Claude Code? Which tools are covered?",
+        "answer": "Yes, Claude Code is central; OpenCode works too. You also work with MCP servers, skills, hooks, subagents and CI integration."
+      },
+      {
+        "question": "What does it cost, and are there discounts?",
+        "answer": "Both trainings cost €999 per person, excluding VAT. Announced cohorts regularly carry an early-bird discount, and a referral code from a past participant gives you a discount at booking."
+      },
+      {
+        "question": "Can you deliver in-company?",
+        "answer": "Yes, we deliver both trainings in-company as well, on site or remote. Get in touch via the contact form to discuss the options."
+      },
+      {
+        "question": "In which language is the training taught?",
+        "answer": "We teach the trainings in Dutch and in English."
+      }
+    ],
+    "ctaLabel": "Didn't find your question?",
+    "ctaLink": "Get in touch"
   },
   "booking": {
     "title": "{trainingName}",

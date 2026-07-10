@@ -64,3 +64,20 @@ export function buildHomeJsonLd({ locale, trainingName, trainingDescription }: B
     ],
   };
 }
+
+export type FaqItem = { question: string; answer: string };
+
+// Builds the schema.org FAQPage JSON-LD for the FAQ page. Pure + testable.
+// Note: Google no longer shows FAQ rich results at all (since May 2026); the
+// schema is kept for AI assistants and crawlers that parse the answers.
+export function buildFaqJsonLd(items: FaqItem[]) {
+  return {
+    '@context': 'https://schema.org',
+    '@type': 'FAQPage',
+    mainEntity: items.map((item) => ({
+      '@type': 'Question',
+      name: item.question,
+      acceptedAnswer: { '@type': 'Answer', text: item.answer },
+    })),
+  };
+}
