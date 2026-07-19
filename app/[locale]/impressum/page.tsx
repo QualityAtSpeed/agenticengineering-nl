@@ -1,5 +1,8 @@
 import { setRequestLocale, getTranslations } from 'next-intl/server';
 import type { Locale } from '@/i18n/routing';
+import { metadataFor } from '@/lib/page-metadata';
+
+export const generateMetadata = metadataFor('/impressum', 'pages.impressum');
 
 export default async function Impressum({ params }: { params: Promise<{ locale: Locale }> }) {
   const { locale } = await params;

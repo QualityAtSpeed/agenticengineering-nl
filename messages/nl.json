@@ -26,6 +26,10 @@
       "faq": {
         "title": "FAQ · agenticengineering.nl",
         "description": "Veelgestelde vragen over onze agentic engineering-trainingen: voorkennis, format, kosten, tools en in-company mogelijkheden."
+      },
+      "impressum": {
+        "title": "Bedrijfsgegevens · agenticengineering.nl",
+        "description": "Juridische en bedrijfsgegevens van agenticengineering.nl: bedrijfsnaam, adres, KvK-nummer en btw-nummer."
       }
     }
   },

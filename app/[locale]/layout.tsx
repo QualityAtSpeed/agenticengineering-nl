@@ -22,13 +22,12 @@ export async function generateMetadata({ params }: { params: Promise<{ locale: s
     metadataBase: new URL('https://agenticengineering.nl'),
     title: t('title'),
     description: t('description'),
-    alternates: {
-      canonical: `https://agenticengineering.nl/${locale}`,
-      languages: {
-        nl: 'https://agenticengineering.nl/nl',
-        en: 'https://agenticengineering.nl/en',
-      },
-    },
+    // NOTE: canonical/hreflang are deliberately NOT set here. A layout-level
+    // canonical is inherited by every child page that lacks its own metadata,
+    // making them declare the homepage as their canonical — which is exactly the
+    // "Duplicate, Google chose different canonical than user" issue. Canonical +
+    // hreflang belong per page (see lib/page-metadata.ts / metadataFor). Pages
+    // without explicit metadata self-canonicalize to their own URL.
     openGraph: {
       title: t('title'),
       description: t('description'),

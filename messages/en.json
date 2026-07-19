@@ -26,6 +26,10 @@
       "faq": {
         "title": "FAQ · agenticengineering.nl",
         "description": "Frequently asked questions about our agentic engineering trainings: prerequisites, format, pricing, tools and in-company options."
+      },
+      "impressum": {
+        "title": "Company details · agenticengineering.nl",
+        "description": "Legal and company details for agenticengineering.nl: business name, address, Chamber of Commerce (KVK) number and VAT number."
       }
     }
   },
