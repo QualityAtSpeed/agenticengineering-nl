@@ -22,9 +22,30 @@ describe('canonical metadata', () => {
   });
 
   it('transactional booking pages are noindex', async () => {
-    const mod = await import('@/app/[locale]/trainings/pilot/book/page');
-    const robots = (mod as unknown as { metadata?: { robots?: { index?: boolean } } }).metadata
-      ?.robots;
-    expect(robots?.index, 'booking page should be noindex').toBe(false);
+    const routes = [
+      {
+        label: 'pilot booking page',
+        load: () => import('@/app/[locale]/trainings/pilot/book/page'),
+      },
+      {
+        label: 'pilot booking success page',
+        load: () => import('@/app/[locale]/trainings/pilot/book/success/page'),
+      },
+      {
+        label: 'discount booking page',
+        load: () => import('@/app/[locale]/trainings/discount-aug-26/book/page'),
+      },
+      {
+        label: 'discount booking success page',
+        load: () => import('@/app/[locale]/trainings/discount-aug-26/book/success/page'),
+      },
+    ];
+
+    for (const route of routes) {
+      const mod = await route.load();
+      const robots = (mod as unknown as { metadata?: { robots?: { index?: boolean } } }).metadata
+        ?.robots;
+      expect(robots?.index, `${route.label} should be noindex`).toBe(false);
+    }
   });
 });
