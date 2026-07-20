@@ -1,5 +1,10 @@
 import { setRequestLocale, getTranslations } from 'next-intl/server';
 import type { Locale } from '@/i18n/routing';
+import type { Metadata } from 'next';
+
+// Transactional confirmation page — keep it out of the index (and out of any
+// duplicate-canonical clustering) instead of letting it self-canonicalize.
+export const metadata: Metadata = { robots: { index: false } };
 
 type Props = { params: Promise<{ locale: Locale }> };
 
