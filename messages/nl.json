@@ -623,7 +623,7 @@
     },
     "success": {
       "title": "Betaling gelukt — je plek is geboekt!",
-      "body": "Je ontvangt een bevestiging per e-mail. Tot 29 juni!"
+      "body": "Je ontvangt een bevestiging per e-mail. Tot {date}!"
     }
   },
   "impressum": {

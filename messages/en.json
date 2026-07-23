@@ -619,7 +619,7 @@
     },
     "success": {
       "title": "Payment successful — your seat is booked!",
-      "body": "You'll receive a confirmation by email. See you on 29 June!"
+      "body": "You'll receive a confirmation by email. See you on {date}!"
     }
   },
   "impressum": {

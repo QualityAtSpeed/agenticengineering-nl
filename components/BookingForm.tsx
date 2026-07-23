@@ -61,7 +61,7 @@ export function BookingForm({
     const res = await fetch('/api/checkout', {
       method: 'POST',
       headers: { 'content-type': 'application/json' },
-      body: JSON.stringify(values),
+      body: JSON.stringify({ ...values, locale }),
     });
     if (res.ok) {
       const { url } = (await res.json()) as { url: string };

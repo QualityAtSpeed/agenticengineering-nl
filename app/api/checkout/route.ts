@@ -5,6 +5,7 @@ import { getStripe } from '@/lib/stripe';
 import { isAllowedOrigin, clientIp } from '@/lib/http';
 import { checkRateLimit } from '@/lib/rate-limit';
 import { trainings, type TrainingId } from '@/data/trainings';
+import { toLocale } from '@/lib/locale';
 
 // Stripe product label per bookable training (receipt/dashboard text).
 const PRODUCT_NAME: Partial<Record<TrainingId, string>> = {
@@ -64,6 +65,9 @@ export async function POST(req: Request) {
 
   const { grossCents } = priceFor(trainingId, new Date()); // server-enforced early-bird
   const origin = baseUrl(req);
+  // Return the buyer to the success/cancel page in the locale they booked from
+  // (validated — never trust the raw value in a redirect URL).
+  const locale = toLocale((raw as { locale?: unknown }).locale);
 
   const metadata: Record<string, string> = {
     trainingId,
@@ -121,8 +125,8 @@ export async function POST(req: Request) {
         },
       ],
       metadata,
-      success_url: `${origin}/nl/trainings/${trainingId}/book/success`,
-      cancel_url: `${origin}/nl/trainings/${trainingId}/book`,
+      success_url: `${origin}/${locale}/trainings/${trainingId}/book/success`,
+      cancel_url: `${origin}/${locale}/trainings/${trainingId}/book`,
     });
 
     if (!session.url) {
