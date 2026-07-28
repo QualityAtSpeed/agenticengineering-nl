@@ -121,6 +121,8 @@ lib/
   parseFrontmatter.ts  # Frontmatter parser for markdown articles
   flags.ts             # Feature flag helpers (BLOGS_ENABLED, …)
   pricing.ts           # VAT calculation + `priceWithVat` function
+  format-date.ts       # Locale-aware training date formatting (formatTrainingDate)
+  locale.ts            # Locale helpers (toLocale validation/coercion)
   stripe.ts            # Stripe client factory with memoization (getStripe, __resetStripeForTests)
   webhook-dedupe.ts    # Webhook event deduplication (markHandled, unmarkHandled, __resetWebhookDedupeForTests)
   structured-data.ts   # schema.org JSON-LD builders (homepage: buildHomeJsonLd, FAQ: buildFaqJsonLd)
