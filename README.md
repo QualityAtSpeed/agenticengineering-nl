@@ -140,6 +140,8 @@ scripts/
   fetch-article-images.ts # Downloads OG images for news articles
   metrics.ts           # Site metrics helper
 tests/                 # Vitest unit + Playwright e2e
+.agents/
+  skills/              # Portable, agent-agnostic skill definitions (e.g. new-article/)
 docs/
   superpowers/specs/   # Design specs for significant feature changes (dated markdown)
   superpowers/plans/   # Step-by-step implementation plans (dated markdown, checkbox tasks)
