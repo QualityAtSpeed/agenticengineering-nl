@@ -20,6 +20,10 @@ export async function generateMetadata({
   });
 }
 
+// Prices are time-dependent (early-bird deadlines enforced against `now`).
+// Revalidate hourly so the shown price stays in sync with the checkout.
+export const revalidate = 3600;
+
 export default async function TrainingDetailPage({
   params,
 }: {

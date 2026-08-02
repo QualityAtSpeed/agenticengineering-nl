@@ -13,6 +13,11 @@ import type { Locale } from '@/i18n/routing';
 
 export const generateMetadata = metadataFor('', 'pages.home');
 
+// Prices depend on the current time (early-bird deadlines are enforced against
+// `now`). Revalidate hourly so the displayed price can't drift from what the
+// checkout charges after a deadline passes.
+export const revalidate = 3600;
+
 export default async function Home({ params }: { params: Promise<{ locale: Locale }> }) {
   const { locale } = await params;
   setRequestLocale(locale);
