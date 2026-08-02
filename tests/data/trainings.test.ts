@@ -57,14 +57,14 @@ describe('trainings catalogue', () => {
     expect(trainings.advanced.schedule).toBeUndefined();
   });
 
-  it('discount-aug-26 is the Basic curriculum as a dated cohort with a 30% early-bird until 1 Aug', () => {
+  it('discount-aug-26 is the Basic curriculum as a dated cohort with a 20% early-bird until 1 Sep', () => {
     const discountAug26 = trainings['discount-aug-26'];
     expect(discountAug26.durationDays).toBe(2);
     expect(discountAug26.priceEUR).toBe(999); // full cohort price, not the pilot rate
     expect(discountAug26.modules).toEqual(trainings.basic.modules); // same curriculum as Basic
     expect(discountAug26.earlyBird).toEqual({
-      discountPct: 30,
-      deadline: '2026-08-01T00:00:00+02:00',
+      discountPct: 20,
+      deadline: '2026-09-01T00:00:00+02:00',
     });
     // the base trainings carry no early-bird
     expect(trainings.basic.earlyBird).toBeUndefined();

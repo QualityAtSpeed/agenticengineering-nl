@@ -52,7 +52,7 @@ beforeEach(() => {
 describe('POST /api/checkout', () => {
   // pilot is sold out (409), so the bookable happy-path uses discount-aug-26.
   // Pinned after the early-bird deadline for a deterministic full price.
-  const AFTER_DEADLINE = new Date('2026-08-15T12:00:00+02:00');
+  const AFTER_DEADLINE = new Date('2026-09-15T12:00:00+02:00');
   const bookableBody = {
     trainingId: 'discount-aug-26',
     attendees: [{ name: 'Pascal', email: 'pascal@example.com' }],
@@ -110,7 +110,7 @@ describe('POST /api/checkout', () => {
 
   it('prices discount-aug-26 with the early-bird discount before the deadline (server-enforced)', async () => {
     vi.useFakeTimers();
-    vi.setSystemTime(new Date('2026-07-15T12:00:00+02:00'));
+    vi.setSystemTime(new Date('2026-08-15T12:00:00+02:00'));
     try {
       const res = await POST(
         make({
@@ -121,8 +121,8 @@ describe('POST /api/checkout', () => {
       );
       expect(res.status).toBe(200);
       const arg = createMock.mock.calls[0][0];
-      // €999 net → 30% off → €699,30 net → +21% VAT = 84615 cents gross
-      expect(arg.line_items[0].price_data.unit_amount).toBe(84615);
+      // €999 net → 20% off → €799,20 net → +21% VAT = 96703 cents gross
+      expect(arg.line_items[0].price_data.unit_amount).toBe(96703);
       expect(arg.metadata.trainingId).toBe('discount-aug-26');
       expect(arg.success_url).toContain('/trainings/discount-aug-26/book/success');
     } finally {
@@ -132,7 +132,7 @@ describe('POST /api/checkout', () => {
 
   it('prices discount-aug-26 at the full price after the deadline', async () => {
     vi.useFakeTimers();
-    vi.setSystemTime(new Date('2026-08-15T12:00:00+02:00'));
+    vi.setSystemTime(new Date('2026-09-15T12:00:00+02:00'));
     try {
       await POST(
         make({
