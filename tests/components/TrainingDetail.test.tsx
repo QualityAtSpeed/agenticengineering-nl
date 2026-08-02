@@ -12,8 +12,8 @@ function renderDetail(trainingId: 'basic' | 'advanced' | 'pilot' | 'discount-aug
   );
 }
 
-const BEFORE_DEADLINE = new Date('2026-07-15T12:00:00+02:00');
-const AFTER_DEADLINE = new Date('2026-08-15T12:00:00+02:00');
+const BEFORE_DEADLINE = new Date('2026-08-15T12:00:00+02:00');
+const AFTER_DEADLINE = new Date('2026-09-15T12:00:00+02:00');
 
 describe('<TrainingDetail /> CTA labels', () => {
   it('pilot CTA is disabled (pilot is sold out)', () => {
@@ -44,15 +44,15 @@ describe('<TrainingDetail /> discount-aug-26 early-bird price', () => {
     renderDetail('discount-aug-26', BEFORE_DEADLINE);
     // price is shown in two spots (fact row + bottom CTA box)
     expect(screen.getAllByText(/€\s*999/).length).toBeGreaterThan(0);
-    expect(screen.getAllByText(/€\s*699,30/).length).toBeGreaterThan(0);
-    expect(screen.getByText(/30%/)).toBeInTheDocument();
+    expect(screen.getAllByText(/€\s*799,20/).length).toBeGreaterThan(0);
+    expect(screen.getByText(/20%/)).toBeInTheDocument();
   });
 
   it('after the deadline shows the full price and no discount', () => {
     renderDetail('discount-aug-26', AFTER_DEADLINE);
     expect(screen.getAllByText(/€\s*999/).length).toBeGreaterThan(0);
-    expect(screen.queryByText(/€\s*699,30/)).not.toBeInTheDocument();
-    expect(screen.queryByText(/30%/)).not.toBeInTheDocument();
+    expect(screen.queryByText(/€\s*799,20/)).not.toBeInTheDocument();
+    expect(screen.queryByText(/20%/)).not.toBeInTheDocument();
   });
 });
 

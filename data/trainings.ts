@@ -115,7 +115,7 @@ export const trainings: Record<TrainingId, Training> = {
       endDate: '2026-09-22',
       courseMode: ['online', 'inPerson'],
     },
-    earlyBird: { discountPct: 30, deadline: '2026-08-01T00:00:00+02:00' },
+    earlyBird: { discountPct: 20, deadline: '2026-09-01T00:00:00+02:00' },
     modules: twoDayCurriculum,
     deliveryFormats: ['inCompany', 'publicCohort', 'remote'],
   },

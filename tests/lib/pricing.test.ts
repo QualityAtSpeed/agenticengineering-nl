@@ -22,16 +22,16 @@ describe('priceWithVat', () => {
 });
 
 describe('priceFor — early-bird', () => {
-  const beforeDeadline = new Date('2026-07-15T12:00:00+02:00');
-  const afterDeadline = new Date('2026-08-15T12:00:00+02:00');
+  const beforeDeadline = new Date('2026-08-15T12:00:00+02:00');
+  const afterDeadline = new Date('2026-09-15T12:00:00+02:00');
 
-  it('applies the 30% early-bird discount before the deadline (discount-aug-26)', () => {
+  it('applies the 20% early-bird discount before the deadline (discount-aug-26)', () => {
     const p = priceFor('discount-aug-26', beforeDeadline);
     expect(p.earlyBird).toBe(true);
     expect(p.baseNetCents).toBe(99900); // €999 base
-    expect(p.netCents).toBe(69930); // 30% off → €699.30
-    expect(p.vatCents).toBe(14685); // round(69930 * 0.21)
-    expect(p.grossCents).toBe(84615);
+    expect(p.netCents).toBe(79920); // 20% off → €799.20
+    expect(p.vatCents).toBe(16783); // round(79920 * 0.21)
+    expect(p.grossCents).toBe(96703);
   });
 
   it('charges the full price on/after the deadline (discount-aug-26)', () => {
@@ -41,8 +41,8 @@ describe('priceFor — early-bird', () => {
     expect(p.baseNetCents).toBe(99900);
   });
 
-  it('the deadline is exclusive — 1 Aug 00:00 is already full price', () => {
-    const p = priceFor('discount-aug-26', new Date('2026-08-01T00:00:00+02:00'));
+  it('the deadline is exclusive — 1 Sep 00:00 is already full price', () => {
+    const p = priceFor('discount-aug-26', new Date('2026-09-01T00:00:00+02:00'));
     expect(p.earlyBird).toBe(false);
   });
 
