@@ -11,7 +11,7 @@ export default defineConfig({
     exclude: ['tests/e2e/**', 'node_modules/**'],
     coverage: {
       provider: 'v8',
-      include: ['lib/**', 'app/api/**'],
+      include: ['lib/**', 'app/api/**', 'components/**'],
       thresholds: { lines: 80, statements: 80, branches: 70, functions: 80 },
     },
   },
