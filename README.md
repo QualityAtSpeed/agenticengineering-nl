@@ -331,6 +331,10 @@ Set in `next.config.ts`. Apply only in production (dev keeps relaxed for local t
 - `Permissions-Policy: camera=(), microphone=(), geolocation=()`
 - `Content-Security-Policy:` `default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline'; img-src 'self' data:; font-src 'self' data: https://fonts.gstatic.com; connect-src 'self' https://api.resend.com; frame-ancestors 'none'; base-uri 'self'; form-action 'self'`
 
+### Dependency pins
+
+Transitive packages with advisories are pinned through `pnpm.overrides` in `package.json` (currently `postcss`, `qs`, `esbuild`, `@babel/core`, `undici`, `sharp`, `nanoid`). CI enforces this with `pnpm audit --audit-level=high` plus an OSV scan of the lockfile, so a new advisory on a transitive dep fails the build until an override or upstream bump lands.
+
 ## Deployment
 
 ### One-time
@@ -445,6 +449,8 @@ Namespaces in use: `meta`, `nav`, `hero`, `trainings`, `modules`, `proof`, `foot
 - **Unit** (`tests/**/*.test.ts`): Vitest, jsdom env for component tests. `pnpm test`.
 - **E2E** (`tests/e2e/`): Playwright, hits dev server. `pnpm test:e2e`.
 - **A11y**: axe-core integrated into Playwright tests. Zero WCAG 2.1 AA violations enforced.
+- **Coverage** (`vitest.config.ts`): v8 provider over `lib/**`, `app/api/**` and `components/**`. Thresholds — 80% lines/statements/functions, 70% branches — fail the run, and CI runs `pnpm test -- --coverage`. Pages under `app/[locale]/` are covered by Playwright instead.
+- **Mutation** (`stryker.config.mjs`): Stryker over `lib/**`, weekly and on demand (`pnpm test:mutation`). Reported, not blocking (`thresholds.break: null`).
 
 CI workflow: `.github/workflows/ci.yml` runs typecheck + lint + unit + i18n integrity gate on every push.
 
