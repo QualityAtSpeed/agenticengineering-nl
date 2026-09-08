@@ -52,11 +52,22 @@ export async function Footer({ locale }: { locale: Locale }) {
               <Link
                 href={`/${locale}/impressum`}
                 data-testid="footer-impressum"
+                className="text-text-soft hover:text-brand"
+              >
+                {t('impressumLink')}
+              </Link>
+            </li>
+            <li>
+              <a
+                href="https://qualityatspeed.nl"
+                rel="noopener noreferrer"
+                target="_blank"
+                data-testid="footer-website"
                 className="text-text-soft hover:text-brand inline-flex items-center gap-1.5"
               >
                 <Image src="/qas-icon.svg" alt="" width={14} height={14} aria-hidden />
-                {t('impressumLink')}
-              </Link>
+                {t('websiteLink')}
+              </a>
             </li>
           </ul>
         </div>
@@ -85,17 +96,6 @@ export async function Footer({ locale }: { locale: Locale }) {
                 className="text-text-soft hover:text-brand"
               >
                 {t('linkedin')}
-              </a>
-            </li>
-            <li>
-              <a
-                href="https://qualityatspeed.nl"
-                rel="noopener noreferrer"
-                target="_blank"
-                data-testid="footer-website"
-                className="text-text-soft hover:text-brand"
-              >
-                {t('website')}
               </a>
             </li>
           </ul>
