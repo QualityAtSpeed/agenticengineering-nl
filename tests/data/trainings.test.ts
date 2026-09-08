@@ -2,7 +2,7 @@ import { describe, it, expect } from 'vitest';
 import { trainings, type ModuleId } from '@/data/trainings';
 
 describe('trainings catalogue', () => {
-  it('Basic is a 2-day training with 20 modules split 10 / 10 across two days', () => {
+  it('Basic is a 2-day training with 22 modules split 11 / 11 across two days', () => {
     const basic = trainings.basic;
     expect(basic.durationDays).toBe(2);
     expect(basic.priceEUR).toBe(999);
@@ -19,9 +19,11 @@ describe('trainings catalogue', () => {
       { id: 'assignment-create-skill', day: 1 },
       { id: 'using-mcp-servers', day: 1 },
       { id: 'plugins-caveman-superpowers', day: 1 },
+      { id: 'harnesses', day: 1 },
       // Day 2 — quality & advanced
       { id: 'failure-modes-ai-code', day: 2 },
       { id: 'test-first-with-agents', day: 2 },
+      { id: 'local-llm', day: 2 },
       { id: 'subagents', day: 2 },
       { id: 'hooks-and-quality-gates', day: 2 },
       { id: 'build-first-feature', day: 2 },
@@ -33,8 +35,8 @@ describe('trainings catalogue', () => {
     ];
 
     expect(basic.modules).toEqual(expected);
-    expect(basic.modules.filter((m) => m.day === 1)).toHaveLength(10);
-    expect(basic.modules.filter((m) => m.day === 2)).toHaveLength(10);
+    expect(basic.modules.filter((m) => m.day === 1)).toHaveLength(11);
+    expect(basic.modules.filter((m) => m.day === 2)).toHaveLength(11);
   });
 
   it('the 2-day cohorts (pilot, discount-aug-26) share the exact Basic curriculum', () => {

@@ -256,12 +256,30 @@
       ],
       "short": "Plugins"
     },
-    "subagents": {
-      "title": "Subagents",
+    "harnesses": {
+      "title": "Agent harnesses: Claude Code, OpenCode, Pi, Hermes",
       "bullets": [
-        "Split work across multiple agents working in parallel",
-        "A lead agent that delegates subtasks and merges the results",
-        "When subagents help and when they're overkill"
+        "Run the same agent in different harnesses and feel the difference",
+        "What carries across harnesses: skills, rules, context, MCP servers",
+        "Choose per task: cost, model access, tooling, and where a harness hits its limits"
+      ],
+      "short": "Harnesses"
+    },
+    "local-llm": {
+      "title": "Local LLMs",
+      "bullets": [
+        "Run models locally with Ollama, LM Studio and MLX on Apple Silicon",
+        "When local is good enough, and when you need a frontier model",
+        "Weigh privacy and cost against quality and speed"
+      ],
+      "short": "Local LLMs"
+    },
+    "subagents": {
+      "title": "Subagents & parallel agents",
+      "bullets": [
+        "Split work across several agents running in parallel",
+        "Fan out across git worktrees without agents colliding",
+        "Hand out subtasks, merge the results, and know when it is overkill"
       ],
       "short": "Subagents"
     },

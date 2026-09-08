@@ -256,12 +256,30 @@
       ],
       "short": "Plugins"
     },
+    "harnesses": {
+      "title": "Agent harnesses: Claude Code, OpenCode, Pi, Hermes",
+      "bullets": [
+        "Dezelfde agent in verschillende harnesses draaien en het verschil merken",
+        "Wat je meeneemt tussen harnesses: skills, rules, context, MCP-servers",
+        "Kiezen per taak: kosten, model-toegang, tooling en waar je harness vastloopt"
+      ],
+      "short": "Harnesses"
+    },
+    "local-llm": {
+      "title": "Lokale LLM's",
+      "bullets": [
+        "Modellen lokaal draaien met Ollama, LM Studio en MLX op Apple Silicon",
+        "Wanneer lokaal genoeg is en wanneer je een frontier-model nodig hebt",
+        "Privacy en kosten afwegen tegen kwaliteit en snelheid"
+      ],
+      "short": "Lokale LLM's"
+    },
     "subagents": {
-      "title": "Subagents",
+      "title": "Subagents & parallelle agents",
       "bullets": [
         "Werk opsplitsen over meerdere agents die parallel werken",
-        "Een hoofd-agent die deeltaken uitzet en resultaten samenvat",
-        "Wanneer subagents helpen en wanneer ze overkill zijn"
+        "Fan-outen over git worktrees zonder dat agents elkaar in de weg zitten",
+        "Deeltaken uitzetten, resultaten samenvoegen, en weten wanneer het overkill is"
       ],
       "short": "Subagents"
     },

@@ -1,5 +1,5 @@
 export type ModuleId =
-  // 2-day · Day 1 — fundamentals: from concept to first tooling (10 modules)
+  // 2-day · Day 1 — fundamentals: from concept to first tooling (11 modules)
   | 'agentic-engineering'
   | 'assignment-hobby-page'
   | 'context-architecture'
@@ -10,9 +10,11 @@ export type ModuleId =
   | 'assignment-create-skill'
   | 'using-mcp-servers'
   | 'plugins-caveman-superpowers'
-  // 2-day · Day 2 — quality & advanced (10 modules)
+  | 'harnesses'
+  // 2-day · Day 2 — quality & advanced (11 modules)
   | 'failure-modes-ai-code'
   | 'test-first-with-agents'
+  | 'local-llm'
   | 'subagents'
   | 'hooks-and-quality-gates'
   | 'build-first-feature'
@@ -83,8 +85,10 @@ const twoDayCurriculum: Module[] = [
   { id: 'assignment-create-skill', day: 1 },
   { id: 'using-mcp-servers', day: 1 },
   { id: 'plugins-caveman-superpowers', day: 1 },
+  { id: 'harnesses', day: 1 },
   { id: 'failure-modes-ai-code', day: 2 },
   { id: 'test-first-with-agents', day: 2 },
+  { id: 'local-llm', day: 2 },
   { id: 'subagents', day: 2 },
   { id: 'hooks-and-quality-gates', day: 2 },
   { id: 'build-first-feature', day: 2 },
