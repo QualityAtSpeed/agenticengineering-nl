@@ -110,7 +110,7 @@ describe('POST /api/checkout', () => {
 
   it('prices discount-aug-26 with the early-bird discount before the deadline (server-enforced)', async () => {
     vi.useFakeTimers();
-    vi.setSystemTime(new Date('2026-08-15T12:00:00+02:00'));
+    vi.setSystemTime(new Date('2026-09-10T12:00:00+02:00'));
     try {
       const res = await POST(
         make({
@@ -121,8 +121,8 @@ describe('POST /api/checkout', () => {
       );
       expect(res.status).toBe(200);
       const arg = createMock.mock.calls[0][0];
-      // €999 net → 20% off → €799,20 net → +21% VAT = 96703 cents gross
-      expect(arg.line_items[0].price_data.unit_amount).toBe(96703);
+      // €999 net → 30% off → €699,30 net → +21% VAT = 84615 cents gross
+      expect(arg.line_items[0].price_data.unit_amount).toBe(84615);
       expect(arg.metadata.trainingId).toBe('discount-aug-26');
       expect(arg.success_url).toContain('/trainings/discount-aug-26/book/success');
     } finally {

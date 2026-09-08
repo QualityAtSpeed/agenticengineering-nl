@@ -333,7 +333,7 @@ Set in `next.config.ts`. Apply only in production (dev keeps relaxed for local t
 
 ### Dependency pins
 
-Transitive packages with advisories are pinned through `pnpm.overrides` in `package.json` (currently `postcss`, `qs`, `esbuild`, `@babel/core`, `undici`, `sharp`, `nanoid`). CI enforces this with `pnpm audit --audit-level=high` plus an OSV scan of the lockfile, so a new advisory on a transitive dep fails the build until an override or upstream bump lands.
+Transitive packages with advisories are pinned through `pnpm.overrides` in `package.json` (currently `postcss`, `qs`, `fast-uri`, `esbuild`, `@babel/core`, `undici`, `sharp`, `nanoid`). CI enforces this with `pnpm audit --audit-level=high` plus an OSV scan of the lockfile, so a new advisory on a transitive dep fails the build until an override or upstream bump lands.
 
 ## Deployment
 
