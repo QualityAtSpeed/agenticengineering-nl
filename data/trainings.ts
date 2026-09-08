@@ -10,13 +10,12 @@ export type ModuleId =
   | 'assignment-create-skill'
   | 'using-mcp-servers'
   | 'plugins-caveman-superpowers'
-  | 'local-llm'
-  // 2-day · Day 2 — quality & advanced (12 modules)
+  | 'harnesses'
+  // 2-day · Day 2 — quality & advanced (11 modules)
   | 'failure-modes-ai-code'
   | 'test-first-with-agents'
+  | 'local-llm'
   | 'subagents'
-  | 'harnesses'
-  | 'parallel-agents'
   | 'hooks-and-quality-gates'
   | 'build-first-feature'
   | 'building-a-pipeline'
@@ -86,12 +85,11 @@ const twoDayCurriculum: Module[] = [
   { id: 'assignment-create-skill', day: 1 },
   { id: 'using-mcp-servers', day: 1 },
   { id: 'plugins-caveman-superpowers', day: 1 },
-  { id: 'local-llm', day: 1 },
+  { id: 'harnesses', day: 1 },
   { id: 'failure-modes-ai-code', day: 2 },
   { id: 'test-first-with-agents', day: 2 },
+  { id: 'local-llm', day: 2 },
   { id: 'subagents', day: 2 },
-  { id: 'harnesses', day: 2 },
-  { id: 'parallel-agents', day: 2 },
   { id: 'hooks-and-quality-gates', day: 2 },
   { id: 'build-first-feature', day: 2 },
   { id: 'building-a-pipeline', day: 2 },
