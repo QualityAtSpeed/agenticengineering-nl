@@ -121,8 +121,8 @@ describe('POST /api/checkout', () => {
       );
       expect(res.status).toBe(200);
       const arg = createMock.mock.calls[0][0];
-      // €999 net → 30% off → €699,30 net → +21% VAT = 84615 cents gross
-      expect(arg.line_items[0].price_data.unit_amount).toBe(84615);
+      // €999 net → −30% floored to €699 net → +21% VAT = 84579 cents gross
+      expect(arg.line_items[0].price_data.unit_amount).toBe(84579);
       expect(arg.metadata.trainingId).toBe('discount-aug-26');
       expect(arg.success_url).toContain('/trainings/discount-aug-26/book/success');
     } finally {
