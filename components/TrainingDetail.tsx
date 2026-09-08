@@ -280,11 +280,7 @@ function PriceInline({
       <span className="text-text-muted mr-2 font-normal line-through">
         €{baseEUR.toLocaleString('nl-NL')}
       </span>
-      €
-      {(price.netCents / 100).toLocaleString('nl-NL', {
-        minimumFractionDigits: 2,
-        maximumFractionDigits: 2,
-      })}{' '}
+      €{(price.netCents / 100).toLocaleString('nl-NL')}{' '}
       <span className="text-text-muted text-sm font-normal">{suffix}</span>
     </>
   );

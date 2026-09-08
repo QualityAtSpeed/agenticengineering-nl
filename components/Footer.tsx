@@ -87,6 +87,17 @@ export async function Footer({ locale }: { locale: Locale }) {
                 {t('linkedin')}
               </a>
             </li>
+            <li>
+              <a
+                href="https://qualityatspeed.nl"
+                rel="noopener noreferrer"
+                target="_blank"
+                data-testid="footer-website"
+                className="text-text-soft hover:text-brand"
+              >
+                {t('website')}
+              </a>
+            </li>
           </ul>
         </div>
         <div className="text-text-muted text-xs sm:text-right">

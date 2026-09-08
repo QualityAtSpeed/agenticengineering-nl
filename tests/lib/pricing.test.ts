@@ -29,9 +29,9 @@ describe('priceFor — early-bird', () => {
     const p = priceFor('discount-aug-26', beforeDeadline);
     expect(p.earlyBird).toBe(true);
     expect(p.baseNetCents).toBe(99900); // €999 base
-    expect(p.netCents).toBe(69930); // 30% off → €699.30
-    expect(p.vatCents).toBe(14685); // round(69930 * 0.21)
-    expect(p.grossCents).toBe(84615);
+    expect(p.netCents).toBe(69900); // €999 −30% floored to whole euros → €699
+    expect(p.vatCents).toBe(14679); // round(69900 * 0.21)
+    expect(p.grossCents).toBe(84579);
   });
 
   it('charges the full price on/after the deadline (discount-aug-26)', () => {

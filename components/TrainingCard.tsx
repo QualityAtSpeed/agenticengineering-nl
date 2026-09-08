@@ -162,11 +162,7 @@ export function TrainingCard({
               €{training.priceEUR.toLocaleString('nl-NL')}
             </p>
             <p className={`text-text-primary text-xl font-bold tabular-nums ${dim}`}>
-              €
-              {(price.netCents / 100).toLocaleString('nl-NL', {
-                minimumFractionDigits: 2,
-                maximumFractionDigits: 2,
-              })}
+              €{(price.netCents / 100).toLocaleString('nl-NL')}
             </p>
           </>
         ) : (

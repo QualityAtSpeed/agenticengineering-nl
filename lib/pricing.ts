@@ -26,7 +26,10 @@ export function priceFor(trainingId: TrainingId, now: Date = new Date()): PriceB
   const baseNetCents = training.priceEUR * 100;
   const eb = training.earlyBird;
   if (eb && now < new Date(eb.deadline)) {
-    const netCents = Math.round(baseNetCents * (1 - eb.discountPct / 100));
+    // Floor the early-bird price to whole euros so a percentage discount lands on
+    // a clean amount (e.g. €999 −30% → €699, not €699,30). Flooring keeps the
+    // effective discount at least the advertised percentage.
+    const netCents = Math.floor((baseNetCents * (1 - eb.discountPct / 100)) / 100) * 100;
     return withVat(netCents, baseNetCents, true);
   }
   return withVat(baseNetCents, baseNetCents, false);
