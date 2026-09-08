@@ -26,4 +26,9 @@ describe('sitemap', () => {
       expect(entry.alternates?.languages).toBeDefined();
     }
   });
+
+  it('lists the FAQ page in both locales', () => {
+    expect(urls).toContain('https://agenticengineering.nl/nl/faq');
+    expect(urls).toContain('https://agenticengineering.nl/en/faq');
+  });
 });

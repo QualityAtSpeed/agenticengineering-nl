@@ -12,8 +12,8 @@ function renderDetail(trainingId: 'basic' | 'advanced' | 'pilot' | 'discount-aug
   );
 }
 
-const BEFORE_DEADLINE = new Date('2026-07-15T12:00:00+02:00');
-const AFTER_DEADLINE = new Date('2026-08-15T12:00:00+02:00');
+const BEFORE_DEADLINE = new Date('2026-09-10T12:00:00+02:00');
+const AFTER_DEADLINE = new Date('2026-09-15T12:00:00+02:00');
 
 describe('<TrainingDetail /> CTA labels', () => {
   it('pilot CTA is disabled (pilot is sold out)', () => {

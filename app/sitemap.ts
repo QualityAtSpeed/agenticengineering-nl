@@ -10,6 +10,7 @@ const PATHS = [
   '/trainings',
   '/articles',
   '/contact',
+  '/faq',
   '/impressum',
   ...Object.keys(trainings).map((id) => `/trainings/${id}`),
 ];

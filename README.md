@@ -100,7 +100,7 @@ Deploy: push to `main` → auto-prod via Vercel GitHub App. Push any other branc
 
 ```
 app/
-  [locale]/            # NL/EN routed pages (home, about, contact, impressum)
+  [locale]/            # NL/EN routed pages (home, about, contact, faq, impressum)
   api/checkout/        # POST handler — creates Stripe Checkout Session
   api/contact/         # POST handler — Zod + rate-limit + Resend
   api/stripe/webhook/  # POST handler — Stripe webhook signature verification + fulfillment
@@ -121,9 +121,11 @@ lib/
   parseFrontmatter.ts  # Frontmatter parser for markdown articles
   flags.ts             # Feature flag helpers (BLOGS_ENABLED, …)
   pricing.ts           # VAT calculation + `priceWithVat` function
+  format-date.ts       # Locale-aware training date formatting (formatTrainingDate)
+  locale.ts            # Locale helpers (toLocale validation/coercion)
   stripe.ts            # Stripe client factory with memoization (getStripe, __resetStripeForTests)
   webhook-dedupe.ts    # Webhook event deduplication (markHandled, unmarkHandled, __resetWebhookDedupeForTests)
-  structured-data.ts   # schema.org JSON-LD graph builder for the homepage (buildHomeJsonLd)
+  structured-data.ts   # schema.org JSON-LD builders (homepage: buildHomeJsonLd, FAQ: buildFaqJsonLd)
   page-metadata.ts     # metadataFor(path, key) wrapper + buildPageMetadata({ locale, path, title, description }) — single source for per-page SEO (canonical, hreflang, OpenGraph)
 data/                  # typed catalogues (trainings.ts, instructors.ts, testimonials.ts) + trusted-domains.json
   trainings.ts         # Training catalogue + modules (typed)
@@ -138,6 +140,8 @@ scripts/
   fetch-article-images.ts # Downloads OG images for news articles
   metrics.ts           # Site metrics helper
 tests/                 # Vitest unit + Playwright e2e
+.agents/
+  skills/              # Portable, agent-agnostic skill definitions (e.g. new-article/)
 docs/
   superpowers/specs/   # Design specs for significant feature changes (dated markdown)
   superpowers/plans/   # Step-by-step implementation plans (dated markdown, checkbox tasks)
@@ -158,7 +162,7 @@ pnpm dev                  # http://localhost:3000 (auto-redirects /  → /nl)
 Routes:
 
 - `/nl`, `/en` — locale-scoped pages
-- `/nl/about`, `/nl/contact`, `/nl/impressum` (and `/en/*`)
+- `/nl/about`, `/nl/contact`, `/nl/faq`, `/nl/impressum` (and `/en/*`)
 - `/[locale]/trainings` — trainings overview
 - `/[locale]/trainings/[trainingId]` — training detail page
 - `/[locale]/trainings/<id>/book` — booking form for each bookable training (`pilot`, `discount-aug-26`)
@@ -327,6 +331,10 @@ Set in `next.config.ts`. Apply only in production (dev keeps relaxed for local t
 - `Permissions-Policy: camera=(), microphone=(), geolocation=()`
 - `Content-Security-Policy:` `default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline'; img-src 'self' data:; font-src 'self' data: https://fonts.gstatic.com; connect-src 'self' https://api.resend.com; frame-ancestors 'none'; base-uri 'self'; form-action 'self'`
 
+### Dependency pins
+
+Transitive packages with advisories are pinned through `pnpm.overrides` in `package.json` (currently `postcss`, `qs`, `fast-uri`, `esbuild`, `@babel/core`, `undici`, `sharp`, `nanoid`). CI enforces this with `pnpm audit --audit-level=high` plus an OSV scan of the lockfile, so a new advisory on a transitive dep fails the build until an override or upstream bump lands.
+
 ## Deployment
 
 ### One-time
@@ -434,13 +442,15 @@ Translation messages live in `messages/{nl,en}.json`. Locale routing in `i18n/ro
 
 CI runs `pnpm verify:i18n` to enforce key parity between NL and EN. Add a new key → add it to both files.
 
-Namespaces in use: `meta`, `nav`, `hero`, `trainings`, `modules`, `proof`, `footer`, `about`, `articles`, `contact`, `booking`, `impressum`, `theme`, `home`, `why`, `testimonials`. The `booking` namespace covers the booking form: seat selector and attendees (`seatsLabel`, `attendeeName`, `attendeeEmail`), account-type radio options (`accountBusiness`, `accountPersonal`), company billing details (`companyHeading`, `company`, `kvk`, `street`, `zipCode`, `city`, `country`, `notes`), referral-code (`referralLabel`, `referralHint`), submit/contact (`submit`, `submitting`, `contactLink`), sold-out copy (`soldOutHeading`, `soldOutBody`, `soldOutBack`), `errors.*` (`required`, `invalidEmail`, `invalidKvk`, `generic`, `rateLimited`, `invalidReferral`), and `success.*`.
+Namespaces in use: `meta`, `nav`, `hero`, `trainings`, `modules`, `proof`, `footer`, `about`, `articles`, `contact`, `faq`, `booking`, `impressum`, `theme`, `home`, `why`, `testimonials`. The `faq` namespace covers the FAQ page: `title`, `intro`, `items` (array of `question`/`answer` pairs) and the contact CTA (`ctaLabel`, `ctaLink`). The `booking` namespace covers the booking form: seat selector and attendees (`seatsLabel`, `attendeeName`, `attendeeEmail`), account-type radio options (`accountBusiness`, `accountPersonal`), company billing details (`companyHeading`, `company`, `kvk`, `street`, `zipCode`, `city`, `country`, `notes`), referral-code (`referralLabel`, `referralHint`), submit/contact (`submit`, `submitting`, `contactLink`), sold-out copy (`soldOutHeading`, `soldOutBody`, `soldOutBack`), `errors.*` (`required`, `invalidEmail`, `invalidKvk`, `generic`, `rateLimited`, `invalidReferral`), and `success.*`.
 
 ## Testing
 
 - **Unit** (`tests/**/*.test.ts`): Vitest, jsdom env for component tests. `pnpm test`.
 - **E2E** (`tests/e2e/`): Playwright, hits dev server. `pnpm test:e2e`.
 - **A11y**: axe-core integrated into Playwright tests. Zero WCAG 2.1 AA violations enforced.
+- **Coverage** (`vitest.config.ts`): v8 provider over `lib/**`, `app/api/**` and `components/**`. Thresholds — 80% lines/statements/functions, 70% branches — fail the run, and CI runs `pnpm test -- --coverage`. Pages under `app/[locale]/` are covered by Playwright instead.
+- **Mutation** (`stryker.config.mjs`): Stryker over `lib/**`, weekly and on demand (`pnpm test:mutation`). Reported, not blocking (`thresholds.break: null`).
 
 CI workflow: `.github/workflows/ci.yml` runs typecheck + lint + unit + i18n integrity gate on every push.
 

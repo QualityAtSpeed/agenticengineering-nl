@@ -6,6 +6,10 @@ import type { TrainingId } from '@/data/trainings';
 
 export const generateMetadata = metadataFor('/trainings', 'pages.trainings');
 
+// Prices are time-dependent (early-bird deadlines enforced against `now`).
+// Revalidate hourly so the shown price stays in sync with the checkout.
+export const revalidate = 3600;
+
 //hardcoded order of trainings. Basic is temporarily hidden for now.
 const DISPLAYED_TRAININGS: TrainingId[] = ['discount-aug-26', 'advanced'];
 

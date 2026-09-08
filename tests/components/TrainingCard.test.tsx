@@ -67,8 +67,8 @@ describe('<TrainingCard />', () => {
 });
 
 describe('<TrainingCard /> — discount-aug-26 early-bird', () => {
-  const BEFORE = new Date('2026-07-15T12:00:00+02:00');
-  const AFTER = new Date('2026-08-15T12:00:00+02:00');
+  const BEFORE = new Date('2026-09-10T12:00:00+02:00');
+  const AFTER = new Date('2026-09-15T12:00:00+02:00');
 
   function renderDiscountAug26(now: Date) {
     return render(
