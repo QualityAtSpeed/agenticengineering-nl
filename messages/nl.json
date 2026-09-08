@@ -256,6 +256,15 @@
       ],
       "short": "Plugins"
     },
+    "local-llm": {
+      "title": "Lokale LLM's",
+      "bullets": [
+        "Modellen lokaal draaien met Ollama, LM Studio en MLX op Apple Silicon",
+        "Wanneer lokaal genoeg is en wanneer je een frontier-model nodig hebt",
+        "Privacy en kosten afwegen tegen kwaliteit en snelheid"
+      ],
+      "short": "Lokale LLM's"
+    },
     "subagents": {
       "title": "Subagents",
       "bullets": [
@@ -264,6 +273,24 @@
         "Wanneer subagents helpen en wanneer ze overkill zijn"
       ],
       "short": "Subagents"
+    },
+    "harnesses": {
+      "title": "Agent harnesses: Claude Code, OpenCode, Pi, Hermes",
+      "bullets": [
+        "Dezelfde agent in verschillende harnesses draaien en het verschil merken",
+        "Wat je meeneemt tussen harnesses: skills, rules, context, MCP-servers",
+        "Kiezen per taak: kosten, model-toegang, tooling en waar je harness vastloopt"
+      ],
+      "short": "Harnesses"
+    },
+    "parallel-agents": {
+      "title": "Parallelle agents",
+      "bullets": [
+        "Werk fan-outen over meerdere git worktrees zonder elkaar in de weg te zitten",
+        "Deeltaken uitzetten en resultaten weer samenvoegen",
+        "Wanneer parallel draaien wint en wanneer het overkill is"
+      ],
+      "short": "Parallelle agents"
     },
     "building-a-pipeline": {
       "title": "Een pipeline bouwen",
