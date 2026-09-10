@@ -1,6 +1,8 @@
 import { Resend } from 'resend';
 import { stripCRLF } from './sanitize';
 import type { ContactInput } from './validation';
+import { TRAINING_LABEL, type TrainingId } from '@/data/trainings';
+import { VAT_RATE } from './pricing';
 
 export class EmailError extends Error {
   constructor(
@@ -54,6 +56,7 @@ export type BookingDetails = {
   attendees: { name: string; email: string }[];
   seats: number;
   grossCents: number;
+  trainingId: TrainingId;
   company?: CompanyDetails;
   // Referral attribution, set when a referral/promo code was redeemed.
   referralCode?: string;
@@ -70,22 +73,27 @@ export type CompanyDetails = {
   notes: string;
 };
 
-const PILOT_LABEL = 'Pilot - Basic Training (29 en 30 juni 2026)';
-
 function formatEuro(cents: number): string {
   return (cents / 100).toLocaleString('nl-NL', { minimumFractionDigits: 2 });
 }
 
 function bookingLines(b: BookingDetails): string {
+  const label = TRAINING_LABEL[b.trainingId] ?? b.trainingId;
+  // Derive the VAT split from the amount actually charged, so net + btw always
+  // reconcile to the total shown on the confirmation.
+  const netCents = Math.round(b.grossCents / (1 + VAT_RATE));
+  const vatCents = b.grossCents - netCents;
   const attendees = b.attendees
     .map((a, i) => `  ${i + 1}. ${stripCRLF(a.name)} <${stripCRLF(a.email)}>`)
     .join('\n');
   return [
-    `Training: ${PILOT_LABEL}`,
-    `Seats: ${b.seats}`,
-    `Total (incl. BTW): €${formatEuro(b.grossCents)}`,
+    `Training: ${label}`,
+    `Aantal plekken: ${b.seats}`,
+    `Netto: €${formatEuro(netCents)}`,
+    `Btw (21%): €${formatEuro(vatCents)}`,
+    `Totaal (incl. btw): €${formatEuro(b.grossCents)}`,
     '',
-    'Attendees:',
+    'Deelnemers:',
     attendees,
   ].join('\n');
 }
@@ -113,7 +121,9 @@ function resendClient(): { resend: Resend; from: string } {
 export async function sendBookingConfirmation(b: BookingDetails): Promise<{ id: string }> {
   const { resend, from } = resendClient();
   const to = stripCRLF(b.attendees[0].email);
-  const subject = stripCRLF(`[agenticengineering.nl] Bevestiging boeking — ${PILOT_LABEL}`);
+  const subject = stripCRLF(
+    `[agenticengineering.nl] Bevestiging boeking — ${TRAINING_LABEL[b.trainingId] ?? b.trainingId}`,
+  );
   const text = [
     'Bedankt voor je boeking! Je plek is bevestigd.',
     '',
