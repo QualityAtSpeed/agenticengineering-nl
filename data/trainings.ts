@@ -39,6 +39,14 @@ export type Module = { id: ModuleId; day?: 1 | 2 };
 
 export type TrainingId = 'basic' | 'advanced' | 'pilot' | 'discount-aug-26';
 
+// Human-facing label (name + date) for a booked training. Single source of truth
+// for the Stripe line item, the confirmation email and the invoice, so they never
+// drift. The date is part of the label.
+export const TRAINING_LABEL: Partial<Record<TrainingId, string>> = {
+  pilot: 'Pilot - Basic Training (29 en 30 juni 2026)',
+  'discount-aug-26': 'Agentic Engineering Training (21 & 22 september 2026)',
+};
+
 // Optional fixed schedule, in ISO 8601, for trainings that run on a known date.
 // Used only for machine-readable structured data (schema.org CourseInstance) —
 // the human-facing date still lives in the localized `name` string. Trainings

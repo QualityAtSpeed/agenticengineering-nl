@@ -4,14 +4,11 @@ import { priceFor } from '@/lib/pricing';
 import { getStripe } from '@/lib/stripe';
 import { isAllowedOrigin, clientIp } from '@/lib/http';
 import { checkRateLimit } from '@/lib/rate-limit';
-import { trainings, type TrainingId } from '@/data/trainings';
+import { trainings, TRAINING_LABEL } from '@/data/trainings';
 import { toLocale } from '@/lib/locale';
 
-// Stripe product label per bookable training (receipt/dashboard text).
-const PRODUCT_NAME: Partial<Record<TrainingId, string>> = {
-  pilot: 'Pilot - Basic Training (29 en 30 juni 2026)',
-  'discount-aug-26': 'Agentic Engineering Training (21 & 22 september 2026)',
-};
+// Training label (name + date) lives in TRAINING_LABEL in @/data/trainings,
+// shared with the confirmation email so the two never drift.
 
 function baseUrl(req: Request): string {
   const origin = req.headers.get('origin');
@@ -120,7 +117,7 @@ export async function POST(req: Request) {
           price_data: {
             currency: 'eur',
             unit_amount: grossCents,
-            product_data: { name: PRODUCT_NAME[trainingId] ?? trainingId },
+            product_data: { name: TRAINING_LABEL[trainingId] ?? trainingId },
           },
         },
       ],
