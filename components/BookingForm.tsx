@@ -120,6 +120,7 @@ export function BookingForm({
               <span className="text-text-primary text-sm font-semibold">{t('company')}</span>
               <input
                 type="text"
+                autoComplete="organization"
                 data-testid="booking-company"
                 {...register('company')}
                 className={`${INPUT_CLASS} mt-1.5`}
@@ -150,6 +151,7 @@ export function BookingForm({
             <span className="text-text-primary text-sm font-semibold">{t('street')}</span>
             <input
               type="text"
+              autoComplete="street-address"
               data-testid="booking-street"
               {...register('street')}
               className={`${INPUT_CLASS} mt-1.5`}
@@ -163,6 +165,7 @@ export function BookingForm({
             <span className="text-text-primary text-sm font-semibold">{t('zipCode')}</span>
             <input
               type="text"
+              autoComplete="postal-code"
               data-testid="booking-zipcode"
               {...register('zipCode')}
               className={`${INPUT_CLASS} mt-1.5`}
@@ -176,6 +179,7 @@ export function BookingForm({
             <span className="text-text-primary text-sm font-semibold">{t('city')}</span>
             <input
               type="text"
+              autoComplete="address-level2"
               data-testid="booking-city"
               {...register('city')}
               className={`${INPUT_CLASS} mt-1.5`}
@@ -189,6 +193,7 @@ export function BookingForm({
             <span className="text-text-primary text-sm font-semibold">{t('country')}</span>
             <input
               type="text"
+              autoComplete="country-name"
               data-testid="booking-country"
               {...register('country')}
               className={`${INPUT_CLASS} mt-1.5`}
@@ -237,6 +242,7 @@ export function BookingForm({
               <span className="text-text-primary text-sm font-semibold">{t('attendeeName')}</span>
               <input
                 type="text"
+                autoComplete="name"
                 data-testid={`booking-attendee-name-${i}`}
                 {...register(`attendees.${i}.name` as const)}
                 className={`${INPUT_CLASS} mt-1.5`}
@@ -249,6 +255,7 @@ export function BookingForm({
               <span className="text-text-primary text-sm font-semibold">{t('attendeeEmail')}</span>
               <input
                 type="email"
+                autoComplete="email"
                 data-testid={`booking-attendee-email-${i}`}
                 {...register(`attendees.${i}.email` as const)}
                 className={`${INPUT_CLASS} mt-1.5`}
