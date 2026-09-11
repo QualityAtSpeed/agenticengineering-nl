@@ -1,3 +1,5 @@
+import { formatTrainingDateRange } from '@/lib/format-date';
+
 export type ModuleId =
   // 2-day · Day 1 — fundamentals: from concept to first tooling (11 modules)
   | 'agentic-engineering'
@@ -38,14 +40,6 @@ export type DeliveryFormat = 'inCompany' | 'publicCohort' | 'remote';
 export type Module = { id: ModuleId; day?: 1 | 2 };
 
 export type TrainingId = 'basic' | 'advanced' | 'pilot' | 'discount-aug-26';
-
-// Human-facing label (name + date) for a booked training. Single source of truth
-// for the Stripe line item, the confirmation email and the invoice, so they never
-// drift. The date is part of the label.
-export const TRAINING_LABEL: Partial<Record<TrainingId, string>> = {
-  pilot: 'Pilot - Basic Training (29 en 30 juni 2026)',
-  'discount-aug-26': 'Agentic Engineering Training (21 & 22 september 2026)',
-};
 
 // Optional fixed schedule, in ISO 8601, for trainings that run on a known date.
 // Used only for machine-readable structured data (schema.org CourseInstance) —
@@ -152,3 +146,22 @@ export const trainings: Record<TrainingId, Training> = {
     deliveryFormats: ['inCompany', 'publicCohort', 'remote'],
   },
 };
+
+// Display name (without date) per bookable training. The date is composed from the
+// training's `schedule` via formatTrainingDateRange, so the label follows the
+// schedule and never drifts — one source of truth for the Stripe line item and the
+// confirmation email.
+const TRAINING_NAME: Partial<Record<TrainingId, string>> = {
+  pilot: 'Pilot - Basic Training',
+  'discount-aug-26': 'Agentic Engineering Training',
+};
+
+// Human-facing label (name + date) for a booked training. Falls back to the raw id
+// for trainings without a name or schedule (undated Basic/Advanced), matching the
+// previous lookup behaviour.
+export function trainingLabel(id: TrainingId, locale = 'nl'): string {
+  const name = TRAINING_NAME[id];
+  const schedule = trainings[id].schedule;
+  if (!name || !schedule) return id;
+  return `${name} (${formatTrainingDateRange(schedule.startDate, schedule.endDate, locale)})`;
+}
