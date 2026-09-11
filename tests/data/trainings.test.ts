@@ -1,5 +1,5 @@
 import { describe, it, expect } from 'vitest';
-import { trainings, type ModuleId } from '@/data/trainings';
+import { trainings, trainingLabel, type ModuleId } from '@/data/trainings';
 
 describe('trainings catalogue', () => {
   it('Basic is a 2-day training with 22 modules split 11 / 11 across two days', () => {
@@ -93,5 +93,19 @@ describe('trainings catalogue', () => {
     for (const t of Object.values(trainings)) {
       expect(t.deliveryFormats).toEqual(['inCompany', 'publicCohort', 'remote']);
     }
+  });
+});
+
+describe('trainingLabel', () => {
+  it('composes the name with the date range derived from the schedule (Dutch)', () => {
+    expect(trainingLabel('pilot')).toBe('Pilot - Basic Training (29 en 30 juni 2026)');
+    expect(trainingLabel('discount-aug-26')).toBe(
+      'Agentic Engineering Training (21 en 22 september 2026)',
+    );
+  });
+
+  it('falls back to the raw id for undated trainings (behaviour-preserving)', () => {
+    expect(trainingLabel('basic')).toBe('basic');
+    expect(trainingLabel('advanced')).toBe('advanced');
   });
 });
