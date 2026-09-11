@@ -111,6 +111,7 @@ components/            # Hero, Nav, Footer, TrainingCard, TrainingDetail, Contac
                        # BookingForm, ArticleFilterBar, InstructorCard, Button, DayAgenda,
                        # ProofStrip, TimelineEntry, JsonLd, LangSwitcher, MobileMenu,
                        # TestimonialCard, TestimonialsSection, …
+  HeroBackground.module.css # Scoped CSS Module for the animated hero background
 lib/
   validation.ts        # Zod schemas (contactSchema, bookingSchema, trainingInterestEnum, …)
   email.ts             # Resend wrapper, sendContactEmail(), sendBookingConfirmation(), sendBookingNotification()
@@ -139,6 +140,7 @@ scripts/
   verify-i18n.ts       # CI gate: NL/EN key parity
   fetch-article-images.ts # Downloads OG images for news articles
   metrics.ts           # Site metrics helper
+  generate-noise.ts    # Regenerates public/noise-mask.png (hero background mask tile)
 tests/                 # Vitest unit + Playwright e2e
 .agents/
   skills/              # Portable, agent-agnostic skill definitions (e.g. new-article/)
@@ -193,7 +195,13 @@ pnpm test:e2e             # playwright (requires `pnpm exec playwright install` 
 pnpm verify:i18n          # NL/EN translation key parity check
 pnpm build                # production build
 pnpm format               # prettier --write .
+pnpm noise                # regenerate public/noise-mask.png (rarely needed — see below)
 ```
+
+`pnpm noise` regenerates the greyscale tile that masks the animated hero background. The
+generated PNG is committed, so this only needs re-running when you want a different grain.
+The noise lives in the file's **alpha** channel, because a CSS mask reads alpha rather than
+brightness.
 
 A pre-commit `lefthook` hook runs `format`, `lint`, and `readme-check`. The `readme-check` command calls the Claude CLI — requires `ANTHROPIC_API_KEY` set in your shell. Don't bypass with `--no-verify` unless you're fixing the hook itself.
 

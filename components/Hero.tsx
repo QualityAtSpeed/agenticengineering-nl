@@ -1,4 +1,5 @@
 import { Button } from '@/components/Button';
+import styles from './HeroBackground.module.css';
 
 type HeroProps = {
   kicker: string;
@@ -23,18 +24,10 @@ const ArrowIcon = () => (
 
 export function Hero({ kicker, title, subtitle, primaryCta, secondaryCta }: HeroProps) {
   return (
-    <section className="border-border-subtle relative overflow-hidden border-b px-6 py-24 sm:py-28 lg:py-32">
-      <div
-        aria-hidden
-        className="pointer-events-none absolute inset-0 opacity-60"
-        style={{
-          backgroundImage:
-            'radial-gradient(circle, rgba(11, 111, 176, 0.08) 1px, transparent 1.4px)',
-          backgroundSize: '24px 24px',
-          maskImage:
-            'linear-gradient(to bottom, rgba(0,0,0,1) 0%, rgba(0,0,0,0.2) 70%, rgba(0,0,0,0) 100%)',
-        }}
-      />
+    <section className="relative overflow-hidden px-6 py-24 sm:py-28 lg:py-32">
+      <div aria-hidden className={`pointer-events-none opacity-60 ${styles.fade}`}>
+        <div className={styles.background} />
+      </div>
       <div className="relative mx-auto max-w-4xl">
         <p className="text-text-muted text-xs font-medium tracking-[0.12em] uppercase">{kicker}</p>
         <h1 className="text-brand-deep mt-5 max-w-[20ch] text-4xl leading-[1.1] font-bold tracking-tight sm:text-5xl lg:text-[3.25rem]">

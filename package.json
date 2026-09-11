@@ -11,6 +11,7 @@
     "build": "next build",
     "start": "next start",
     "article:image": "tsx scripts/fetch-article-images.ts",
+    "noise": "tsx scripts/generate-noise.ts",
     "lint": "eslint .",
     "typecheck": "tsc --noEmit",
     "test": "vitest run",
