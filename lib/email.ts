@@ -1,7 +1,7 @@
 import { Resend } from 'resend';
 import { stripCRLF } from './sanitize';
 import type { ContactInput } from './validation';
-import { TRAINING_LABEL, type TrainingId } from '@/data/trainings';
+import { trainingLabel, type TrainingId } from '@/data/trainings';
 import { VAT_RATE } from './pricing';
 
 export class EmailError extends Error {
@@ -78,7 +78,7 @@ function formatEuro(cents: number): string {
 }
 
 function bookingLines(b: BookingDetails): string {
-  const label = TRAINING_LABEL[b.trainingId] ?? b.trainingId;
+  const label = trainingLabel(b.trainingId);
   // Derive the VAT split from the amount actually charged, so net + btw always
   // reconcile to the total shown on the confirmation.
   const netCents = Math.round(b.grossCents / (1 + VAT_RATE));
@@ -122,7 +122,7 @@ export async function sendBookingConfirmation(b: BookingDetails): Promise<{ id: 
   const { resend, from } = resendClient();
   const to = stripCRLF(b.attendees[0].email);
   const subject = stripCRLF(
-    `[agenticengineering.nl] Bevestiging boeking — ${TRAINING_LABEL[b.trainingId] ?? b.trainingId}`,
+    `[agenticengineering.nl] Bevestiging boeking — ${trainingLabel(b.trainingId)}`,
   );
   const text = [
     'Bedankt voor je boeking! Je plek is bevestigd.',

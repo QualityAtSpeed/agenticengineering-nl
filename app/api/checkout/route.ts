@@ -4,10 +4,10 @@ import { priceFor } from '@/lib/pricing';
 import { getStripe } from '@/lib/stripe';
 import { isAllowedOrigin, clientIp } from '@/lib/http';
 import { checkRateLimit } from '@/lib/rate-limit';
-import { trainings, TRAINING_LABEL } from '@/data/trainings';
+import { trainings, trainingLabel } from '@/data/trainings';
 import { toLocale } from '@/lib/locale';
 
-// Training label (name + date) lives in TRAINING_LABEL in @/data/trainings,
+// Training label (name + date) comes from trainingLabel() in @/data/trainings,
 // shared with the confirmation email so the two never drift.
 
 function baseUrl(req: Request): string {
@@ -117,7 +117,7 @@ export async function POST(req: Request) {
           price_data: {
             currency: 'eur',
             unit_amount: grossCents,
-            product_data: { name: TRAINING_LABEL[trainingId] ?? trainingId },
+            product_data: { name: trainingLabel(trainingId) },
           },
         },
       ],
