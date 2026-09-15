@@ -23,11 +23,11 @@ describe('trainings catalogue', () => {
       // Day 2 — quality & advanced
       { id: 'failure-modes-ai-code', day: 2 },
       { id: 'test-first-with-agents', day: 2 },
-      { id: 'local-llm', day: 2 },
       { id: 'subagents', day: 2 },
       { id: 'hooks-and-quality-gates', day: 2 },
       { id: 'build-first-feature', day: 2 },
       { id: 'building-a-pipeline', day: 2 },
+      { id: 'local-llm', day: 2 },
       { id: 'persistent-memory', day: 2 },
       { id: 'openspec', day: 2 },
       { id: 'regression-and-governance', day: 2 },
