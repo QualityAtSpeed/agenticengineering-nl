@@ -69,7 +69,7 @@ export default async function Home({ params }: { params: Promise<{ locale: Local
             <p className="text-text-soft mt-2 text-base">{tHome('trainingsLede')}</p>
           </div>
           <div>
-            <TrainingCard trainingId="discount-aug-26" locale={locale} />
+            <TrainingCard trainingId="basic-nov-26" locale={locale} />
             <TrainingCard trainingId="advanced" locale={locale} />
           </div>
         </div>

@@ -21,7 +21,7 @@ export const attendeeSchema = z.object({
 });
 
 // Self-serve bookable trainings (Stripe checkout). Widen as more cohorts go self-serve.
-export const bookableTrainingEnum = z.enum(['pilot', 'discount-aug-26']);
+export const bookableTrainingEnum = z.enum(['pilot', 'discount-aug-26', 'basic-nov-26']);
 
 export const accountTypeEnum = z.enum(['zakelijk', 'persoonlijk']);
 

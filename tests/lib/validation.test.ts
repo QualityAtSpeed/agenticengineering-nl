@@ -61,6 +61,12 @@ describe('bookingSchema', () => {
     ).toBe(true);
   });
 
+  it('accepts a basic-nov-26 booking with one attendee', () => {
+    expect(bookingSchema.safeParse({ ...validBooking, trainingId: 'basic-nov-26' }).success).toBe(
+      true,
+    );
+  });
+
   it('accepts an empty kvk (optional)', () => {
     expect(bookingSchema.safeParse({ ...validBooking, kvk: '' }).success).toBe(true);
   });
