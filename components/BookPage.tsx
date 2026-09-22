@@ -2,6 +2,7 @@ import Link from 'next/link';
 import { getTranslations } from 'next-intl/server';
 import { BookingForm } from '@/components/BookingForm';
 import { trainings } from '@/data/trainings';
+import { DeliveryModeBadge } from '@/components/DeliveryModeBadge';
 import type { BookingInput } from '@/lib/validation';
 import type { Locale } from '@/i18n/routing';
 
@@ -41,6 +42,11 @@ export async function BookPage({
         ) : (
           <>
             <p className="text-text-soft mt-3 text-lg">{t('intro', { trainingName })}</p>
+            {(trainings[trainingId].schedule?.courseMode?.length ?? 0) > 0 && (
+              <div className="mt-4">
+                <DeliveryModeBadge courseMode={trainings[trainingId].schedule?.courseMode} />
+              </div>
+            )}
             <div className="mt-10">
               <BookingForm locale={locale} trainingId={trainingId} />
             </div>

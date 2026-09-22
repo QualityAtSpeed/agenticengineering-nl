@@ -4,6 +4,7 @@ import { trainings, type TrainingId, type Module } from '@/data/trainings';
 import { priceFor } from '@/lib/pricing';
 import { bookableTrainingEnum } from '@/lib/validation';
 import { SoldOutBadge } from '@/components/SoldOutBadge';
+import { DeliveryModeBadge } from '@/components/DeliveryModeBadge';
 
 const ClockIcon = () => (
   <svg
@@ -121,6 +122,7 @@ export function TrainingDetail({
   const isBookable = (bookableTrainingEnum.options as readonly TrainingId[]).includes(trainingId);
   const isSoldOut = training.soldOut === true;
   const price = priceFor(trainingId, now);
+  const hasCourseMode = (training.schedule?.courseMode?.length ?? 0) > 0;
 
   const audience = t.raw(`${trainingId}.audience`) as string[];
   const prerequisites = t.raw(`${trainingId}.prerequisites`) as string[];
@@ -139,6 +141,11 @@ export function TrainingDetail({
         <div className="mb-8 max-w-2xl">
           <h2 className="text-brand text-2xl font-bold sm:text-3xl">{t(`${trainingId}.name`)}</h2>
           <p className="text-text-soft mt-2">{t(`${trainingId}.tagline`)}</p>
+          {hasCourseMode && (
+            <div className="mt-3">
+              <DeliveryModeBadge courseMode={training.schedule?.courseMode} />
+            </div>
+          )}
         </div>
 
         <dl className="border-border-subtle mb-10 border-t">
