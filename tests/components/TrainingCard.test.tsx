@@ -90,6 +90,11 @@ describe('<TrainingCard /> — basic-nov-26 early-bird', () => {
     expect(screen.getByTestId('book-basic-nov-26')).toHaveTextContent('Boek training');
   });
 
+  it('shows the delivery-mode badge for the hybrid cohort (online + on-site)', () => {
+    renderBasicNov26(BEFORE);
+    expect(screen.getByText('Online & op locatie')).toBeInTheDocument();
+  });
+
   it('before the deadline shows the early-bird price with the base price struck through', () => {
     renderBasicNov26(BEFORE);
     expect(screen.getByText(/€\s*999/)).toBeInTheDocument();

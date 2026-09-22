@@ -4,6 +4,7 @@ import { trainings, type TrainingId } from '@/data/trainings';
 import { priceFor } from '@/lib/pricing';
 import { bookableTrainingEnum } from '@/lib/validation';
 import { SoldOutBadge } from '@/components/SoldOutBadge';
+import { DeliveryModeBadge } from '@/components/DeliveryModeBadge';
 
 const ClockIcon = () => (
   <svg
@@ -108,6 +109,7 @@ export function TrainingCard({
   const price = priceFor(trainingId, now);
   // Sold-out cohorts dim their content; the badge, label and CTA stay full-opacity.
   const dim = isSoldOut ? 'opacity-60' : '';
+  const hasCourseMode = (training.schedule?.courseMode?.length ?? 0) > 0;
 
   return (
     <article
@@ -120,10 +122,15 @@ export function TrainingCard({
       {isSoldOut && <SoldOutBadge />}
       <div className="flex flex-col gap-4 lg:flex-row lg:gap-10">
         <div className="min-w-0 flex-1">
-          {isPilot && (
-            <span className="bg-brand text-on-accent mb-2 inline-block rounded-full px-2.5 py-0.5 text-xs font-bold tracking-wider uppercase">
-              {tLabels('pilotBadge')}
-            </span>
+          {(isPilot || hasCourseMode) && (
+            <div className="mb-2 flex flex-wrap items-center gap-2">
+              {isPilot && (
+                <span className="bg-brand text-on-accent inline-block rounded-full px-2.5 py-0.5 text-xs font-bold tracking-wider uppercase">
+                  {tLabels('pilotBadge')}
+                </span>
+              )}
+              <DeliveryModeBadge courseMode={training.schedule?.courseMode} />
+            </div>
           )}
           <h3 className={`text-text-primary text-xl font-bold ${dim}`}>
             {t(`${trainingId}.name`)}
