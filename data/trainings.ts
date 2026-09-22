@@ -119,7 +119,7 @@ export const trainings: Record<TrainingId, Training> = {
     schedule: {
       startDate: '2026-09-21',
       endDate: '2026-09-22',
-      courseMode: ['online'],
+      courseMode: ['online', 'inPerson'],
     },
     earlyBird: { discountPct: 30, deadline: '2026-09-15T00:00:00+02:00' },
     modules: twoDayCurriculum,
@@ -136,7 +136,7 @@ export const trainings: Record<TrainingId, Training> = {
     schedule: {
       startDate: '2026-11-09',
       endDate: '2026-11-10',
-      courseMode: ['online'],
+      courseMode: ['online', 'inPerson'],
     },
     // CEST (+02:00): the deadline falls before the 25 October switch to CET.
     earlyBird: { discountPct: 30, deadline: '2026-10-15T00:00:00+02:00' },
