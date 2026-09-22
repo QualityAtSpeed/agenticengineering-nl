@@ -39,6 +39,14 @@ describe('canonical metadata', () => {
         label: 'discount booking success page',
         load: () => import('@/app/[locale]/trainings/discount-aug-26/book/success/page'),
       },
+      {
+        label: 'basic-nov-26 booking page',
+        load: () => import('@/app/[locale]/trainings/basic-nov-26/book/page'),
+      },
+      {
+        label: 'basic-nov-26 booking success page',
+        load: () => import('@/app/[locale]/trainings/basic-nov-26/book/success/page'),
+      },
     ];
 
     for (const route of routes) {

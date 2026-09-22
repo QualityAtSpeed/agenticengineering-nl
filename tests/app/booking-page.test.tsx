@@ -3,7 +3,7 @@ import { render, screen } from '@testing-library/react';
 import { NextIntlClientProvider } from 'next-intl';
 import en from '@/messages/en.json';
 import BookingPage from '@/app/[locale]/trainings/pilot/book/page';
-import DiscountAug26BookingPage from '@/app/[locale]/trainings/discount-aug-26/book/page';
+import BasicNov26BookingPage from '@/app/[locale]/trainings/basic-nov-26/book/page';
 
 vi.mock('next-intl/server', () => ({
   setRequestLocale: vi.fn(),
@@ -39,8 +39,8 @@ describe('BookingPage', () => {
     expect(screen.queryByTestId('booking-submit')).not.toBeInTheDocument();
   });
 
-  it('discount-aug-26 booking page renders the form wired to its own trainingId', async () => {
-    const ui = await DiscountAug26BookingPage({
+  it('basic-nov-26 booking page renders the form wired to its own trainingId', async () => {
+    const ui = await BasicNov26BookingPage({
       params: Promise.resolve({ locale: 'en' as const }),
     });
     const { container } = render(
@@ -51,6 +51,6 @@ describe('BookingPage', () => {
     expect(screen.getByText(en.booking.title)).toBeInTheDocument();
     expect(screen.getByTestId('booking-submit')).toBeInTheDocument();
     const hidden = container.querySelector('input[name="trainingId"]') as HTMLInputElement;
-    expect(hidden).toHaveValue('discount-aug-26');
+    expect(hidden).toHaveValue('basic-nov-26');
   });
 });

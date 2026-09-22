@@ -66,42 +66,69 @@ describe('<TrainingCard />', () => {
   });
 });
 
-describe('<TrainingCard /> — discount-aug-26 early-bird', () => {
-  const BEFORE = new Date('2026-09-10T12:00:00+02:00');
-  const AFTER = new Date('2026-09-15T12:00:00+02:00');
+describe('<TrainingCard /> — basic-nov-26 early-bird', () => {
+  const BEFORE = new Date('2026-10-01T12:00:00+02:00');
+  const AFTER = new Date('2026-10-20T12:00:00+02:00');
 
-  function renderDiscountAug26(now: Date) {
+  function renderBasicNov26(now: Date) {
     return render(
       <NextIntlClientProvider locale="nl" messages={nl}>
-        <TrainingCard trainingId="discount-aug-26" locale="nl" now={now} />
+        <TrainingCard trainingId="basic-nov-26" locale="nl" now={now} />
       </NextIntlClientProvider>,
     );
   }
 
   it('primary CTA links to its own booking page, not the contact form', () => {
-    renderDiscountAug26(BEFORE);
-    const cta = screen.getByTestId('book-discount-aug-26');
-    expect(cta).toHaveAttribute('href', expect.stringContaining('/trainings/discount-aug-26/book'));
+    renderBasicNov26(BEFORE);
+    const cta = screen.getByTestId('book-basic-nov-26');
+    expect(cta).toHaveAttribute('href', expect.stringContaining('/trainings/basic-nov-26/book'));
     expect(cta).not.toHaveAttribute('href', expect.stringContaining('/contact'));
   });
 
   it('CTA is labeled as booking ("Boek training")', () => {
-    renderDiscountAug26(BEFORE);
-    expect(screen.getByTestId('book-discount-aug-26')).toHaveTextContent('Boek training');
+    renderBasicNov26(BEFORE);
+    expect(screen.getByTestId('book-basic-nov-26')).toHaveTextContent('Boek training');
   });
 
   it('before the deadline shows the early-bird price with the base price struck through', () => {
-    renderDiscountAug26(BEFORE);
+    renderBasicNov26(BEFORE);
     expect(screen.getByText(/€\s*999/)).toBeInTheDocument();
     expect(screen.getByText(/€\s*699\b/)).toBeInTheDocument();
     expect(screen.getByText(/30%/)).toBeInTheDocument();
   });
 
   it('after the deadline shows the full price and no discount', () => {
-    renderDiscountAug26(AFTER);
+    renderBasicNov26(AFTER);
     expect(screen.getByText(/€\s*999/)).toBeInTheDocument();
     expect(screen.queryByText(/€\s*699\b/)).not.toBeInTheDocument();
     expect(screen.queryByText(/30%/)).not.toBeInTheDocument();
+  });
+});
+
+describe('<TrainingCard /> — sold out (discount-aug-26, cohort has run)', () => {
+  function renderDiscountAug26() {
+    return render(
+      <NextIntlClientProvider locale="nl" messages={nl}>
+        <TrainingCard trainingId="discount-aug-26" locale="nl" />
+      </NextIntlClientProvider>,
+    );
+  }
+
+  it('shows the sold-out badge and a disabled CTA', () => {
+    renderDiscountAug26();
+    expect(screen.getByText('Uitverkocht')).toBeInTheDocument();
+    const cta = screen.getByTestId('book-discount-aug-26');
+    expect(cta.tagName).toBe('BUTTON');
+    expect(cta).toBeDisabled();
+    expect(cta).not.toHaveAttribute('href');
+  });
+
+  it('keeps the secondary contact link', () => {
+    renderDiscountAug26();
+    expect(screen.getByTestId('book-discount-aug-26-contact')).toHaveAttribute(
+      'href',
+      expect.stringContaining('/contact'),
+    );
   });
 });
 

@@ -11,7 +11,7 @@ export const generateMetadata = metadataFor('/trainings', 'pages.trainings');
 export const revalidate = 3600;
 
 //hardcoded order of trainings. Basic is temporarily hidden for now.
-const DISPLAYED_TRAININGS: TrainingId[] = ['discount-aug-26', 'advanced'];
+const DISPLAYED_TRAININGS: TrainingId[] = ['basic-nov-26', 'advanced'];
 
 export default async function TrainingsPage({ params }: { params: Promise<{ locale: Locale }> }) {
   const { locale } = await params;
