@@ -43,12 +43,14 @@ export function ArticleFilterBar({
   return (
     <nav
       aria-label={t('ariaLabel')}
-      className="text-text-muted mt-12 mb-12 font-mono text-sm tracking-[0.1em]"
+      className="text-text-muted mt-12 mb-12 text-sm tracking-[0.1em]"
     >
       <span aria-hidden="true">[ </span>
       {items.map((item, idx) => {
         const active = item.id === currentType;
-        const className = active ? 'text-accent-green' : 'text-text-muted hover:text-text-primary';
+        const className = active
+          ? 'text-accent-green-hover'
+          : 'text-text-muted hover:text-text-primary';
         return (
           <span key={item.id}>
             <Link

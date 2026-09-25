@@ -26,4 +26,10 @@ describe('<Footer />', () => {
       'https://qualityatspeed.nl',
     );
   });
+
+  it('is a dark band', async () => {
+    const ui = await Footer({ locale: 'en' });
+    const { container } = render(ui);
+    expect(container.querySelector('footer')).toHaveClass('surface-dark');
+  });
 });

@@ -685,12 +685,6 @@
     "vat": "BTW: NL001663539B75",
     "email": "hello@agenticengineering.nl"
   },
-  "theme": {
-    "label": "Thema",
-    "light": "Licht",
-    "dark": "Donker",
-    "system": "Systeem"
-  },
   "why": {
     "title": "Waarom agentic engineering leren",
     "tagline": "AI schaalt de breedte. Jij bepaalt de diepte.",

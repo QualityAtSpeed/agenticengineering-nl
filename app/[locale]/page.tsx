@@ -1,6 +1,7 @@
 import Link from 'next/link';
 import { setRequestLocale, getTranslations } from 'next-intl/server';
 import { Hero } from '@/components/Hero';
+import { Button } from '@/components/Button';
 import { TrainingCard } from '@/components/TrainingCard';
 import { ProofStrip } from '@/components/ProofStrip';
 import { InstructorCard } from '@/components/InstructorCard';
@@ -54,13 +55,13 @@ export default async function Home({ params }: { params: Promise<{ locale: Local
               <p key={i}>{p}</p>
             ))}
           </div>
-          <div className="border-brand bg-bg-tint mt-8 rounded-md border-l-4 px-5 py-4">
+          <div className="border-border-subtle bg-bg-tint mt-8 rounded-2xl border px-5 py-4">
             <p className="text-text-primary text-base leading-relaxed">{tWhy('qe')}</p>
           </div>
         </div>
       </section>
 
-      <section id="trainings" className="border-border-subtle border-b px-6 py-20">
+      <section id="trainings" className="surface-dark border-border-subtle border-b px-6 py-20">
         <div className="mx-auto max-w-4xl">
           <div className="mb-8 max-w-2xl">
             <h2 className="text-brand text-2xl font-bold sm:text-3xl">
@@ -79,7 +80,7 @@ export default async function Home({ params }: { params: Promise<{ locale: Local
 
       <ProofStrip locale={locale} />
 
-      <section className="border-border-subtle border-b px-6 py-20">
+      <section className="surface-dark border-border-subtle border-b px-6 py-20">
         <div className="mx-auto max-w-4xl">
           <div className="mb-8 max-w-2xl">
             <h2 className="text-brand text-2xl font-bold sm:text-3xl">
@@ -101,27 +102,15 @@ export default async function Home({ params }: { params: Promise<{ locale: Local
         </div>
       </section>
 
-      <section className="relative overflow-hidden bg-gradient-to-br from-[#0a4d7a] to-[#0b6fb0] px-6 py-20">
-        <div
-          aria-hidden
-          className="pointer-events-none absolute inset-0 opacity-50"
-          style={{
-            backgroundImage:
-              'radial-gradient(circle, rgba(255,255,255,0.08) 1px, transparent 1.4px)',
-            backgroundSize: '24px 24px',
-          }}
-        />
-        <div className="relative mx-auto max-w-4xl text-white">
-          <h2 className="max-w-[24ch] text-2xl font-bold sm:text-3xl">{tHome('finalCta.title')}</h2>
-          <p className="mt-3 max-w-[56ch] text-white/90">{tHome('finalCta.body')}</p>
-          <div className="mt-7 flex flex-wrap gap-3">
-            <Link
-              href={`/${locale}/contact`}
-              className="inline-flex items-center gap-2 rounded-md bg-white px-5 py-2.5 text-sm font-semibold text-[#0a4d7a] transition-colors hover:bg-[#eef3f8]"
-            >
-              {tHome('finalCta.cta')}
-            </Link>
-          </div>
+      <section className="border-border-subtle border-b px-6 py-20">
+        <div className="mx-auto max-w-4xl">
+          <h2 className="text-brand max-w-[24ch] text-2xl font-bold sm:text-3xl">
+            {tHome('finalCta.title')}
+          </h2>
+          <p className="text-text-soft mt-3 max-w-[56ch]">{tHome('finalCta.body')}</p>
+          <Button href={`/${locale}/contact`} className="mt-7">
+            {tHome('finalCta.cta')}
+          </Button>
         </div>
       </section>
     </main>

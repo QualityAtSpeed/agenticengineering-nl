@@ -5,11 +5,10 @@ import { useTranslations } from 'next-intl';
 import { useEffect, useId, useRef, useState } from 'react';
 import type { Locale } from '@/i18n/routing';
 import { LangSwitcher } from './LangSwitcher';
-import { ThemeToggle } from './ThemeToggle';
+import { ISLAND } from './nav-styles';
 
 export function MobileMenu({ locale }: { locale: Locale }) {
   const t = useTranslations('nav');
-  const tTheme = useTranslations('theme');
   const [open, setOpen] = useState(false);
   const panelId = useId();
   const buttonRef = useRef<HTMLButtonElement>(null);
@@ -25,6 +24,8 @@ export function MobileMenu({ locale }: { locale: Locale }) {
     document.addEventListener('keydown', onKey);
     return () => document.removeEventListener('keydown', onKey);
   }, [open]);
+
+  const linkClass = 'text-text-soft hover:text-brand';
 
   return (
     <>
@@ -70,14 +71,14 @@ export function MobileMenu({ locale }: { locale: Locale }) {
         <div
           id={panelId}
           data-testid="mobile-menu-panel"
-          className="border-border-subtle bg-bg-base/95 absolute inset-x-0 top-full border-b backdrop-blur sm:hidden"
+          className={`${ISLAND} absolute inset-x-0 top-full mt-2 sm:hidden`}
         >
-          <div className="mx-auto flex max-w-6xl flex-col gap-4 px-4 py-4 text-sm font-medium">
+          <div className="flex flex-col gap-4 px-4 py-4 text-sm font-medium">
             <Link
               href={`/${locale}/articles`}
               onClick={() => setOpen(false)}
               data-testid="mobile-menu-articles"
-              className="text-text-soft hover:text-brand"
+              className={linkClass}
             >
               {t('articles')}
             </Link>
@@ -85,7 +86,7 @@ export function MobileMenu({ locale }: { locale: Locale }) {
               href={`/${locale}/trainings`}
               onClick={() => setOpen(false)}
               data-testid="mobile-menu-trainings"
-              className="text-text-soft hover:text-brand"
+              className={linkClass}
             >
               {t('trainings')}
             </Link>
@@ -93,7 +94,7 @@ export function MobileMenu({ locale }: { locale: Locale }) {
               href={`/${locale}/about`}
               onClick={() => setOpen(false)}
               data-testid="mobile-menu-about"
-              className="text-text-soft hover:text-brand"
+              className={linkClass}
             >
               {t('about')}
             </Link>
@@ -101,7 +102,7 @@ export function MobileMenu({ locale }: { locale: Locale }) {
               href={`/${locale}/faq`}
               onClick={() => setOpen(false)}
               data-testid="mobile-menu-faq"
-              className="text-text-soft hover:text-brand"
+              className={linkClass}
             >
               {t('faq')}
             </Link>
@@ -109,16 +110,12 @@ export function MobileMenu({ locale }: { locale: Locale }) {
               href={`/${locale}/contact`}
               onClick={() => setOpen(false)}
               data-testid="mobile-menu-contact"
-              className="text-text-soft hover:text-brand"
+              className={linkClass}
             >
               {t('contact')}
             </Link>
-            <div className="border-border-subtle flex items-center justify-between gap-2 border-t pt-3">
+            <div className="border-border-subtle border-t pt-3">
               <LangSwitcher currentLocale={locale} />
-              <div className="flex items-center gap-2">
-                <span className="text-text-muted">{tTheme('label')}</span>
-                <ThemeToggle />
-              </div>
             </div>
           </div>
         </div>

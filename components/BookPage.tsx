@@ -3,6 +3,7 @@ import { getTranslations } from 'next-intl/server';
 import { BookingForm } from '@/components/BookingForm';
 import { trainings } from '@/data/trainings';
 import { DeliveryModeBadge } from '@/components/DeliveryModeBadge';
+import { PageHeader } from '@/components/PageHeader';
 import type { BookingInput } from '@/lib/validation';
 import type { Locale } from '@/i18n/routing';
 
@@ -27,31 +28,28 @@ export async function BookPage({
   const isSoldOut = trainings[trainingId].soldOut === true;
 
   return (
-    <main className="px-6 py-16 sm:py-20">
-      <div className="mx-auto max-w-2xl">
-        <h1 className="text-brand-deep text-3xl font-bold sm:text-4xl">
-          {isSoldOut ? t('soldOutHeading') : t('title', { trainingName })}
-        </h1>
-        {isSoldOut ? (
-          <>
-            <p className="text-text-soft mt-3 text-lg">{t('soldOutBody')}</p>
-            <Link href={`/${locale}/trainings`} className="text-brand mt-6 inline-block underline">
+    <main>
+      <PageHeader
+        title={isSoldOut ? t('soldOutHeading') : t('title', { trainingName })}
+        intro={isSoldOut ? t('soldOutBody') : t('intro', { trainingName })}
+        width="max-w-2xl"
+      >
+        {!isSoldOut && (trainings[trainingId].schedule?.courseMode?.length ?? 0) > 0 && (
+          <div className="mt-4">
+            <DeliveryModeBadge courseMode={trainings[trainingId].schedule?.courseMode} />
+          </div>
+        )}
+      </PageHeader>
+      <div className="px-6 py-16 sm:py-20">
+        <div className="mx-auto max-w-2xl">
+          {isSoldOut ? (
+            <Link href={`/${locale}/trainings`} className="text-brand inline-block underline">
               {t('soldOutBack')}
             </Link>
-          </>
-        ) : (
-          <>
-            <p className="text-text-soft mt-3 text-lg">{t('intro', { trainingName })}</p>
-            {(trainings[trainingId].schedule?.courseMode?.length ?? 0) > 0 && (
-              <div className="mt-4">
-                <DeliveryModeBadge courseMode={trainings[trainingId].schedule?.courseMode} />
-              </div>
-            )}
-            <div className="mt-10">
-              <BookingForm locale={locale} trainingId={trainingId} />
-            </div>
-          </>
-        )}
+          ) : (
+            <BookingForm locale={locale} trainingId={trainingId} />
+          )}
+        </div>
       </div>
     </main>
   );

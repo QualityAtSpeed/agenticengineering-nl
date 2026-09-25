@@ -1,6 +1,6 @@
 # agenticengineering.nl
 
-Training and curated, valuable news for agentic engineering. Bilingual (NL/EN), dark terminal-native aesthetic, deployed on Vercel.
+Training and curated, valuable news for agentic engineering. Bilingual (NL/EN), muted green-grey design with dark-green bands (Rubik), deployed on Vercel.
 
 Live: <https://agenticengineering.nl>
 
@@ -106,8 +106,8 @@ app/
   api/stripe/webhook/  # POST handler — Stripe webhook signature verification + fulfillment
   robots.ts            # /robots.txt
   sitemap.ts           # /sitemap.xml
-  globals.css          # Tailwind v4 @theme block (single source of design tokens)
-components/            # Hero, Nav, Footer, TrainingCard, TrainingDetail, ContactForm,
+  globals.css          # Tailwind v4 @theme block + .surface-dark band tokens (single source of design tokens)
+components/            # Hero, Nav (+ nav-styles.ts), Footer, PageHeader, TrainingCard, TrainingDetail, ContactForm,
                        # BookingForm, ArticleFilterBar, InstructorCard, Button, DayAgenda,
                        # ProofStrip, TimelineEntry, JsonLd, LangSwitcher, MobileMenu,
                        # TestimonialCard, TestimonialsSection, …
@@ -133,6 +133,7 @@ data/                  # typed catalogues (trainings.ts, instructors.ts, testimo
   testimonials.ts      # Testimonial quotes (typed, verbatim — name/role not translated)
   trusted-domains.json # Allowlist for origin/CSRF checks
 news/                  # Markdown news + blog posts (frontmatter + body)
+assets/fonts/          # Static Rubik .woff (400/600/700, @fontsource/rubik@5.3.0) for the OG image (Satori needs raw font data)
 i18n/                  # next-intl config (routing.ts, request.ts)
 messages/              # nl.json, en.json (translation keys)
 scripts/
@@ -442,7 +443,7 @@ Translation messages live in `messages/{nl,en}.json`. Locale routing in `i18n/ro
 
 CI runs `pnpm verify:i18n` to enforce key parity between NL and EN. Add a new key → add it to both files.
 
-Namespaces in use: `meta`, `nav`, `hero`, `trainings`, `modules`, `proof`, `footer`, `about`, `articles`, `contact`, `faq`, `booking`, `impressum`, `theme`, `home`, `why`, `testimonials`. The `faq` namespace covers the FAQ page: `title`, `intro`, `items` (array of `question`/`answer` pairs) and the contact CTA (`ctaLabel`, `ctaLink`). The `booking` namespace covers the booking form: seat selector and attendees (`seatsLabel`, `attendeeName`, `attendeeEmail`), account-type radio options (`accountBusiness`, `accountPersonal`), company billing details (`companyHeading`, `company`, `kvk`, `street`, `zipCode`, `city`, `country`, `notes`), referral-code (`referralLabel`, `referralHint`), submit/contact (`submit`, `submitting`, `contactLink`), sold-out copy (`soldOutHeading`, `soldOutBody`, `soldOutBack`), `errors.*` (`required`, `invalidEmail`, `invalidKvk`, `generic`, `rateLimited`, `invalidReferral`), and `success.*`.
+Namespaces in use: `meta`, `nav`, `hero`, `trainings`, `modules`, `proof`, `footer`, `about`, `articles`, `contact`, `faq`, `booking`, `impressum`, `home`, `why`, `testimonials`. The `faq` namespace covers the FAQ page: `title`, `intro`, `items` (array of `question`/`answer` pairs) and the contact CTA (`ctaLabel`, `ctaLink`). The `booking` namespace covers the booking form: seat selector and attendees (`seatsLabel`, `attendeeName`, `attendeeEmail`), account-type radio options (`accountBusiness`, `accountPersonal`), company billing details (`companyHeading`, `company`, `kvk`, `street`, `zipCode`, `city`, `country`, `notes`), referral-code (`referralLabel`, `referralHint`), submit/contact (`submit`, `submitting`, `contactLink`), sold-out copy (`soldOutHeading`, `soldOutBody`, `soldOutBack`), `errors.*` (`required`, `invalidEmail`, `invalidKvk`, `generic`, `rateLimited`, `invalidReferral`), and `success.*`.
 
 ## Testing
 
@@ -457,7 +458,7 @@ CI workflow: `.github/workflows/ci.yml` runs typecheck + lint + unit + i18n inte
 ## Brand and design context
 
 - `PRODUCT.md` — who the site is for, tone of voice, anti-references, strategic principles.
-- `DESIGN.md` — Stitch-format design system: colors (OKLCH dark palette), typography (JetBrains Mono display, Inter body), components, do's/don'ts.
+- `DESIGN.md` — Stitch-format design system: colors (muted palette + `.surface-dark` bands), typography (Rubik), components (floating centred pill nav, `PageHeader`), do's/don'ts. One theme only (no dark mode).
 
 These two files inform every UI decision. Read them before touching components.
 

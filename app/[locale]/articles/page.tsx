@@ -1,6 +1,7 @@
 import { setRequestLocale, getTranslations } from 'next-intl/server';
 import { TimelineEntryRow } from '@/components/TimelineEntry';
 import { ArticleFilterBar, type FilterType } from '@/components/ArticleFilterBar';
+import { PageHeader } from '@/components/PageHeader';
 import { getArticles } from '@/lib/articles';
 import { blogsEnabled } from '@/lib/flags';
 import { metadataFor } from '@/lib/page-metadata';
@@ -32,22 +33,28 @@ export default async function ArticlesPage({
   const visible = currentType === 'all' ? articles : articles.filter((a) => a.type === currentType);
 
   return (
-    <main className="px-6 py-16 sm:py-20">
-      <div className="mx-auto max-w-4xl">
-        <h1 className="text-brand-deep text-3xl font-bold sm:text-4xl">
-          {t('title')}{' '}
-          <span className="text-text-soft text-xl font-normal sm:text-2xl">{t('intro')}</span>
-        </h1>
-        <ArticleFilterBar currentType={currentType} locale={locale} showBlogs={showBlogs} />
-        {visible.length === 0 ? (
-          <p className="text-text-muted mt-12 text-sm">{t('emptyState')}</p>
-        ) : (
-          <ol className="border-border-subtle mt-12 ml-3 border-l pl-6">
-            {visible.map((article) => (
-              <TimelineEntryRow key={article.slug} article={article} locale={locale} />
-            ))}
-          </ol>
-        )}
+    <main>
+      <PageHeader
+        title={
+          <>
+            {t('title')}{' '}
+            <span className="text-text-soft text-xl font-normal sm:text-2xl">{t('intro')}</span>
+          </>
+        }
+      />
+      <div className="px-6 pb-16 sm:pb-20">
+        <div className="mx-auto max-w-4xl">
+          <ArticleFilterBar currentType={currentType} locale={locale} showBlogs={showBlogs} />
+          {visible.length === 0 ? (
+            <p className="text-text-muted mt-12 text-sm">{t('emptyState')}</p>
+          ) : (
+            <ol className="border-border-subtle mt-12 ml-3 border-l pl-6">
+              {visible.map((article) => (
+                <TimelineEntryRow key={article.slug} article={article} locale={locale} />
+              ))}
+            </ol>
+          )}
+        </div>
       </div>
     </main>
   );

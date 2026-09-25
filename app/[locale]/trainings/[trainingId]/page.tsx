@@ -2,6 +2,7 @@ import { setRequestLocale, getTranslations } from 'next-intl/server';
 import type { Locale } from '@/i18n/routing';
 import { TrainingId } from '@/data/trainings';
 import { TrainingDetail } from '@/components/TrainingDetail';
+import { PageHeader } from '@/components/PageHeader';
 import { buildPageMetadata } from '@/lib/page-metadata';
 
 export async function generateMetadata({
@@ -34,10 +35,12 @@ export default async function TrainingDetailPage({
   const t = await getTranslations('trainings');
 
   return (
-    <main className="px-6 py-16 sm:py-20">
-      <div className="mx-auto max-w-4xl">
-        <h1 className="text-brand-deep text-3xl font-bold sm:text-4xl">{t('sectionTitle')}</h1>
-        <TrainingDetail trainingId={trainingId} locale={locale} />
+    <main>
+      <PageHeader title={t('sectionTitle')} />
+      <div className="px-6">
+        <div className="mx-auto max-w-4xl">
+          <TrainingDetail trainingId={trainingId} locale={locale} />
+        </div>
       </div>
     </main>
   );

@@ -16,7 +16,7 @@ Bilingual NL / EN with `/[locale]` routing. Primary audience is Dutch engineerin
 
 ## Brand Personality
 
-Expert, pragmatic, confident. Voice is direct and lowercase-comfortable, like a senior engineer explaining a workflow. No exclamation marks, no hype, no "unlock", no "revolutionary". Technical specifics over abstract benefits. Show prices, show the 15 module titles with bullets, show the test/CI badges if relevant. Visual register is friendly-formal: white surface, blue brand-deep headlines, green action color. Restrained, not playful; legible, not loud.
+Expert, pragmatic, confident. Voice is direct and lowercase-comfortable, like a senior engineer explaining a workflow. No exclamation marks, no hype, no "unlock", no "revolutionary". Technical specifics over abstract benefits. Show prices, show the 15 module titles with bullets, show the test/CI badges if relevant. Visual register is friendly-formal: muted green-grey surface with dark-green bands, antraciet headlines, green action color. Restrained, not playful; legible, not loud.
 
 ## Anti-references
 
@@ -31,7 +31,7 @@ What this must NOT look like:
 
 1. **Practice what you preach.** The site itself is built with agentic engineering — visible CI, real tests, locale parity enforced, security headers live. Engineers can inspect the source on GitHub and find it consistent with what the training teaches.
 2. **Show, don't tell.** Curriculum modules with bullets are above the fold of the trainings section. Price, duration, delivery formats are shown — not gated behind "Contact us for pricing".
-3. **Restraint with one signal.** Action green (`#1f8f50`) is reserved for primary CTAs and success states; brand blue (`#0b6fb0` / `#0a4d7a`) carries identity in headlines, links, and the logo. Surfaces stay white or near-white. Everywhere else is neutral.
+3. **Restraint with one signal.** Action green (`#1c8449`, `#3fb950` in dark bands) is reserved for primary CTAs and success states; headings and links are antraciet (`#2f3a34`, white in bands). Surfaces are muted green-grey with dark-green bands. Everywhere else is neutral.
 4. **Dev-respect copy.** Treat readers as senior engineers. Lowercase CTA verbs (`book training`, `view curriculum`). No marketing punctuation. Plain technical English (or plain technical Dutch).
 5. **Bilingual without translation rot.** NL and EN message keys are checked at parity in CI; both locales are first-class, not "NL with EN as afterthought".
 
