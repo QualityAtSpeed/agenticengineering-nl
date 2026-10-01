@@ -60,6 +60,7 @@ const booking: BookingDetails = {
   ],
   seats: 2,
   grossCents: 84458,
+  trainingId: 'discount-aug-26',
 };
 
 describe('sendBookingConfirmation', () => {
@@ -74,6 +75,10 @@ describe('sendBookingConfirmation', () => {
     expect(arg.from).toBe('noreply@agenticengineering.nl');
     expect(arg.subject).not.toMatch(/[\r\n]/);
     expect(arg.text).toContain('€844,58'); // 84458 cents, nl-NL formatting
+    expect(arg.subject).toContain('Agentic Engineering Training'); // real training, not the pilot
+    expect(arg.text).not.toContain('Pilot'); // no more hardcoded pilot label
+    expect(arg.text).toContain('Btw (21%): €146,58'); // VAT split out (84458 - round(84458/1.21))
+    expect(arg.text).toContain('Deelnemers:'); // Dutch label, not "Attendees"
   });
 });
 

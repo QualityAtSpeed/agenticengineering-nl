@@ -1,5 +1,5 @@
 import { describe, it, expect } from 'vitest';
-import { formatTrainingDate } from '@/lib/format-date';
+import { formatTrainingDate, formatTrainingDateRange } from '@/lib/format-date';
 import { trainings } from '@/data/trainings';
 
 describe('formatTrainingDate', () => {
@@ -25,10 +25,44 @@ describe('booking-success confirmation date per training', () => {
   it('derives the booked training start date', () => {
     const pilot = trainings.pilot.schedule;
     const discount = trainings['discount-aug-26'].schedule;
+    const nov = trainings['basic-nov-26'].schedule;
     expect(pilot, 'pilot has a schedule').toBeDefined();
     expect(discount, 'discount-aug-26 has a schedule').toBeDefined();
+    expect(nov, 'basic-nov-26 has a schedule').toBeDefined();
     expect(formatTrainingDate(pilot!.startDate, 'nl')).toBe('29 juni');
     expect(formatTrainingDate(discount!.startDate, 'nl')).toBe('21 september');
     expect(formatTrainingDate(discount!.startDate, 'en')).toBe('21 September');
+    expect(formatTrainingDate(nov!.startDate, 'nl')).toBe('9 november');
+    expect(formatTrainingDate(nov!.startDate, 'en')).toBe('9 November');
+  });
+});
+
+describe('formatTrainingDateRange', () => {
+  it('joins two days in the same month (Dutch)', () => {
+    expect(formatTrainingDateRange('2026-06-29', '2026-06-30', 'nl')).toBe('29 en 30 juni 2026');
+    expect(formatTrainingDateRange('2026-09-21', '2026-09-22', 'nl')).toBe(
+      '21 en 22 september 2026',
+    );
+  });
+
+  it('joins two days in the same month for the November cohort (both locales)', () => {
+    expect(formatTrainingDateRange('2026-11-09', '2026-11-10', 'nl')).toBe('9 en 10 november 2026');
+    expect(formatTrainingDateRange('2026-11-09', '2026-11-10', 'en')).toBe(
+      '9 and 10 November 2026',
+    );
+  });
+
+  it('spells out both months when the range crosses a month', () => {
+    expect(formatTrainingDateRange('2026-06-30', '2026-07-01', 'nl')).toBe(
+      '30 juni en 1 juli 2026',
+    );
+  });
+
+  it('collapses a single-day range to one date', () => {
+    expect(formatTrainingDateRange('2026-09-21', '2026-09-21', 'nl')).toBe('21 september 2026');
+  });
+
+  it('uses the locale conjunction and month names (English)', () => {
+    expect(formatTrainingDateRange('2026-06-29', '2026-06-30', 'en')).toBe('29 and 30 June 2026');
   });
 });

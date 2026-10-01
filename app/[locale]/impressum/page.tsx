@@ -1,6 +1,7 @@
 import { setRequestLocale, getTranslations } from 'next-intl/server';
 import type { Locale } from '@/i18n/routing';
 import { metadataFor } from '@/lib/page-metadata';
+import { PageHeader } from '@/components/PageHeader';
 
 export const generateMetadata = metadataFor('/impressum', 'pages.impressum');
 
@@ -10,10 +11,10 @@ export default async function Impressum({ params }: { params: Promise<{ locale: 
   const t = await getTranslations('impressum');
 
   return (
-    <main className="px-6 py-16 sm:py-20">
-      <div className="mx-auto max-w-2xl">
-        <h1 className="text-brand-deep text-3xl font-bold sm:text-4xl">{t('title')}</h1>
-        <dl className="mt-10 space-y-3">
+    <main>
+      <PageHeader title={t('title')} width="max-w-2xl" />
+      <div className="px-6 py-16 sm:py-20">
+        <dl className="mx-auto max-w-2xl space-y-3">
           <Row label="Business" value={t('businessName')} />
           <Row label="Address" value={t('address')} />
           <Row label="KVK" value={t('kvk')} />

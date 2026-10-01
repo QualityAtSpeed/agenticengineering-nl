@@ -3,6 +3,7 @@ import type Stripe from 'stripe';
 import { getStripe } from '@/lib/stripe';
 import { sendBookingConfirmation, sendBookingNotification, type BookingDetails } from '@/lib/email';
 import { markHandled, unmarkHandled } from '@/lib/webhook-dedupe';
+import type { TrainingId } from '@/data/trainings';
 
 function parseAttendees(metadata: Record<string, string>): { name: string; email: string }[] {
   const out: { name: string; email: string }[] = [];
@@ -71,6 +72,7 @@ export async function POST(req: Request) {
     attendees,
     seats: Number(metadata.seats ?? attendees.length),
     grossCents: session.amount_total ?? 0,
+    trainingId: metadata.trainingId as TrainingId,
     company: {
       company: metadata.company ?? '',
       kvk: metadata.kvk ?? '',

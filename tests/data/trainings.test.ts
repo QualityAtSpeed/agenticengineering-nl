@@ -1,5 +1,5 @@
 import { describe, it, expect } from 'vitest';
-import { trainings, type ModuleId } from '@/data/trainings';
+import { trainings, trainingLabel, type ModuleId } from '@/data/trainings';
 
 describe('trainings catalogue', () => {
   it('Basic is a 2-day training with 22 modules split 11 / 11 across two days', () => {
@@ -23,11 +23,11 @@ describe('trainings catalogue', () => {
       // Day 2 — quality & advanced
       { id: 'failure-modes-ai-code', day: 2 },
       { id: 'test-first-with-agents', day: 2 },
-      { id: 'local-llm', day: 2 },
       { id: 'subagents', day: 2 },
       { id: 'hooks-and-quality-gates', day: 2 },
       { id: 'build-first-feature', day: 2 },
       { id: 'building-a-pipeline', day: 2 },
+      { id: 'local-llm', day: 2 },
       { id: 'persistent-memory', day: 2 },
       { id: 'openspec', day: 2 },
       { id: 'regression-and-governance', day: 2 },
@@ -39,12 +39,13 @@ describe('trainings catalogue', () => {
     expect(basic.modules.filter((m) => m.day === 2)).toHaveLength(11);
   });
 
-  it('the 2-day cohorts (pilot, discount-aug-26) share the exact Basic curriculum', () => {
+  it('the 2-day cohorts (pilot, discount-aug-26, basic-nov-26) share the exact Basic curriculum', () => {
     expect(trainings.pilot.modules).toEqual(trainings.basic.modules);
     expect(trainings['discount-aug-26'].modules).toEqual(trainings.basic.modules);
+    expect(trainings['basic-nov-26'].modules).toEqual(trainings.basic.modules);
   });
 
-  it('the dated cohorts (pilot, discount-aug-26) carry a fixed online schedule for structured data', () => {
+  it('the dated cohorts (pilot, discount-aug-26, basic-nov-26) carry a fixed schedule for structured data', () => {
     expect(trainings.pilot.schedule).toEqual({
       startDate: '2026-06-29',
       endDate: '2026-06-30',
@@ -53,7 +54,12 @@ describe('trainings catalogue', () => {
     expect(trainings['discount-aug-26'].schedule).toEqual({
       startDate: '2026-09-21',
       endDate: '2026-09-22',
-      courseMode: ['online', 'inPerson'],
+      courseMode: ['online'],
+    });
+    expect(trainings['basic-nov-26'].schedule).toEqual({
+      startDate: '2026-11-09',
+      endDate: '2026-11-10',
+      courseMode: ['online'],
     });
     expect(trainings.basic.schedule).toBeUndefined();
     expect(trainings.advanced.schedule).toBeUndefined();
@@ -71,6 +77,23 @@ describe('trainings catalogue', () => {
     // the base trainings carry no early-bird
     expect(trainings.basic.earlyBird).toBeUndefined();
     expect(trainings.pilot.earlyBird).toBeUndefined();
+  });
+
+  it('discount-aug-26 has run and is retired as sold out', () => {
+    expect(trainings['discount-aug-26'].soldOut).toBe(true);
+  });
+
+  it('basic-nov-26 is the Basic curriculum as a dated cohort with a 30% early-bird until 15 Oct', () => {
+    const nov = trainings['basic-nov-26'];
+    expect(nov.durationDays).toBe(2);
+    expect(nov.priceEUR).toBe(999); // full cohort price, not the pilot rate
+    expect(nov.modules).toEqual(trainings.basic.modules); // same curriculum as Basic
+    expect(nov.earlyBird).toEqual({
+      discountPct: 30,
+      // CEST (+02:00) — the deadline falls before the 25 Oct DST switch to CET.
+      deadline: '2026-10-15T00:00:00+02:00',
+    });
+    expect(nov.soldOut).toBeUndefined();
   });
 
   it('Advanced is a 1-day training with 5 modules and no day tags', () => {
@@ -93,5 +116,22 @@ describe('trainings catalogue', () => {
     for (const t of Object.values(trainings)) {
       expect(t.deliveryFormats).toEqual(['inCompany', 'publicCohort', 'remote']);
     }
+  });
+});
+
+describe('trainingLabel', () => {
+  it('composes the name with the date range derived from the schedule (Dutch)', () => {
+    expect(trainingLabel('pilot')).toBe('Pilot - Basic Training (29 en 30 juni 2026)');
+    expect(trainingLabel('discount-aug-26')).toBe(
+      'Agentic Engineering Training (21 en 22 september 2026)',
+    );
+    expect(trainingLabel('basic-nov-26')).toBe(
+      'Agentic Engineering Training (9 en 10 november 2026)',
+    );
+  });
+
+  it('falls back to the raw id for undated trainings (behaviour-preserving)', () => {
+    expect(trainingLabel('basic')).toBe('basic');
+    expect(trainingLabel('advanced')).toBe('advanced');
   });
 });

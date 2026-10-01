@@ -29,9 +29,9 @@ describe('priceFor — early-bird', () => {
     const p = priceFor('discount-aug-26', beforeDeadline);
     expect(p.earlyBird).toBe(true);
     expect(p.baseNetCents).toBe(99900); // €999 base
-    expect(p.netCents).toBe(69930); // 30% off → €699.30
-    expect(p.vatCents).toBe(14685); // round(69930 * 0.21)
-    expect(p.grossCents).toBe(84615);
+    expect(p.netCents).toBe(69900); // €999 −30% floored to whole euros → €699
+    expect(p.vatCents).toBe(14679); // round(69900 * 0.21)
+    expect(p.grossCents).toBe(84579);
   });
 
   it('charges the full price on/after the deadline (discount-aug-26)', () => {
@@ -43,6 +43,25 @@ describe('priceFor — early-bird', () => {
 
   it('the deadline is exclusive — 15 Sep 00:00 is already full price', () => {
     const p = priceFor('discount-aug-26', new Date('2026-09-15T00:00:00+02:00'));
+    expect(p.earlyBird).toBe(false);
+  });
+
+  it('applies the 30% early-bird discount before the deadline (basic-nov-26)', () => {
+    const p = priceFor('basic-nov-26', new Date('2026-10-01T12:00:00+02:00'));
+    expect(p.earlyBird).toBe(true);
+    expect(p.baseNetCents).toBe(99900); // €999 base
+    expect(p.netCents).toBe(69900); // €999 −30% floored to whole euros → €699
+    expect(p.grossCents).toBe(84579);
+  });
+
+  it('charges the full price after the basic-nov-26 deadline', () => {
+    const p = priceFor('basic-nov-26', new Date('2026-10-20T12:00:00+02:00'));
+    expect(p.earlyBird).toBe(false);
+    expect(p.netCents).toBe(99900);
+  });
+
+  it('the basic-nov-26 deadline is exclusive — 15 Oct 00:00 CEST is already full price', () => {
+    const p = priceFor('basic-nov-26', new Date('2026-10-15T00:00:00+02:00'));
     expect(p.earlyBird).toBe(false);
   });
 

@@ -130,4 +130,20 @@ describe('<TestimonialCard />', () => {
     expect(cite.tagName).toBe('CITE');
     expect(cite).toHaveTextContent('Lead, Acme');
   });
+
+  it('has no side stripe, no carrier glyph and no monospace', () => {
+    const { container } = renderCard(
+      {
+        quoteNL: 'Goede training',
+        quoteEN: 'Great training',
+        name: 'Jane Doe',
+        role: 'Lead, Acme',
+      },
+      'nl',
+    );
+    const article = container.querySelector('article') as HTMLElement;
+    expect(article.className).not.toMatch(/border-l-4/);
+    expect(container.querySelector('.font-mono')).toBeNull();
+    expect(container.querySelector('cite')).not.toHaveTextContent(/^\+/);
+  });
 });

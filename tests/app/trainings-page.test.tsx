@@ -32,13 +32,16 @@ async function renderPage() {
 }
 
 describe('<TrainingsPage />', () => {
-  it('renders the training overview page without the pilot cohort', async () => {
+  it('renders the training overview page without the retired cohorts', async () => {
     await renderPage();
     expect(
       screen.queryByRole('heading', { name: 'Pilot - Basic Training (June 29th & 30th 2026)' }),
     ).not.toBeInTheDocument();
     expect(
-      screen.getByRole('heading', { name: 'Basic Training (21 & 22 September 2026)' }),
+      screen.queryByRole('heading', { name: 'Basic Training (21 & 22 September 2026)' }),
+    ).not.toBeInTheDocument();
+    expect(
+      screen.getByRole('heading', { name: 'Basic Training (9 & 10 November 2026)' }),
     ).toBeInTheDocument();
     expect(screen.getByRole('heading', { name: 'Advanced' })).toBeInTheDocument();
     expect(screen.getByRole('heading', { name: /Trainings/ })).toBeInTheDocument();
@@ -46,7 +49,7 @@ describe('<TrainingsPage />', () => {
     expect(screen.getAllByText(/2 days/).length).toBeGreaterThan(0);
     expect(screen.getByText(/1 day/)).toBeInTheDocument();
 
-    // Both listed cohorts (discount-aug-26, advanced) are priced at €999
+    // Both listed cohorts (basic-nov-26, advanced) are priced at €999
     const price = trainings.advanced.priceEUR.toLocaleString('nl-NL'); // "999"
     expect(screen.getAllByText(new RegExp(`€\\s*${price}`)).length).toBeGreaterThanOrEqual(2);
   });

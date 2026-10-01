@@ -2,64 +2,33 @@
 
 @theme {
   /* surface */
-  --color-bg-base: #ffffff;
-  --color-bg-elevated: #f5f8fb;
-  --color-bg-tint: #eef3f8;
+  --color-bg-page: #cdd3cd;
+  --color-bg-base: #e1e5e1;
+  --color-bg-elevated: #c5cbc4;
+  --color-bg-tint: #bcc4bc;
 
   /* borders */
-  --color-border-subtle: #dde4ea;
-  --color-border-strong: #c6d0d8;
+  --color-border-subtle: #b0b7b0;
+  --color-border-strong: #6b736d;
 
   /* text */
-  --color-text-primary: #0f141a;
-  --color-text-soft: #2a323a;
-  --color-text-muted: #5b6772;
+  --color-text-primary: #121714;
+  --color-text-soft: #2c342f;
+  --color-text-muted: #434d47;
 
   /* brand + accents */
-  --color-brand: #0b6fb0;
-  --color-brand-deep: #0a4d7a;
-  --color-brand-soft: #e8f1f8;
-  --color-accent-blue: #0b6fb0;
+  --color-brand: #2f3a34;
+  --color-brand-deep: #2f3a34;
+  --color-brand-soft: #d8ddd8;
   --color-accent-green: #1c8449;
-  --color-accent-green-hover: #167040;
-  --color-accent-orange: #c87a1a;
-  --color-accent-red: #c8431b;
+  --color-accent-green-hover: #0f5a32;
+  --color-accent-orange: #734105;
+  --color-accent-red: #8f2a0e;
 
   /* foreground for solid accent-green fills (e.g. primary button) */
   --color-on-accent: #ffffff;
 
   --font-sans: var(--font-sans-loaded), system-ui, -apple-system, sans-serif;
-}
-
-:root.dark {
-  color-scheme: dark;
-
-  /* surface */
-  --color-bg-base: #0d1117;
-  --color-bg-elevated: #161b22;
-  --color-bg-tint: #1c2430;
-
-  /* borders */
-  --color-border-subtle: #30363d;
-  --color-border-strong: #444c56;
-
-  /* text */
-  --color-text-primary: #e6edf3;
-  --color-text-soft: #c9d1d9;
-  --color-text-muted: #8b949e;
-
-  /* brand + accents */
-  --color-brand: #58a6ff;
-  --color-brand-deep: #79c0ff;
-  --color-brand-soft: #15324a;
-  --color-accent-blue: #58a6ff;
-  --color-accent-green: #3fb950;
-  --color-accent-green-hover: #2ea043;
-  --color-accent-orange: #e0934b;
-  --color-accent-red: #ff7b72;
-
-  /* dark green fills are bright, so use a dark foreground for AA contrast */
-  --color-on-accent: #0d1117;
 }
 
 :root {
@@ -68,7 +37,7 @@
 
 html,
 body {
-  background-color: var(--color-bg-base);
+  background-color: var(--color-bg-page);
   color: var(--color-text-primary);
   font-family: var(--font-sans);
   -webkit-font-smoothing: antialiased;
@@ -83,6 +52,34 @@ body {
     color: var(--color-brand-deep);
     text-decoration: underline;
     text-underline-offset: 3px;
+  }
+}
+
+/* Dark-green band. Redefines the tokens for its subtree so components keep
+   their utilities. Lives in the components layer so utilities (e.g. bg-transparent) win. */
+@layer components {
+  .surface-dark {
+    --color-bg-page: #0f3b25;
+    --color-bg-base: #144a2f;
+    --color-bg-elevated: #12432b;
+    --color-bg-tint: #185536;
+    --color-border-subtle: #2c5e43;
+    --color-border-strong: #6b9a82;
+    --color-text-primary: #ffffff;
+    --color-text-soft: #e2ece5;
+    --color-text-muted: #a9c2b2;
+    --color-brand: #ffffff;
+    --color-brand-deep: #ffffff;
+    --color-brand-soft: #1d5a3a;
+    --color-accent-green: #3fb950;
+    --color-accent-green-hover: #56d364;
+    --color-accent-orange: #f2b877;
+    --color-accent-red: #ff9b8f;
+    /* bright green fills need a dark foreground for AA */
+    --color-on-accent: #0d1117;
+
+    background-color: var(--color-bg-page);
+    color: var(--color-text-primary);
   }
 }
 

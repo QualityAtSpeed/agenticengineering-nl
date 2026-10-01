@@ -1,6 +1,6 @@
 # CLAUDE.md
 
-agenticengineering.nl — bilingual (NL/EN) training + curated news site. Next.js 15 (App Router, RSC), React 19, Tailwind v4, next-intl, deployed on Vercel. Dark terminal-native aesthetic.
+agenticengineering.nl — bilingual (NL/EN) training + curated news site. Next.js 15 (App Router, RSC), React 19, Tailwind v4, next-intl, deployed on Vercel. Muted green-grey surface with dark-green bands, Rubik.
 
 `README.md` is the canonical, exhaustive reference (stack, pipelines, env vars, deployment, DNS). Read it for anything not covered here. This file is the operational shortlist.
 
@@ -25,14 +25,14 @@ Node 20 (`.nvmrc`), pnpm 9 (`corepack enable`). Run a single unit test with `pnp
 - `components/` — UI components. `lib/` — logic (validation/Zod, email/Resend, stripe, rate-limit, http, flags, pricing, articles, structured-data, page-metadata).
 - `data/` — typed catalogues (`trainings.ts`, `instructors.ts`) + `trusted-domains.json`. `news/` — markdown posts (frontmatter + body).
 - `messages/{nl,en}.json` — translations. `i18n/` — next-intl routing/request config.
-- `app/globals.css` — Tailwind v4 `@theme` block: **single source of design tokens**.
+- `app/globals.css` — Tailwind v4 `@theme` block + `.surface-dark` band tokens: **single source of design tokens**.
 
 ## Conventions
 
 - **i18n**: every new translation key goes in BOTH `messages/nl.json` and `messages/en.json` — `verify:i18n` fails CI otherwise.
 - **SEO metadata**: use `lib/page-metadata.ts` (`buildPageMetadata`) — don't hand-roll canonical/hreflang/OpenGraph per page.
 - **JSON-LD**: homepage schema.org graph lives only in `lib/structured-data.ts` — don't re-inline JSON-LD in pages.
-- **Design/brand**: read `DESIGN.md` (OKLCH palette, JetBrains Mono display / Inter body) and `PRODUCT.md` (tone, audience) before touching UI.
+- **Design/brand**: read `DESIGN.md` (muted palette + `.surface-dark` bands, Rubik) and `PRODUCT.md` (tone, audience) before touching UI.
 - **Security**: To-field of emails is never user-controlled; CRLF-stripped via `lib/sanitize.ts`. Stripe fulfillment happens only on the webhook (and only when `payment_status === 'paid'`), never on the success redirect.
 - Feature flag `BLOGS_ENABLED` gates blog entries on `/articles` (`lib/flags.ts`).
 

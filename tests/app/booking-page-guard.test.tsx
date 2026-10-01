@@ -11,7 +11,7 @@ vi.mock('@/data/trainings', async (importOriginal) => {
     ...actual,
     trainings: {
       ...actual.trainings,
-      'discount-aug-26': { ...actual.trainings['discount-aug-26'], soldOut: true },
+      'basic-nov-26': { ...actual.trainings['basic-nov-26'], soldOut: true },
     },
   };
 });
@@ -33,11 +33,11 @@ vi.mock('next-intl/server', () => ({
   },
 }));
 
-import DiscountAug26BookingPage from '@/app/[locale]/trainings/discount-aug-26/book/page';
+import BasicNov26BookingPage from '@/app/[locale]/trainings/basic-nov-26/book/page';
 
 describe('booking page sold-out guard (generiek, per trainingId)', () => {
-  it('guards a non-pilot training: discount-aug-26 toont de sold-out-melding en geen formulier wanneer dat cohort is uitverkocht', async () => {
-    const ui = await DiscountAug26BookingPage({
+  it('guards a non-pilot training: basic-nov-26 toont de sold-out-melding en geen formulier wanneer dat cohort is uitverkocht', async () => {
+    const ui = await BasicNov26BookingPage({
       params: Promise.resolve({ locale: 'en' as const }),
     });
     render(

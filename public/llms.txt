@@ -6,15 +6,16 @@ agenticengineering.nl is an initiative of Quality at Speed. The site offers prac
 
 ## Trainings
 
-- [Pilot — Basic Training](https://agenticengineering.nl/en/trainings/pilot): The Basic training as a one-time pilot. Two days, online, on June 29 and 30, 2026. Introductory price 349 EUR per person (ex VAT). Every attendee ships a working feature with Claude Code.
-- [Basic](https://agenticengineering.nl/en/trainings/basic): Two days of hands-on adoption. Every attendee ships a feature. 1399 EUR per person (ex VAT).
+- [Basic Training — November 2026 cohort](https://agenticengineering.nl/en/trainings/basic-nov-26): The Basic training as a dated cohort. Two days, online or in person, on November 9 and 10, 2026. 999 EUR per person (ex VAT), with a 30% early-bird discount through October 14, 2026. Every attendee ships a working feature with Claude Code.
+- [Pilot — Basic Training](https://agenticengineering.nl/en/trainings/pilot): The Basic training as a one-time pilot. Two days, online, on June 29 and 30, 2026. Sold out.
+- [Basic](https://agenticengineering.nl/en/trainings/basic): Two days of hands-on adoption. Every attendee ships a feature. 999 EUR per person (ex VAT).
 - [Advanced](https://agenticengineering.nl/en/trainings/advanced): One day on scaling agentic AI quality engineering across teams, including rollout and governance. 999 EUR per person (ex VAT).
 
 Audience: developers, testers and DevOps engineers, plus managers who train alongside their team. Requirements: git experience, knowledge of one programming language, and Claude Code or OpenCode installed with a Claude Pro subscription.
 
 ## How to book
 
-- [Book the pilot](https://agenticengineering.nl/en/trainings/pilot/book): direct online booking and payment for the June 2026 pilot.
+- [Book the November 2026 cohort](https://agenticengineering.nl/en/trainings/basic-nov-26/book): direct online booking and payment for the Basic training on November 9 and 10, 2026.
 - [Contact](https://agenticengineering.nl/en/contact): request the Basic or Advanced training, or ask a question.
 
 ## More

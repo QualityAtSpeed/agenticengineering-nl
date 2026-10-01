@@ -1,10 +1,10 @@
 import { test, expect } from '@playwright/test';
 
-// pilot is sold out (booking closed), so the form flows run against the live
-// bookable training. pilot's sold-out notice has its own test below.
+// pilot and the September cohort are sold out (booking closed), so the form flows
+// run against the live bookable cohort. pilot's sold-out notice has its own test below.
 for (const locale of ['nl', 'en'] as const) {
   test(`booking form renders and grows rows (${locale})`, async ({ page }) => {
-    await page.goto(`/${locale}/trainings/discount-aug-26/book`);
+    await page.goto(`/${locale}/trainings/basic-nov-26/book`);
     await expect(page.getByTestId('booking-submit')).toBeVisible();
     await expect(page.getByTestId('booking-attendee-name-0')).toBeVisible();
 
@@ -30,7 +30,7 @@ test('submitting redirects to the Stripe url (checkout stubbed)', async ({ page 
     }),
   );
 
-  await page.goto('/nl/trainings/discount-aug-26/book');
+  await page.goto('/nl/trainings/basic-nov-26/book');
   await page.getByTestId('booking-attendee-name-0').fill('Pascal');
   await page.getByTestId('booking-attendee-email-0').fill('pascal@example.com');
   await page.getByTestId('booking-company').fill('company-name');

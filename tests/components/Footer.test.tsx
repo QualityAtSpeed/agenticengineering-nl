@@ -17,4 +17,19 @@ describe('<Footer />', () => {
     render(ui);
     expect(screen.getByTestId('footer-faq')).toHaveAttribute('href', '/en/faq');
   });
+
+  it('links to the Quality at Speed website', async () => {
+    const ui = await Footer({ locale: 'en' });
+    render(ui);
+    expect(screen.getByTestId('footer-website')).toHaveAttribute(
+      'href',
+      'https://qualityatspeed.nl',
+    );
+  });
+
+  it('is a dark band', async () => {
+    const ui = await Footer({ locale: 'en' });
+    const { container } = render(ui);
+    expect(container.querySelector('footer')).toHaveClass('surface-dark');
+  });
 });
