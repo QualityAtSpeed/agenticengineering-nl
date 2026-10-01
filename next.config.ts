@@ -34,6 +34,11 @@ const securityHeaders = [
 const nextConfig: NextConfig = {
   reactStrictMode: true,
   poweredByHeader: false,
+  // app/[locale]/opengraph-image.tsx reads these fonts from disk when it renders. File tracing does not see that read
+  // (the path is built at runtime), so without this the fonts are missing from the route's bundle on Vercel.
+  outputFileTracingIncludes: {
+    '/[locale]/opengraph-image': ['./assets/fonts/**/*'],
+  },
   async headers() {
     if (process.env.NODE_ENV !== 'production') return [];
     return [{ source: '/(.*)', headers: securityHeaders }];

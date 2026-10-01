@@ -9,15 +9,17 @@ export const size = { width: 1200, height: 630 };
 export const contentType = 'image/png';
 
 // Satori (next/og) reads raw font data and supports TTF/OTF/WOFF, not WOFF2 or next/font.
-// Static Rubik weights from @fontsource/rubik@5.3.0, read once at module scope.
+// Static Rubik weights from @fontsource/rubik@5.3.0. Read them inside Image, never at module scope: Next loads this
+// module for the metadata of every page under [locale], so a read at module scope makes every page that renders on
+// request depend on these files. next.config.ts traces them into this route's bundle (outputFileTracingIncludes).
 const font = (file: string) => readFile(join(process.cwd(), 'assets/fonts', file));
-const [rubikRegular, rubikSemiBold, rubikBold] = await Promise.all([
-  font('rubik-latin-400-normal.woff'),
-  font('rubik-latin-600-normal.woff'),
-  font('rubik-latin-700-normal.woff'),
-]);
 
 export default async function Image({ params }: { params: Promise<{ locale: Locale }> }) {
+  const [rubikRegular, rubikSemiBold, rubikBold] = await Promise.all([
+    font('rubik-latin-400-normal.woff'),
+    font('rubik-latin-600-normal.woff'),
+    font('rubik-latin-700-normal.woff'),
+  ]);
   const { locale } = await params;
   const t = await getTranslations({ locale, namespace: 'hero' });
   return new ImageResponse(
