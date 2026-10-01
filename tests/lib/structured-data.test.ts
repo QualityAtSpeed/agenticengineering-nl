@@ -43,20 +43,20 @@ describe('buildHomeJsonLd', () => {
     expect(instance?.endDate).toBe('2026-06-30');
   });
 
-  it('gives the scheduled discount-aug-26 a CourseInstance with online and inPerson modes and ISO dates', () => {
+  it('gives the scheduled discount-aug-26 a CourseInstance with online mode and ISO dates', () => {
     const courses = graph.filter((n) => n['@type'] === 'Course');
     const discount = courses.find((c) => (c.url as string)?.endsWith('/trainings/discount-aug-26'));
     const instance = discount?.hasCourseInstance as Record<string, unknown> | undefined;
-    expect(instance?.courseMode).toStrictEqual(['online', 'inPerson']);
+    expect(instance?.courseMode).toStrictEqual(['online']);
     expect(instance?.startDate).toBe('2026-09-21');
     expect(instance?.endDate).toBe('2026-09-22');
   });
 
-  it('gives the scheduled basic-nov-26 a CourseInstance with online and inPerson modes and ISO dates', () => {
+  it('gives the scheduled basic-nov-26 a CourseInstance with online mode and ISO dates', () => {
     const courses = graph.filter((n) => n['@type'] === 'Course');
     const nov = courses.find((c) => (c.url as string)?.endsWith('/trainings/basic-nov-26'));
     const instance = nov?.hasCourseInstance as Record<string, unknown> | undefined;
-    expect(instance?.courseMode).toStrictEqual(['online', 'inPerson']);
+    expect(instance?.courseMode).toStrictEqual(['online']);
     expect(instance?.startDate).toBe('2026-11-09');
     expect(instance?.endDate).toBe('2026-11-10');
   });

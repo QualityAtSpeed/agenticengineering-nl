@@ -54,12 +54,12 @@ describe('trainings catalogue', () => {
     expect(trainings['discount-aug-26'].schedule).toEqual({
       startDate: '2026-09-21',
       endDate: '2026-09-22',
-      courseMode: ['online', 'inPerson'],
+      courseMode: ['online'],
     });
     expect(trainings['basic-nov-26'].schedule).toEqual({
       startDate: '2026-11-09',
       endDate: '2026-11-10',
-      courseMode: ['online', 'inPerson'],
+      courseMode: ['online'],
     });
     expect(trainings.basic.schedule).toBeUndefined();
     expect(trainings.advanced.schedule).toBeUndefined();
