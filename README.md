@@ -17,6 +17,7 @@ Live: <https://agenticengineering.nl>
 | Package manager | pnpm 9                                                                        |
 | Styling         | Tailwind CSS v4 (`@theme` tokens in `app/globals.css`)                        |
 | i18n            | next-intl (NL default, EN alt)                                                |
+| Theming         | next-themes (light/dark/system toggle; `.dark` on `<html>`)                   |
 | Forms           | react-hook-form + Zod                                                         |
 | Mail            | Resend                                                                        |
 | Payments        | Stripe (Checkout Sessions + webhook signature verification for pilot booking) |
@@ -106,11 +107,11 @@ app/
   api/stripe/webhook/  # POST handler — Stripe webhook signature verification + fulfillment
   robots.ts            # /robots.txt
   sitemap.ts           # /sitemap.xml
-  globals.css          # Tailwind v4 @theme block + .surface-dark band tokens (single source of design tokens)
+  globals.css          # Tailwind v4 @theme block + :root.dark house dark palette + .surface-dark band tokens (single source of design tokens)
 components/            # Hero, Nav (+ nav-styles.ts), Footer, PageHeader, TrainingCard, TrainingDetail, ContactForm,
                        # BookingForm, ArticleFilterBar, InstructorCard, Button, DayAgenda,
                        # ProofStrip, TimelineEntry, JsonLd, LangSwitcher, MobileMenu,
-                       # TestimonialCard, TestimonialsSection, …
+                       # ThemeProvider, ThemeToggle, TestimonialCard, TestimonialsSection, …
 lib/
   validation.ts        # Zod schemas (contactSchema, bookingSchema, trainingInterestEnum, …)
   email.ts             # Resend wrapper, sendContactEmail(), sendBookingConfirmation(), sendBookingNotification()
@@ -443,7 +444,7 @@ Translation messages live in `messages/{nl,en}.json`. Locale routing in `i18n/ro
 
 CI runs `pnpm verify:i18n` to enforce key parity between NL and EN. Add a new key → add it to both files.
 
-Namespaces in use: `meta`, `nav`, `hero`, `trainings`, `modules`, `proof`, `footer`, `about`, `articles`, `contact`, `faq`, `booking`, `impressum`, `home`, `why`, `testimonials`. The `faq` namespace covers the FAQ page: `title`, `intro`, `items` (array of `question`/`answer` pairs) and the contact CTA (`ctaLabel`, `ctaLink`). The `booking` namespace covers the booking form: seat selector and attendees (`seatsLabel`, `attendeeName`, `attendeeEmail`), account-type radio options (`accountBusiness`, `accountPersonal`), company billing details (`companyHeading`, `company`, `kvk`, `street`, `zipCode`, `city`, `country`, `notes`), referral-code (`referralLabel`, `referralHint`), submit/contact (`submit`, `submitting`, `contactLink`), sold-out copy (`soldOutHeading`, `soldOutBody`, `soldOutBack`), `errors.*` (`required`, `invalidEmail`, `invalidKvk`, `generic`, `rateLimited`, `invalidReferral`), and `success.*`.
+Namespaces in use: `meta`, `nav`, `hero`, `trainings`, `modules`, `proof`, `footer`, `about`, `articles`, `contact`, `faq`, `booking`, `impressum`, `home`, `why`, `testimonials`, `theme`. The `theme` namespace holds the theme-toggle labels (`label`, `light`, `dark`, `system`). The `faq` namespace covers the FAQ page: `title`, `intro`, `items` (array of `question`/`answer` pairs) and the contact CTA (`ctaLabel`, `ctaLink`). The `booking` namespace covers the booking form: seat selector and attendees (`seatsLabel`, `attendeeName`, `attendeeEmail`), account-type radio options (`accountBusiness`, `accountPersonal`), company billing details (`companyHeading`, `company`, `kvk`, `street`, `zipCode`, `city`, `country`, `notes`), referral-code (`referralLabel`, `referralHint`), submit/contact (`submit`, `submitting`, `contactLink`), sold-out copy (`soldOutHeading`, `soldOutBody`, `soldOutBack`), `errors.*` (`required`, `invalidEmail`, `invalidKvk`, `generic`, `rateLimited`, `invalidReferral`), and `success.*`.
 
 ## Testing
 
@@ -458,7 +459,7 @@ CI workflow: `.github/workflows/ci.yml` runs typecheck + lint + unit + i18n inte
 ## Brand and design context
 
 - `PRODUCT.md` — who the site is for, tone of voice, anti-references, strategic principles.
-- `DESIGN.md` — Stitch-format design system: colors (muted palette + `.surface-dark` bands), typography (Rubik), components (floating centred pill nav, `PageHeader`), do's/don'ts. One theme only (no dark mode).
+- `DESIGN.md` — Stitch-format design system: colors (muted palette + `.surface-dark` bands), typography (Rubik), components (floating centred pill nav, `PageHeader`), do's/don'ts. Light and dark themes (`:root.dark` house palette, `next-themes` toggle).
 
 These two files inform every UI decision. Read them before touching components.
 

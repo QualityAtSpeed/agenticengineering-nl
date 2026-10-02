@@ -43,8 +43,17 @@ describe('design tokens (app/globals.css)', () => {
     expect(token(band, 'border-strong')).toBe('#6b9a82');
   });
 
-  it('has no dark theme and no unused accent-blue token', () => {
-    expect(css).not.toMatch(/\.dark\b/);
+  it('defines the house dark theme on :root.dark', () => {
+    const dark = block(':root.dark');
+    expect(token(dark, 'bg-page')).toBe('#010409');
+    expect(token(dark, 'bg-base')).toBe('#0d1117');
+    expect(token(dark, 'bg-elevated')).toBe('#161b22');
+    expect(token(dark, 'text-primary')).toBe('#e6edf3');
+    expect(token(dark, 'brand')).toBe('#58a6ff');
+    expect(token(dark, 'on-accent')).toBe('#0d1117');
+  });
+
+  it('has no unused accent-blue token', () => {
     expect(css).not.toContain('--color-accent-blue');
   });
 

@@ -116,7 +116,7 @@ A calm marketing site for agentic-engineering trainings. The page surface is a m
 
 **Color strategy: Restrained, two surfaces.** Light sections use the `@theme` tokens. Dark bands use `.surface-dark`, which redefines the same tokens (white text, light green action). Components never pick band colours themselves; placement decides.
 
-**Theme: One theme.** No dark mode, no toggle.
+**Theme: light and dark.** A `next-themes` toggle (light/dark/system, in the nav island and the mobile menu) puts `.dark` on `<html>`; `:root.dark` redefines the `@theme` tokens to the house dark palette. `.surface-dark` bands keep their dark-green look in both themes.
 
 **Density.** Section padding `py-16` to `py-24`; body prose `max-w-2xl` (about 65ch).
 

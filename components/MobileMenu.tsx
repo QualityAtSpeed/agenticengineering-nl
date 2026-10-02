@@ -5,10 +5,12 @@ import { useTranslations } from 'next-intl';
 import { useEffect, useId, useRef, useState } from 'react';
 import type { Locale } from '@/i18n/routing';
 import { LangSwitcher } from './LangSwitcher';
+import { ThemeToggle } from './ThemeToggle';
 import { ISLAND } from './nav-styles';
 
 export function MobileMenu({ locale }: { locale: Locale }) {
   const t = useTranslations('nav');
+  const tTheme = useTranslations('theme');
   const [open, setOpen] = useState(false);
   const panelId = useId();
   const buttonRef = useRef<HTMLButtonElement>(null);
@@ -114,8 +116,12 @@ export function MobileMenu({ locale }: { locale: Locale }) {
             >
               {t('contact')}
             </Link>
-            <div className="border-border-subtle border-t pt-3">
+            <div className="border-border-subtle flex items-center justify-between gap-2 border-t pt-3">
               <LangSwitcher currentLocale={locale} />
+              <div className="flex items-center gap-2">
+                <span className="text-text-muted">{tTheme('label')}</span>
+                <ThemeToggle />
+              </div>
             </div>
           </div>
         </div>

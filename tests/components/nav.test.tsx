@@ -75,14 +75,15 @@ describe('<Nav />', () => {
     expect(within(panel).getByTestId('mobile-menu-faq')).toHaveAttribute('href', '/en/faq');
   });
 
-  it('does not render a theme toggle', async () => {
+  it('renders a theme toggle in the language area', async () => {
     const ui = await Nav({ locale: 'en' });
     render(
       <NextIntlClientProvider locale="en" messages={en}>
         {ui}
       </NextIntlClientProvider>,
     );
-    expect(screen.queryByTestId('theme-toggle')).not.toBeInTheDocument();
+    const lang = screen.getByTestId('nav-lang');
+    expect(within(lang).getByTestId('theme-toggle')).toBeInTheDocument();
   });
 
   it('floats in a dark band as one centred island holding brand, links and language switch', async () => {

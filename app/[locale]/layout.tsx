@@ -7,6 +7,7 @@ import { Rubik } from 'next/font/google';
 import { routing, type Locale } from '@/i18n/routing';
 import { Nav } from '@/components/Nav';
 import { Footer } from '@/components/Footer';
+import { ThemeProvider } from '@/components/ThemeProvider';
 
 const rubik = Rubik({
   subsets: ['latin', 'latin-ext'],
@@ -54,19 +55,21 @@ export default async function LocaleLayout({
   const typedLocale = locale as Locale;
 
   return (
-    <html lang={locale} className={rubik.variable}>
+    <html lang={locale} className={rubik.variable} suppressHydrationWarning>
       <body>
-        <a
-          href="#main"
-          className="focus:bg-accent-green focus:text-on-accent sr-only focus:not-sr-only focus:fixed focus:top-2 focus:left-2 focus:rounded-sm focus:px-3 focus:py-1"
-        >
-          Skip to content
-        </a>
-        <NextIntlClientProvider>
-          <Nav locale={typedLocale} />
-          <div id="main">{children}</div>
-          <Footer locale={typedLocale} />
-        </NextIntlClientProvider>
+        <ThemeProvider>
+          <a
+            href="#main"
+            className="focus:bg-accent-green focus:text-on-accent sr-only focus:not-sr-only focus:fixed focus:top-2 focus:left-2 focus:rounded-sm focus:px-3 focus:py-1"
+          >
+            Skip to content
+          </a>
+          <NextIntlClientProvider>
+            <Nav locale={typedLocale} />
+            <div id="main">{children}</div>
+            <Footer locale={typedLocale} />
+          </NextIntlClientProvider>
+        </ThemeProvider>
       </body>
     </html>
   );

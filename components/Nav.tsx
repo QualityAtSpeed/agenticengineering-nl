@@ -3,6 +3,7 @@ import Link from 'next/link';
 import { getTranslations } from 'next-intl/server';
 import { LangSwitcher } from './LangSwitcher';
 import { MobileMenu } from './MobileMenu';
+import { ThemeToggle } from './ThemeToggle';
 import { ISLAND } from './nav-styles';
 import type { Locale } from '@/i18n/routing';
 
@@ -48,9 +49,10 @@ export async function Nav({ locale }: { locale: Locale }) {
           </div>
           <div
             data-testid="nav-lang"
-            className="border-border-subtle hidden items-center border-l px-3 py-2 sm:inline-flex"
+            className="border-border-subtle hidden items-center gap-3 border-l px-3 py-2 sm:inline-flex"
           >
             <LangSwitcher currentLocale={locale} />
+            <ThemeToggle />
           </div>
           <MobileMenu locale={locale} />
         </nav>
