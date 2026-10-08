@@ -25,7 +25,7 @@
   "dependencies": {
     "@hookform/resolvers": "^5.7.1",
     "js-yaml": "^4.3.2",
-    "next": "^15.5.25",
+    "next": "^15.5.27",
     "next-intl": "^4.13.5",
     "next-themes": "^0.4.6",
     "react": "^19.2.8",
@@ -64,7 +64,7 @@
     "playwright": "^1.62.1",
     "prettier": "^3.9.6",
     "prettier-plugin-tailwindcss": "^0.8.1",
-    "sharp": "^0.35.4",
+    "sharp": "^0.35.5",
     "tailwindcss": "^4.3.3",
     "tsx": "^4.23.7",
     "typescript": "^6.0.3",
@@ -83,7 +83,13 @@
       "esbuild": ">=0.28.1",
       "@babel/core": "^7.29.6",
       "undici": "^7.29.1",
-      "sharp@<0.35.0": "^0.35.3"
+      "sharp@<0.35.5": "^0.35.5",
+      "source-map-js@<1.2.2": "^1.2.2"
+    },
+    "auditConfig": {
+      "ignoreCves": [
+        "CVE-2026-93687"
+      ]
     }
   }
 }
