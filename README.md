@@ -333,7 +333,9 @@ Set in `next.config.ts`. Apply only in production (dev keeps relaxed for local t
 
 ### Dependency pins
 
-Transitive packages with advisories are pinned through `pnpm.overrides` in `package.json` (currently `postcss`, `qs`, `fast-uri`, `esbuild`, `@babel/core`, `undici`, `sharp`, `nanoid`, `brace-expansion`). CI enforces this with `pnpm audit --audit-level=high` plus an OSV scan of the lockfile, so a new advisory on a transitive dep fails the build until an override or upstream bump lands.
+Transitive packages with advisories are pinned through `pnpm.overrides` in `package.json` (currently `postcss`, `qs`, `fast-uri`, `esbuild`, `@babel/core`, `undici`, `sharp`, `nanoid`, `brace-expansion`, `source-map-js`). CI enforces this with `pnpm audit --audit-level=high` plus an OSV scan of the lockfile, so a new advisory on a transitive dep fails the build until an override or upstream bump lands.
+
+An advisory with no fixed release yet is ignored in both scans, with a reason and an expiry date: by CVE in `pnpm.auditConfig.ignoreCves` (pnpm 9.0.0 does not support `ignoreGhsas`) and by GHSA in `osv-scanner.toml`. Currently that is only `braces` (GHSA-vfj7-8cjw-p6xm), which comes in through `eslint-config-next` as a dev dependency.
 
 ## Deployment
 
