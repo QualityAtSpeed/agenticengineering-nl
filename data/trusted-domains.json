@@ -1,4 +1,5 @@
 [
+  "anthropic.com",
   "cloudflare.com",
   "curlewis.co.nz",
   "geekwire.com",
@@ -8,5 +9,6 @@
   "medium.com",
   "substack.com",
   "substackcdn.com",
+  "www-cdn.anthropic.com",
   "youtube.com"
 ]
