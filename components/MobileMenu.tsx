@@ -72,7 +72,7 @@ export function MobileMenu({ locale }: { locale: Locale }) {
           data-testid="mobile-menu-panel"
           className="border-border-subtle bg-bg-base/95 absolute inset-x-0 top-full border-b backdrop-blur sm:hidden"
         >
-          <div className="mx-auto flex max-w-6xl flex-col gap-4 px-4 py-4 text-sm font-medium">
+          <div className="mx-auto flex max-w-a4 flex-col gap-4 px-4 py-4 text-sm font-medium">
             <Link
               href={`/${locale}/articles`}
               onClick={() => setOpen(false)}

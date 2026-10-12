@@ -8,7 +8,7 @@ export async function Footer({ locale }: { locale: Locale }) {
   const tNav = await getTranslations('nav');
   return (
     <footer className="border-border-subtle bg-bg-elevated border-t">
-      <div className="mx-auto grid max-w-6xl gap-8 px-6 py-12 sm:grid-cols-4">
+      <div className="mx-auto grid max-w-a4 gap-8 px-6 py-12 sm:grid-cols-4">
         <div>
           <div className="text-text-primary inline-flex items-center gap-2 text-sm font-bold">
             <Image src="/brand-icon.svg" alt="" width={22} height={22} aria-hidden />

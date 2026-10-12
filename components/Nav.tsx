@@ -12,7 +12,7 @@ export async function Nav({ locale }: { locale: Locale }) {
     <>
       <div className="from-brand-deep via-brand to-accent-green h-[3px] bg-gradient-to-r" />
       <nav className="border-border-subtle bg-bg-base/95 sticky top-0 z-10 border-b backdrop-blur">
-        <div className="relative mx-auto flex max-w-6xl items-center justify-between gap-4 px-4 py-4 sm:gap-6 sm:px-6">
+        <div className="relative mx-auto flex max-w-a4 items-center justify-between gap-4 px-4 py-4 sm:gap-6 sm:px-6">
           <Link
             href={`/${locale}`}
             data-testid="nav-brand"

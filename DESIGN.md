@@ -118,7 +118,7 @@ A bright, white-surface marketing site for selling agentic-engineering trainings
 
 **Theme: Light, always.** Audience is engineers and tech leads evaluating a credible training during the workday on bright monitors. The site has to read as a trustworthy training catalog, not as a developer tool. White surface signals "this is the catalog you read"; brand blue carries the institutional confidence; green CTA earns the eye when an action is available.
 
-**Density.** Headlines are bold and prominent (`clamp(2.25rem, 5vw, 3.75rem)` for hero), body text breathes at `max-w-2xl` (≈ 65ch). Section padding stacks at `py-16` to `py-24`. Sections feel like discrete chapters but the surface is continuous and welcoming, not slabbed.
+**Density.** The whole site is capped at one A4 sheet wide: every page shell uses `max-w-a4` (`--container-a4: 210mm` ≈ 794px). Headlines are bold and prominent (`clamp(2.25rem, 5vw, 3.75rem)` for hero), body text breathes at `max-w-2xl` (≈ 65ch). Section padding stacks at `py-16` to `py-24`. Sections feel like discrete chapters but the surface is continuous and welcoming, not slabbed.
 
 **Locale-aware.** NL is primary (`html lang="nl"`). EN is parity-complete. Curriculum module IDs stay English even on the NL page; titles localize. This is deliberate: engineers speak English about MCP/SDLC even in Dutch sentences.
 
@@ -212,7 +212,7 @@ A full-width banded section in `bg-elevated` separated from neighbors by `border
 
 ### Nav
 
-Sticky top, full-width, solid `bg-base`, `border-subtle` bottom border. Above the nav, a 3px gradient strip (`brand-deep → brand → accent-green`). Inside: max-w-6xl row with brand on left (`28×28` brand-icon SVG + bold wordmark `agentic·engineering`), links on right (`Over ons` / `Contact` / `LangSwitcher`). Links are `text-text-soft` default, `text-brand-deep` on hover with underline. Active locale in switcher is `text-brand`.
+Sticky top, full-width, solid `bg-base`, `border-subtle` bottom border. Above the nav, a 3px gradient strip (`brand-deep → brand → accent-green`). Inside: max-w-a4 row with brand on left (`28×28` brand-icon SVG + bold wordmark `agentic·engineering`), links on right (`Over ons` / `Contact` / `LangSwitcher`). Links are `text-text-soft` default, `text-brand-deep` on hover with underline. Active locale in switcher is `text-brand`.
 
 ### Form fields
 
