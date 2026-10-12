@@ -44,7 +44,7 @@ export default async function Home({ params }: { params: Promise<{ locale: Local
       />
 
       <section className="border-border-subtle border-b px-6 py-20">
-        <div className="mx-auto max-w-4xl">
+        <div className="mx-auto max-w-a4">
           <h2 className="text-brand text-2xl font-bold sm:text-3xl">{tWhy('title')}</h2>
           <p className="text-text-primary mt-3 text-xl font-semibold sm:text-2xl">
             {tWhy('tagline')}
@@ -61,7 +61,7 @@ export default async function Home({ params }: { params: Promise<{ locale: Local
       </section>
 
       <section id="trainings" className="border-border-subtle border-b px-6 py-20">
-        <div className="mx-auto max-w-4xl">
+        <div className="mx-auto max-w-a4">
           <div className="mb-8 max-w-2xl">
             <h2 className="text-brand text-2xl font-bold sm:text-3xl">
               {tTrainings('sectionTitle')}
@@ -80,7 +80,7 @@ export default async function Home({ params }: { params: Promise<{ locale: Local
       <ProofStrip locale={locale} />
 
       <section className="border-border-subtle border-b px-6 py-20">
-        <div className="mx-auto max-w-4xl">
+        <div className="mx-auto max-w-a4">
           <div className="mb-8 max-w-2xl">
             <h2 className="text-brand text-2xl font-bold sm:text-3xl">
               {tHome('instructorsTitle')}
@@ -111,7 +111,7 @@ export default async function Home({ params }: { params: Promise<{ locale: Local
             backgroundSize: '24px 24px',
           }}
         />
-        <div className="relative mx-auto max-w-4xl text-white">
+        <div className="relative mx-auto max-w-a4 text-white">
           <h2 className="max-w-[24ch] text-2xl font-bold sm:text-3xl">{tHome('finalCta.title')}</h2>
           <p className="mt-3 max-w-[56ch] text-white/90">{tHome('finalCta.body')}</p>
           <div className="mt-7 flex flex-wrap gap-3">

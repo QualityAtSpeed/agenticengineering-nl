@@ -29,6 +29,9 @@
   --color-on-accent: #ffffff;
 
   --font-sans: var(--font-sans-loaded), system-ui, -apple-system, sans-serif;
+
+  /* page shell: one A4 sheet wide (210mm = 793.7px at 96dpi) */
+  --container-a4: 210mm;
 }
 
 :root.dark {

@@ -33,7 +33,7 @@ export default async function ArticlesPage({
 
   return (
     <main className="px-6 py-16 sm:py-20">
-      <div className="mx-auto max-w-4xl">
+      <div className="mx-auto max-w-a4">
         <h1 className="text-brand-deep text-3xl font-bold sm:text-4xl">
           {t('title')}{' '}
           <span className="text-text-soft text-xl font-normal sm:text-2xl">{t('intro')}</span>
