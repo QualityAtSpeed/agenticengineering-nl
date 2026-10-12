@@ -13,7 +13,7 @@ function sourceFiles(dir: string): string[] {
 describe('page width (A4)', () => {
   it('globals.css defines the A4 container token', () => {
     const css = readFileSync(join(process.cwd(), 'app/globals.css'), 'utf8');
-    expect(css).toContain('--container-a4: 210mm');
+    expect(css).toContain('--container-a4: 834px');
   });
 
   it('no container in app/ or components/ is wider than one A4 sheet', () => {

@@ -30,8 +30,8 @@
 
   --font-sans: var(--font-sans-loaded), system-ui, -apple-system, sans-serif;
 
-  /* page shell: one A4 sheet wide (210mm = 793.7px at 96dpi) */
-  --container-a4: 210mm;
+  /* page shell: as wide as a nos.nl article column (834px), which reads like one A4 sheet on screen */
+  --container-a4: 834px;
 }
 
 :root.dark {
