@@ -30,7 +30,7 @@
 
   --font-sans: var(--font-sans-loaded), system-ui, -apple-system, sans-serif;
 
-  /* page shell: as wide as a nos.nl article column (834px), which reads like one A4 sheet on screen */
+  /* page shell: reads like one A4 sheet on screen */
   --container-a4: 834px;
 }
 
