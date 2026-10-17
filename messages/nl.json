@@ -20,7 +20,7 @@
         "description": "Hands-on trainingen in agentic engineering met Claude Code: Pilot, Basic en Advanced."
       },
       "articles": {
-        "title": "Artikelen · agenticengineering.nl",
+        "title": "Nieuws · agenticengineering.nl",
         "description": "Gecureerd nieuws en artikelen over agentic engineering, AI en quality engineering."
       },
       "faq": {
@@ -544,8 +544,8 @@
     }
   },
   "articles": {
-    "title": "Artikelen",
-    "intro": "die wij schreven of aanraden.",
+    "title": "Nieuws",
+    "intro": "dat wij schreven of aanraden.",
     "readExternal": "lees op externe site ",
     "emptyState": "nog geen artikelen",
     "placedBy": "Geplaatst door",
