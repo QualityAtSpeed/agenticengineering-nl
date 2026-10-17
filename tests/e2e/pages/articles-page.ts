@@ -12,7 +12,7 @@ const READ_EXTERNAL: Record<Locale, string> = {
 };
 
 const INTRO: Record<Locale, string> = {
-  nl: 'die wij schreven of aanraden.',
+  nl: 'dat wij schreven of aanraden.',
   en: 'we wrote or recommend.',
 };
 
