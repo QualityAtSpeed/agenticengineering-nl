@@ -60,4 +60,13 @@ describe('<ContactForm />', () => {
     );
     expect(values).toEqual(['basic', 'advanced', 'other']);
   });
+
+  it('does offer all three delivery options', () => {
+    renderForm()
+    const select = screen.getByTestId('contact-delivery-pref')
+    const values = Array.from(select.querySelectorAll('option')).map((o) =>
+      o.getAttribute('value'),
+  );
+  expect(values).toEqual(['noPreference', 'inCompany', 'remote']);
+  })
 });
