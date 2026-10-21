@@ -14,10 +14,18 @@ jobs:
         run: |
           echo "Deleting all deployments for branch: $BRANCH"
 
-          DEPLOYMENTS=$(curl -s \
+          RESPONSE=$(curl -s \
             --url "https://api.vercel.com/v7/deployments?projectId=${{ secrets.VERCEL_PROJECT_ID }}&target=preview&limit=100" \
-            --header "Authorization: Bearer ${{ secrets.VERCEL_TOKEN }}" \
-            | jq -r --arg branch "$BRANCH" '.deployments[] | select(.meta.githubCommitRef == $branch) | .uid')
+            --header "Authorization: Bearer ${{ secrets.VERCEL_TOKEN }}")
+
+          if echo "$RESPONSE" | jq -e '.error' >/dev/null 2>&1; then
+            echo "Vercel API error:"
+            echo "$RESPONSE" | jq '.error'
+            exit 1
+          fi
+
+          DEPLOYMENTS=$(echo "$RESPONSE" \
+            | jq -r --arg branch "$BRANCH" '(.deployments // [])[] | select(.meta.githubCommitRef == $branch) | .uid')
 
           if [ -z "$DEPLOYMENTS" ]; then
             echo "No deployments found for branch $BRANCH, skipping"
