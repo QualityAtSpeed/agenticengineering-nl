@@ -186,3 +186,26 @@ export function trainingLabel(id: TrainingId, locale = 'nl'): string {
   if (!name || !schedule) return id;
   return `${name} (${formatTrainingDateRange(schedule.startDate, schedule.endDate, locale)})`;
 }
+
+// Calendar date in the Netherlands as YYYY-MM-DD, assembled from parts so the
+// result doesn't depend on a locale's date pattern.
+const amsterdamDate = new Intl.DateTimeFormat('en-GB', {
+  timeZone: 'Europe/Amsterdam',
+  year: 'numeric',
+  month: '2-digit',
+  day: '2-digit',
+});
+
+function isoDateInAmsterdam(now: Date): string {
+  const parts = Object.fromEntries(amsterdamDate.formatToParts(now).map((p) => [p.type, p.value]));
+  return `${parts.year}-${parts.month}-${parts.day}`;
+}
+
+// Whether a dated training is over: its last day (`schedule.endDate`) lies before
+// today in the Netherlands. Undated trainings never end. Ended trainings stay
+// reachable by URL but are kept out of search: no sitemap entry, noindex on the
+// detail page, no Course in the homepage JSON-LD. `now` is injected for tests.
+export function hasEnded(id: TrainingId, now: Date = new Date()): boolean {
+  const schedule = trainings[id].schedule;
+  return schedule !== undefined && isoDateInAmsterdam(now) > schedule.endDate;
+}

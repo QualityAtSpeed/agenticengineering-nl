@@ -1,22 +1,18 @@
 import type { MetadataRoute } from 'next';
 import { routing } from '@/i18n/routing';
-import { trainings } from '@/data/trainings';
+import { trainings, hasEnded, type TrainingId } from '@/data/trainings';
 
 const BASE = 'https://agenticengineering.nl';
-// Training detail pages are conversion pages — they belong in the sitemap too.
-const PATHS = [
-  '',
-  '/about',
-  '/trainings',
-  '/articles',
-  '/contact',
-  '/faq',
-  '/impressum',
-  ...Object.keys(trainings).map((id) => `/trainings/${id}`),
-];
+const PATHS = ['', '/about', '/trainings', '/articles', '/contact', '/faq', '/impressum'];
 
 export default function sitemap(): MetadataRoute.Sitemap {
-  return PATHS.flatMap((p) =>
+  // Training detail pages are conversion pages — they belong in the sitemap too,
+  // except trainings that have ended: those stay reachable but out of search.
+  const trainingPaths = (Object.keys(trainings) as TrainingId[])
+    .filter((id) => !hasEnded(id))
+    .map((id) => `/trainings/${id}`);
+
+  return [...PATHS, ...trainingPaths].flatMap((p) =>
     routing.locales.map((locale) => ({
       url: `${BASE}/${locale}${p}`,
       changeFrequency: 'monthly' as const,
