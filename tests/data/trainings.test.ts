@@ -1,5 +1,5 @@
 import { describe, it, expect } from 'vitest';
-import { trainings, trainingLabel, type ModuleId } from '@/data/trainings';
+import { trainings, trainingLabel, hasEnded, type ModuleId } from '@/data/trainings';
 
 describe('trainings catalogue', () => {
   it('Basic is a 2-day training with 22 modules split 11 / 11 across two days', () => {
@@ -133,5 +133,29 @@ describe('trainingLabel', () => {
   it('falls back to the raw id for undated trainings (behaviour-preserving)', () => {
     expect(trainingLabel('basic')).toBe('basic');
     expect(trainingLabel('advanced')).toBe('advanced');
+  });
+});
+
+describe('hasEnded', () => {
+  it('is false for trainings without a fixed schedule', () => {
+    const farFuture = new Date('2030-01-01T12:00:00Z');
+    expect(hasEnded('basic', farFuture)).toBe(false);
+    expect(hasEnded('advanced', farFuture)).toBe(false);
+  });
+
+  it('is false before and during the training', () => {
+    expect(hasEnded('basic-nov-26', new Date('2026-10-30T12:00:00Z'))).toBe(false);
+    expect(hasEnded('pilot', new Date('2026-06-29T08:00:00Z'))).toBe(false);
+  });
+
+  it('is false until the last training day is over in the Netherlands', () => {
+    // 23:30 on 30 June in Amsterdam (CEST, UTC+2): still the pilot's last day.
+    expect(hasEnded('pilot', new Date('2026-06-30T21:30:00Z'))).toBe(false);
+  });
+
+  it('is true from the day after the last training day in the Netherlands', () => {
+    // 00:30 on 1 July in Amsterdam, while UTC is still on 30 June.
+    expect(hasEnded('pilot', new Date('2026-06-30T22:30:00Z'))).toBe(true);
+    expect(hasEnded('discount-aug-26', new Date('2026-10-30T12:00:00Z'))).toBe(true);
   });
 });

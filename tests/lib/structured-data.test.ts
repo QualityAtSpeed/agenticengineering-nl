@@ -6,10 +6,12 @@ const name = (id: string) => `${id} title`;
 const description = (id: string) => `${id} description`;
 
 describe('buildHomeJsonLd', () => {
+  // 1 June 2026: before every dated cohort, so all trainings are still in the graph.
   const graph = buildHomeJsonLd({
     locale: 'nl',
     trainingName: name,
     trainingDescription: description,
+    now: new Date('2026-06-01T12:00:00Z'),
   })['@graph'] as Array<Record<string, unknown>>;
 
   it('includes the Organization node with canonical url', () => {
@@ -59,6 +61,22 @@ describe('buildHomeJsonLd', () => {
     expect(instance?.courseMode).toStrictEqual(['online']);
     expect(instance?.startDate).toBe('2026-11-09');
     expect(instance?.endDate).toBe('2026-11-10');
+  });
+
+  it('leaves out trainings that have ended', () => {
+    // 30 October 2026: after the pilot and discount-aug-26 cohorts, before basic-nov-26.
+    const later = buildHomeJsonLd({
+      locale: 'nl',
+      trainingName: name,
+      trainingDescription: description,
+      now: new Date('2026-10-30T12:00:00Z'),
+    })['@graph'] as Array<Record<string, unknown>>;
+    const urls = later.filter((n) => n['@type'] === 'Course').map((c) => c.url);
+    expect(urls).toEqual([
+      'https://agenticengineering.nl/nl/trainings/basic-nov-26',
+      'https://agenticengineering.nl/nl/trainings/basic',
+      'https://agenticengineering.nl/nl/trainings/advanced',
+    ]);
   });
 
   it('does NOT add a CourseInstance to trainings without a fixed schedule', () => {

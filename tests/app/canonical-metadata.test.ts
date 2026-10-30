@@ -1,6 +1,7 @@
 import type { Metadata } from 'next';
 import { describe, it, expect, vi } from 'vitest';
 import type { Locale } from '@/i18n/routing';
+import type { TrainingId } from '@/data/trainings';
 
 // next-intl's server helpers need a request scope we don't have in unit tests.
 // Stub them: `t(key)` echoes the key (enough to assert URL/canonical shape),
@@ -54,6 +55,28 @@ describe('canonical metadata', () => {
       const robots = (mod as unknown as { metadata?: { robots?: { index?: boolean } } }).metadata
         ?.robots;
       expect(robots?.index, `${route.label} should be noindex`).toBe(false);
+    }
+  });
+
+  it('training detail pages are noindex once the training has ended', async () => {
+    // 30 October 2026: after the pilot and discount-aug-26 cohorts, before basic-nov-26.
+    vi.useFakeTimers({ toFake: ['Date'] });
+    vi.setSystemTime(new Date('2026-10-30T12:00:00Z'));
+    try {
+      const { generateMetadata } = await import('@/app/[locale]/trainings/[trainingId]/page');
+      const metadataFor = (trainingId: TrainingId) =>
+        generateMetadata({ params: Promise.resolve({ locale: 'nl' as Locale, trainingId }) });
+
+      for (const id of ['pilot', 'discount-aug-26'] as const) {
+        const md = await metadataFor(id);
+        expect((md.robots as { index?: boolean } | undefined)?.index, `${id} noindex`).toBe(false);
+        expect(md.alternates?.canonical).toBe(`https://agenticengineering.nl/nl/trainings/${id}`);
+      }
+      for (const id of ['basic-nov-26', 'basic', 'advanced'] as const) {
+        expect((await metadataFor(id)).robots, `${id} stays indexable`).toBeUndefined();
+      }
+    } finally {
+      vi.useRealTimers();
     }
   });
 });

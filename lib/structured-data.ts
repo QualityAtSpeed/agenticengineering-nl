@@ -1,4 +1,4 @@
-import { trainings, type TrainingId } from '@/data/trainings';
+import { trainings, hasEnded, type TrainingId } from '@/data/trainings';
 
 const SITE = 'https://agenticengineering.nl';
 
@@ -9,13 +9,21 @@ type BuildArgs = {
   // Resolver for a training's short description in the active locale — feeds the
   // schema.org Course `description`, which Google requires for Course rich results.
   trainingDescription: (id: TrainingId) => string;
+  // Moment to judge which trainings have ended; injected for tests.
+  now?: Date;
 };
 
 // Builds the schema.org JSON-LD graph for the homepage: the Organization plus
-// one Course per training. Trainings with a fixed `schedule` also get a
-// schema.org CourseInstance, so search engines and AI assistants can see a
-// concrete, bookable date instead of a static page. Pure + testable.
-export function buildHomeJsonLd({ locale, trainingName, trainingDescription }: BuildArgs) {
+// one Course per training that has not ended (see `hasEnded`). Trainings with a
+// fixed `schedule` also get a schema.org CourseInstance, so search engines and AI
+// assistants can see a concrete, bookable date instead of a static page. Pure +
+// testable.
+export function buildHomeJsonLd({
+  locale,
+  trainingName,
+  trainingDescription,
+  now = new Date(),
+}: BuildArgs) {
   return {
     '@context': 'https://schema.org',
     '@graph': [
@@ -30,27 +38,15 @@ export function buildHomeJsonLd({ locale, trainingName, trainingDescription }: B
           'https://linkedin.com/company/quality-speed-nl',
         ],
       },
-      ...Object.values(trainings).map((tr) => {
-        const course: Record<string, unknown> = {
-          '@type': 'Course',
-          name: `${trainingName(tr.id)} - agentic engineering`,
-          description: trainingDescription(tr.id),
-          url: `${SITE}/${locale}/trainings/${tr.id}`,
-          provider: { '@type': 'Organization', name: 'agenticengineering.nl', url: SITE },
-          offers: {
-            '@type': 'Offer',
-            priceCurrency: 'EUR',
-            price: tr.priceEUR,
+      ...Object.values(trainings)
+        .filter((tr) => !hasEnded(tr.id, now))
+        .map((tr) => {
+          const course: Record<string, unknown> = {
+            '@type': 'Course',
+            name: `${trainingName(tr.id)} - agentic engineering`,
+            description: trainingDescription(tr.id),
             url: `${SITE}/${locale}/trainings/${tr.id}`,
-          },
-        };
-        if (tr.schedule) {
-          course.hasCourseInstance = {
-            '@type': 'CourseInstance',
-            courseMode: tr.schedule.courseMode,
-            startDate: tr.schedule.startDate,
-            endDate: tr.schedule.endDate,
-            courseWorkload: `P${tr.durationDays}D`,
+            provider: { '@type': 'Organization', name: 'agenticengineering.nl', url: SITE },
             offers: {
               '@type': 'Offer',
               priceCurrency: 'EUR',
@@ -58,9 +54,23 @@ export function buildHomeJsonLd({ locale, trainingName, trainingDescription }: B
               url: `${SITE}/${locale}/trainings/${tr.id}`,
             },
           };
-        }
-        return course;
-      }),
+          if (tr.schedule) {
+            course.hasCourseInstance = {
+              '@type': 'CourseInstance',
+              courseMode: tr.schedule.courseMode,
+              startDate: tr.schedule.startDate,
+              endDate: tr.schedule.endDate,
+              courseWorkload: `P${tr.durationDays}D`,
+              offers: {
+                '@type': 'Offer',
+                priceCurrency: 'EUR',
+                price: tr.priceEUR,
+                url: `${SITE}/${locale}/trainings/${tr.id}`,
+              },
+            };
+          }
+          return course;
+        }),
     ],
   };
 }
