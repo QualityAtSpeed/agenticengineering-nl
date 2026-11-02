@@ -43,13 +43,16 @@ describe('<TrainingsPage />', () => {
     expect(
       screen.getByRole('heading', { name: 'Basic Training (9 & 10 November 2026)' }),
     ).toBeInTheDocument();
+    expect(
+      screen.getByRole('heading', { name: 'Basic Training (4 & 5 January 2027)' }),
+    ).toBeInTheDocument();
     expect(screen.getByRole('heading', { name: 'Advanced' })).toBeInTheDocument();
     expect(screen.getByRole('heading', { name: /Trainings/ })).toBeInTheDocument();
 
     expect(screen.getAllByText(/2 days/).length).toBeGreaterThan(0);
     expect(screen.getByText(/1 day/)).toBeInTheDocument();
 
-    // Both listed cohorts (basic-nov-26, advanced) are priced at €999
+    // All listed trainings (basic-nov-26, basic-jan-27, advanced) are priced at €999
     const price = trainings.advanced.priceEUR.toLocaleString('nl-NL'); // "999"
     expect(screen.getAllByText(new RegExp(`€\\s*${price}`)).length).toBeGreaterThanOrEqual(2);
   });

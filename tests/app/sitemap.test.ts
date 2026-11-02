@@ -25,7 +25,9 @@ describe('sitemap', () => {
 
   it('lists every training detail page that has not ended, in both locales', () => {
     const current = (Object.keys(trainings) as TrainingId[]).filter((id) => !hasEnded(id, NOW));
-    expect(current).toEqual(expect.arrayContaining(['basic-nov-26', 'basic', 'advanced']));
+    expect(current).toEqual(
+      expect.arrayContaining(['basic-nov-26', 'basic-jan-27', 'basic', 'advanced']),
+    );
     for (const id of current) {
       expect(urls(), `nl /trainings/${id}`).toContain(
         `https://agenticengineering.nl/nl/trainings/${id}`,
