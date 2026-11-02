@@ -1,5 +1,5 @@
 {
   "permissions": {
-    "allow": ["Write(.github/workflows)", "Edit(.github/workflows)"]
+    "allow": ["Edit(.github/workflows)"]
   }
 }
