@@ -50,3 +50,6 @@ reports/
 # Impeccable transient session/annotation data (keep config.json)
 .impeccable/live/annotations/
 .impeccable/live/sessions/
+
+# Archify diagrams (local output)
+.archify/
