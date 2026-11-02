@@ -11,12 +11,20 @@ jobs:
       - name: Delete preview deployments
         env:
           BRANCH: ${{ github.event.pull_request.head.ref }}
+          VERCEL_TEAM_ID: team_cEatNbrknXKMEH9v0SQsN6f5
         run: |
           echo "Deleting all deployments for branch: $BRANCH"
 
-          DEPLOYMENTS=$(curl -s \
-            --url "https://api.vercel.com/v7/deployments?projectId=${{ secrets.VERCEL_PROJECT_ID }}&target=preview&limit=100" \
-            --header "Authorization: Bearer ${{ secrets.VERCEL_TOKEN }}" \
+          RESPONSE=$(curl -sS \
+            --url "https://api.vercel.com/v7/deployments?projectId=${{ secrets.VERCEL_PROJECT_ID }}&teamId=$VERCEL_TEAM_ID&target=preview&limit=100" \
+            --header "Authorization: Bearer ${{ secrets.VERCEL_TOKEN }}")
+
+          if ! echo "$RESPONSE" | jq -e '.deployments' > /dev/null; then
+            echo "::error::Vercel API did not return deployments: $(echo "$RESPONSE" | jq -c '.error // .')"
+            exit 1
+          fi
+
+          DEPLOYMENTS=$(echo "$RESPONSE" \
             | jq -r --arg branch "$BRANCH" '.deployments[] | select(.meta.githubCommitRef == $branch) | .uid')
 
           if [ -z "$DEPLOYMENTS" ]; then
@@ -26,7 +34,7 @@ jobs:
 
           for ID in $DEPLOYMENTS; do
             echo "Deleting deployment $ID"
-            curl --request DELETE \
-              --url "https://api.vercel.com/v13/deployments/$ID" \
+            curl -sS --fail-with-body --request DELETE \
+              --url "https://api.vercel.com/v13/deployments/$ID?teamId=$VERCEL_TEAM_ID" \
               --header "Authorization: Bearer ${{ secrets.VERCEL_TOKEN }}"
           done
