@@ -6,3 +6,13 @@
 id = "GHSA-vfj7-8cjw-p6xm"
 ignoreUntil = 2027-01-08
 reason = "No patched braces release; dev-only via eslint-config-next, not shipped"
+
+# minimatch has no patched release below 11.0.1 (GHSA-g3hv-75wg-m249, ReDoS-style glob-part
+# amplification with attacker-controlled patterns). minimatch 10 (via @stryker-mutator) is
+# overridden to ^11.0.1 in package.json; minimatch 3 is pinned by eslint / @eslint/eslintrc /
+# @eslint/config-array, which need its callable CJS export that v11 dropped. Dev-only, matches
+# only our own lint globs, not shipped. Remove once eslint moves off minimatch 3.
+[[IgnoredVulns]]
+id = "GHSA-g3hv-75wg-m249"
+ignoreUntil = 2027-01-08
+reason = "minimatch 3 has no patched release; dev-only via eslint, matches only our own globs"
