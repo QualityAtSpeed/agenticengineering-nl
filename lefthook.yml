@@ -4,6 +4,9 @@ pre-commit:
     lint:
       glob: '*.{ts,tsx,js,jsx,mjs}'
       run: pnpm exec eslint {staged_files}
+    typecheck:
+      glob: '*.{ts,tsx}'
+      run: pnpm typecheck
     format:
       glob: '*.{ts,tsx,js,jsx,mjs,json,css,md}'
       run: pnpm exec prettier --check {staged_files}

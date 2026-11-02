@@ -38,7 +38,7 @@ Node 20 (`.nvmrc`), pnpm 9 (`corepack enable`). Run a single unit test with `pnp
 
 ## Pre-commit hook (lefthook)
 
-`pre-commit` runs prettier `--check`, eslint, and `readme-check`. **`readme-check` calls the Claude CLI** to verify README.md still matches staged changes — it blocks the commit (exit 1) when new files/dirs/routes/lib/components/env vars or behavior changes aren't reflected in README.md. Keep README.md updated in the **same commit**. Requires `ANTHROPIC_API_KEY` in the shell. Don't use `--no-verify` unless fixing the hook itself.
+`pre-commit` runs prettier `--check`, eslint, `pnpm typecheck` (when `.ts`/`.tsx` files are staged), and `readme-check`. **`readme-check` calls the Claude CLI** to verify README.md still matches staged changes — it blocks the commit (exit 1) when new files/dirs/routes/lib/components/env vars or behavior changes aren't reflected in README.md. Keep README.md updated in the **same commit**. Requires `ANTHROPIC_API_KEY` in the shell. Don't use `--no-verify` unless fixing the hook itself.
 
 ## Deployment
 
