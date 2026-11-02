@@ -86,11 +86,6 @@
       "sharp@<0.35.5": "^0.35.5",
       "source-map-js@<1.2.2": "^1.2.2",
       "minimatch@^10.0.0": "^11.0.1"
-    },
-    "auditConfig": {
-      "ignoreCves": [
-        "CVE-2026-93687"
-      ]
     }
   }
 }

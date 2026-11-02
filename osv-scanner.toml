@@ -1,12 +1,3 @@
-# braces <=3.0.3 has no patched release yet. It only comes in through eslint-config-next
-# (@next/eslint-plugin-next > fast-glob > micromatch), a dev dependency that expands our own
-# lint globs and is not shipped with the site. The same CVE is ignored for pnpm audit in
-# package.json (pnpm.auditConfig.ignoreCves). Remove both once a fixed version exists.
-[[IgnoredVulns]]
-id = "GHSA-vfj7-8cjw-p6xm"
-ignoreUntil = 2027-01-08
-reason = "No patched braces release; dev-only via eslint-config-next, not shipped"
-
 # minimatch has no patched release below 11.0.1 (GHSA-g3hv-75wg-m249, ReDoS-style glob-part
 # amplification with attacker-controlled patterns). minimatch 10 (via @stryker-mutator) is
 # overridden to ^11.0.1 in package.json; minimatch 3 is pinned by eslint / @eslint/eslintrc /
