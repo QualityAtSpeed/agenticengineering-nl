@@ -335,7 +335,7 @@ Set in `next.config.ts`. Apply only in production (dev keeps relaxed for local t
 
 Transitive packages with advisories are pinned through `pnpm.overrides` in `package.json` (currently `postcss`, `qs`, `fast-uri`, `esbuild`, `@babel/core`, `undici`, `sharp`, `nanoid`, `brace-expansion`, `source-map-js`, and `minimatch` 10 → ^11.0.1). CI enforces this with `pnpm audit --audit-level=high` plus an OSV scan of the lockfile, so a new advisory on a transitive dep fails the build until an override or upstream bump lands.
 
-An advisory with no fixed release yet is ignored in both scans, with a reason and an expiry date: by CVE in `pnpm.auditConfig.ignoreCves` (pnpm 9.0.0 does not support `ignoreGhsas`) and by GHSA in `osv-scanner.toml`. Currently that is `braces` (GHSA-vfj7-8cjw-p6xm), which comes in through `eslint-config-next` as a dev dependency, and `minimatch` 3 (GHSA-g3hv-75wg-m249, OSV only — it is Medium, below the `pnpm audit` threshold), pinned by `eslint` itself because minimatch 11 drops the callable export eslint needs.
+An advisory with no fixed release yet is ignored in both scans, with a reason and an expiry date: by CVE in `pnpm.auditConfig.ignoreCves` (pnpm 9.0.0 does not support `ignoreGhsas`) and by GHSA in `osv-scanner.toml`. Currently that is only `minimatch` 3 (GHSA-g3hv-75wg-m249, OSV only — it is Medium, below the `pnpm audit` threshold), pinned by `eslint` itself because minimatch 11 drops the callable export eslint needs.
 
 ## Deployment
 
