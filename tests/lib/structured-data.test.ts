@@ -63,6 +63,15 @@ describe('buildHomeJsonLd', () => {
     expect(instance?.endDate).toBe('2026-11-10');
   });
 
+  it('gives the scheduled basic-jan-27 a CourseInstance with online mode and ISO dates', () => {
+    const courses = graph.filter((n) => n['@type'] === 'Course');
+    const jan = courses.find((c) => (c.url as string)?.endsWith('/trainings/basic-jan-27'));
+    const instance = jan?.hasCourseInstance as Record<string, unknown> | undefined;
+    expect(instance?.courseMode).toStrictEqual(['online']);
+    expect(instance?.startDate).toBe('2027-01-04');
+    expect(instance?.endDate).toBe('2027-01-05');
+  });
+
   it('leaves out trainings that have ended', () => {
     // 30 October 2026: after the pilot and discount-aug-26 cohorts, before basic-nov-26.
     const later = buildHomeJsonLd({
@@ -74,6 +83,7 @@ describe('buildHomeJsonLd', () => {
     const urls = later.filter((n) => n['@type'] === 'Course').map((c) => c.url);
     expect(urls).toEqual([
       'https://agenticengineering.nl/nl/trainings/basic-nov-26',
+      'https://agenticengineering.nl/nl/trainings/basic-jan-27',
       'https://agenticengineering.nl/nl/trainings/basic',
       'https://agenticengineering.nl/nl/trainings/advanced',
     ]);

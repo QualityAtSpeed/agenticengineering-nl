@@ -43,6 +43,7 @@ describe('trainings catalogue', () => {
     expect(trainings.pilot.modules).toEqual(trainings.basic.modules);
     expect(trainings['discount-aug-26'].modules).toEqual(trainings.basic.modules);
     expect(trainings['basic-nov-26'].modules).toEqual(trainings.basic.modules);
+    expect(trainings['basic-jan-27'].modules).toEqual(trainings.basic.modules);
   });
 
   it('the dated cohorts (pilot, discount-aug-26, basic-nov-26) carry a fixed schedule for structured data', () => {
@@ -59,6 +60,11 @@ describe('trainings catalogue', () => {
     expect(trainings['basic-nov-26'].schedule).toEqual({
       startDate: '2026-11-09',
       endDate: '2026-11-10',
+      courseMode: ['online'],
+    });
+    expect(trainings['basic-jan-27'].schedule).toEqual({
+      startDate: '2027-01-04',
+      endDate: '2027-01-05',
       courseMode: ['online'],
     });
     expect(trainings.basic.schedule).toBeUndefined();
@@ -96,6 +102,19 @@ describe('trainings catalogue', () => {
     expect(nov.soldOut).toBeUndefined();
   });
 
+  it('basic-jan-27 is the Basic curriculum as a dated cohort with a 30% early-bird until 1 Dec', () => {
+    const jan = trainings['basic-jan-27'];
+    expect(jan.durationDays).toBe(2);
+    expect(jan.priceEUR).toBe(999);
+    expect(jan.modules).toEqual(trainings.basic.modules);
+    expect(jan.earlyBird).toEqual({
+      discountPct: 30,
+      // CET (+01:00) — the deadline falls after the 25 Oct DST switch.
+      deadline: '2026-12-01T00:00:00+01:00',
+    });
+    expect(jan.soldOut).toBeUndefined();
+  });
+
   it('Advanced is a 1-day training with 5 modules and no day tags', () => {
     const adv = trainings.advanced;
     expect(adv.durationDays).toBe(1);
@@ -127,6 +146,9 @@ describe('trainingLabel', () => {
     );
     expect(trainingLabel('basic-nov-26')).toBe(
       'Agentic Engineering Training (9 en 10 november 2026)',
+    );
+    expect(trainingLabel('basic-jan-27')).toBe(
+      'Agentic Engineering Training (4 en 5 januari 2027)',
     );
   });
 

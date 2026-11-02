@@ -48,6 +48,14 @@ describe('canonical metadata', () => {
         label: 'basic-nov-26 booking success page',
         load: () => import('@/app/[locale]/trainings/basic-nov-26/book/success/page'),
       },
+      {
+        label: 'basic-jan-27 booking page',
+        load: () => import('@/app/[locale]/trainings/basic-jan-27/book/page'),
+      },
+      {
+        label: 'basic-jan-27 booking success page',
+        load: () => import('@/app/[locale]/trainings/basic-jan-27/book/success/page'),
+      },
     ];
 
     for (const route of routes) {
@@ -72,7 +80,7 @@ describe('canonical metadata', () => {
         expect((md.robots as { index?: boolean } | undefined)?.index, `${id} noindex`).toBe(false);
         expect(md.alternates?.canonical).toBe(`https://agenticengineering.nl/nl/trainings/${id}`);
       }
-      for (const id of ['basic-nov-26', 'basic', 'advanced'] as const) {
+      for (const id of ['basic-nov-26', 'basic-jan-27', 'basic', 'advanced'] as const) {
         expect((await metadataFor(id)).robots, `${id} stays indexable`).toBeUndefined();
       }
     } finally {
