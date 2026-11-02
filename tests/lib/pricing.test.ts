@@ -65,6 +65,20 @@ describe('priceFor — early-bird', () => {
     expect(p.earlyBird).toBe(false);
   });
 
+  it('applies the 30% early-bird discount before the deadline (basic-jan-27)', () => {
+    const p = priceFor('basic-jan-27', new Date('2026-11-15T12:00:00+01:00'));
+    expect(p.earlyBird).toBe(true);
+    expect(p.baseNetCents).toBe(99900);
+    expect(p.netCents).toBe(69900);
+  });
+
+  it('the basic-jan-27 deadline is exclusive — 1 Dec 00:00 CET is already full price', () => {
+    expect(priceFor('basic-jan-27', new Date('2026-11-30T23:59:59+01:00')).earlyBird).toBe(true);
+    const p = priceFor('basic-jan-27', new Date('2026-12-01T00:00:00+01:00'));
+    expect(p.earlyBird).toBe(false);
+    expect(p.netCents).toBe(99900);
+  });
+
   it('trainings without early-bird are unaffected by the date', () => {
     const a = priceFor('pilot', beforeDeadline);
     const b = priceFor('pilot', afterDeadline);

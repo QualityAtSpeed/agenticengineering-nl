@@ -39,7 +39,8 @@ export type DeliveryFormat = 'inCompany' | 'publicCohort' | 'remote';
 
 export type Module = { id: ModuleId; day?: 1 | 2 };
 
-export type TrainingId = 'basic' | 'advanced' | 'pilot' | 'discount-aug-26' | 'basic-nov-26';
+export type TrainingId =
+  'basic' | 'advanced' | 'pilot' | 'discount-aug-26' | 'basic-nov-26' | 'basic-jan-27';
 
 // Optional fixed schedule, in ISO 8601, for trainings that run on a known date.
 // Used only for machine-readable structured data (schema.org CourseInstance) —
@@ -73,7 +74,7 @@ export type Training = {
 
 // The approved 2-day curriculum (Miro Day 1 / Day 2 frames). Shared verbatim by
 // every 2-day offering — Basic and its dated cohorts (pilot, discount-aug-26,
-// basic-nov-26) — so they can never drift apart. Day 1 = fundamentals, Day 2 = quality &
+// basic-nov-26, basic-jan-27) — so they can never drift apart. Day 1 = fundamentals, Day 2 = quality &
 // advanced. Pure logistics frames (breaks, lunch, opening, recap, wrap-up) are
 // omitted; times and presenters stay in the delivery plan, not the curriculum.
 const twoDayCurriculum: Module[] = [
@@ -145,6 +146,22 @@ export const trainings: Record<TrainingId, Training> = {
     modules: twoDayCurriculum,
     deliveryFormats: ['inCompany', 'publicCohort', 'remote'],
   },
+
+  'basic-jan-27': {
+    id: 'basic-jan-27',
+    durationDays: 2,
+    priceEUR: 999,
+    schedule: {
+      startDate: '2027-01-04',
+      endDate: '2027-01-05',
+      // Online-only cohort — badge + schema.org mogen geen in-person claimen.
+      courseMode: ['online'],
+    },
+    // CET (+01:00): the deadline falls after the 25 October switch from CEST.
+    earlyBird: { discountPct: 30, deadline: '2026-12-01T00:00:00+01:00' },
+    modules: twoDayCurriculum,
+    deliveryFormats: ['inCompany', 'publicCohort', 'remote'],
+  },
   basic: {
     id: 'basic',
     durationDays: 2,
@@ -175,6 +192,7 @@ const TRAINING_NAME: Partial<Record<TrainingId, string>> = {
   pilot: 'Pilot - Basic Training',
   'discount-aug-26': 'Agentic Engineering Training',
   'basic-nov-26': 'Agentic Engineering Training',
+  'basic-jan-27': 'Agentic Engineering Training',
 };
 
 // Human-facing label (name + date) for a booked training. Falls back to the raw id
