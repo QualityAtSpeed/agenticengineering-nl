@@ -33,6 +33,8 @@ jobs:
       - uses: anthropics/claude-code-action@4411a9e9b0283becf4b924f7bce360fd7756c78c # v1
         with:
           claude_code_oauth_token: ${{ secrets.CLAUDE_CODE_OAUTH_TOKEN }}
+          # Standaard workflow-token gebruiken i.p.v. OIDC → Claude GitHub App
+          github_token: ${{ secrets.GITHUB_TOKEN }}
           prompt: |
             REPO: ${{ github.repository }}
             PR: #${{ env.PR_NUMBER }}
