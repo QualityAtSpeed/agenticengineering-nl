@@ -145,6 +145,9 @@ export const trainings: Record<TrainingId, Training> = {
     earlyBird: { discountPct: 30, deadline: '2026-10-15T00:00:00+02:00' },
     modules: twoDayCurriculum,
     deliveryFormats: ['inCompany', 'publicCohort', 'remote'],
+    // This cohort has run (9-10 November 2026); retired the same way as the
+    // pilot — kept in the catalogue so its detail + booking routes still resolve.
+    soldOut: true,
   },
 
   'basic-jan-27': {

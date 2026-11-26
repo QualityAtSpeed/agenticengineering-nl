@@ -40,19 +40,17 @@ describe('BookingPage', () => {
     expect(screen.queryByTestId('booking-submit')).not.toBeInTheDocument();
   });
 
-  it('basic-nov-26 booking page renders the form wired to its own trainingId', async () => {
+  it('basic-nov-26 has run: its booking page shows the sold-out notice, not the form', async () => {
     const ui = await BasicNov26BookingPage({
       params: Promise.resolve({ locale: 'en' as const }),
     });
-    const { container } = render(
+    render(
       <NextIntlClientProvider locale="en" messages={en}>
         {ui}
       </NextIntlClientProvider>,
     );
-    expect(screen.getByText(en.booking.title)).toBeInTheDocument();
-    expect(screen.getByTestId('booking-submit')).toBeInTheDocument();
-    const hidden = container.querySelector('input[name="trainingId"]') as HTMLInputElement;
-    expect(hidden).toHaveValue('basic-nov-26');
+    expect(screen.getByText(en.booking.soldOutHeading)).toBeInTheDocument();
+    expect(screen.queryByTestId('booking-submit')).not.toBeInTheDocument();
   });
 
   it('basic-jan-27 booking page renders the form wired to its own trainingId', async () => {
@@ -64,6 +62,7 @@ describe('BookingPage', () => {
         {ui}
       </NextIntlClientProvider>,
     );
+    expect(screen.getByText(en.booking.title)).toBeInTheDocument();
     expect(screen.getByTestId('booking-submit')).toBeInTheDocument();
     const hidden = container.querySelector('input[name="trainingId"]') as HTMLInputElement;
     expect(hidden).toHaveValue('basic-jan-27');

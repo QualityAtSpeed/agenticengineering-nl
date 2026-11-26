@@ -99,7 +99,10 @@ describe('trainings catalogue', () => {
       // CEST (+02:00) — the deadline falls before the 25 Oct DST switch to CET.
       deadline: '2026-10-15T00:00:00+02:00',
     });
-    expect(nov.soldOut).toBeUndefined();
+  });
+
+  it('basic-nov-26 has run and is retired as sold out', () => {
+    expect(trainings['basic-nov-26'].soldOut).toBe(true);
   });
 
   it('basic-jan-27 is the Basic curriculum as a dated cohort with a 30% early-bird until 1 Dec', () => {

@@ -50,11 +50,12 @@ beforeEach(() => {
 });
 
 describe('POST /api/checkout', () => {
-  // pilot and discount-aug-26 are sold out (409), so the bookable happy-path uses
-  // basic-nov-26. Pinned after its early-bird deadline for a deterministic full price.
-  const AFTER_DEADLINE = new Date('2026-10-20T12:00:00+02:00');
+  // pilot, discount-aug-26 and basic-jan-27 are sold out (409), so the bookable
+  // happy-path uses basic-jan-27. Pinned after its early-bird deadline for a
+  // deterministic full price.
+  const AFTER_DEADLINE = new Date('2026-12-10T12:00:00+01:00');
   const bookableBody = {
-    trainingId: 'basic-nov-26',
+    trainingId: 'basic-jan-27',
     attendees: [{ name: 'Pascal', email: 'pascal@example.com' }],
     ...companyFields,
   };
@@ -70,7 +71,7 @@ describe('POST /api/checkout', () => {
       expect(arg.mode).toBe('payment');
       expect(arg.line_items[0].price_data.unit_amount).toBe(120879);
       expect(arg.line_items[0].quantity).toBe(1);
-      expect(arg.metadata.trainingId).toBe('basic-nov-26');
+      expect(arg.metadata.trainingId).toBe('basic-jan-27');
       expect(arg.metadata.attendee_0).toContain('pascal@example.com');
     } finally {
       vi.useRealTimers();
@@ -82,7 +83,7 @@ describe('POST /api/checkout', () => {
     const discArg = createMock.mock.calls[0][0];
     expect(discArg.allow_promotion_codes).toBe(true);
     // coexists with the metadata the referral program ties a redemption back to
-    expect(discArg.metadata.trainingId).toBe('basic-nov-26');
+    expect(discArg.metadata.trainingId).toBe('basic-jan-27');
   });
 
   it('applies a valid referral code as a Stripe discount and records attribution', async () => {
@@ -108,13 +109,13 @@ describe('POST /api/checkout', () => {
     expect(createMock).not.toHaveBeenCalled();
   });
 
-  it('prices basic-nov-26 with the early-bird discount before the deadline (server-enforced)', async () => {
+  it('prices basic-jan-27 with the early-bird discount before the deadline (server-enforced)', async () => {
     vi.useFakeTimers();
-    vi.setSystemTime(new Date('2026-10-01T12:00:00+02:00'));
+    vi.setSystemTime(new Date('2026-11-15T12:00:00+01:00'));
     try {
       const res = await POST(
         make({
-          trainingId: 'basic-nov-26',
+          trainingId: 'basic-jan-27',
           attendees: [{ name: 'A', email: 'a@x.com' }],
           ...companyFields,
         }),
@@ -123,20 +124,20 @@ describe('POST /api/checkout', () => {
       const arg = createMock.mock.calls[0][0];
       // €999 net → −30% floored to €699 net → +21% VAT = 84579 cents gross
       expect(arg.line_items[0].price_data.unit_amount).toBe(84579);
-      expect(arg.metadata.trainingId).toBe('basic-nov-26');
-      expect(arg.success_url).toContain('/trainings/basic-nov-26/book/success');
+      expect(arg.metadata.trainingId).toBe('basic-jan-27');
+      expect(arg.success_url).toContain('/trainings/basic-jan-27/book/success');
     } finally {
       vi.useRealTimers();
     }
   });
 
-  it('prices basic-nov-26 at the full price after the deadline', async () => {
+  it('prices basic-jan-27 at the full price after the deadline', async () => {
     vi.useFakeTimers();
-    vi.setSystemTime(new Date('2026-10-20T12:00:00+02:00'));
+    vi.setSystemTime(AFTER_DEADLINE);
     try {
       await POST(
         make({
-          trainingId: 'basic-nov-26',
+          trainingId: 'basic-jan-27',
           attendees: [{ name: 'A', email: 'a@x.com' }],
           ...companyFields,
         }),
@@ -165,7 +166,7 @@ describe('POST /api/checkout', () => {
     try {
       await POST(
         make({
-          trainingId: 'basic-nov-26',
+          trainingId: 'basic-jan-27',
           attendees: [
             { name: 'A', email: 'a@x.com' },
             { name: 'B', email: 'b@x.com' },
@@ -188,6 +189,13 @@ describe('POST /api/checkout', () => {
 
   it('409 on the retired discount-aug-26 cohort, without creating a Stripe session', async () => {
     const res = await POST(make({ ...bookableBody, trainingId: 'discount-aug-26' }));
+    expect(res.status).toBe(409);
+    expect(await res.json()).toEqual({ ok: false, error: 'sold_out' });
+    expect(createMock).not.toHaveBeenCalled();
+  });
+
+  it('409 on the retired basic-nov-26 cohort, without creating a Stripe session', async () => {
+    const res = await POST(make({ ...bookableBody, trainingId: 'basic-nov-26' }));
     expect(res.status).toBe(409);
     expect(await res.json()).toEqual({ ok: false, error: 'sold_out' });
     expect(createMock).not.toHaveBeenCalled();
