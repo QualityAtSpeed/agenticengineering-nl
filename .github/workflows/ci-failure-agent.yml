@@ -46,7 +46,7 @@ jobs:
           # Welke job en stap faalden (alleen de namen, geen log)
           # Een job zonder gefaalde stap krijgt alleen zijn naam, zonder " / ".
           if ! gefaald=$(gh run view "$RUN_ID" --json jobs \
-            --jq '[.jobs[] | select(.conclusion == "failure") | ([.steps[] | select(.conclusion == "failure") | .name] | join(", ")) as $s | .name + (if $s == "" then "" else " / " + $s end)] | join("; ")'); then
+            --jq '[.jobs[] | select(.conclusion == "failure") | .name + (([.steps[] | select(.conclusion == "failure") | .name] | join(", ")) | if . == "" then "" else " / " + . end)] | join("; ")'); then
             echo "::warning::gh run view faalde; gefaalde jobs onbekend"
             gefaald="onbekend (gh run view faalde)"
           fi
