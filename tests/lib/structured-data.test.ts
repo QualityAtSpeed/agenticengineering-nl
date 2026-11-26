@@ -6,22 +6,23 @@ const name = (id: string) => `${id} title`;
 const description = (id: string) => `${id} description`;
 
 describe('buildHomeJsonLd', () => {
-  // 1 June 2026: before every dated cohort, so all trainings are still in the graph.
+  // 1 June 2026: before every dated cohort, so every listed training is in the graph.
   const graph = buildHomeJsonLd({
     locale: 'nl',
     trainingName: name,
     trainingDescription: description,
     now: new Date('2026-06-01T12:00:00Z'),
   })['@graph'] as Array<Record<string, unknown>>;
+  const listed = Object.values(trainings).filter((tr) => !tr.unlisted);
 
   it('includes the Organization node with canonical url', () => {
     const org = graph.find((n) => n['@type'] === 'Organization');
     expect(org?.url).toBe('https://agenticengineering.nl');
   });
 
-  it('emits one Course per training, each linking to its detail page in the locale', () => {
+  it('emits one Course per listed training, each linking to its detail page in the locale', () => {
     const courses = graph.filter((n) => n['@type'] === 'Course');
-    expect(courses).toHaveLength(Object.keys(trainings).length);
+    expect(courses).toHaveLength(listed.length);
     const pilot = courses.find((c) => (c.url as string)?.endsWith('/nl/trainings/pilot'));
     expect(pilot, 'pilot Course links to /nl/trainings/pilot').toBeTruthy();
     expect((pilot?.offers as Record<string, unknown>)?.priceCurrency).toBe('EUR');
@@ -29,7 +30,7 @@ describe('buildHomeJsonLd', () => {
 
   it('gives every Course a non-empty description from the description resolver', () => {
     const courses = graph.filter((n) => n['@type'] === 'Course');
-    expect(courses).toHaveLength(Object.keys(trainings).length);
+    expect(courses).toHaveLength(listed.length);
     for (const c of courses) {
       const id = (c.url as string).split('/').pop() as string;
       expect(c.description, `${id} Course has a description`).toBe(description(id));
@@ -84,17 +85,20 @@ describe('buildHomeJsonLd', () => {
     expect(urls).toEqual([
       'https://agenticengineering.nl/nl/trainings/basic-nov-26',
       'https://agenticengineering.nl/nl/trainings/basic-jan-27',
-      'https://agenticengineering.nl/nl/trainings/basic',
       'https://agenticengineering.nl/nl/trainings/advanced',
     ]);
   });
 
   it('does NOT add a CourseInstance to trainings without a fixed schedule', () => {
     const courses = graph.filter((n) => n['@type'] === 'Course');
-    const basic = courses.find((c) => (c.url as string)?.endsWith('/trainings/basic'));
     const advanced = courses.find((c) => (c.url as string)?.endsWith('/trainings/advanced'));
-    expect(basic?.hasCourseInstance).toBeUndefined();
+    expect(advanced).toBeDefined();
     expect(advanced?.hasCourseInstance).toBeUndefined();
+  });
+
+  it('leaves out the unlisted basic template', () => {
+    const courses = graph.filter((n) => n['@type'] === 'Course');
+    expect(courses.find((c) => (c.url as string)?.endsWith('/trainings/basic'))).toBeUndefined();
   });
 });
 

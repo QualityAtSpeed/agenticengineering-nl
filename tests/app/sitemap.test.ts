@@ -1,6 +1,6 @@
 import { describe, it, expect, beforeEach, afterEach, vi } from 'vitest';
 import sitemap from '@/app/sitemap';
-import { trainings, hasEnded, type TrainingId } from '@/data/trainings';
+import { trainings, isSearchable, type TrainingId } from '@/data/trainings';
 
 // Trainings that have ended drop out of the sitemap, so pin the clock: 30 October
 // 2026 is after the pilot and discount-aug-26 cohorts, before basic-nov-26.
@@ -23,11 +23,9 @@ describe('sitemap', () => {
     expect(urls()).toContain('https://agenticengineering.nl/en/trainings');
   });
 
-  it('lists every training detail page that has not ended, in both locales', () => {
-    const current = (Object.keys(trainings) as TrainingId[]).filter((id) => !hasEnded(id, NOW));
-    expect(current).toEqual(
-      expect.arrayContaining(['basic-nov-26', 'basic-jan-27', 'basic', 'advanced']),
-    );
+  it('lists every searchable training detail page, in both locales', () => {
+    const current = (Object.keys(trainings) as TrainingId[]).filter((id) => isSearchable(id, NOW));
+    expect(current).toEqual(expect.arrayContaining(['basic-nov-26', 'basic-jan-27', 'advanced']));
     for (const id of current) {
       expect(urls(), `nl /trainings/${id}`).toContain(
         `https://agenticengineering.nl/nl/trainings/${id}`,
@@ -47,6 +45,11 @@ describe('sitemap', () => {
         `https://agenticengineering.nl/en/trainings/${id}`,
       );
     }
+  });
+
+  it('leaves out the unlisted basic template', () => {
+    expect(urls()).not.toContain('https://agenticengineering.nl/nl/trainings/basic');
+    expect(urls()).not.toContain('https://agenticengineering.nl/en/trainings/basic');
   });
 
   it('keeps hreflang alternates on every entry', () => {
