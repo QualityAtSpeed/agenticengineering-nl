@@ -1,6 +1,6 @@
 import { setRequestLocale, getTranslations } from 'next-intl/server';
 import type { Locale } from '@/i18n/routing';
-import { TrainingId, hasEnded } from '@/data/trainings';
+import { TrainingId, isSearchable } from '@/data/trainings';
 import { TrainingDetail } from '@/components/TrainingDetail';
 import { buildPageMetadata } from '@/lib/page-metadata';
 
@@ -18,8 +18,8 @@ export async function generateMetadata({
     title: `${t(`${trainingId}.name`)} · agentic engineering`,
     description: t(`${trainingId}.tagline`),
   });
-  // An ended training stays reachable by URL, but search engines should drop it.
-  return hasEnded(trainingId) ? { ...metadata, robots: { index: false } } : metadata;
+  // An ended or unlisted training stays reachable by URL, but search engines should drop it.
+  return isSearchable(trainingId) ? metadata : { ...metadata, robots: { index: false } };
 }
 
 // Prices are time-dependent (early-bird deadlines enforced against `now`).

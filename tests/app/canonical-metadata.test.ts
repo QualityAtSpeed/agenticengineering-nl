@@ -66,6 +66,15 @@ describe('canonical metadata', () => {
     }
   });
 
+  it('the unlisted basic template is noindex, keeping its self-canonical', async () => {
+    const { generateMetadata } = await import('@/app/[locale]/trainings/[trainingId]/page');
+    const md = await generateMetadata({
+      params: Promise.resolve({ locale: 'nl' as Locale, trainingId: 'basic' as TrainingId }),
+    });
+    expect((md.robots as { index?: boolean } | undefined)?.index).toBe(false);
+    expect(md.alternates?.canonical).toBe('https://agenticengineering.nl/nl/trainings/basic');
+  });
+
   it('training detail pages are noindex once the training has ended', async () => {
     // 30 October 2026: after the pilot and discount-aug-26 cohorts, before basic-nov-26.
     vi.useFakeTimers({ toFake: ['Date'] });
@@ -80,7 +89,7 @@ describe('canonical metadata', () => {
         expect((md.robots as { index?: boolean } | undefined)?.index, `${id} noindex`).toBe(false);
         expect(md.alternates?.canonical).toBe(`https://agenticengineering.nl/nl/trainings/${id}`);
       }
-      for (const id of ['basic-nov-26', 'basic-jan-27', 'basic', 'advanced'] as const) {
+      for (const id of ['basic-nov-26', 'basic-jan-27', 'advanced'] as const) {
         expect((await metadataFor(id)).robots, `${id} stays indexable`).toBeUndefined();
       }
     } finally {

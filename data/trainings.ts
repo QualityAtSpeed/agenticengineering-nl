@@ -70,6 +70,10 @@ export type Training = {
   // When true, the card renders a sold-out state: dimmed content, a red
   // "sold out" badge/label, and a disabled booking button.
   soldOut?: boolean;
+  // When true, the detail page stays reachable by URL but is kept out of search
+  // (no sitemap entry, noindex, no Course in the homepage JSON-LD). For the
+  // undated template a dated cohort mirrors, which is not linked from any page.
+  unlisted?: boolean;
 };
 
 // The approved 2-day curriculum (Miro Day 1 / Day 2 frames). Shared verbatim by
@@ -171,6 +175,9 @@ export const trainings: Record<TrainingId, Training> = {
     priceEUR: 999,
     modules: twoDayCurriculum,
     deliveryFormats: ['inCompany', 'publicCohort', 'remote'],
+    // Template for the dated cohorts: no card links to it and its copy duplicates
+    // the current cohort, so Google reported it as "Crawled - currently not indexed".
+    unlisted: true,
   },
   advanced: {
     id: 'advanced',
@@ -229,4 +236,10 @@ function isoDateInAmsterdam(now: Date): string {
 export function hasEnded(id: TrainingId, now: Date = new Date()): boolean {
   const schedule = trainings[id].schedule;
   return schedule !== undefined && isoDateInAmsterdam(now) > schedule.endDate;
+}
+
+// Whether a training's detail page belongs in search: not ended and not `unlisted`.
+// Drives the sitemap, the detail page's noindex and the homepage JSON-LD Courses.
+export function isSearchable(id: TrainingId, now: Date = new Date()): boolean {
+  return !trainings[id].unlisted && !hasEnded(id, now);
 }

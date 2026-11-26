@@ -1,5 +1,5 @@
 import { describe, it, expect } from 'vitest';
-import { trainings, trainingLabel, hasEnded, type ModuleId } from '@/data/trainings';
+import { trainings, trainingLabel, hasEnded, isSearchable, type ModuleId } from '@/data/trainings';
 
 describe('trainings catalogue', () => {
   it('Basic is a 2-day training with 22 modules split 11 / 11 across two days', () => {
@@ -182,5 +182,24 @@ describe('hasEnded', () => {
     // 00:30 on 1 July in Amsterdam, while UTC is still on 30 June.
     expect(hasEnded('pilot', new Date('2026-06-30T22:30:00Z'))).toBe(true);
     expect(hasEnded('discount-aug-26', new Date('2026-10-30T12:00:00Z'))).toBe(true);
+  });
+});
+
+describe('isSearchable', () => {
+  const NOW = new Date('2026-11-26T12:00:00Z');
+
+  it('keeps current trainings searchable', () => {
+    expect(isSearchable('basic-jan-27', NOW)).toBe(true);
+    expect(isSearchable('advanced', NOW)).toBe(true);
+  });
+
+  it('drops ended cohorts', () => {
+    expect(isSearchable('pilot', NOW)).toBe(false);
+    expect(isSearchable('basic-nov-26', NOW)).toBe(false);
+  });
+
+  it('drops the unlisted basic template, even though it never ends', () => {
+    expect(hasEnded('basic', NOW)).toBe(false);
+    expect(isSearchable('basic', NOW)).toBe(false);
   });
 });

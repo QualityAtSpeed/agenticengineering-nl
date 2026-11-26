@@ -1,4 +1,4 @@
-import { trainings, hasEnded, type TrainingId } from '@/data/trainings';
+import { trainings, isSearchable, type TrainingId } from '@/data/trainings';
 
 const SITE = 'https://agenticengineering.nl';
 
@@ -14,10 +14,10 @@ type BuildArgs = {
 };
 
 // Builds the schema.org JSON-LD graph for the homepage: the Organization plus
-// one Course per training that has not ended (see `hasEnded`). Trainings with a
-// fixed `schedule` also get a schema.org CourseInstance, so search engines and AI
-// assistants can see a concrete, bookable date instead of a static page. Pure +
-// testable.
+// one Course per searchable training (see `isSearchable`: not ended, not
+// unlisted). Trainings with a fixed `schedule` also get a schema.org
+// CourseInstance, so search engines and AI assistants can see a concrete,
+// bookable date instead of a static page. Pure + testable.
 export function buildHomeJsonLd({
   locale,
   trainingName,
@@ -39,7 +39,7 @@ export function buildHomeJsonLd({
         ],
       },
       ...Object.values(trainings)
-        .filter((tr) => !hasEnded(tr.id, now))
+        .filter((tr) => isSearchable(tr.id, now))
         .map((tr) => {
           const course: Record<string, unknown> = {
             '@type': 'Course',
