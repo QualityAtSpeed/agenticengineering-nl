@@ -81,7 +81,7 @@ describe('POST /api/checkout', () => {
   it('enables promotion-code redemption for bookable trainings, alongside the attribution metadata', async () => {
     await POST(make(bookableBody));
     const discArg = createMock.mock.calls[0][0];
-    expect(discArg.allow_promotion_codes).toBe(false);
+    expect(discArg.allow_promotion_codes).toBe(true);
     // coexists with the metadata the referral program ties a redemption back to
     expect(discArg.metadata.trainingId).toBe('basic-jan-27');
   });
