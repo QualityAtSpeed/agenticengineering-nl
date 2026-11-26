@@ -357,6 +357,8 @@ Vercel GitHub App is connected, so pushes to `main` auto-deploy to production an
 
 A GitHub Actions workflow (`.github/workflows/discord-pr.yml`) posts PR notifications to a Discord channel when PRs open or merge, plus a manual `workflow_dispatch` (with a `pr_number` input) to publish any PR on demand. Set the `DISCORD_WEBHOOK` secret in GitHub repo settings to enable it; the workflow skips silently when the secret is unset.
 
+A second workflow (`.github/workflows/ci-failure-agent.yml`) analyses failed CI runs on pull requests. It triggers on `workflow_run` when `CI` completes with `failure`, checks out the PR's head commit, and runs `anthropics/claude-code-action` to read the failed logs (`gh run view --log-failed`), locate the cause in the code, and post one root-cause comment on the PR. Claude is limited to read-only tools plus `gh pr comment`; it never edits code or pushes. Requires the `CLAUDE_CODE_OAUTH_TOKEN` secret in GitHub repo settings (generate it locally with `claude setup-token`; runs count against that Claude subscription's usage limits). Fork PRs are skipped. Because `workflow_run` triggers are read from the default branch only, the workflow takes effect after it is merged to `main`.
+
 ### DNS (TransIP)
 
 Mail and web records coexist on the same zone.

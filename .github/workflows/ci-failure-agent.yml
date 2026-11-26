@@ -1,0 +1,56 @@
+name: CI  FAilure Analysis
+
+on:
+  workflow_run:
+    workflows: [CI]
+    types: [completed]
+
+permissions:
+  contents: read
+  actions: read
+  pull-requests: write
+
+jobs:
+  analyze:
+    name: Analyse rode CI-run
+    # Alleen bij rood, alleen voor PR-runs, en alleen als er een PR aan hangt
+    if: >-
+      github.event.workflow_run.conclusion == 'failure' &&
+      github.event.workflow_run.event == 'pull_request' &&
+      github.event.workflow_run.pull_requests[0] != null
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    env:
+      GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      RUN_ID: ${{ github.event.workflow_run.id }}
+      PR_NUMBER: ${{ github.event.workflow_run.pull_requests[0].number }}
+      HEAD_SHA: ${{ github.event.workflow_run.head_sha }}
+    steps:
+      - uses: actions/checkout@34e114876b0b11c390a56381ad16ebd13914f8d5 # v4.3.1
+        with:
+          ref: ${{ github.event.workflow_run.head_sha }}
+
+      - uses: anthropics/claude-code-action@4411a9e9b0283becf4b924f7bce360fd7756c78c # v1
+        with:
+          claude_code_oauth_token: ${{ secrets.CLAUDE_CODE_OAUTH_TOKEN }}
+          prompt: |
+            REPO: ${{ github.repository }}
+            PR: #${{ env.PR_NUMBER }}
+            Gefaalde CI-run: ${{ env.RUN_ID }} (commit ${{ env.HEAD_SHA }})
+
+            De workflow "CI" is rood op deze PR. Zoek de oorzaak uit:
+            1. Lees de gefaalde logs met `gh run view ${{ env.RUN_ID }} --log-failed`.
+            2. Bepaal welke job en stap faalde en wat de foutmelding is.
+            3. Zoek in de code de plek die de fout veroorzaakt.
+            4. Plaats ÉÉN comment op de PR met
+               `gh pr comment ${{ env.PR_NUMBER }} --body "..."`, in het Nederlands:
+               - **Oorzaak** (1-2 zinnen, bovenaan)
+               - **Waar**: bestand:regel
+               - **Uitleg**: relevante logregels en waarom het faalt
+               - **Mogelijke fix**: kort, als suggestie
+            Pas geen code aan en push niets.
+          claude_args: |
+            --model claude-sonnet-5-5
+            --max-turns 20
+            --permission-mode default
+            --allowedTools "Read,Grep,Glob,Bash(gh run view:*),Bash(gh pr view:*),Bash(gh pr diff:*),Bash(gh pr comment:*)"
