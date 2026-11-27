@@ -2,8 +2,8 @@ import { describe, it, expect, beforeEach, afterEach, vi } from 'vitest';
 import sitemap from '@/app/sitemap';
 import { trainings, isSearchable, type TrainingId } from '@/data/trainings';
 
-// Trainings that have ended drop out of the sitemap, so pin the clock: 30 October
-// 2026 is after the pilot and discount-aug-26 cohorts, before basic-nov-26.
+// Pin the clock: 30 October 2026 is after the pilot and discount-aug-26 cohorts,
+// before basic-nov-26 — cohorts stay out either way.
 const NOW = new Date('2026-10-30T12:00:00Z');
 
 describe('sitemap', () => {
@@ -23,9 +23,9 @@ describe('sitemap', () => {
     expect(urls()).toContain('https://agenticengineering.nl/en/trainings');
   });
 
-  it('lists every searchable training detail page, in both locales', () => {
+  it('lists the evergreen training pages (basic, advanced) in both locales', () => {
     const current = (Object.keys(trainings) as TrainingId[]).filter((id) => isSearchable(id, NOW));
-    expect(current).toEqual(expect.arrayContaining(['basic-nov-26', 'basic-jan-27', 'advanced']));
+    expect(current).toEqual(['basic', 'advanced']);
     for (const id of current) {
       expect(urls(), `nl /trainings/${id}`).toContain(
         `https://agenticengineering.nl/nl/trainings/${id}`,
@@ -36,8 +36,8 @@ describe('sitemap', () => {
     }
   });
 
-  it('leaves out training detail pages that have ended', () => {
-    for (const id of ['pilot', 'discount-aug-26']) {
+  it('leaves out every cohort page, open or ended (they canonicalise to basic)', () => {
+    for (const id of ['pilot', 'discount-aug-26', 'basic-nov-26', 'basic-jan-27']) {
       expect(urls(), `nl /trainings/${id}`).not.toContain(
         `https://agenticengineering.nl/nl/trainings/${id}`,
       );
@@ -45,11 +45,6 @@ describe('sitemap', () => {
         `https://agenticengineering.nl/en/trainings/${id}`,
       );
     }
-  });
-
-  it('leaves out the unlisted basic template', () => {
-    expect(urls()).not.toContain('https://agenticengineering.nl/nl/trainings/basic');
-    expect(urls()).not.toContain('https://agenticengineering.nl/en/trainings/basic');
   });
 
   it('keeps hreflang alternates on every entry', () => {

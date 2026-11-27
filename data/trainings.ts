@@ -70,10 +70,11 @@ export type Training = {
   // When true, the card renders a sold-out state: dimmed content, a red
   // "sold out" badge/label, and a disabled booking button.
   soldOut?: boolean;
-  // When true, the detail page stays reachable by URL but is kept out of search
-  // (no sitemap entry, noindex, no Course in the homepage JSON-LD). For the
-  // undated template a dated cohort mirrors, which is not linked from any page.
-  unlisted?: boolean;
+  // A dated cohort of an evergreen training (e.g. `basic`). Its detail page stays
+  // reachable and bookable, but search engines are pointed at the evergreen page
+  // (canonical), which lists the upcoming cohorts — so ranking builds up on one
+  // URL instead of resetting with every new cohort.
+  cohortOf?: TrainingId;
 };
 
 // The approved 2-day curriculum (Miro Day 1 / Day 2 frames). Shared verbatim by
@@ -113,6 +114,7 @@ export const trainings: Record<TrainingId, Training> = {
     priceEUR: 349,
     schedule: { startDate: '2026-06-29', endDate: '2026-06-30', courseMode: ['online'] },
     modules: twoDayCurriculum,
+    cohortOf: 'basic',
     deliveryFormats: ['inCompany', 'publicCohort', 'remote'],
     soldOut: true,
   },
@@ -129,6 +131,7 @@ export const trainings: Record<TrainingId, Training> = {
     },
     earlyBird: { discountPct: 30, deadline: '2026-09-15T00:00:00+02:00' },
     modules: twoDayCurriculum,
+    cohortOf: 'basic',
     deliveryFormats: ['inCompany', 'publicCohort', 'remote'],
     // This cohort has run (21-22 September 2026); retired the same way as the
     // pilot — kept in the catalogue so its detail + booking routes still resolve.
@@ -148,6 +151,7 @@ export const trainings: Record<TrainingId, Training> = {
     // CEST (+02:00): the deadline falls before the 25 October switch to CET.
     earlyBird: { discountPct: 30, deadline: '2026-10-15T00:00:00+02:00' },
     modules: twoDayCurriculum,
+    cohortOf: 'basic',
     deliveryFormats: ['inCompany', 'publicCohort', 'remote'],
     // This cohort has run (9-10 November 2026); retired the same way as the
     // pilot — kept in the catalogue so its detail + booking routes still resolve.
@@ -167,6 +171,7 @@ export const trainings: Record<TrainingId, Training> = {
     // CET (+01:00): the deadline falls after the 25 October switch from CEST.
     earlyBird: { discountPct: 30, deadline: '2026-12-01T00:00:00+01:00' },
     modules: twoDayCurriculum,
+    cohortOf: 'basic',
     deliveryFormats: ['inCompany', 'publicCohort', 'remote'],
   },
   basic: {
@@ -175,9 +180,6 @@ export const trainings: Record<TrainingId, Training> = {
     priceEUR: 999,
     modules: twoDayCurriculum,
     deliveryFormats: ['inCompany', 'publicCohort', 'remote'],
-    // Template for the dated cohorts: no card links to it and its copy duplicates
-    // the current cohort, so Google reported it as "Crawled - currently not indexed".
-    unlisted: true,
   },
   advanced: {
     id: 'advanced',
@@ -238,8 +240,29 @@ export function hasEnded(id: TrainingId, now: Date = new Date()): boolean {
   return schedule !== undefined && isoDateInAmsterdam(now) > schedule.endDate;
 }
 
-// Whether a training's detail page belongs in search: not ended and not `unlisted`.
-// Drives the sitemap, the detail page's noindex and the homepage JSON-LD Courses.
+// Whether a training's detail page belongs in search on its own URL: not a
+// cohort (those canonicalise to their evergreen page) and not ended. Drives the
+// sitemap, the detail page's noindex and the homepage JSON-LD Courses.
 export function isSearchable(id: TrainingId, now: Date = new Date()): boolean {
-  return !trainings[id].unlisted && !hasEnded(id, now);
+  return !trainings[id].cohortOf && !hasEnded(id, now);
+}
+
+// The URL path search engines should treat as canonical for a training's detail
+// page: the evergreen page for a cohort, the page itself otherwise.
+export function canonicalTrainingPath(id: TrainingId): string {
+  return `/trainings/${trainings[id].cohortOf ?? id}`;
+}
+
+// The cohorts of an evergreen training that have not ended, by start date.
+// `includeSoldOut: false` (default) keeps only cohorts that can still be booked.
+export function upcomingCohorts(
+  base: TrainingId,
+  now: Date = new Date(),
+  { includeSoldOut = false }: { includeSoldOut?: boolean } = {},
+): TrainingId[] {
+  return (Object.values(trainings) as Training[])
+    .filter((tr) => tr.cohortOf === base && tr.schedule && !hasEnded(tr.id, now))
+    .filter((tr) => includeSoldOut || !tr.soldOut)
+    .sort((a, b) => a.schedule!.startDate.localeCompare(b.schedule!.startDate))
+    .map((tr) => tr.id);
 }

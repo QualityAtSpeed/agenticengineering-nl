@@ -1,6 +1,6 @@
 import { useTranslations } from 'next-intl';
 import { Button } from '@/components/Button';
-import { trainings, type TrainingId } from '@/data/trainings';
+import { trainings, canonicalTrainingPath, type TrainingId } from '@/data/trainings';
 import { priceFor } from '@/lib/pricing';
 import { bookableTrainingEnum } from '@/lib/validation';
 import { SoldOutBadge } from '@/components/SoldOutBadge';
@@ -139,7 +139,8 @@ export function TrainingCard({
           <Button
             variant="secondary"
             size="sm"
-            href={`/${locale}/trainings/${trainingId}`}
+            // A cohort links to its evergreen page (the canonical one), which lists its date.
+            href={`/${locale}${canonicalTrainingPath(trainingId)}`}
             data-testid={`view-curriculum-${trainingId}`}
             className="mt-3"
           >

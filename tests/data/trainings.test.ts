@@ -1,5 +1,13 @@
 import { describe, it, expect } from 'vitest';
-import { trainings, trainingLabel, hasEnded, isSearchable, type ModuleId } from '@/data/trainings';
+import {
+  trainings,
+  trainingLabel,
+  hasEnded,
+  isSearchable,
+  canonicalTrainingPath,
+  upcomingCohorts,
+  type ModuleId,
+} from '@/data/trainings';
 
 describe('trainings catalogue', () => {
   it('Basic is a 2-day training with 22 modules split 11 / 11 across two days', () => {
@@ -188,18 +196,49 @@ describe('hasEnded', () => {
 describe('isSearchable', () => {
   const NOW = new Date('2026-11-26T12:00:00Z');
 
-  it('keeps current trainings searchable', () => {
-    expect(isSearchable('basic-jan-27', NOW)).toBe(true);
+  it('keeps the evergreen trainings searchable', () => {
+    expect(isSearchable('basic', NOW)).toBe(true);
     expect(isSearchable('advanced', NOW)).toBe(true);
   });
 
-  it('drops ended cohorts', () => {
-    expect(isSearchable('pilot', NOW)).toBe(false);
+  it('never makes a cohort searchable on its own URL, open or ended', () => {
+    expect(isSearchable('basic-jan-27', NOW)).toBe(false);
     expect(isSearchable('basic-nov-26', NOW)).toBe(false);
+    expect(isSearchable('pilot', NOW)).toBe(false);
+  });
+});
+
+describe('canonicalTrainingPath', () => {
+  it('points a cohort at its evergreen page', () => {
+    expect(canonicalTrainingPath('basic-jan-27')).toBe('/trainings/basic');
+    expect(canonicalTrainingPath('pilot')).toBe('/trainings/basic');
   });
 
-  it('drops the unlisted basic template, even though it never ends', () => {
-    expect(hasEnded('basic', NOW)).toBe(false);
-    expect(isSearchable('basic', NOW)).toBe(false);
+  it('keeps an evergreen page on itself', () => {
+    expect(canonicalTrainingPath('basic')).toBe('/trainings/basic');
+    expect(canonicalTrainingPath('advanced')).toBe('/trainings/advanced');
+  });
+});
+
+describe('upcomingCohorts', () => {
+  it('lists the bookable basic cohorts that have not ended, by start date', () => {
+    expect(upcomingCohorts('basic', new Date('2026-06-01T12:00:00Z'))).toEqual(['basic-jan-27']);
+  });
+
+  it('can include sold-out cohorts', () => {
+    expect(
+      upcomingCohorts('basic', new Date('2026-10-30T12:00:00Z'), { includeSoldOut: true }),
+    ).toEqual(['basic-nov-26', 'basic-jan-27']);
+  });
+
+  it('is empty once every cohort has ended, and for trainings without cohorts', () => {
+    expect(upcomingCohorts('basic', new Date('2027-01-10T12:00:00Z'))).toEqual([]);
+    expect(upcomingCohorts('advanced')).toEqual([]);
+  });
+
+  it('marks every dated cohort as a cohort of basic', () => {
+    for (const id of ['pilot', 'discount-aug-26', 'basic-nov-26', 'basic-jan-27'] as const) {
+      expect(trainings[id].cohortOf, id).toBe('basic');
+    }
   });
 });

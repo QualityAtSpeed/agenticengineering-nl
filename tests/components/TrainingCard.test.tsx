@@ -85,6 +85,14 @@ describe('<TrainingCard /> — basic-jan-27 early-bird', () => {
     expect(cta).not.toHaveAttribute('href', expect.stringContaining('/contact'));
   });
 
+  it('"view programme" links to the evergreen basic page (its canonical), not the cohort', () => {
+    renderBasicJan27(BEFORE);
+    expect(screen.getByTestId('view-curriculum-basic-jan-27')).toHaveAttribute(
+      'href',
+      '/nl/trainings/basic',
+    );
+  });
+
   it('CTA is labeled as booking ("Boek training")', () => {
     renderBasicJan27(BEFORE);
     expect(screen.getByTestId('book-basic-jan-27')).toHaveTextContent('Boek training');

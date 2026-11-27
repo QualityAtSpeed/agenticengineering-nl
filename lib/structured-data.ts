@@ -1,4 +1,4 @@
-import { trainings, isSearchable, type TrainingId } from '@/data/trainings';
+import { trainings, isSearchable, upcomingCohorts, type TrainingId } from '@/data/trainings';
 
 const SITE = 'https://agenticengineering.nl';
 
@@ -14,10 +14,10 @@ type BuildArgs = {
 };
 
 // Builds the schema.org JSON-LD graph for the homepage: the Organization plus
-// one Course per searchable training (see `isSearchable`: not ended, not
-// unlisted). Trainings with a fixed `schedule` also get a schema.org
-// CourseInstance, so search engines and AI assistants can see a concrete,
-// bookable date instead of a static page. Pure + testable.
+// one Course per searchable training (see `isSearchable`: not a cohort, not
+// ended). An evergreen training's cohorts that have not ended become its
+// schema.org CourseInstances, so search engines and AI assistants can see
+// concrete, bookable dates on the one canonical URL. Pure + testable.
 export function buildHomeJsonLd({
   locale,
   trainingName,
@@ -54,21 +54,23 @@ export function buildHomeJsonLd({
               url: `${SITE}/${locale}/trainings/${tr.id}`,
             },
           };
-          if (tr.schedule) {
-            course.hasCourseInstance = {
+          const instances = upcomingCohorts(tr.id, now).map((id) => {
+            const cohort = trainings[id];
+            return {
               '@type': 'CourseInstance',
-              courseMode: tr.schedule.courseMode,
-              startDate: tr.schedule.startDate,
-              endDate: tr.schedule.endDate,
-              courseWorkload: `P${tr.durationDays}D`,
+              courseMode: cohort.schedule!.courseMode,
+              startDate: cohort.schedule!.startDate,
+              endDate: cohort.schedule!.endDate,
+              courseWorkload: `P${cohort.durationDays}D`,
               offers: {
                 '@type': 'Offer',
                 priceCurrency: 'EUR',
-                price: tr.priceEUR,
-                url: `${SITE}/${locale}/trainings/${tr.id}`,
+                price: cohort.priceEUR,
+                url: `${SITE}/${locale}/trainings/${id}/book`,
               },
             };
-          }
+          });
+          if (instances.length > 0) course.hasCourseInstance = instances;
           return course;
         }),
     ],
