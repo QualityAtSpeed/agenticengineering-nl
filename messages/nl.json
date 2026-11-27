@@ -88,7 +88,9 @@
       "soldOut": "Uitverkocht",
       "contactLink": "Vragen? Contact",
       "soldOutNote": "Deze training is op dit moment volgeboekt, meer weten?",
-      "soldOutContact": "Neem contact met ons op"
+      "soldOutContact": "Neem contact met ons op",
+      "upcomingTitle": "Komende data",
+      "upcomingLede": "Boek een plek in een open editie, of vraag de training in-company aan."
     },
     "cardMeta": {
       "basic": {

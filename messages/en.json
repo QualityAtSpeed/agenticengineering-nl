@@ -88,7 +88,9 @@
       "soldOut": "Sold out",
       "contactLink": "Questions? Contact",
       "soldOutNote": "This training is currently fully booked, want to know more?",
-      "soldOutContact": "Get in touch with us"
+      "soldOutContact": "Get in touch with us",
+      "upcomingTitle": "Upcoming dates",
+      "upcomingLede": "Book a seat in an open cohort, or request the training in-company."
     },
     "cardMeta": {
       "basic": {

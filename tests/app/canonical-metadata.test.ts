@@ -66,31 +66,35 @@ describe('canonical metadata', () => {
     }
   });
 
-  it('the unlisted basic template is noindex, keeping its self-canonical', async () => {
+  it('the evergreen training pages are indexable with a self-canonical', async () => {
     const { generateMetadata } = await import('@/app/[locale]/trainings/[trainingId]/page');
-    const md = await generateMetadata({
-      params: Promise.resolve({ locale: 'nl' as Locale, trainingId: 'basic' as TrainingId }),
-    });
-    expect((md.robots as { index?: boolean } | undefined)?.index).toBe(false);
-    expect(md.alternates?.canonical).toBe('https://agenticengineering.nl/nl/trainings/basic');
+    for (const id of ['basic', 'advanced'] as const) {
+      const md = await generateMetadata({
+        params: Promise.resolve({ locale: 'nl' as Locale, trainingId: id as TrainingId }),
+      });
+      expect(md.robots, `${id} stays indexable`).toBeUndefined();
+      expect(md.alternates?.canonical).toBe(`https://agenticengineering.nl/nl/trainings/${id}`);
+    }
   });
 
-  it('training detail pages are noindex once the training has ended', async () => {
+  it('every cohort page canonicalises to /trainings/basic, without noindex, open or ended', async () => {
     // 30 October 2026: after the pilot and discount-aug-26 cohorts, before basic-nov-26.
     vi.useFakeTimers({ toFake: ['Date'] });
     vi.setSystemTime(new Date('2026-10-30T12:00:00Z'));
     try {
       const { generateMetadata } = await import('@/app/[locale]/trainings/[trainingId]/page');
-      const metadataFor = (trainingId: TrainingId) =>
-        generateMetadata({ params: Promise.resolve({ locale: 'nl' as Locale, trainingId }) });
-
-      for (const id of ['pilot', 'discount-aug-26'] as const) {
-        const md = await metadataFor(id);
-        expect((md.robots as { index?: boolean } | undefined)?.index, `${id} noindex`).toBe(false);
-        expect(md.alternates?.canonical).toBe(`https://agenticengineering.nl/nl/trainings/${id}`);
-      }
-      for (const id of ['basic-nov-26', 'basic-jan-27', 'advanced'] as const) {
-        expect((await metadataFor(id)).robots, `${id} stays indexable`).toBeUndefined();
+      for (const id of ['pilot', 'discount-aug-26', 'basic-nov-26', 'basic-jan-27'] as const) {
+        const md = await generateMetadata({
+          params: Promise.resolve({ locale: 'en' as Locale, trainingId: id as TrainingId }),
+        });
+        expect(md.robots, `${id} has no noindex`).toBeUndefined();
+        expect(md.alternates?.canonical, id).toBe(
+          'https://agenticengineering.nl/en/trainings/basic',
+        );
+        expect(md.alternates?.languages, id).toEqual({
+          nl: 'https://agenticengineering.nl/nl/trainings/basic',
+          en: 'https://agenticengineering.nl/en/trainings/basic',
+        });
       }
     } finally {
       vi.useRealTimers();

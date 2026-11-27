@@ -24,9 +24,18 @@ describe('<TrainingDetail /> CTA labels', () => {
     expect(screen.getByTestId('book-training-pilot')).toBeDisabled();
   });
 
-  it('basic CTA is labeled as request ("Vraag training aan")', () => {
-    renderDetail('basic');
-    expect(screen.getByTestId('book-training-basic')).toHaveTextContent('Vraag training aan');
+  it('basic CTA books the next open cohort', () => {
+    renderDetail('basic', BEFORE_DEADLINE);
+    const cta = screen.getByTestId('book-training-basic');
+    expect(cta).toHaveTextContent('Boek training');
+    expect(cta).toHaveAttribute('href', expect.stringContaining('/trainings/basic-jan-27/book'));
+  });
+
+  it('basic CTA falls back to request ("Vraag training aan") without open cohorts', () => {
+    renderDetail('basic', new Date('2027-01-10T12:00:00+01:00'));
+    const cta = screen.getByTestId('book-training-basic');
+    expect(cta).toHaveTextContent('Vraag training aan');
+    expect(cta).toHaveAttribute('href', expect.stringContaining('/contact?training=basic'));
   });
 
   it('advanced CTA is labeled as request ("Vraag training aan")', () => {
@@ -95,5 +104,31 @@ describe('<TrainingDetail /> not sold out (regression guard)', () => {
     const cta = screen.getByTestId('book-training-basic-jan-27');
     expect(cta).not.toBeDisabled();
     expect(cta).toHaveAttribute('href', expect.stringContaining('/trainings/basic-jan-27/book'));
+  });
+});
+
+describe('<TrainingDetail /> basic upcoming cohorts', () => {
+  it('lists each open cohort with its date, early-bird price and booking link', () => {
+    renderDetail('basic', BEFORE_DEADLINE);
+    expect(screen.getByText('Komende data')).toBeInTheDocument();
+    const row = screen.getByTestId('cohort-basic-jan-27');
+    expect(row).toHaveTextContent('4 en 5 januari 2027');
+    expect(row).toHaveTextContent(/€\s*699\b/);
+    expect(screen.getByTestId('book-cohort-basic-jan-27')).toHaveAttribute(
+      'href',
+      expect.stringContaining('/trainings/basic-jan-27/book'),
+    );
+    // sold-out / ended cohorts are not listed
+    expect(screen.queryByTestId('cohort-basic-nov-26')).not.toBeInTheDocument();
+  });
+
+  it('hides the section once no cohort is open', () => {
+    renderDetail('basic', new Date('2027-01-10T12:00:00+01:00'));
+    expect(screen.queryByTestId('upcoming-basic')).not.toBeInTheDocument();
+  });
+
+  it('a cohort page itself does not list upcoming cohorts', () => {
+    renderDetail('basic-jan-27', BEFORE_DEADLINE);
+    expect(screen.queryByTestId('upcoming-basic-jan-27')).not.toBeInTheDocument();
   });
 });

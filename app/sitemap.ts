@@ -7,7 +7,7 @@ const PATHS = ['', '/about', '/trainings', '/articles', '/contact', '/faq', '/im
 
 export default function sitemap(): MetadataRoute.Sitemap {
   // Training detail pages are conversion pages — they belong in the sitemap too,
-  // except ended or unlisted trainings: those stay reachable but out of search.
+  // except cohorts (canonical to their evergreen page) and ended trainings.
   const trainingPaths = (Object.keys(trainings) as TrainingId[])
     .filter((id) => isSearchable(id))
     .map((id) => `/trainings/${id}`);

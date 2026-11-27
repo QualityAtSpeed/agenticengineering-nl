@@ -1,6 +1,6 @@
 import { setRequestLocale, getTranslations } from 'next-intl/server';
 import type { Locale } from '@/i18n/routing';
-import { TrainingId, isSearchable } from '@/data/trainings';
+import { TrainingId, trainings, isSearchable, canonicalTrainingPath } from '@/data/trainings';
 import { TrainingDetail } from '@/components/TrainingDetail';
 import { buildPageMetadata } from '@/lib/page-metadata';
 
@@ -14,12 +14,15 @@ export async function generateMetadata({
   // Per-training title/description from the catalogue copy — high-intent keywords.
   const metadata = buildPageMetadata({
     locale,
-    path: `/trainings/${trainingId}`,
+    // A cohort canonicalises (incl. hreflang + OG url) to its evergreen page.
+    path: canonicalTrainingPath(trainingId),
     title: `${t(`${trainingId}.name`)} · agentic engineering`,
     description: t(`${trainingId}.tagline`),
   });
-  // An ended or unlisted training stays reachable by URL, but search engines should drop it.
-  return isSearchable(trainingId) ? metadata : { ...metadata, robots: { index: false } };
+  // A cohort relies on its canonical alone: noindex next to a cross-page canonical
+  // is a contradictory signal. Any other training that has ended gets noindex.
+  if (trainings[trainingId].cohortOf || isSearchable(trainingId)) return metadata;
+  return { ...metadata, robots: { index: false } };
 }
 
 // Prices are time-dependent (early-bird deadlines enforced against `now`).

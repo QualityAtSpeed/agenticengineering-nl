@@ -1,6 +1,7 @@
 import { useTranslations } from 'next-intl';
 import { Button } from '@/components/Button';
-import { trainings, type TrainingId, type Module } from '@/data/trainings';
+import { trainings, upcomingCohorts, type TrainingId, type Module } from '@/data/trainings';
+import { formatTrainingDateRange } from '@/lib/format-date';
 import { priceFor } from '@/lib/pricing';
 import { bookableTrainingEnum } from '@/lib/validation';
 import { SoldOutBadge } from '@/components/SoldOutBadge';
@@ -122,6 +123,10 @@ export function TrainingDetail({
   const isBookable = (bookableTrainingEnum.options as readonly TrainingId[]).includes(trainingId);
   const isSoldOut = training.soldOut === true;
   const price = priceFor(trainingId, now);
+  // An evergreen training (e.g. basic) lists its open cohorts; its primary CTA
+  // books the next one. Without open cohorts it falls back to the contact form.
+  const cohorts = upcomingCohorts(trainingId, now);
+  const nextCohort = cohorts[0];
   const hasCourseMode = (training.schedule?.courseMode?.length ?? 0) > 0;
 
   const audience = t.raw(`${trainingId}.audience`) as string[];
@@ -137,7 +142,7 @@ export function TrainingDetail({
       className="border-border-subtle relative overflow-hidden border-b px-6 py-20"
     >
       {isSoldOut && <SoldOutBadge className="top-12" />}
-      <div className="mx-auto max-w-a4">
+      <div className="max-w-a4 mx-auto">
         <div className="mb-8 max-w-2xl">
           <h2 className="text-brand text-2xl font-bold sm:text-3xl">{t(`${trainingId}.name`)}</h2>
           <p className="text-text-soft mt-2">{t(`${trainingId}.tagline`)}</p>
@@ -183,6 +188,18 @@ export function TrainingDetail({
             </span>
           </FactRow>
         </dl>
+
+        {cohorts.length > 0 && (
+          <div className="mb-10" data-testid={`upcoming-${trainingId}`}>
+            <h3 className="text-text-primary text-lg font-bold">{tCommon('upcomingTitle')}</h3>
+            <p className="text-text-soft mt-1 mb-3 text-sm">{tCommon('upcomingLede')}</p>
+            <ul className="border-border-subtle m-0 list-none border-t p-0">
+              {cohorts.map((id) => (
+                <CohortRow key={id} cohortId={id} locale={locale} now={now} />
+              ))}
+            </ul>
+          </div>
+        )}
 
         <h3 className="text-text-primary mb-3 text-lg font-bold">{tCommon('modules')}</h3>
 
@@ -242,14 +259,16 @@ export function TrainingDetail({
                 href={
                   isBookable
                     ? `/${locale}/trainings/${trainingId}/book`
-                    : `/${locale}/contact?training=${trainingId}`
+                    : nextCohort
+                      ? `/${locale}/trainings/${nextCohort}/book`
+                      : `/${locale}/contact?training=${trainingId}`
                 }
                 data-testid={`book-training-${trainingId}`}
               >
-                {tCommon(isBookable ? 'bookCta' : 'requestCta')}
+                {tCommon(isBookable || nextCohort ? 'bookCta' : 'requestCta')}
               </Button>
             )}
-            {isBookable && !isSoldOut && (
+            {(isBookable || nextCohort) && !isSoldOut && (
               <a
                 href={`/${locale}/contact`}
                 data-testid={`book-training-${trainingId}-contact`}
@@ -262,6 +281,51 @@ export function TrainingDetail({
         </div>
       </div>
     </section>
+  );
+}
+
+function CohortRow({
+  cohortId,
+  locale,
+  now,
+}: {
+  cohortId: TrainingId;
+  locale: string;
+  now?: Date;
+}) {
+  const cohort = trainings[cohortId];
+  const t = useTranslations('trainings');
+  const tCommon = useTranslations('trainings.labels');
+  const price = priceFor(cohortId, now);
+  const schedule = cohort.schedule!;
+
+  return (
+    <li
+      data-testid={`cohort-${cohortId}`}
+      className="border-border-subtle flex flex-col gap-3 border-b py-4 sm:flex-row sm:items-center sm:justify-between"
+    >
+      <div>
+        <p className="text-text-primary flex flex-wrap items-center gap-2 font-semibold">
+          {formatTrainingDateRange(schedule.startDate, schedule.endDate, locale)}
+          <DeliveryModeBadge courseMode={schedule.courseMode} />
+        </p>
+        <p className="text-text-primary mt-1 text-sm">
+          <PriceInline baseEUR={cohort.priceEUR} price={price} suffix={tCommon('priceSuffix')} />
+        </p>
+        {price.earlyBird && (
+          <p className="text-accent-green-hover mt-1 text-xs font-semibold">
+            {t(`${cohortId}.earlyBirdNote`)}
+          </p>
+        )}
+      </div>
+      <Button
+        size="sm"
+        href={`/${locale}/trainings/${cohortId}/book`}
+        data-testid={`book-cohort-${cohortId}`}
+      >
+        {tCommon('bookCta')}
+      </Button>
+    </li>
   );
 }
 
